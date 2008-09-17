@@ -1,0 +1,70 @@
+Attribute VB_Name = "modApi"
+Option Explicit
+
+Public Declare Function OemToChar Lib "user32" Alias "OemToCharA" (ByVal lpszSrc As String, ByVal lpszDst As String) As Long
+
+Public Declare Function EnumWindows& Lib "user32" (ByVal lpEnumFunc As Long, ByVal lParam As Long)
+
+Public Declare Function GetWindowText Lib "user32" Alias "GetWindowTextA" (ByVal hwnd As Long, ByVal lpString As String, ByVal cch As Long) As Long
+
+Public Declare Function IsWindowVisible& Lib "user32" (ByVal hwnd As Long)
+
+Public Declare Function GetParent& Lib "user32" (ByVal hwnd As Long)
+
+Public Declare Function CharToOem Lib "user32" Alias "CharToOemA" (ByVal lpszSrc As String, ByVal lpszDst As String) As Long
+
+Public Declare Function GetClassName Lib "user32.dll" Alias "GetClassNameA" (ByVal hwnd As Long, ByVal lpClassName As String, ByVal nMaxCount As Long) As Long
+
+Public Declare Function GetWindowTextLength Lib "user32" Alias "GetWindowTextLengthA" (ByVal hwnd As Long) As Long
+
+Public Declare Function GetWindow Lib "user32" (ByVal hwnd As Long, ByVal wCmd As Long) As Long
+
+Public Declare Function SendMessage Lib "user32.dll" Alias "SendMessageA" (ByVal hwnd As Long, ByVal Msg As Long, wParam As Any, lParam As Any) As Long
+
+Dim sPattern As String, hFind As Long
+
+
+
+Public Function OemToCharS(sOutput As String)
+   Dim outputstr As String
+   outputstr = Space$(Len(sOutput))
+   OemToChar sOutput, outputstr
+   OemToCharS = outputstr
+End Function
+
+Public Function ToOEM(sourcestring As String)
+    Dim deststring As String  ' получаемая строка
+    Dim code As Long
+    
+    deststring = Space$(Len(sourcestring)) 'получаем перекодированную строку
+    code = CharToOem(sourcestring, deststring)
+    ToOEM = deststring
+End Function
+
+
+Function EnumWinProc(ByVal hwnd As Long, ByVal lParam As Long) As Long
+  Dim k As Long, sName As String
+  hFind = 0
+  'IsWindowVisible(hwnd) And
+  If GetParent(hwnd) = 0 Then
+     sName = Space$(128)
+     k = GetWindowText(hwnd, sName, 128)
+     If k > 0 Then
+        sName = Left$(sName, k)
+        If lParam = 0 Then sName = UCase(sName)
+        If sName Like sPattern Then
+           hFind = hwnd
+           EnumWinProc = 0
+           Exit Function
+        End If
+     End If
+  End If
+  EnumWinProc = 1
+End Function
+
+Public Function FindWindowWild(sWild As String, Optional bMatchCase As Boolean = True) As Long
+  sPattern = sWild
+  If Not bMatchCase Then sPattern = UCase(sPattern)
+  EnumWindows AddressOf EnumWinProc, bMatchCase
+  FindWindowWild = hFind
+End Function
