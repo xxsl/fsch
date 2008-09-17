@@ -12,6 +12,13 @@ Begin VB.Form Main
    ScaleHeight     =   6585
    ScaleWidth      =   9750
    StartUpPosition =   2  'CenterScreen
+   Begin MSWinsockLib.Winsock Abort 
+      Left            =   7920
+      Top             =   3600
+      _ExtentX        =   741
+      _ExtentY        =   741
+      _Version        =   393216
+   End
    Begin MSWinsockLib.Winsock Service 
       Left            =   7920
       Top             =   2880
@@ -100,60 +107,82 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 
-Private log As clsLog
+Private log As New clsLog
+Private config As New clsConfiguration
 
 Private isServerBusy As Boolean
 Private port As Long
 
 
 
+
+
 Private Sub Form_Load()
     'set up logging
-    Set log = New clsLog
     log.clsLog rtbLog
     
+    'init prefs
+    config.Logger = log
+    config.Load
+        
     'init vars
     isServerBusy = False
-    port = 44000
     initSockets 'listen for requests
-    
-    log.xDebug "started"
-    log.xInfo "started"
-    log.xError "started"
+    log.xInfo "Application initialized"
 End Sub
 
 
 'init main server socket
 Private Sub initSockets()
-    log.xInfo "Server is listening on port " & port
+    log.xInfo "Server is listening on port " & config.SERVER_PORT
     Server.Close
-    Server.LocalPort = port
+    Server.LocalPort = config.SERVER_PORT
     Server.Listen
 End Sub
 
 'one more connection
 Private Sub Server_ConnectionRequest(ByVal requestID As Long)
     If (Not isServerBusy) Then
+        log.xInfo "Accepted connection request " & requestID
         Service.Accept requestID
+    Else
+        log.xInfo "Server is busy. Ignoring connection request " & requestID
+        Abort.Accept requestID
+        Abort.SendData "busy"
+        Abort.Close
     End If
 End Sub
 
-
-Private Sub sockMain_DataArrival(Index As Integer, ByVal bytesTotal As Long)
-    Dim strData As String
-    Dim intCnt As Integer
-    
-    sockMain(Index).GetData strData, vbString
-    txtStatus.Text = txtStatus.Text & _
-        strData & vbCrLf
-
-    'This sends the data back to the other clients
-    For intCnt = 1 To intSockCnt
-        If sockMain(intCnt).State = sckConnected Then
-            sockMain(intCnt).SendData strData
-        End If
-    Next intCnt
+Private Sub Abort_Error(ByVal Number As Integer, Description As String, ByVal Scode As Long, ByVal Source As String, ByVal HelpFile As String, ByVal HelpContext As Long, CancelDisplay As Boolean)
+    log.xError "Server socket: " + Description
+    Server.Close
 End Sub
+
+Private Sub Server_Error(ByVal Number As Integer, Description As String, ByVal Scode As Long, ByVal Source As String, ByVal HelpFile As String, ByVal HelpContext As Long, CancelDisplay As Boolean)
+    log.xError "Abort socket: " + Description
+    Abort.Close
+End Sub
+
+Private Sub Service_Error(ByVal Number As Integer, Description As String, ByVal Scode As Long, ByVal Source As String, ByVal HelpFile As String, ByVal HelpContext As Long, CancelDisplay As Boolean)
+    log.xError "Service socket: " + Description
+    Service.Close
+End Sub
+
+'Private Sub sockMain_DataArrival(Index As Integer, ByVal bytesTotal As Long)
+'    Dim strData As String
+'    Dim intCnt As Integer
+'
+'    sockMain(Index).GetData strData, vbString
+'    txtStatus.Text = txtStatus.Text & _
+'        strData & vbCrLf
+'
+'    'This sends the data back to the other clients
+'    For intCnt = 1 To intSockCnt
+'        If sockMain(intCnt).State = sckConnected Then
+'            sockMain(intCnt).SendData strData
+'        End If
+'    Next intCnt
+'End Sub
 
 'on resize
 Private Sub Form_Resize()
