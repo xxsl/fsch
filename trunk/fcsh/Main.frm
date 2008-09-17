@@ -113,10 +113,10 @@ Private config As New clsConfiguration
 Private isServerBusy As Boolean
 Private port As Long
 
-
-
-
-
+'***********************************************************************************************
+'Start app
+'***********************************************************************************************
+'start application
 Private Sub Form_Load()
     'set up logging
     log.clsLog rtbLog
@@ -132,6 +132,10 @@ Private Sub Form_Load()
 End Sub
 
 
+
+'***********************************************************************************************
+'Sockets
+'***********************************************************************************************
 'init main server socket
 Private Sub initSockets()
     log.xInfo "Server is listening on port " & config.SERVER_PORT
@@ -184,6 +188,10 @@ End Sub
 '    Next intCnt
 'End Sub
 
+
+'***********************************************************************************************
+'basic
+'***********************************************************************************************
 'on resize
 Private Sub Form_Resize()
     rtbLog.Width = Me.Width - 130
@@ -197,5 +205,6 @@ End Sub
 
 'on quit
 Private Sub Form_Terminate()
+    log.xInfo "Application stopped"
     Server.Close
 End Sub
