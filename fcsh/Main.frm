@@ -190,21 +190,14 @@ Private Sub Service_Error(ByVal Number As Integer, Description As String, ByVal 
     Service.Close
 End Sub
 
-'Private Sub sockMain_DataArrival(Index As Integer, ByVal bytesTotal As Long)
-'    Dim strData As String
-'    Dim intCnt As Integer
-'
-'    sockMain(Index).GetData strData, vbString
-'    txtStatus.Text = txtStatus.Text & _
-'        strData & vbCrLf
-'
-'    'This sends the data back to the other clients
-'    For intCnt = 1 To intSockCnt
-'        If sockMain(intCnt).State = sckConnected Then
-'            sockMain(intCnt).SendData strData
-'        End If
-'    Next intCnt
-'End Sub
+Private Sub Service_DataArrival(ByVal bytesTotal As Long)
+    Dim strData As String
+    Dim intCnt As Integer
+
+    Service.GetData strData, vbString
+    
+    log.xDebug "Socket in: " + strData
+End Sub
 
 
 '***********************************************************************************************
