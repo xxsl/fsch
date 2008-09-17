@@ -83,6 +83,7 @@ Begin VB.Form Main
       _Version        =   393217
       BackColor       =   -2147483633
       BorderStyle     =   0
+      Enabled         =   -1  'True
       ScrollBars      =   3
       Appearance      =   0
       AutoVerbMenu    =   -1  'True
@@ -166,6 +167,7 @@ End Sub
 Private Sub Server_ConnectionRequest(ByVal requestID As Long)
     If (Not isServerBusy) Then
         log.xInfo "Accepted connection request " & requestID
+        Service.Close
         Service.Accept requestID
     Else
         log.xInfo "Server is busy. Ignoring connection request " & requestID
@@ -183,6 +185,10 @@ End Sub
 Private Sub Server_Error(ByVal Number As Integer, Description As String, ByVal Scode As Long, ByVal Source As String, ByVal HelpFile As String, ByVal HelpContext As Long, CancelDisplay As Boolean)
     log.xError "Abort socket: " + Description
     Abort.Close
+End Sub
+
+Private Sub Service_Close()
+    log.xInfo "Service connection closed"
 End Sub
 
 Private Sub Service_Error(ByVal Number As Integer, Description As String, ByVal Scode As Long, ByVal Source As String, ByVal HelpFile As String, ByVal HelpContext As Long, CancelDisplay As Boolean)
