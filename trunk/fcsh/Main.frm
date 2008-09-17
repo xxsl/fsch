@@ -159,18 +159,23 @@ Private Sub initSockets()
     log.xInfo "Server is listening on port " & config.SERVER_PORT
     Server.Close
     Server.LocalPort = config.SERVER_PORT
+    On Error Resume Next
     Server.Listen
+    If Err.Number <> 0 Then
+        log.xError "Cant start server: " + Err.Description
+        Err.Clear
+    End If
 End Sub
 
 
 'one more connection
 Private Sub Server_ConnectionRequest(ByVal requestID As Long)
     If (Not isServerBusy) Then
-        log.xInfo "Accepted connection request " & requestID
+        log.xDebug "Accepted connection request " & requestID
         Service.Close
         Service.Accept requestID
     Else
-        log.xInfo "Server is busy. Ignoring connection request " & requestID
+        log.xDebug "Server is busy. Ignoring connection request " & requestID
         Abort.Accept requestID
         Abort.SendData "busy"
         Abort.Close
@@ -188,7 +193,7 @@ Private Sub Server_Error(ByVal Number As Integer, Description As String, ByVal S
 End Sub
 
 Private Sub Service_Close()
-    log.xInfo "Service connection closed"
+    log.xDebug "Service connection closed"
 End Sub
 
 Private Sub Service_Error(ByVal Number As Integer, Description As String, ByVal Scode As Long, ByVal Source As String, ByVal HelpFile As String, ByVal HelpContext As Long, CancelDisplay As Boolean)
