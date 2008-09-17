@@ -3,6 +3,7 @@ Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "RICHTX32.OCX"
 Object = "{248DD890-BB45-11CF-9ABC-0080C7E7B78D}#1.0#0"; "MSWINSCK.OCX"
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
 Begin VB.Form Main 
+   AutoRedraw      =   -1  'True
    Caption         =   "Flex compiler shell"
    ClientHeight    =   6585
    ClientLeft      =   3840
@@ -12,6 +13,15 @@ Begin VB.Form Main
    ScaleHeight     =   6585
    ScaleWidth      =   9750
    StartUpPosition =   2  'CenterScreen
+   Begin VB.CommandButton fakeTray 
+      Caption         =   "fakeTray"
+      Height          =   615
+      Left            =   240
+      TabIndex        =   3
+      Top             =   960
+      Visible         =   0   'False
+      Width           =   1815
+   End
    Begin MSWinsockLib.Winsock Abort 
       Left            =   7920
       Top             =   3600
@@ -73,6 +83,7 @@ Begin VB.Form Main
       _Version        =   393217
       BackColor       =   -2147483633
       BorderStyle     =   0
+      Enabled         =   -1  'True
       ScrollBars      =   3
       Appearance      =   0
       AutoVerbMenu    =   -1  'True
@@ -113,6 +124,8 @@ Private config As New clsConfiguration
 Private isServerBusy As Boolean
 Private port As Long
 
+
+
 '***********************************************************************************************
 'Start app
 '***********************************************************************************************
@@ -128,6 +141,10 @@ Private Sub Form_Load()
     'init vars
     isServerBusy = False
     initSockets 'listen for requests
+    
+    'add tray icon
+    TrayAdd fakeTray.hwnd, Me.Icon, "Flex compiler shell", MouseMove
+    
     log.xInfo "Application initialized"
 End Sub
 
@@ -143,6 +160,7 @@ Private Sub initSockets()
     Server.LocalPort = config.SERVER_PORT
     Server.Listen
 End Sub
+
 
 'one more connection
 Private Sub Server_ConnectionRequest(ByVal requestID As Long)
@@ -192,6 +210,34 @@ End Sub
 '***********************************************************************************************
 'basic
 '***********************************************************************************************
+'tray events
+Private Sub fakeTray_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+    Dim cEvent As Single
+    cEvent = X / Screen.TwipsPerPixelX
+    Select Case cEvent
+        Case MouseMove
+            Debug.Print "MouseMove"
+        Case LeftUp
+            log.xDebug "Left Up"
+        Case LeftDown
+            log.xDebug "Left Down"
+        Case LeftDbClick
+            log.xDebug "LeftDbClick"
+        Case MiddleUp
+            log.xDebug "MiddleUp"
+        Case MiddleDown
+            log.xDebug "MiddleDown"
+        Case MiddleDbClick
+            log.xDebug "MiddleDbClick"
+        Case RightUp
+            log.xDebug "RightUp" ': PopupMenu mnuShell
+        Case RightDown
+            log.xDebug "RightDown"
+        Case RightDbClick
+            log.xDebug "RightDbClick"
+    End Select
+End Sub
+
 'on resize
 Private Sub Form_Resize()
     rtbLog.Width = Me.Width - 130
@@ -206,5 +252,6 @@ End Sub
 'on quit
 Private Sub Form_Terminate()
     log.xInfo "Application stopped"
+    TrayDelete
     Server.Close
 End Sub
