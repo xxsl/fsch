@@ -14,36 +14,41 @@ Attribute VB_Exposed = False
 Option Explicit
 
 Private LOGGER As RichTextBox
+Private color As Long
 
 Public Sub clsLog(ByRef log As RichTextBox)
     Set LOGGER = log
+    color = vbBlue
 End Sub
 
 Public Sub xDebug(ByVal msg As String)
-    output msg, vbBlue
+    output "[DEBUG] " + msg + vbCrLf
 End Sub
 
 Public Sub xInfo(ByVal msg As String)
-    output msg, vbGrayText
+    output "[INFO]  " + msg + vbCrLf
 End Sub
 
 Public Sub xError(ByVal msg As String)
-    output msg, vbRed
+    output "[ERROR] " + msg + vbCrLf
 End Sub
 
+Public Sub Text(msg As String)
+    output msg
+End Sub
+
+
 Public Sub Clear()
-    LOGGER.text = ""
+    LOGGER.Text = ""
 End Sub
 
 'logs to console
-Public Sub output(text As String, color As Long)
-    LOGGER.TextRTF
-    LOGGER.SelColor = vbBlack
-    LOGGER.text = LOGGER.text + text
-    LOGGER.SelStart = Len(LOGGER.text) - Len(text)
-    LOGGER.SelLength = Len(text)
+Public Sub output(Text As String)
+    LOGGER.Text = LOGGER.Text + Text
+    LOGGER.SelStart = Len(LOGGER.Text) - Len(Text)
+    LOGGER.SelLength = Len(Text)
     LOGGER.SelColor = color
-    LOGGER.SelStart = Len(LOGGER.text)
+    LOGGER.SelStart = Len(LOGGER.Text)
 End Sub
 
  

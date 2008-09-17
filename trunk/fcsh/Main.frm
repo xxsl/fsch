@@ -46,6 +46,7 @@ Begin VB.Form Main
       _ExtentX        =   17198
       _ExtentY        =   582
       ButtonWidth     =   609
+      ButtonHeight    =   582
       Style           =   1
       _Version        =   393216
       BeginProperty Buttons {66833FE8-8583-11D1-B16A-00C0F0283628} 
@@ -66,14 +67,13 @@ Begin VB.Form Main
       BackColor       =   -2147483633
       BorderStyle     =   0
       ScrollBars      =   3
-      DisableNoScroll =   -1  'True
       Appearance      =   0
       AutoVerbMenu    =   -1  'True
       TextRTF         =   $"Main.frx":355A
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-         Name            =   "Courier New"
-         Size            =   8.25
-         Charset         =   0
+         Name            =   "Courier"
+         Size            =   9.75
+         Charset         =   204
          Weight          =   400
          Underline       =   0   'False
          Italic          =   0   'False
@@ -103,6 +103,7 @@ Option Explicit
 Private log As clsLog
 
 Private isServerBusy As Boolean
+Private port As Long
 
 
 
@@ -113,19 +114,20 @@ Private Sub Form_Load()
     
     'init vars
     isServerBusy = False
+    port = 44000
     initSockets 'listen for requests
     
-    log.xDebug "started" + vbCrLf
-    log.xInfo "started" + vbCrLf
-    log.xError "started" + vbCrLf
-
+    log.xDebug "started"
+    log.xInfo "started"
+    log.xError "started"
 End Sub
 
 
 'init main server socket
 Private Sub initSockets()
+    log.xInfo "Server is listening on port " & port
     Server.Close
-    Server.LocalPort = 44000
+    Server.LocalPort = port
     Server.Listen
 End Sub
 
@@ -142,7 +144,7 @@ Private Sub sockMain_DataArrival(Index As Integer, ByVal bytesTotal As Long)
     Dim intCnt As Integer
     
     sockMain(Index).GetData strData, vbString
-    txtStatus.text = txtStatus.text & _
+    txtStatus.Text = txtStatus.Text & _
         strData & vbCrLf
 
     'This sends the data back to the other clients
