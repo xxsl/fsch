@@ -13,42 +13,53 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Option Explicit
 
-Private LOGGER As RichTextBox
+Private Logger As RichTextBox
 Private color As Long
 
 Public Sub clsLog(ByRef log As RichTextBox)
-    Set LOGGER = log
+    Set Logger = log
     color = vbBlue
 End Sub
 
-Public Sub xDebug(ByVal msg As String)
-    output "[DEBUG] " + msg + vbCrLf
+Public Sub xDebug(ByVal Msg As String)
+    output "[DEBUG] " + Msg + vbCrLf
 End Sub
 
-Public Sub xInfo(ByVal msg As String)
-    output "[INFO]  " + msg + vbCrLf
+Public Sub xInfo(ByVal Msg As String)
+    output "[INFO]  " + Msg + vbCrLf
 End Sub
 
-Public Sub xError(ByVal msg As String)
-    output "[ERROR] " + msg + vbCrLf
+Public Sub xError(ByVal Msg As String)
+    output "[ERROR] " + Msg + vbCrLf
 End Sub
 
-Public Sub Text(msg As String)
-    output msg
+Public Sub text(Msg As String)
+    output Msg
 End Sub
 
 
 Public Sub Clear()
-    LOGGER.Text = ""
+    Logger.text = ""
 End Sub
 
 'logs to console
-Public Sub output(Text As String)
-    LOGGER.Text = LOGGER.Text + Text
-    LOGGER.SelStart = Len(LOGGER.Text) - Len(Text)
-    LOGGER.SelLength = Len(Text)
-    LOGGER.SelColor = color
-    LOGGER.SelStart = Len(LOGGER.Text)
+Public Sub output(text As String)
+    Logger.text = Logger.text + text
+    Logger.SelStart = Len(Logger.text) - Len(text)
+    Logger.SelLength = Len(text)
+    Logger.SelColor = color
+    Logger.SelStart = Len(Logger.text)
+    Print #1, text
 End Sub
 
  
+Private Sub Class_Initialize()
+Open App.path + "/" + "fcsh.log" For Append As #1
+Print #1, vbCrLf
+Print #1, Now
+Print #1, "--------------------------------------------------------------------------"
+End Sub
+
+Private Sub Class_Terminate()
+Close 1
+End Sub

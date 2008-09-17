@@ -133,6 +133,7 @@ Private port As Long
 Private Sub Form_Load()
     'set up logging
     log.clsLog rtbLog
+    log.xInfo "Application start"
     
     'init prefs
     config.Logger = log
@@ -166,6 +167,8 @@ Private Sub initSockets()
         Err.Clear
     End If
 End Sub
+
+
 
 
 'one more connection
@@ -254,7 +257,7 @@ Private Sub Form_Resize()
 End Sub
 
 'on quit
-Private Sub Form_Terminate()
+Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
     log.xInfo "Application stopped"
     TrayDelete
     Server.Close
