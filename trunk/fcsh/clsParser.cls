@@ -13,8 +13,14 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Option Explicit
 
+Public isError As Boolean
+Public isIdAssigned As Boolean
+
+
 Private logger As clsLog
 Private output() As String
+
+
 
 Public Sub Begin()
     logger.xInfo "Start of operation"
@@ -44,6 +50,7 @@ Private Function detectEnd() As Boolean
         If ((InStr(1, line, "error") > 0) Or (line = "(fcsh)")) Then
             detectEnd = True
             logger.xInfo "End of operation /" & Trim(output(i)) & "/"
+            Exit For
         End If
     Next i
     detectEnd = False

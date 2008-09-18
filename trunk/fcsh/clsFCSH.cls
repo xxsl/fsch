@@ -79,9 +79,16 @@ End Sub
 Public Sub Quit()
     If (isRunning) Then
         fcsh.Stop
-        currentID = 0
-        isExec = False
     End If
+End Sub
+
+'on fcsh quit
+Private Sub fcsh_ProcessEnded()
+    currentID = 0
+    isExec = False
+    isRunning = False
+    log.xInfo "fcsh stopped"
+    RaiseEvent onStop
 End Sub
 
 'stdIn
@@ -100,20 +107,13 @@ Public Sub exec(args As String)
 End Sub
 
 
-'on terminate quit from fcsh
-Private Sub Class_Terminate()
-    If (isRunning) Then
-        fcsh.Stop
-    End If
-End Sub
-
 'on fcsh output
 Private Sub fcsh_DataReceived(ByVal sData As String)
     Dim output As String
     output = OemToCharS(sData)
-    outputParser.Add output
-    'log.xDebug OemToCharS(sData)
-    'parse OemToCharS(sData)
+    If (outputParser.Add(output)) Then
+        isExec = False
+    End If
 End Sub
 
 Private Sub parse(ByVal data As String)
@@ -149,11 +149,11 @@ Private Sub parseID(data As String)
         Next
 End Sub
 
-'on fcsh quit
-Private Sub fcsh_ProcessEnded()
-    currentID = 0
-    isExec = False
-    isRunning = False
-    RaiseEvent onStop
-End Sub
 
+
+'on terminate quit from fcsh
+Private Sub Class_Terminate()
+    If (isRunning) Then
+        fcsh.Stop
+    End If
+End Sub
