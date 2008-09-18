@@ -24,6 +24,8 @@ Private output() As String
 
 Public Sub Begin()
     logger.xInfo "Start of operation"
+    isError = False
+    isIdAssigned = False
     ReDim Preserve output(0)
 End Sub
 
@@ -47,10 +49,18 @@ Private Function detectEnd() As Boolean
     Dim line As String
     For i = 0 To UBound(output)
         line = Trim(LCase(output(i)))
-        If ((InStr(1, line, "error") > 0) Or (line = "(fcsh)")) Then
+        If (line = "(fcsh)") Then
             detectEnd = True
-            logger.xInfo "End of operation /" & Trim(output(i)) & "/"
+            logger.xInfo "End of operation: end /" & Trim(output(i)) & "/"
             Exit For
+        End If
+        If (InStr(1, line, "error") > 0) Then
+            isError = True
+            logger.xInfo "Error: /" & Trim(output(i)) & "/"
+        End If
+        If (InStr(1, line, "assigned") > 0) Then
+            isIdAssigned = True
+            logger.xInfo "Target ID assigned: /" & Trim(output(i)) & "/"
         End If
     Next i
     detectEnd = False
