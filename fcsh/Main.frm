@@ -13,6 +13,21 @@ Begin VB.Form Main
    ScaleHeight     =   6585
    ScaleWidth      =   9750
    StartUpPosition =   2  'CenterScreen
+   Begin VB.TextBox Text1 
+      Height          =   375
+      Left            =   2160
+      TabIndex        =   5
+      Top             =   480
+      Width           =   6495
+   End
+   Begin VB.CommandButton Command1 
+      Caption         =   "Command1"
+      Height          =   375
+      Left            =   240
+      TabIndex        =   4
+      Top             =   480
+      Width           =   1815
+   End
    Begin MSComctlLib.ImageList disabledIcons 
       Left            =   8520
       Top             =   2760
@@ -62,7 +77,7 @@ Begin VB.Form Main
       Height          =   615
       Left            =   240
       TabIndex        =   3
-      Top             =   960
+      Top             =   1440
       Visible         =   0   'False
       Width           =   1815
    End
@@ -172,6 +187,8 @@ Attribute fcsh.VB_VarHelpID = -1
 
 Private isServerBusy As Boolean
 Private port As Long
+
+
 
 
 
@@ -343,4 +360,7 @@ Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
     Server.Close
 End Sub
 
+Private Sub Command1_Click()
+    fcsh.exec Text1.text
+End Sub
 
