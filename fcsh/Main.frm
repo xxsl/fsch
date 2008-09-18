@@ -13,6 +13,50 @@ Begin VB.Form Main
    ScaleHeight     =   6585
    ScaleWidth      =   9750
    StartUpPosition =   2  'CenterScreen
+   Begin MSComctlLib.ImageList disabledIcons 
+      Left            =   8520
+      Top             =   2760
+      _ExtentX        =   1005
+      _ExtentY        =   1005
+      BackColor       =   -2147483643
+      ImageWidth      =   16
+      ImageHeight     =   16
+      MaskColor       =   16711935
+      _Version        =   393216
+      BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
+         NumListImages   =   2
+         BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "Main.frx":355A
+            Key             =   ""
+         EndProperty
+         BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "Main.frx":38AC
+            Key             =   ""
+         EndProperty
+      EndProperty
+   End
+   Begin MSComctlLib.ImageList enabledIcons 
+      Left            =   8520
+      Top             =   2040
+      _ExtentX        =   1005
+      _ExtentY        =   1005
+      BackColor       =   -2147483643
+      ImageWidth      =   16
+      ImageHeight     =   16
+      MaskColor       =   16711935
+      _Version        =   393216
+      BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
+         NumListImages   =   2
+         BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "Main.frx":3BFE
+            Key             =   ""
+         EndProperty
+         BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "Main.frx":3F50
+            Key             =   ""
+         EndProperty
+      EndProperty
+   End
    Begin VB.CommandButton fakeTray 
       Caption         =   "fakeTray"
       Height          =   615
@@ -65,10 +109,14 @@ Begin VB.Form Main
       ButtonWidth     =   609
       ButtonHeight    =   582
       Style           =   1
+      ImageList       =   "enabledIcons"
+      DisabledImageList=   "disabledIcons"
       _Version        =   393216
       BeginProperty Buttons {66833FE8-8583-11D1-B16A-00C0F0283628} 
          NumButtons      =   1
          BeginProperty Button1 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Object.ToolTipText     =   "Start fcsh"
+            ImageIndex      =   1
          EndProperty
       EndProperty
    End
@@ -83,11 +131,10 @@ Begin VB.Form Main
       _Version        =   393217
       BackColor       =   -2147483633
       BorderStyle     =   0
-      Enabled         =   -1  'True
       ScrollBars      =   3
       Appearance      =   0
       AutoVerbMenu    =   -1  'True
-      TextRTF         =   $"Main.frx":355A
+      TextRTF         =   $"Main.frx":42A2
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Courier"
          Size            =   9.75
@@ -120,6 +167,8 @@ Option Explicit
 
 Private log As New clsLog
 Private config As New clsConfiguration
+Dim WithEvents fcsh As clsFCSH
+Attribute fcsh.VB_VarHelpID = -1
 
 Private isServerBusy As Boolean
 Private port As Long
@@ -136,16 +185,21 @@ Private Sub Form_Load()
     log.xInfo "Application start"
     
     'init prefs
-    config.Logger = log
+    config.logger = log
     config.Load
         
     'init vars
     isServerBusy = False
     initSockets 'listen for requests
     
+    'setup fcsh
+    Set fcsh = New clsFCSH
+    fcsh.Initialize log
+        
     'add tray icon
     TrayAdd fakeTray.hwnd, Me.Icon, "Flex compiler shell", MouseMove
     
+    'log and show tooltip
     log.xInfo "Application initialized"
     DisplayBalloon "Fcsh", "Flex compiler shell started", NIIF_INFO
 End Sub
@@ -213,6 +267,32 @@ Private Sub Service_DataArrival(ByVal bytesTotal As Long)
     log.xDebug "Socket in: " + strData
 End Sub
 
+'***********************************************************************************************
+'toolbar
+'***********************************************************************************************
+'click
+Private Sub Toolbar_ButtonClick(ByVal Button As MSComctlLib.Button)
+    Select Case Button.Index
+        Case 1:
+                If (Not fcsh.isRunning) Then
+                    rub_fcsh
+                Else
+                    stop_fcsh
+                End If
+    End Select
+End Sub
+
+Private Sub rub_fcsh()
+   Toolbar.Buttons.Item(1).Image = 2
+   Toolbar.Buttons.Item(1).ToolTipText = "Stop fcsh"
+   fcsh.Start
+End Sub
+
+Private Sub stop_fcsh()
+   Toolbar.Buttons.Item(1).Image = 1
+   Toolbar.Buttons.Item(1).ToolTipText = "Start fcsh"
+   fcsh.Quit
+End Sub
 
 '***********************************************************************************************
 'basic
@@ -262,3 +342,5 @@ Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
     TrayDelete
     Server.Close
 End Sub
+
+

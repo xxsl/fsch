@@ -13,11 +13,11 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Option Explicit
 
-Private Logger As RichTextBox
+Private logger As RichTextBox
 Private color As Long
 
 Public Sub clsLog(ByRef log As RichTextBox)
-    Set Logger = log
+    Set logger = log
     color = vbBlue
 End Sub
 
@@ -33,23 +33,27 @@ Public Sub xError(ByVal Msg As String)
     output "[ERROR] " + Msg + vbCrLf
 End Sub
 
+Public Sub xFcsh(ByVal Msg As String)
+    output "[FCSH] " + Msg + vbCrLf
+End Sub
+
 Public Sub text(Msg As String)
     output Msg
 End Sub
 
 
 Public Sub Clear()
-    Logger.text = ""
+    logger.text = ""
 End Sub
 
 'logs to console
 Public Sub output(text As String)
-    Logger.text = Logger.text + text
-    Logger.SelStart = Len(Logger.text) - Len(text)
-    Logger.SelLength = Len(text)
-    Logger.SelColor = color
-    Logger.SelStart = Len(Logger.text)
-    Print #1, text
+    logger.text = logger.text + text
+    logger.SelStart = Len(logger.text) - Len(text)
+    logger.SelLength = Len(text)
+    logger.SelColor = color
+    logger.SelStart = Len(logger.text)
+    Write #1, text
 End Sub
 
  

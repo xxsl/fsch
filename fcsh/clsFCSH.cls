@@ -13,6 +13,12 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Option Explicit
 
+Const SHELL As String = "fcsh.exe"
+
+Private log As clsLog
+Private isInitialized As Boolean
+Private outputParser As New clsParser
+
 Public isRunning As Boolean
 Public currentID As Long
 Public isExec As Boolean
@@ -27,26 +33,24 @@ Public Event onError(ByVal Msg As String)
 Dim WithEvents fcsh As RedirectLib.Application
 Attribute fcsh.VB_VarHelpID = -1
 
-Const SHELL As String = "fcsh.exe"
-Const WM_CLOSE = &H10
-Const CONSOLE_FORECOLOR = vbBlue
 
-Private isInitialized As Boolean
-Private log As RichTextBox
 
 'set log and params
-Public Sub Initialize(ByRef rtbLog As RichTextBox)
+Public Sub Initialize(ByRef logger As clsLog)
     If (Not isInitialized) Then
-        Set log = rtbLog
+        Set log = logger
         Set fcsh = New RedirectLib.Application
         fcsh.BufferSize = 8192
         fcsh.Wait = 100
         fcsh.Name = SHELL
+        
+        outputParser.log = logger
                 
         currentID = 0
         isExec = False
         isRunning = False
         isInitialized = True
+        log.xInfo "fcsh wrapper is initilized"
     End If
 End Sub
 
@@ -55,23 +59,25 @@ Public Sub Start()
     If (Not isRunning) Then
         Select Case fcsh.Start
            Case laAlreadyRunning
-                output "fcsh is already running" + vbCrLf
+                log.xError "fcsh is already running"
            Case laWindowsError
-                output "Windows error: " & CStr(fcsh.LastErrorNumber) & vbCrLf
+                log.xError "Windows error: " & CStr(fcsh.LastErrorNumber)
                 isRunning = False
                 RaiseEvent onError("Windows error: " & CStr(fcsh.LastErrorNumber) & vbCrLf)
            Case laOk
                 isRunning = True
+                outputParser.Begin
                 RaiseEvent onStart
+                log.xInfo "fcsh started"
         End Select
     Else
-        output "fcsh is already running" + vbCrLf
+        log.xError "fcsh is already running"
     End If
 End Sub
 
 
 Public Sub Quit()
-    If (isRunning And Not isExec) Then
+    If (isRunning) Then
         fcsh.Stop
         currentID = 0
         isExec = False
@@ -80,28 +86,19 @@ End Sub
 
 'stdIn
 Public Sub exec(args As String)
-    output vbCrLf
-    output "[Exec]: " + args + vbCrLf
-    output "-----------------------------------------" + vbCrLf
+    log.xDebug vbCrLf
+    log.xDebug "[Exec]: " + args + vbCrLf
+    log.xDebug "-----------------------------------------" + vbCrLf
     'output ">>[  exec  ] @ " & Now & vbCrLf
     If (isRunning) Then
         isExec = True
         fcsh.Write ToOEM(args) + vbCrLf
     Else
-        output "Cant exec: fcsh stopped" + vbCrLf
+        log.xError "Cant exec: fcsh stopped" + vbCrLf
         RaiseEvent onError(args)
     End If
 End Sub
 
-
-'logs to console
-Private Sub output(text As String)
-    log.SelStart = Len(log.text)
-    log.text = log.text + text
-    log.SelLength = Len(text)
-    log.SelColor = CONSOLE_FORECOLOR
-    log.SelStart = Len(log.text)
-End Sub
 
 'on terminate quit from fcsh
 Private Sub Class_Terminate()
@@ -112,8 +109,11 @@ End Sub
 
 'on fcsh output
 Private Sub fcsh_DataReceived(ByVal sData As String)
-    output OemToCharS(sData)
-    parse OemToCharS(sData)
+    Dim output As String
+    output = OemToCharS(sData)
+    outputParser.Add output
+    'log.xDebug OemToCharS(sData)
+    'parse OemToCharS(sData)
 End Sub
 
 Private Sub parse(ByVal data As String)
@@ -124,9 +124,9 @@ Private Sub parse(ByVal data As String)
         parseID data
     End If
     If (InStr(1, data, "(fcsh) ") > 0) Then
-        output vbCrLf
+        'output vbCrLf
         'output "<<[finished] @ " & Now & vbCrLf
-        output "-----------------------------------------" + vbCrLf
+        'output "-----------------------------------------" + vbCrLf
         isExec = False
         RaiseEvent onFinish
     End If
@@ -151,7 +151,6 @@ End Sub
 
 'on fcsh quit
 Private Sub fcsh_ProcessEnded()
-    output vbCrLf
     currentID = 0
     isExec = False
     isRunning = False
