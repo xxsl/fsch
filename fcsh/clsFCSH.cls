@@ -37,7 +37,7 @@ Public Event onError(ByVal Msg As String)
 '***************************************************************************************
 
 'console stdOut capture
-Dim WithEvents fcsh As RedirectLib.Application
+Dim WithEvents fcsh As RedirectLib.application
 Attribute fcsh.VB_VarHelpID = -1
 
 
@@ -46,7 +46,7 @@ Attribute fcsh.VB_VarHelpID = -1
 Public Sub Initialize(ByRef logger As clsLog)
     If (Not isInitialized) Then
         Set log = logger
-        Set fcsh = New RedirectLib.Application
+        Set fcsh = New RedirectLib.application
         fcsh.BufferSize = 8192
         fcsh.Wait = 100
         fcsh.Name = SHELL
@@ -100,7 +100,7 @@ End Sub
 'write to fcsh stdIn
 Public Sub exec(args As String)
     log.xExec args
-
+    outputParser.Begin
     If (isRunning) Then
         isExec = True
         fcsh.Write ToOEM(args) + vbCrLf

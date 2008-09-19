@@ -29,6 +29,7 @@ Public Sub Begin()
     ErrorMessage = ""
     isError = False
     isIdAssigned = False
+    TargetID = 0
     ReDim Preserve output(0)
 End Sub
 
@@ -40,11 +41,17 @@ Public Function Add(data As String) As Boolean
     newOutput = Split(data, vbLf)
     length = UBound(newOutput)
     ReDim Preserve output(UBound(output) + UBound(newOutput))
-    For i = 0 To UBound(newOutput)
+    
+    Add = detectEnd(newOutput)
+    
+    For i = 0 To UBound(newOutput) - 1
         logger.xFcsh newOutput(i)
         output(UBound(output) - length + i) = newOutput(i)
     Next i
-    Add = detectEnd(newOutput)
+    
+    If (Not Add) Then
+        output(UBound(output) - length + UBound(newOutput)) = newOutput(UBound(newOutput))
+    End If
 End Function
 
 Private Function detectEnd(newOutput() As String) As Boolean

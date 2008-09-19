@@ -24,22 +24,41 @@ Private initialized As Boolean
 
 Public SERVER_PORT As Long
 Public LOG_DEBUG As Boolean
+Public APPLICATIONS As Long
+Public SHOW_BALOON As Boolean
 
-
+Const PREFERENCE As String = "preferences"
 
 
 Public Sub Load()
     setupConfiguration
-    SERVER_PORT = Val(prefs.GetValue("preferences", "port", "44000"))
+    SERVER_PORT = Val(prefs.GetValue(PREFERENCE, "port", "44000"))
     
     Dim useDebug As Long
-    useDebug = Val(prefs.GetValue("preferences", "debug", "0"))
-    LOG_DEBUG = (useDebug = 1)
+    useDebug = Val(prefs.GetValue(PREFERENCE, "debug", "0"))
+    LOG_DEBUG = (useDebug > 0)
     
+    Dim showBaloon As Long
+    showBaloon = Val(prefs.GetValue(PREFERENCE, "showBaloonTips", "0"))
+    SHOW_BALOON = (showBaloon > 0)
     
+    APPLICATIONS = Val(prefs.GetValue("applications", "count", "0"))
 End Sub
 
-
+Public Function LoadApplication(index As Long) As clsTarget
+    Dim target As New clsTarget
+    Dim num As String
+    num = Trim(Str(index))
+    target.fCommand = prefs.GetValue(num, "command", "mxmlc")
+    target.fName = prefs.GetValue(num, "name", "")
+    target.fSource = prefs.GetValue(num, "source", "")
+    target.fOutput = prefs.GetValue(num, "output", "")
+    target.fDebug = prefs.GetValue(num, "debug", "")
+    target.fServices = prefs.GetValue(num, "services", "")
+    target.fContext = prefs.GetValue(num, "context", "")
+    target.fLibraries = prefs.GetValue(num, "libraries", "")
+    Set LoadApplication = target
+End Function
 
 Private Sub setupConfiguration()
     If (Not initialized) Then

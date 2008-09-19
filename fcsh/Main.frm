@@ -182,12 +182,12 @@ Attribute VB_Exposed = False
 Option Explicit
 
 Private log As New clsLog
-Private config As New clsConfiguration
+Public config As New clsConfiguration
 Dim WithEvents fcsh As clsFCSH
 Attribute fcsh.VB_VarHelpID = -1
 
 Private isServerBusy As Boolean
-Private port As Long
+Private PORT As Long
 
 
 
@@ -196,17 +196,20 @@ Private port As Long
 '***********************************************************************************************
 Private Sub fcsh_onError(ByVal Msg As String)
     log.xError "fcsh:" + Msg
+    DisplayBalloon "Flex compiler shell", Msg, NIIF_ERROR
 End Sub
 
 'on command success
 Private Sub fcsh_onFinish()
     log.xFcsh "Exec completed"
     log.Text vbCrLf
+    DisplayBalloon "Flex compiler shell", "Build successfull", NIIF_INFO
 End Sub
 
 'on new compile target id
 Private Sub fcsh_onIdAssigned(ByVal id As Long)
     log.xInfo "Target id = " & id
+    DisplayBalloon "Flex compiler shell", "Assigned Target id " & id, NIIF_INFO
 End Sub
 
 'on fcsh.exe start
@@ -232,6 +235,9 @@ Private Sub Form_Load()
     'init prefs
     config.logger = log
     config.Load
+    
+    Dim target As clsTarget
+    Set target = config.LoadApplication(config.APPLICATIONS)
         
     'set loglevel
     log.LogLevel = config.LOG_DEBUG
@@ -249,7 +255,6 @@ Private Sub Form_Load()
     
     'log and show tooltip
     log.xDebug "Application initialized"
-    DisplayBalloon "Fcsh", "Flex compiler shell started", NIIF_INFO
 End Sub
 
 
@@ -322,7 +327,7 @@ End Sub
 '***********************************************************************************************
 'click
 Private Sub Toolbar_ButtonClick(ByVal Button As MSComctlLib.Button)
-    Select Case Button.Index
+    Select Case Button.index
         Case 1:
                 If (Not fcsh.isRunning) Then
                     fcsh.Start
