@@ -6,7 +6,7 @@ BEGIN
   DataSourceBehavior  = 0  'vbNone
   MTSTransactionMode  = 0  'NotAnMTSObject
 END
-Attribute VB_Name = "cldTarget"
+Attribute VB_Name = "clsTarget"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
@@ -17,65 +17,23 @@ Public fCommand As String
 Public fName As String
 Public fSource As String
 Public fOutput As String
-Public fLibraries() As String
-Public fDebug As Boolean
+Public fLibraries As String
+Public fDebug As String
+Public fContext As String
+Public fServices As String
 
 
 Public Function getExecCommand() As String
     Dim result As String
-    result = fCommand + " " + fSource + " " + fOutput + " " + fDebug
+    result = fCommand + " " + fSource + " " + Add(OUTPUT_PATH, fOutput) + _
+                Add(INCLUDE_LIBRARIES, fLibraries) + Add(SERVICES, fServices) + _
+                Add(COMPILE_DEBUG, fDebug)
 End Function
 
-'
-Public Property Get OutputPath() As String
-    If (Len(Trim(fOutput)) > 0) Then
-        OutputPath = OUTPUT_PATH + fOutput + " "
-    Else
-        OutputPath = ""
+Private Function Add(property As String, arg As String)
+    If (Len(Trim(arg)) > 0) Then
+        Add = property + arg + " "
+            Else
+        Add = " "
     End If
-End Property
-
-Public Property Let OutputPath(ByVal vNewValue As String)
-
-End Property
-
-
-Public Property Get OutputPath() As String
-
-End Property
-
-Public Property Let OutputPath(ByVal vNewValue As String)
-
-End Property
-
-Public Property Get OutputPath() As String
-
-End Property
-
-Public Property Let OutputPath(ByVal vNewValue As String)
-
-End Property
-
-Public Property Get OutputPath() As String
-
-End Property
-
-Public Property Let OutputPath(ByVal vNewValue As String)
-
-End Property
-
-Public Property Get OutputPath() As String
-
-End Property
-
-Public Property Let OutputPath(ByVal vNewValue As String)
-
-End Property
-
-Public Property Get OutputPath() As String
-
-End Property
-
-Public Property Let OutputPath(ByVal vNewValue As String)
-
-End Property
+End Function

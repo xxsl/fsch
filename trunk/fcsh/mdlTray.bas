@@ -139,6 +139,7 @@ End Sub
 
 ' вывод всплывающего сообщения
 Public Sub DisplayBalloon(ByVal sTitle As String, ByVal sText As String, ByVal info As InfoIcon)
+
 Dim ret As Long
   
    With TrayIcon
@@ -149,5 +150,7 @@ Dim ret As Long
       .szInfo = sText & vbNullChar
    End With
 
-   ret = Shell_NotifyIcon(NIM_MODIFY, TrayIcon)
+   If (Main.config.SHOW_BALOON) Then
+       ret = Shell_NotifyIcon(NIM_MODIFY, TrayIcon)
+   End If
 End Sub
