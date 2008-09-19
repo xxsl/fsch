@@ -1,0 +1,1 @@
+mxmlc c:\work\realworld\FLX\src\realworld.mxml -include-libraries=c:\work\realworld\FLX\3rdParty\flexlib\flexlib.swc

@@ -15,18 +15,18 @@ Begin VB.Form Main
    StartUpPosition =   2  'CenterScreen
    Begin VB.TextBox Text1 
       Height          =   375
-      Left            =   2160
+      Left            =   6960
       TabIndex        =   5
-      Top             =   480
-      Width           =   6495
+      Top             =   4200
+      Width           =   2415
    End
    Begin VB.CommandButton Command1 
       Caption         =   "Command1"
       Height          =   375
-      Left            =   240
+      Left            =   6120
       TabIndex        =   4
-      Top             =   480
-      Width           =   1815
+      Top             =   4200
+      Width           =   615
    End
    Begin MSComctlLib.ImageList disabledIcons 
       Left            =   8520
@@ -146,6 +146,7 @@ Begin VB.Form Main
       _Version        =   393217
       BackColor       =   -2147483633
       BorderStyle     =   0
+      Enabled         =   -1  'True
       ScrollBars      =   3
       Appearance      =   0
       AutoVerbMenu    =   -1  'True
@@ -190,7 +191,35 @@ Private port As Long
 
 
 
+'***********************************************************************************************
+'fcsh event handling
+'***********************************************************************************************
+Private Sub fcsh_onError(ByVal Msg As String)
+    log.xError "fcsh:" + Msg
+End Sub
 
+'on command success
+Private Sub fcsh_onFinish()
+    log.xFcsh "Exec completed"
+    log.Text vbCrLf
+End Sub
+
+'on new compile target id
+Private Sub fcsh_onIdAssigned(ByVal id As Long)
+    log.xInfo "Target id = " & id
+End Sub
+
+'on fcsh.exe start
+Private Sub fcsh_onStart()
+   Toolbar.Buttons.Item(1).Image = 2
+   Toolbar.Buttons.Item(1).ToolTipText = "Stop fcsh"
+End Sub
+
+'on fcsh.exe stop
+Private Sub fcsh_onStop()
+   Toolbar.Buttons.Item(1).Image = 1
+   Toolbar.Buttons.Item(1).ToolTipText = "Start fcsh"
+End Sub
 
 '***********************************************************************************************
 'Start app
@@ -199,11 +228,13 @@ Private port As Long
 Private Sub Form_Load()
     'set up logging
     log.clsLog rtbLog
-    log.xInfo "Application start"
     
     'init prefs
     config.logger = log
     config.Load
+        
+    'set loglevel
+    log.LogLevel = config.LOG_DEBUG
         
     'init vars
     isServerBusy = False
@@ -217,7 +248,7 @@ Private Sub Form_Load()
     TrayAdd fakeTray.hwnd, Me.Icon, "Flex compiler shell", MouseMove
     
     'log and show tooltip
-    log.xInfo "Application initialized"
+    log.xDebug "Application initialized"
     DisplayBalloon "Fcsh", "Flex compiler shell started", NIIF_INFO
 End Sub
 
@@ -249,7 +280,7 @@ Private Sub Server_ConnectionRequest(ByVal requestID As Long)
         Service.Close
         Service.Accept requestID
     Else
-        log.xDebug "Server is busy. Ignoring connection request " & requestID
+        log.xError "Server is busy. Ignoring connection request " & requestID
         Abort.Accept requestID
         Abort.SendData "busy"
         Abort.Close
@@ -284,6 +315,8 @@ Private Sub Service_DataArrival(ByVal bytesTotal As Long)
     log.xDebug "Socket in: " + strData
 End Sub
 
+
+
 '***********************************************************************************************
 'toolbar
 '***********************************************************************************************
@@ -292,24 +325,13 @@ Private Sub Toolbar_ButtonClick(ByVal Button As MSComctlLib.Button)
     Select Case Button.Index
         Case 1:
                 If (Not fcsh.isRunning) Then
-                    rub_fcsh
+                    fcsh.Start
                 Else
-                    stop_fcsh
+                    fcsh.Quit
                 End If
     End Select
 End Sub
 
-Private Sub rub_fcsh()
-   Toolbar.Buttons.Item(1).Image = 2
-   Toolbar.Buttons.Item(1).ToolTipText = "Stop fcsh"
-   fcsh.Start
-End Sub
-
-Private Sub stop_fcsh()
-   Toolbar.Buttons.Item(1).Image = 1
-   Toolbar.Buttons.Item(1).ToolTipText = "Start fcsh"
-   fcsh.Quit
-End Sub
 
 '***********************************************************************************************
 'basic
@@ -355,12 +377,13 @@ End Sub
 
 'on quit
 Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
-    log.xInfo "Application stopped"
+    log.xDebug "Application stopped"
     TrayDelete
     Server.Close
 End Sub
 
+'todo remove--------------------
 Private Sub Command1_Click()
-    fcsh.exec Text1.text
+    fcsh.exec Text1.Text
 End Sub
 
