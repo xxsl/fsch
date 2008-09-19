@@ -39,13 +39,25 @@ Begin VB.Form Main
       MaskColor       =   16711935
       _Version        =   393216
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
-         NumListImages   =   2
+         NumListImages   =   5
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
             Picture         =   "Main.frx":355A
             Key             =   ""
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
             Picture         =   "Main.frx":38AC
+            Key             =   ""
+         EndProperty
+         BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "Main.frx":3BFE
+            Key             =   ""
+         EndProperty
+         BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "Main.frx":3F50
+            Key             =   ""
+         EndProperty
+         BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "Main.frx":42A2
             Key             =   ""
          EndProperty
       EndProperty
@@ -61,13 +73,25 @@ Begin VB.Form Main
       MaskColor       =   16711935
       _Version        =   393216
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
-         NumListImages   =   2
+         NumListImages   =   5
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Main.frx":3BFE
+            Picture         =   "Main.frx":45F4
             Key             =   ""
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Main.frx":3F50
+            Picture         =   "Main.frx":4946
+            Key             =   ""
+         EndProperty
+         BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "Main.frx":4C98
+            Key             =   ""
+         EndProperty
+         BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "Main.frx":4FEA
+            Key             =   ""
+         EndProperty
+         BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "Main.frx":533C
             Key             =   ""
          EndProperty
       EndProperty
@@ -128,10 +152,29 @@ Begin VB.Form Main
       DisabledImageList=   "disabledIcons"
       _Version        =   393216
       BeginProperty Buttons {66833FE8-8583-11D1-B16A-00C0F0283628} 
-         NumButtons      =   1
+         NumButtons      =   6
          BeginProperty Button1 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Object.ToolTipText     =   "Start fcsh"
             ImageIndex      =   1
+         EndProperty
+         BeginProperty Button2 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Object.ToolTipText     =   "Build"
+            ImageIndex      =   3
+            Style           =   5
+         EndProperty
+         BeginProperty Button3 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Style           =   3
+         EndProperty
+         BeginProperty Button4 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Object.ToolTipText     =   "Preference"
+            ImageIndex      =   4
+         EndProperty
+         BeginProperty Button5 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Style           =   3
+         EndProperty
+         BeginProperty Button6 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Object.ToolTipText     =   "Clear log"
+            ImageIndex      =   5
          EndProperty
       EndProperty
    End
@@ -146,11 +189,10 @@ Begin VB.Form Main
       _Version        =   393217
       BackColor       =   -2147483633
       BorderStyle     =   0
-      Enabled         =   -1  'True
       ScrollBars      =   3
       Appearance      =   0
       AutoVerbMenu    =   -1  'True
-      TextRTF         =   $"Main.frx":42A2
+      TextRTF         =   $"Main.frx":568E
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Courier"
          Size            =   9.75
@@ -185,6 +227,8 @@ Private log As New clsLog
 Public config As New clsConfiguration
 Dim WithEvents fcsh As clsFCSH
 Attribute fcsh.VB_VarHelpID = -1
+
+Private targets As Dictionary
 
 Private isServerBusy As Boolean
 Private PORT As Long
