@@ -13,23 +13,30 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Option Explicit
 
-Const SHELL As String = "fcsh.exe"
-
 Private log As clsLog
+
+Const SHELL As String = "fcsh.exe"
 Private isInitialized As Boolean
+
 Private outputParser As New clsParser
 
 Public isRunning As Boolean
-Public currentID As Long
 Public isExec As Boolean
 
-
+'***************************************************************************************
+'fcsh.exe stop
 Public Event onStop()
+'scsh.exe launch
 Public Event onStart()
+'compile target id assigned
 Public Event onIdAssigned(ByVal id As Long)
+'command finished
 Public Event onFinish()
+'error while processing command
 Public Event onError(ByVal Msg As String)
+'***************************************************************************************
 
+'console stdOut capture
 Dim WithEvents fcsh As RedirectLib.Application
 Attribute fcsh.VB_VarHelpID = -1
 
@@ -46,7 +53,6 @@ Public Sub Initialize(ByRef logger As clsLog)
         
         outputParser.log = logger
                 
-        currentID = 0
         isExec = False
         isRunning = False
         isInitialized = True
@@ -60,6 +66,7 @@ Public Sub Start()
         Select Case fcsh.Start
            Case laAlreadyRunning
                 log.xError "fcsh is already running"
+                 RaiseEvent onError("fcsh is already running")
            Case laWindowsError
                 log.xError "Windows error: " & CStr(fcsh.LastErrorNumber)
                 isRunning = False
@@ -68,90 +75,65 @@ Public Sub Start()
                 isRunning = True
                 outputParser.Begin
                 RaiseEvent onStart
-                log.xInfo "fcsh started"
+                log.xDebug "fcsh started"
         End Select
     Else
         log.xError "fcsh is already running"
     End If
 End Sub
 
-
+'stop fcsh.exe
 Public Sub Quit()
     If (isRunning) Then
         fcsh.Stop
     End If
 End Sub
 
-'on fcsh quit
+'on stop fcsh.exe event handler
 Private Sub fcsh_ProcessEnded()
-    currentID = 0
     isExec = False
     isRunning = False
-    log.xInfo "fcsh stopped"
+    log.xDebug "fcsh stopped"
     RaiseEvent onStop
 End Sub
 
-'stdIn
+'write to fcsh stdIn
 Public Sub exec(args As String)
-    log.xDebug vbCrLf
-    log.xDebug "[Exec]: " + args + vbCrLf
-    log.xDebug "-----------------------------------------" + vbCrLf
-    'output ">>[  exec  ] @ " & Now & vbCrLf
+    log.xExec args
+
     If (isRunning) Then
         isExec = True
         fcsh.Write ToOEM(args) + vbCrLf
     Else
         log.xError "Cant exec: fcsh stopped" + vbCrLf
-        RaiseEvent onError(args)
+        RaiseEvent onError("Cant exec: fcsh stopped" + vbCrLf)
     End If
 End Sub
 
 
-'on fcsh output
+'on fcsh output event handler
 Private Sub fcsh_DataReceived(ByVal sData As String)
     Dim output As String
     output = OemToCharS(sData)
     If (outputParser.Add(output)) Then
+        log.xDebug "outputParser detected finish"
         isExec = False
+        If (outputParser.isError) Then
+            'if error any error happend
+            RaiseEvent onError(outputParser.ErrorMessage)
+        Else
+            'if new compile id was assigned
+            If (outputParser.isIdAssigned) Then
+                RaiseEvent onIdAssigned(outputParser.TargetID)
+            'if all was succesfull
+            Else
+                RaiseEvent onFinish
+            End If
+        End If
     End If
 End Sub
 
-Private Sub parse(ByVal data As String)
-    If (InStr(1, data, "Error") > 0) Then
-        RaiseEvent onError(data)
-    End If
-    If (InStr(1, data, "Assigned") > 0) Then
-        parseID data
-    End If
-    If (InStr(1, data, "(fcsh) ") > 0) Then
-        'output vbCrLf
-        'output "<<[finished] @ " & Now & vbCrLf
-        'output "-----------------------------------------" + vbCrLf
-        isExec = False
-        RaiseEvent onFinish
-    End If
-End Sub
-
-
-Private Sub parseID(data As String)
-        Dim myRegExp As RegExp
-        Dim myMatches As MatchCollection
-        Dim myMatch As Match
-        
-        Set myRegExp = New RegExp
-        myRegExp.IgnoreCase = True
-        myRegExp.Global = True
-        myRegExp.Pattern = "[0-9]+"
-        Set myMatches = myRegExp.Execute(data)
-        For Each myMatch In myMatches
-          currentID = Val(myMatch.Value)
-          RaiseEvent onIdAssigned(currentID)
-        Next
-End Sub
-
-
-
-'on terminate quit from fcsh
+'on terminate stop fcsh.exe
 Private Sub Class_Terminate()
     If (isRunning) Then
         fcsh.Stop

@@ -15,6 +15,7 @@ Option Explicit
 
 Private logger As RichTextBox
 Private color As Long
+Private Level As Boolean
 
 Public Sub clsLog(ByRef log As RichTextBox)
     Set logger = log
@@ -22,7 +23,11 @@ Public Sub clsLog(ByRef log As RichTextBox)
 End Sub
 
 Public Sub xDebug(ByVal Msg As String)
-    output "[DEBUG] " + Msg + vbCrLf
+    If (Level) Then
+        output "[DEBUG] " + Msg + vbCrLf
+    Else
+        Write #1, Msg
+    End If
 End Sub
 
 Public Sub xInfo(ByVal Msg As String)
@@ -37,23 +42,27 @@ Public Sub xFcsh(ByVal Msg As String)
     output "[FCSH] " + Msg + vbCrLf
 End Sub
 
-Public Sub text(Msg As String)
+Public Sub xExec(ByVal Msg As String)
+    output "[EXEC] " + Msg + vbCrLf
+End Sub
+
+Public Sub Text(Msg As String)
     output Msg
 End Sub
 
 
 Public Sub Clear()
-    logger.text = ""
+    logger.Text = ""
 End Sub
 
 'logs to console
-Public Sub output(text As String)
-    logger.text = logger.text + text
-    logger.SelStart = Len(logger.text) - Len(text)
-    logger.SelLength = Len(text)
+Public Sub output(Text As String)
+    logger.Text = logger.Text + Text
+    logger.SelStart = Len(logger.Text) - Len(Text)
+    logger.SelLength = Len(Text)
     logger.SelColor = color
-    logger.SelStart = Len(logger.text)
-    Write #1, text
+    logger.SelStart = Len(logger.Text)
+    Write #1, Text
 End Sub
 
  
@@ -67,3 +76,8 @@ End Sub
 Private Sub Class_Terminate()
 Close 1
 End Sub
+
+
+Public Property Let LogLevel(ByVal vNewValue As Boolean)
+    Level = vNewValue
+End Property

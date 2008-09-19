@@ -23,12 +23,20 @@ Private prefs As New ARINIManager
 Private initialized As Boolean
 
 Public SERVER_PORT As Long
+Public LOG_DEBUG As Boolean
+
 
 
 
 Public Sub Load()
     setupConfiguration
     SERVER_PORT = Val(prefs.GetValue("preferences", "port", "44000"))
+    
+    Dim useDebug As Long
+    useDebug = Val(prefs.GetValue("preferences", "debug", "0"))
+    LOG_DEBUG = (useDebug = 1)
+    
+    
 End Sub
 
 
@@ -52,6 +60,6 @@ Private Function FileExists(ByVal sPath As String) As Boolean
 End Function
 
 
-Public Property Let Logger(ByVal vNewValue As clsLog)
+Public Property Let logger(ByVal vNewValue As clsLog)
     Set log = vNewValue
 End Property
