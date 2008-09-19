@@ -3,6 +3,7 @@ Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#D:\WINDOWS\system32\st
 Reference=*\G{B585EB0F-9F90-11D2-9537-000000000000}#1.0#0#D:\Documents and Settings\Dookie\Рабочий стол\fcsh_\ARINIMgr.dll#AR INI Manager Library v2
 Reference=*\G{983145C1-C8DC-11D3-9DE4-40000A4A1541}#1.0#0#D:\Documents and Settings\Dookie\Рабочий стол\fcsh_\Redirect.dll#Redirect 1.0 Type Library
 Reference=*\G{3F4DACA7-160D-11D2-A8E9-00104B365C9F}#5.5#0#D:\WINDOWS\system32\vbscript.dll\3#Microsoft VBScript Regular Expressions 5.5
+Reference=*\G{420B2830-E718-11CF-893D-00A0C9054228}#1.0#0#D:\WINDOWS\system32\scrrun.dll#Microsoft Scripting Runtime
 Object={F6125AB1-8AB1-11CE-A77F-08002B2F4E98}#2.0#0; MSRDC20.OCX
 Object={F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0; COMDLG32.OCX
 Object={3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0; RICHTX32.OCX
