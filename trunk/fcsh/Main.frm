@@ -190,6 +190,7 @@ Begin VB.Form Main
       _Version        =   393217
       BackColor       =   -2147483633
       BorderStyle     =   0
+      Enabled         =   -1  'True
       ScrollBars      =   3
       Appearance      =   0
       AutoVerbMenu    =   -1  'True
@@ -219,6 +220,12 @@ Begin VB.Form Main
          Caption         =   "Recompile"
       End
       Begin VB.Menu mnuSep1 
+         Caption         =   "-"
+      End
+      Begin VB.Menu mnuRun 
+         Caption         =   "Run/Stop fcsh"
+      End
+      Begin VB.Menu mnuSep2 
          Caption         =   "-"
       End
       Begin VB.Menu mnuExit 
@@ -435,6 +442,14 @@ Private Sub mnuRecompile_Click()
        log.xError "No targets were assigned yet. Nothing to recompile."
        log.Text vbCrLf
    End If
+End Sub
+
+Private Sub mnuRun_Click()
+If (fcsh.isRunning) Then
+    fcsh.Quit
+Else
+    fcsh.Start
+End If
 End Sub
 
 'one more connection
