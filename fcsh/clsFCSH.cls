@@ -26,7 +26,7 @@ Public isExec As Boolean
 '***************************************************************************************
 'fcsh.exe stop
 Public Event onStop()
-'scsh.exe launch
+'fcsh.exe launch
 Public Event onStart()
 'compile target id assigned
 Public Event onIdAssigned(ByVal id As Long)
@@ -37,7 +37,7 @@ Public Event onError(ByVal Msg As String)
 '***************************************************************************************
 
 'console stdOut capture
-Dim WithEvents fcsh As RedirectLib.application
+Dim WithEvents fcsh As RedirectLib.Application
 Attribute fcsh.VB_VarHelpID = -1
 
 
@@ -46,7 +46,7 @@ Attribute fcsh.VB_VarHelpID = -1
 Public Sub Initialize(ByRef logger As clsLog)
     If (Not isInitialized) Then
         Set log = logger
-        Set fcsh = New RedirectLib.application
+        Set fcsh = New RedirectLib.Application
         fcsh.BufferSize = 8192
         fcsh.Wait = 100
         fcsh.Name = SHELL
@@ -118,6 +118,9 @@ Private Sub fcsh_DataReceived(ByVal sData As String)
     If (outputParser.Add(output)) Then
         log.xDebug "outputParser detected finish"
         isExec = False
+        
+        If (outputParser.isFcshStart) Then Exit Sub
+        
         If (outputParser.isError) Then
             'if error any error happend
             RaiseEvent onError(outputParser.ErrorMessage)

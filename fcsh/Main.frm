@@ -190,6 +190,7 @@ Begin VB.Form Main
       _Version        =   393217
       BackColor       =   -2147483633
       BorderStyle     =   0
+      Enabled         =   -1  'True
       ScrollBars      =   3
       Appearance      =   0
       AutoVerbMenu    =   -1  'True
@@ -335,6 +336,7 @@ Private Sub fcsh_onStart()
    Toolbar.Buttons.Item(RUN_BUTTON).ToolTipText = "Stop fcsh"
    targets.RemoveAll
    Set lastTarget = Nothing
+   DisplayBalloon "Flex compiler shell", "fcsh is started", NIIF_INFO
 End Sub
 
 'on fcsh.exe stop
@@ -354,28 +356,26 @@ End Sub
 Private Sub Form_Load()
 
     If (Len(Trim(Command)) > 0) Then
+        config.Load
         Dim result As Long
         result = WriteStdOut("fcsh remote compiler " & app.Revision & vbCrLf)
         If (result <> 0) Then
             MsgBox "Relink executable to support stdOut"
-            'todo
-            'End
+            End
         End If
         Me.Visible = False
         Timer1.Enabled = True
+        Controller.RemotePort = config.SERVER_PORT
         Controller.LocalPort = 0
         Controller.Connect
     Else
         'set up logging
         log.clsLog rtbLog
-        
+
         'init prefs
         config.logger = log
         config.Load
         
-        Dim target As clsTarget
-        Set target = config.LoadApplication(config.APPLICATIONS)
-            
         'set loglevel
         log.LogLevel = config.LOG_DEBUG
             
@@ -431,6 +431,7 @@ End Sub
 
 
 Private Sub mnuExit_Click()
+    Form_QueryUnload 0, 0
     End
 End Sub
 
@@ -440,6 +441,7 @@ Private Sub mnuRecompile_Click()
    Else
        log.xError "No targets were assigned yet. Nothing to recompile."
        log.Text vbCrLf
+       DisplayBalloon "Flex compiler shell", "No targets were assigned yet. Nothing to recompile.", NIIF_WARNING
    End If
 End Sub
 

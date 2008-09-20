@@ -17,6 +17,7 @@ Public isError As Boolean
 Public ErrorMessage As String
 Public isIdAssigned As Boolean
 Public TargetID As Long
+Public isFcshStart As Boolean
 
 
 Private logger As clsLog
@@ -27,6 +28,7 @@ Private output() As String
 Public Sub Begin()
     logger.xDebug "Start of operation"
     ErrorMessage = ""
+    isFcshStart = False
     isError = False
     isIdAssigned = False
     TargetID = 0
@@ -69,6 +71,9 @@ Private Function detectEnd(newOutput() As String) As Boolean
             isIdAssigned = True
             parseID (line)
             logger.xDebug "Target ID assigned: /" & Trim(newOutput(i)) & "/"
+        End If
+        If (InStr(1, line, LCase("Adobe Flex Compiler SHell")) > 0) Then
+            isFcshStart = True
         End If
         If (line = "(fcsh)") Then
             result = True
