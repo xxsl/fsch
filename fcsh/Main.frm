@@ -189,6 +189,7 @@ Begin VB.Form MainForm
       _Version        =   393217
       BackColor       =   -2147483633
       BorderStyle     =   0
+      Enabled         =   -1  'True
       ScrollBars      =   3
       Appearance      =   0
       AutoVerbMenu    =   -1  'True
@@ -305,6 +306,9 @@ Private Sub fcsh_onError(ByVal Msg As String)
     log.Text vbCrLf
     DisplayBalloon "Flex compiler shell", Msg, NIIF_ERROR
     sendRemote Msg + vbCrLf + BUILD_FAILED
+    If (lastTarget.fTargetID = 0) Then
+        targets.Remove lastTarget.fName
+    End If
 End Sub
 
 'on command success
@@ -313,6 +317,9 @@ Private Sub fcsh_onFinish()
     log.Text vbCrLf
     DisplayBalloon "Flex compiler shell", BUILD_SUCESSFULL, NIIF_INFO
     sendRemote BUILD_SUCESSFULL
+    If (lastTarget.fTargetID = 0) Then
+        targets.Remove lastTarget.fName
+    End If
 End Sub
 
 'on new compile target id
@@ -398,7 +405,8 @@ Private Sub Form_Load()
     End If
 End Sub
 
-Private Sub loadApps()
+Public Sub loadApps()
+    Toolbar.Buttons(BUILD_BUTTON).ButtonMenus.Clear
     Dim i As Long
     Dim app As clsTarget
     Dim key As String
@@ -410,6 +418,7 @@ Private Sub loadApps()
         Toolbar.Buttons(BUILD_BUTTON).ButtonMenus.Add i, key, app.fName
     Next i
 End Sub
+
 
 '***********************************************************************************************
 'Sockets Server
@@ -559,12 +568,17 @@ Private Sub Toolbar_ButtonClick(ByVal Button As MSComctlLib.Button)
                     fcsh.Quit
                 End If
         Case BUILD_BUTTON:
-                If (Not (lastTarget Is Nothing)) Then
-                    fcsh.exec lastTarget.getExecRecompile
-                Else
+                If ((lastTarget Is Nothing)) Then
                     log.xError "No targets were assigned yet. Nothing to recompile."
                     log.Text vbCrLf
+                    Exit Sub
                 End If
+                If (lastTarget.fTargetID = 0) Then
+                    log.xError "No targets were assigned yet. Nothing to recompile."
+                    log.Text vbCrLf
+                    Exit Sub
+                End If
+                fcsh.exec lastTarget.getExecRecompile
         Case 4:
                 frmOptions.loadPrefs config, log
                 frmOptions.Show 1, Me
@@ -586,13 +600,17 @@ Private Sub build(index As Long)
     Set app = config.LoadApplication(index)
         
     If (fcsh.isRunning) Then
-        If (targets.Exists(app.fName)) Then
+        If (targets.Exists(app.fName) And targets.Exists(app.fTargetID > 0)) Then
             Set lastTarget = targets.Item(app.fName)
             fcsh.exec lastTarget.getExecRecompile
         Else
-            Set lastTarget = app
-            targets.Add app.fName, app
-            fcsh.exec app.getExecCommand
+            If (Not targets.Exists(app.fName)) Then
+                Set lastTarget = app
+                targets.Add app.fName, app
+                fcsh.exec app.getExecCommand
+            Else
+                fcsh_onError "No targets were assigned yet. Nothing to recompile."
+            End If
         End If
     Else
         fcsh_onError "fcsh stopped, cant exec"
