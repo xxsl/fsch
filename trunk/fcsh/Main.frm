@@ -13,6 +13,15 @@ Begin VB.Form Main
    ScaleHeight     =   6585
    ScaleWidth      =   9750
    StartUpPosition =   2  'CenterScreen
+   Begin MSWinsockLib.Winsock Controller 
+      Left            =   7920
+      Top             =   4680
+      _ExtentX        =   741
+      _ExtentY        =   741
+      _Version        =   393216
+      RemoteHost      =   "localhost"
+      RemotePort      =   44000
+   End
    Begin VB.TextBox Text1 
       Height          =   375
       Left            =   6960
@@ -174,7 +183,6 @@ Begin VB.Form Main
       _Version        =   393217
       BackColor       =   -2147483633
       BorderStyle     =   0
-      Enabled         =   -1  'True
       ScrollBars      =   3
       Appearance      =   0
       AutoVerbMenu    =   -1  'True
@@ -223,6 +231,16 @@ Private PORT As Long
 Const BUILD_BUTTON As Long = 2
 Const RUN_BUTTON As Long = 1
 
+
+Private Sub Controller_Connect()
+    Controller.SendData Command
+End Sub
+
+Private Sub Controller_Error(ByVal Number As Integer, Description As String, ByVal Scode As Long, ByVal Source As String, ByVal HelpFile As String, ByVal HelpContext As Long, CancelDisplay As Boolean)
+    WriteStdOut "Socket error: " + Description
+    Controller.Close
+    End
+End Sub
 
 '***********************************************************************************************
 'fcsh event handling
@@ -275,6 +293,17 @@ End Sub
 '***********************************************************************************************
 'start application
 Private Sub Form_Load()
+
+    If (Len(Trim(Command)) > 0) Then
+        Dim result As Long
+        result = WriteStdOut("fcsh remote compiler " & app.Revision & vbCrLf)
+        If (result <> 0) Then
+            MsgBox "Relink executable to support stdOut"
+            End
+        End If
+        Me.Visible = False
+        Controller.Connect
+    Else
         'set up logging
         log.clsLog rtbLog
         
@@ -304,6 +333,7 @@ Private Sub Form_Load()
         
         'load configured apps
         loadApps
+    End If
 End Sub
 
 Private Sub loadApps()

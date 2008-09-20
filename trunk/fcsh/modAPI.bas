@@ -1,6 +1,16 @@
 Attribute VB_Name = "modApi"
 Option Explicit
 
+Private Declare Function GetStdHandle Lib "kernel32" (ByVal nStdHandle As Long) As Long
+
+Private Declare Function ReadFile Lib "kernel32" (ByVal hFile As Long, lpBuffer As Any, ByVal nNumberOfBytesToRead As Long, lpNumberOfBytesRead As Long, lpOverlapped As Any) As Long
+
+Private Declare Function WriteFile Lib "kernel32" (ByVal hFile As Long, lpBuffer As Any, ByVal nNumberOfBytesToWrite As Long, lpNumberOfBytesWritten As Long, lpOverlapped As Any) As Long
+
+Private Const STD_OUTPUT_HANDLE = -11&
+
+Private Const STD_INPUT_HANDLE = -10&
+
 Public Declare Function OemToChar Lib "user32" Alias "OemToCharA" (ByVal lpszSrc As String, ByVal lpszDst As String) As Long
 
 Public Declare Function EnumWindows& Lib "user32" (ByVal lpEnumFunc As Long, ByVal lParam As Long)
@@ -67,4 +77,17 @@ Public Function FindWindowWild(sWild As String, Optional bMatchCase As Boolean =
   If Not bMatchCase Then sPattern = UCase(sPattern)
   EnumWindows AddressOf EnumWinProc, bMatchCase
   FindWindowWild = hFind
+End Function
+
+Public Function WriteStdOut(ByVal Text As String) As Long
+    Dim StdOut As Long
+    Dim result As Long
+    Dim BytesWritten As Long
+    StdOut = GetStdHandle(STD_OUTPUT_HANDLE)
+    result = WriteFile(StdOut, ByVal Text, Len(Text), BytesWritten, ByVal 0&)
+    If result = 0 Then
+        WriteStdOut = 1001 ', , "Unable to write to standard output"
+    ElseIf BytesWritten < Len(Text) Then
+        WriteStdOut = 1002 ', , "Incomplete write operation"
+    End If
 End Function
