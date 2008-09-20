@@ -2,7 +2,7 @@ VERSION 5.00
 Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "RICHTX32.OCX"
 Object = "{248DD890-BB45-11CF-9ABC-0080C7E7B78D}#1.0#0"; "MSWINSCK.OCX"
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
-Begin VB.Form Main 
+Begin VB.Form MainForm 
    AutoRedraw      =   -1  'True
    Caption         =   "Flex compiler shell"
    ClientHeight    =   6585
@@ -93,23 +93,23 @@ Begin VB.Form Main
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
          NumListImages   =   5
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Main.frx":2D94
+            Picture         =   "Main.frx":2E14
             Key             =   ""
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Main.frx":30E6
+            Picture         =   "Main.frx":3166
             Key             =   ""
          EndProperty
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Main.frx":3438
+            Picture         =   "Main.frx":34B8
             Key             =   ""
          EndProperty
          BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Main.frx":378A
+            Picture         =   "Main.frx":380A
             Key             =   ""
          EndProperty
          BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Main.frx":3ADC
+            Picture         =   "Main.frx":3B5C
             Key             =   ""
          EndProperty
       EndProperty
@@ -147,7 +147,6 @@ Begin VB.Form Main
       _ExtentX        =   17198
       _ExtentY        =   582
       ButtonWidth     =   609
-      ButtonHeight    =   582
       Style           =   1
       ImageList       =   "enabledIcons"
       DisabledImageList=   "disabledIcons"
@@ -194,7 +193,7 @@ Begin VB.Form Main
       ScrollBars      =   3
       Appearance      =   0
       AutoVerbMenu    =   -1  'True
-      TextRTF         =   $"Main.frx":3E2E
+      TextRTF         =   $"Main.frx":3F2E
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Courier"
          Size            =   9.75
@@ -233,7 +232,7 @@ Begin VB.Form Main
       End
    End
 End
-Attribute VB_Name = "Main"
+Attribute VB_Name = "MainForm"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
@@ -352,6 +351,8 @@ End Sub
 '***********************************************************************************************
 'Start app
 '***********************************************************************************************
+
+
 'start application
 Private Sub Form_Load()
 
@@ -566,7 +567,8 @@ Private Sub Toolbar_ButtonClick(ByVal Button As MSComctlLib.Button)
                     log.Text vbCrLf
                 End If
         Case 4:
-                log.xInfo "prefs"
+                frmOptions.loadPrefs config
+                frmOptions.Show 1, Me
         Case 6:
                 log.Clear
     End Select
@@ -610,7 +612,7 @@ Private Sub fakeTray_MouseMove(Button As Integer, Shift As Integer, X As Single,
             Debug.Print "MouseMove"
         Case LeftUp
             log.xDebug "Left Up"
-            Main.Visible = Not Main.Visible
+            Me.Visible = Not Me.Visible
         Case LeftDown
             log.xDebug "Left Down"
         Case LeftDbClick
@@ -646,6 +648,7 @@ Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
     log.xDebug "Application stopped"
     TrayDelete
     Server.Close
+    Unload frmOptions
 End Sub
 
 'todo remove--------------------
