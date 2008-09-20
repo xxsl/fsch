@@ -22,7 +22,7 @@ Private Function InitCommonControlsVB() As Boolean
    On Error GoTo 0
 End Function
 
-Public Sub main()
+Public Sub Main()
     InitCommonControlsVB
     MainForm.Show
 End Sub
