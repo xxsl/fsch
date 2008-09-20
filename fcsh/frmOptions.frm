@@ -29,68 +29,68 @@ Begin VB.Form frmOptions
          TabIndex        =   20
          Top             =   120
          Width           =   6135
-         Begin VB.TextBox txtLibraries 
+         Begin VB.TextBox txtTarget 
             Height          =   285
+            Index           =   0
             Left            =   2160
-            TabIndex        =   36
-            Top             =   1560
+            TabIndex        =   37
+            Top             =   480
             Width           =   3855
          End
-         Begin VB.ComboBox cmdDebug 
-            Height          =   315
-            ItemData        =   "frmOptions.frx":1CFA
+         Begin VB.TextBox txtTarget 
+            Height          =   285
+            Index           =   7
             Left            =   2160
-            List            =   "frmOptions.frx":1D04
-            TabIndex        =   35
-            Text            =   "true"
+            TabIndex        =   36
             Top             =   3000
             Width           =   3855
          End
-         Begin VB.TextBox txtContext 
+         Begin VB.TextBox txtTarget 
             Height          =   285
+            Index           =   3
             Left            =   2160
             TabIndex        =   34
-            Text            =   "/"
+            Top             =   1560
+            Width           =   3855
+         End
+         Begin VB.TextBox txtTarget 
+            Height          =   285
+            Index           =   6
+            Left            =   2160
+            TabIndex        =   33
             Top             =   2640
             Width           =   3855
          End
-         Begin VB.TextBox txtServices 
+         Begin VB.TextBox txtTarget 
             Height          =   285
+            Index           =   5
             Left            =   2160
-            TabIndex        =   33
+            TabIndex        =   32
             Top             =   2280
             Width           =   3855
          End
-         Begin VB.TextBox txtOutput 
+         Begin VB.TextBox txtTarget 
             Height          =   285
+            Index           =   4
             Left            =   2160
-            TabIndex        =   32
+            TabIndex        =   31
             Top             =   1920
             Width           =   3855
          End
-         Begin VB.TextBox txtSource 
+         Begin VB.TextBox txtTarget 
             Height          =   285
+            Index           =   2
             Left            =   2160
-            TabIndex        =   31
+            TabIndex        =   30
             Top             =   1200
             Width           =   3855
          End
-         Begin VB.TextBox txtName 
+         Begin VB.TextBox txtTarget 
             Height          =   315
+            Index           =   1
             Left            =   2160
-            TabIndex        =   30
-            Text            =   "name"
-            Top             =   825
-            Width           =   3855
-         End
-         Begin VB.ComboBox cmbCommands 
-            Height          =   315
-            ItemData        =   "frmOptions.frx":1D15
-            Left            =   2160
-            List            =   "frmOptions.frx":1D1C
             TabIndex        =   29
-            Text            =   "mxmlc"
-            Top             =   440
+            Top             =   825
             Width           =   3855
          End
          Begin VB.Label Label5 
@@ -98,7 +98,7 @@ Begin VB.Form frmOptions
             ForeColor       =   &H00C00000&
             Height          =   255
             Left            =   120
-            TabIndex        =   37
+            TabIndex        =   35
             Top             =   120
             Width           =   1815
          End
@@ -222,11 +222,11 @@ Begin VB.Form frmOptions
          BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
             NumListImages   =   2
             BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-               Picture         =   "frmOptions.frx":1D27
+               Picture         =   "frmOptions.frx":1CFA
                Key             =   ""
             EndProperty
             BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-               Picture         =   "frmOptions.frx":2079
+               Picture         =   "frmOptions.frx":204C
                Key             =   ""
             EndProperty
          EndProperty
@@ -288,7 +288,7 @@ Begin VB.Form frmOptions
          _Version        =   327681
          Value           =   44000
          BuddyControl    =   "txtPort"
-         BuddyDispid     =   196616
+         BuddyDispid     =   196627
          OrigLeft        =   2760
          OrigTop         =   360
          OrigRight       =   3015
@@ -415,8 +415,13 @@ Attribute VB_Exposed = False
 Option Explicit
 
 Private config As clsConfiguration
+Private apps() As clsTarget
+Private log As clsLog
 
-Public Sub loadPrefs(ByRef cfg As clsConfiguration)
+Private isLoading As Boolean
+
+Public Sub loadPrefs(ByRef cfg As clsConfiguration, ByRef logger As clsLog)
+    Set log = logger
     Set config = cfg
     txtPort.Text = config.SERVER_PORT
     If (config.LOG_DEBUG) Then
@@ -430,6 +435,12 @@ Public Sub loadPrefs(ByRef cfg As clsConfiguration)
         chkBaloon.value = 0
     End If
     
+    Dim i As Long
+    ReDim apps(config.APPLICATIONS)
+    For i = 1 To config.APPLICATIONS
+        Set apps(i) = config.LoadApplication(i)
+        lstApps.AddItem apps(i).fName
+    Next i
     
 End Sub
 
@@ -442,8 +453,50 @@ Private Sub cmdSave_Click()
     config.LOG_DEBUG = (chkDebug.value = 1)
     config.SERVER_PORT = txtPort.Text
     config.SHOW_BALOON = (chkBaloon = 1)
+    Dim i As Long
+    
+    
+    For i = 1 To UBound(apps)
+        config.saveApplication i, apps(i)
+    Next i
+    
+    config.APPLICATIONS = UBound(apps)
+    
     Me.Hide
 End Sub
 
 
 
+Private Sub lstApps_Click()
+    isLoading = True
+    Dim Index As Long
+    If (lstApps.ListIndex >= 0) Then
+        Index = lstApps.ListIndex + 1
+        log.xDebug lstApps.ListIndex & ":" & apps(Index).fName
+        txtTarget(0).Text = apps(Index).fCommand
+        txtTarget(1).Text = apps(Index).fName
+        txtTarget(2).Text = apps(Index).fSource
+        txtTarget(3).Text = apps(Index).fLibraries
+        txtTarget(4).Text = apps(Index).fOutput
+        txtTarget(5).Text = apps(Index).fServices
+        txtTarget(6).Text = apps(Index).fContext
+        txtTarget(7).Text = apps(Index).fDebug
+    End If
+    isLoading = False
+End Sub
+
+
+Private Sub txtTarget_Change(Index As Integer)
+    Dim target As Long
+    If (lstApps.ListIndex >= 0 And Not isLoading) Then
+        target = lstApps.ListIndex + 1
+        apps(target).fCommand = txtTarget(0).Text
+        apps(target).fName = txtTarget(1).Text
+        apps(target).fSource = txtTarget(2).Text
+        apps(target).fLibraries = txtTarget(3).Text
+        apps(target).fOutput = txtTarget(4).Text
+        apps(target).fServices = txtTarget(5).Text
+        apps(target).fContext = txtTarget(6).Text
+        apps(target).fDebug = txtTarget(7).Text
+    End If
+End Sub
