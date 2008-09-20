@@ -183,7 +183,7 @@ Begin VB.Form frmOptions
             Width           =   1935
          End
       End
-      Begin MSComctlLib.Toolbar Toolbar1 
+      Begin MSComctlLib.Toolbar AppToolbar 
          Height          =   330
          Left            =   120
          TabIndex        =   19
@@ -288,7 +288,7 @@ Begin VB.Form frmOptions
          _Version        =   327681
          Value           =   44000
          BuddyControl    =   "txtPort"
-         BuddyDispid     =   196627
+         BuddyDispid     =   196620
          OrigLeft        =   2760
          OrigTop         =   360
          OrigRight       =   3015
@@ -414,8 +414,9 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 
+Private appsCollection As Collection
+
 Private config As clsConfiguration
-Private apps() As clsTarget
 Private log As clsLog
 
 Private isLoading As Boolean
@@ -423,12 +424,17 @@ Private isLoading As Boolean
 Public Sub loadPrefs(ByRef cfg As clsConfiguration, ByRef logger As clsLog)
     Set log = logger
     Set config = cfg
+    Set appsCollection = New Collection
+    lstApps.Clear
+    
     txtPort.Text = config.SERVER_PORT
+    
     If (config.LOG_DEBUG) Then
         chkDebug.value = 1
     Else
         chkDebug.value = 0
     End If
+    
     If (config.SHOW_BALOON) Then
         chkBaloon.value = 1
     Else
@@ -436,13 +442,69 @@ Public Sub loadPrefs(ByRef cfg As clsConfiguration, ByRef logger As clsLog)
     End If
     
     Dim i As Long
-    ReDim apps(config.APPLICATIONS)
+    Dim app As clsTarget
+    
     For i = 1 To config.APPLICATIONS
-        Set apps(i) = config.LoadApplication(i)
-        lstApps.AddItem apps(i).fName
+        Set app = config.LoadApplication(i)
+        appsCollection.Add app
+        lstApps.AddItem app.fName
     Next i
     
 End Sub
+
+
+Private Sub AppToolbar_ButtonClick(ByVal Button As MSComctlLib.Button)
+    Select Case Button.index
+            Case 1:
+                    Dim newApp As New clsTarget
+                    Dim appName As String
+                    appName = InputBox("Enter application name", "New application")
+                    If (uniqueName(appName)) Then
+                        newApp.fName = appName
+                        appsCollection.Add newApp
+                    Else
+                        MsgBox "This name already exists - " + appName, vbCritical
+                    End If
+            Case 2:
+                    Dim index As Long
+                    If (lstApps.ListIndex >= 0) Then
+                        Dim i As Long
+                        Dim name As String
+                        name = lstApps.List(lstApps.ListIndex)
+                        Dim app As clsTarget
+                       
+                        i = 1
+                        For Each app In appsCollection
+                            If (app.fName = name) Then
+                                appsCollection.Remove i
+                            End If
+                            i = i + 1
+                        Next
+                      
+                    End If
+    End Select
+    
+    lstApps.Clear
+    For Each app In appsCollection
+        lstApps.AddItem app.fName
+    Next
+    resetControls
+End Sub
+
+Private Function uniqueName(name As String) As Boolean
+    Dim app As clsTarget
+    Dim isResult As Boolean
+    
+    isResult = True
+    
+    For Each app In appsCollection
+        If (LCase(name) = LCase(app.fName)) Then
+            isResult = False
+        End If
+    Next
+    
+    uniqueName = isResult
+End Function
 
 
 Private Sub cmdCancel_Click()
@@ -450,17 +512,21 @@ Private Sub cmdCancel_Click()
 End Sub
 
 Private Sub cmdSave_Click()
+    'config.Clear
+
     config.LOG_DEBUG = (chkDebug.value = 1)
     config.SERVER_PORT = txtPort.Text
     config.SHOW_BALOON = (chkBaloon = 1)
+    
     Dim i As Long
+    Dim app As clsTarget
+    i = 0
+    For Each app In appsCollection
+        i = i + 1
+        config.saveApplication i, app
+    Next
     
-    
-    For i = 1 To UBound(apps)
-        config.saveApplication i, apps(i)
-    Next i
-    
-    config.APPLICATIONS = UBound(apps)
+    config.APPLICATIONS = i
     
     Me.Hide
 End Sub
@@ -469,34 +535,40 @@ End Sub
 
 Private Sub lstApps_Click()
     isLoading = True
-    Dim Index As Long
+    Dim index As Long
     If (lstApps.ListIndex >= 0) Then
-        Index = lstApps.ListIndex + 1
-        log.xDebug lstApps.ListIndex & ":" & apps(Index).fName
-        txtTarget(0).Text = apps(Index).fCommand
-        txtTarget(1).Text = apps(Index).fName
-        txtTarget(2).Text = apps(Index).fSource
-        txtTarget(3).Text = apps(Index).fLibraries
-        txtTarget(4).Text = apps(Index).fOutput
-        txtTarget(5).Text = apps(Index).fServices
-        txtTarget(6).Text = apps(Index).fContext
-        txtTarget(7).Text = apps(Index).fDebug
+        index = lstApps.ListIndex + 1
+        txtTarget(0).Text = appsCollection.Item(index).fCommand
+        txtTarget(1).Text = appsCollection.Item(index).fName
+        txtTarget(2).Text = appsCollection.Item(index).fSource
+        txtTarget(3).Text = appsCollection.Item(index).fLibraries
+        txtTarget(4).Text = appsCollection.Item(index).fOutput
+        txtTarget(5).Text = appsCollection.Item(index).fServices
+        txtTarget(6).Text = appsCollection.Item(index).fContext
+        txtTarget(7).Text = appsCollection.Item(index).fDebug
     End If
     isLoading = False
 End Sub
 
 
-Private Sub txtTarget_Change(Index As Integer)
+Private Sub txtTarget_Change(index As Integer)
     Dim target As Long
     If (lstApps.ListIndex >= 0 And Not isLoading) Then
         target = lstApps.ListIndex + 1
-        apps(target).fCommand = txtTarget(0).Text
-        apps(target).fName = txtTarget(1).Text
-        apps(target).fSource = txtTarget(2).Text
-        apps(target).fLibraries = txtTarget(3).Text
-        apps(target).fOutput = txtTarget(4).Text
-        apps(target).fServices = txtTarget(5).Text
-        apps(target).fContext = txtTarget(6).Text
-        apps(target).fDebug = txtTarget(7).Text
+        appsCollection.Item(target).fCommand = txtTarget(0).Text
+        appsCollection.Item(target).fName = txtTarget(1).Text
+        appsCollection.Item(target).fSource = txtTarget(2).Text
+        appsCollection.Item(target).fLibraries = txtTarget(3).Text
+        appsCollection.Item(target).fOutput = txtTarget(4).Text
+        appsCollection.Item(target).fServices = txtTarget(5).Text
+        appsCollection.Item(target).fContext = txtTarget(6).Text
+        appsCollection.Item(target).fDebug = txtTarget(7).Text
     End If
+End Sub
+
+Private Sub resetControls()
+    Dim i As Long
+    For i = 0 To txtTarget.Count - 1
+        txtTarget(i).Text = ""
+    Next i
 End Sub
