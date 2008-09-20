@@ -16,16 +16,18 @@ Begin VB.Form Main
    Begin VB.TextBox Text1 
       Height          =   375
       Left            =   6960
-      TabIndex        =   5
+      TabIndex        =   4
       Top             =   4200
+      Visible         =   0   'False
       Width           =   2415
    End
    Begin VB.CommandButton Command1 
       Caption         =   "Command1"
       Height          =   375
       Left            =   6120
-      TabIndex        =   4
+      TabIndex        =   3
       Top             =   4200
+      Visible         =   0   'False
       Width           =   615
    End
    Begin MSComctlLib.ImageList disabledIcons 
@@ -100,7 +102,7 @@ Begin VB.Form Main
       Caption         =   "fakeTray"
       Height          =   615
       Left            =   240
-      TabIndex        =   3
+      TabIndex        =   2
       Top             =   1440
       Visible         =   0   'False
       Width           =   1815
@@ -118,23 +120,6 @@ Begin VB.Form Main
       _ExtentX        =   741
       _ExtentY        =   741
       _Version        =   393216
-   End
-   Begin MSComctlLib.StatusBar StatusBar 
-      Align           =   2  'Align Bottom
-      Height          =   270
-      Left            =   0
-      TabIndex        =   2
-      Top             =   6315
-      Width           =   9750
-      _ExtentX        =   17198
-      _ExtentY        =   476
-      Style           =   1
-      _Version        =   393216
-      BeginProperty Panels {8E3867A5-8586-11D1-B16A-00C0F0283628} 
-         NumPanels       =   1
-         BeginProperty Panel1 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
-         EndProperty
-      EndProperty
    End
    Begin MSComctlLib.Toolbar Toolbar 
       Align           =   1  'Align Top
@@ -189,6 +174,7 @@ Begin VB.Form Main
       _Version        =   393217
       BackColor       =   -2147483633
       BorderStyle     =   0
+      Enabled         =   -1  'True
       ScrollBars      =   3
       Appearance      =   0
       AutoVerbMenu    =   -1  'True
@@ -243,6 +229,7 @@ Const RUN_BUTTON As Long = 1
 '***********************************************************************************************
 Private Sub fcsh_onError(ByVal Msg As String)
     log.xError "fcsh:" + Msg
+    log.Text vbCrLf
     DisplayBalloon "Flex compiler shell", Msg, NIIF_ERROR
 End Sub
 
@@ -255,7 +242,8 @@ End Sub
 
 'on new compile target id
 Private Sub fcsh_onIdAssigned(ByVal id As Long)
-    log.xInfo "Target id = " & id
+    log.xFcsh "Exec completed. id is " & id
+    log.Text vbCrLf
     DisplayBalloon "Flex compiler shell", "Assigned Target id " & id, NIIF_INFO
     If (Not lastTarget Is Nothing) Then
         lastTarget.fTargetID = id
@@ -287,33 +275,35 @@ End Sub
 '***********************************************************************************************
 'start application
 Private Sub Form_Load()
-    'set up logging
-    log.clsLog rtbLog
-    
-    'init prefs
-    config.logger = log
-    config.Load
-    
-    Dim target As clsTarget
-    Set target = config.LoadApplication(config.APPLICATIONS)
+        'set up logging
+        log.clsLog rtbLog
         
-    'set loglevel
-    log.LogLevel = config.LOG_DEBUG
+        'init prefs
+        config.logger = log
+        config.Load
         
-    'init vars
-    isServerBusy = False
-    initSockets 'listen for requests
-    
-    'setup fcsh
-    Set fcsh = New clsFCSH
-    fcsh.Initialize log
+        Dim target As clsTarget
+        Set target = config.LoadApplication(config.APPLICATIONS)
+            
+        'set loglevel
+        log.LogLevel = config.LOG_DEBUG
+            
+        'init vars
+        isServerBusy = False
+        initSockets 'listen for requests
         
-    'add tray icon
-    TrayAdd fakeTray.hwnd, Me.Icon, "Flex compiler shell", MouseMove
-    
-    'log and show tooltip
-    log.xDebug "Application initialized"
-    loadApps
+        'setup fcsh
+        Set fcsh = New clsFCSH
+        fcsh.Initialize log
+            
+        'add tray icon
+        TrayAdd fakeTray.hwnd, Me.Icon, "Flex compiler shell", MouseMove
+        
+        'log and show tooltip
+        log.xDebug "Application initialized"
+        
+        'load configured apps
+        loadApps
 End Sub
 
 Private Sub loadApps()
@@ -409,6 +399,7 @@ Private Sub Toolbar_ButtonClick(ByVal Button As MSComctlLib.Button)
                     fcsh.exec lastTarget.getExecRecompile
                 Else
                     log.xError "No targets were assigned yet. Nothing to recompile."
+                    log.Text vbCrLf
                 End If
         Case 4:
                 log.xInfo "prefs"
@@ -419,15 +410,20 @@ End Sub
 
 Private Sub Toolbar_ButtonMenuClick(ByVal ButtonMenu As MSComctlLib.ButtonMenu)
     Dim index As Long
+   
+    index = Val(ButtonMenu.key)
+    build index
+End Sub
+
+Private Sub build(index As Long)
     Dim app As clsTarget
     
-    index = Val(ButtonMenu.key)
     Set app = config.LoadApplication(index)
         
     If (fcsh.isRunning) Then
         If (targets.Exists(app.fName)) Then
             Set lastTarget = targets.Item(app.fName)
-            fcsh.exec lastTarget.getExecCommand
+            fcsh.exec lastTarget.getExecRecompile
         Else
             Set lastTarget = app
             targets.Add app.fName, app
@@ -474,7 +470,7 @@ Private Sub Form_Resize()
     rtbLog.Width = Me.Width - 130
     
     Dim logWidth As Long
-    logWidth = Me.Height - rtbLog.Top - 500 - StatusBar.Height
+    logWidth = Me.Height - rtbLog.Top - 500
     If (logWidth > 0) Then
         rtbLog.Height = logWidth
     End If
