@@ -228,11 +228,14 @@ Public config As New clsConfiguration
 Dim WithEvents fcsh As clsFCSH
 Attribute fcsh.VB_VarHelpID = -1
 
-Private targets As Dictionary
+Private targets As New Dictionary
+Private lastTarget As clsTarget
 
 Private isServerBusy As Boolean
 Private PORT As Long
 
+Const BUILD_BUTTON As Long = 2
+Const RUN_BUTTON As Long = 1
 
 
 '***********************************************************************************************
@@ -254,18 +257,29 @@ End Sub
 Private Sub fcsh_onIdAssigned(ByVal id As Long)
     log.xInfo "Target id = " & id
     DisplayBalloon "Flex compiler shell", "Assigned Target id " & id, NIIF_INFO
+    If (Not lastTarget Is Nothing) Then
+        lastTarget.fTargetID = id
+    Else
+        log.xError "last target is nothing!?"
+    End If
 End Sub
 
 'on fcsh.exe start
 Private Sub fcsh_onStart()
-   Toolbar.Buttons.Item(1).Image = 2
-   Toolbar.Buttons.Item(1).ToolTipText = "Stop fcsh"
+   Toolbar.Buttons.Item(RUN_BUTTON).Image = 2
+   Toolbar.Buttons.Item(RUN_BUTTON).ToolTipText = "Stop fcsh"
+   targets.RemoveAll
+   Set lastTarget = Nothing
 End Sub
 
 'on fcsh.exe stop
 Private Sub fcsh_onStop()
-   Toolbar.Buttons.Item(1).Image = 1
-   Toolbar.Buttons.Item(1).ToolTipText = "Start fcsh"
+   Toolbar.Buttons.Item(RUN_BUTTON).Image = 1
+   Toolbar.Buttons.Item(RUN_BUTTON).ToolTipText = "Start fcsh"
+   targets.RemoveAll
+   Set lastTarget = Nothing
+   log.Text vbCrLf
+   DisplayBalloon "Flex compiler shell", "fcsh is stopped", NIIF_WARNING
 End Sub
 
 '***********************************************************************************************
@@ -299,9 +313,21 @@ Private Sub Form_Load()
     
     'log and show tooltip
     log.xDebug "Application initialized"
+    loadApps
 End Sub
 
-
+Private Sub loadApps()
+    Dim i As Long
+    Dim app As clsTarget
+    Dim key As String
+    Dim ButtonMenu As MSComctlLib.ButtonMenu
+    
+    For i = 1 To config.APPLICATIONS
+        Set app = config.LoadApplication(i)
+        key = i & "app"
+        Toolbar.Buttons(BUILD_BUTTON).ButtonMenus.Add i, key, app.fName
+    Next i
+End Sub
 
 '***********************************************************************************************
 'Sockets
@@ -378,9 +404,39 @@ Private Sub Toolbar_ButtonClick(ByVal Button As MSComctlLib.Button)
                 Else
                     fcsh.Quit
                 End If
+        Case BUILD_BUTTON:
+                If (Not (lastTarget Is Nothing)) Then
+                    fcsh.exec lastTarget.getExecRecompile
+                Else
+                    log.xError "No targets were assigned yet. Nothing to recompile."
+                End If
+        Case 4:
+                log.xInfo "prefs"
+        Case 6:
+                log.Clear
     End Select
 End Sub
 
+Private Sub Toolbar_ButtonMenuClick(ByVal ButtonMenu As MSComctlLib.ButtonMenu)
+    Dim index As Long
+    Dim app As clsTarget
+    
+    index = Val(ButtonMenu.key)
+    Set app = config.LoadApplication(index)
+        
+    If (fcsh.isRunning) Then
+        If (targets.Exists(app.fName)) Then
+            Set lastTarget = targets.Item(app.fName)
+            fcsh.exec lastTarget.getExecCommand
+        Else
+            Set lastTarget = app
+            targets.Add app.fName, app
+            fcsh.exec app.getExecCommand
+        End If
+    Else
+        fcsh_onError "fcsh stopped, cant exec"
+    End If
+End Sub
 
 '***********************************************************************************************
 'basic
@@ -435,4 +491,7 @@ End Sub
 Private Sub Command1_Click()
     fcsh.exec Text1.Text
 End Sub
+
+
+
 

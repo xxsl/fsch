@@ -21,6 +21,7 @@ Public fLibraries As String
 Public fDebug As String
 Public fContext As String
 Public fServices As String
+Public fTargetID As Long
 
 
 Public Function getExecCommand() As String
@@ -28,6 +29,7 @@ Public Function getExecCommand() As String
     result = fCommand + " " + fSource + " " + Add(OUTPUT_PATH, fOutput) + _
                 Add(INCLUDE_LIBRARIES, fLibraries) + Add(SERVICES, fServices) + _
                 Add(COMPILE_DEBUG, fDebug)
+    getExecCommand = result
 End Function
 
 Private Function Add(property As String, arg As String)
@@ -35,5 +37,13 @@ Private Function Add(property As String, arg As String)
         Add = property + arg + " "
             Else
         Add = " "
+    End If
+End Function
+
+Public Function getExecRecompile() As String
+    If (fTargetID > 0) Then
+        getExecRecompile = "compile " & fTargetID
+    Else
+        getExecRecompile = ""
     End If
 End Function
