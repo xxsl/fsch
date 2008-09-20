@@ -13,6 +13,11 @@ Begin VB.Form Main
    ScaleHeight     =   6585
    ScaleWidth      =   9750
    StartUpPosition =   2  'CenterScreen
+   Begin VB.Timer Timer1 
+      Enabled         =   0   'False
+      Left            =   7920
+      Top             =   5400
+   End
    Begin MSWinsockLib.Winsock Controller 
       Left            =   7920
       Top             =   4680
@@ -21,6 +26,7 @@ Begin VB.Form Main
       _Version        =   393216
       RemoteHost      =   "localhost"
       RemotePort      =   44000
+      LocalPort       =   44001
    End
    Begin VB.TextBox Text1 
       Height          =   375
@@ -225,21 +231,56 @@ Attribute fcsh.VB_VarHelpID = -1
 Private targets As New Dictionary
 Private lastTarget As clsTarget
 
+Private isRemote As Boolean
 Private isServerBusy As Boolean
-Private PORT As Long
+Private responce As String
+
+Private ms As Long
 
 Const BUILD_BUTTON As Long = 2
 Const RUN_BUTTON As Long = 1
+Const BUILD_FAILED As String = "Build failed"
+Const BUILD_SUCESSFULL As String = "Build successfull"
 
+
+Private Sub Controller_Close()
+    End
+End Sub
 
 Private Sub Controller_Connect()
     Controller.SendData Command
 End Sub
 
+Private Sub Timer1_Timer()
+    ms = ms + 1
+End Sub
+
+Private Sub Controller_DataArrival(ByVal bytesTotal As Long)
+    Dim s As String
+    On Error Resume Next
+    Controller.GetData s, vbString, bytesTotal
+    responce = responce + s
+    WriteStdOut s
+    If (InStr(1, responce, BUILD_FAILED) > 0 Or InStr(1, responce, BUILD_SUCESSFULL) > 0) Then
+        WriteStdOut vbCrLf
+        WriteStdOut "Build time: " & ms * 100 & " ms" & vbCrLf
+        End
+    End If
+    If (Err.Number <> 0) Then
+        WriteStdOut "Error: " & Err.Number & " " & Err.Description & vbCrLf
+        If (Err.Number = 10054) Then
+            WriteStdOut "fcsh is stopped"
+        End If
+        Err.Clear
+        WriteStdOut vbCrLf
+        WriteStdOut "Build time: " & ms * 100 & " ms" & vbCrLf
+        End
+    End If
+End Sub
+
 Private Sub Controller_Error(ByVal Number As Integer, Description As String, ByVal Scode As Long, ByVal Source As String, ByVal HelpFile As String, ByVal HelpContext As Long, CancelDisplay As Boolean)
-    WriteStdOut "Socket error: " + Description
+    WriteStdOut Description + vbCrLf + BUILD_FAILED
     Controller.Close
-    End
 End Sub
 
 '***********************************************************************************************
@@ -255,7 +296,7 @@ End Sub
 Private Sub fcsh_onFinish()
     log.xFcsh "Exec completed"
     log.Text vbCrLf
-    DisplayBalloon "Flex compiler shell", "Build successfull", NIIF_INFO
+    DisplayBalloon "Flex compiler shell", BUILD_SUCESSFULL, NIIF_INFO
 End Sub
 
 'on new compile target id
@@ -299,9 +340,12 @@ Private Sub Form_Load()
         result = WriteStdOut("fcsh remote compiler " & app.Revision & vbCrLf)
         If (result <> 0) Then
             MsgBox "Relink executable to support stdOut"
-            End
+            'todo
+            'End
         End If
         Me.Visible = False
+        Timer1.Enabled = True
+        Controller.LocalPort = 0
         Controller.Connect
     Else
         'set up logging
@@ -371,7 +415,7 @@ End Sub
 'one more connection
 Private Sub Server_ConnectionRequest(ByVal requestID As Long)
     If (Not isServerBusy) Then
-        log.xDebug "Accepted connection request " & requestID
+        log.xInfo "Accepted connection request " & requestID
         Service.Close
         Service.Accept requestID
     Else
@@ -393,12 +437,18 @@ Private Sub Server_Error(ByVal Number As Integer, Description As String, ByVal S
 End Sub
 
 Private Sub Service_Close()
-    log.xDebug "Service connection closed"
+    log.xInfo "Service connection closed"
+    isRemote = False
+End Sub
+
+Private Sub Service_Connect()
+    isRemote = True
 End Sub
 
 Private Sub Service_Error(ByVal Number As Integer, Description As String, ByVal Scode As Long, ByVal Source As String, ByVal HelpFile As String, ByVal HelpContext As Long, CancelDisplay As Boolean)
     log.xError "Service socket: " + Description
     Service.Close
+    isRemote = False
 End Sub
 
 Private Sub Service_DataArrival(ByVal bytesTotal As Long)
@@ -407,7 +457,9 @@ Private Sub Service_DataArrival(ByVal bytesTotal As Long)
 
     Service.GetData strData, vbString
     
-    log.xDebug "Socket in: " + strData
+    log.xInfo "Socket in: " + strData
+    
+    Service.SendData BUILD_SUCESSFULL
 End Sub
 
 
