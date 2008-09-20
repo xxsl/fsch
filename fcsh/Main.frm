@@ -242,17 +242,15 @@ Const RUN_BUTTON As Long = 1
 Const BUILD_FAILED As String = "Build failed"
 Const BUILD_SUCESSFULL As String = "Build successfull"
 
-
+'***********************************************************************************************
+'Sockets Client
+'***********************************************************************************************
 Private Sub Controller_Close()
     End
 End Sub
 
 Private Sub Controller_Connect()
     Controller.SendData Command
-End Sub
-
-Private Sub Timer1_Timer()
-    ms = ms + 1
 End Sub
 
 Private Sub Controller_DataArrival(ByVal bytesTotal As Long)
@@ -281,15 +279,17 @@ End Sub
 Private Sub Controller_Error(ByVal Number As Integer, Description As String, ByVal Scode As Long, ByVal Source As String, ByVal HelpFile As String, ByVal HelpContext As Long, CancelDisplay As Boolean)
     WriteStdOut Description + vbCrLf + BUILD_FAILED
     Controller.Close
+    End
 End Sub
 
 '***********************************************************************************************
 'fcsh event handling
 '***********************************************************************************************
-Private Sub fcsh_onError(ByVal Msg As String)
-    log.xError "fcsh:" + Msg
+Private Sub fcsh_onError(ByVal msg As String)
+    log.xError "fcsh:" + msg
     log.Text vbCrLf
-    DisplayBalloon "Flex compiler shell", Msg, NIIF_ERROR
+    DisplayBalloon "Flex compiler shell", msg, NIIF_ERROR
+    sendRemote msg + vbCrLf + BUILD_FAILED
 End Sub
 
 'on command success
@@ -297,6 +297,7 @@ Private Sub fcsh_onFinish()
     log.xFcsh "Exec completed"
     log.Text vbCrLf
     DisplayBalloon "Flex compiler shell", BUILD_SUCESSFULL, NIIF_INFO
+    sendRemote BUILD_SUCESSFULL
 End Sub
 
 'on new compile target id
@@ -309,6 +310,7 @@ Private Sub fcsh_onIdAssigned(ByVal id As Long)
     Else
         log.xError "last target is nothing!?"
     End If
+    sendRemote BUILD_SUCESSFULL
 End Sub
 
 'on fcsh.exe start
@@ -394,7 +396,7 @@ Private Sub loadApps()
 End Sub
 
 '***********************************************************************************************
-'Sockets
+'Sockets Server
 '***********************************************************************************************
 'init main server socket
 Private Sub initSockets()
@@ -459,10 +461,51 @@ Private Sub Service_DataArrival(ByVal bytesTotal As Long)
     
     log.xInfo "Socket in: " + strData
     
-    Service.SendData BUILD_SUCESSFULL
+    isRemote = True
+    
+    remoteExec strData
 End Sub
 
 
+Private Sub remoteExec(arg As String)
+    Dim i As Long
+    Dim app As clsTarget
+    Dim appFound As Boolean
+    
+    For i = 1 To config.APPLICATIONS
+        Set app = config.LoadApplication(i)
+        If (LCase(app.fName) = LCase(arg)) Then
+            appFound = True
+            Exit For
+        End If
+    Next i
+    
+    If (Not fcsh.isRunning) Then
+        sendRemote "fsch is stopped" + vbCrLf + BUILD_FAILED
+        Exit Sub
+    End If
+    
+    If (fcsh.isExec) Then
+        sendRemote "fsch is busy" + vbCrLf + BUILD_FAILED
+        Exit Sub
+    End If
+    
+    If (Not appFound) Then
+        sendRemote "Application not found [" + arg + "]" + vbCrLf + BUILD_FAILED
+    Else
+        build i
+    End If
+End Sub
+
+Private Sub sendRemote(msg As String)
+   If (isRemote) Then
+       Service.SendData msg
+   End If
+End Sub
+
+Private Sub Timer1_Timer()
+    ms = ms + 1
+End Sub
 
 '***********************************************************************************************
 'toolbar
