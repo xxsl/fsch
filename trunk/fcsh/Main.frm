@@ -15,6 +15,7 @@ Begin VB.Form Main
    StartUpPosition =   2  'CenterScreen
    Begin VB.Timer Timer1 
       Enabled         =   0   'False
+      Interval        =   100
       Left            =   7920
       Top             =   5400
    End
@@ -285,11 +286,11 @@ End Sub
 '***********************************************************************************************
 'fcsh event handling
 '***********************************************************************************************
-Private Sub fcsh_onError(ByVal msg As String)
-    log.xError "fcsh:" + msg
+Private Sub fcsh_onError(ByVal Msg As String)
+    log.xError "fcsh:" + Msg
     log.Text vbCrLf
-    DisplayBalloon "Flex compiler shell", msg, NIIF_ERROR
-    sendRemote msg + vbCrLf + BUILD_FAILED
+    DisplayBalloon "Flex compiler shell", Msg, NIIF_ERROR
+    sendRemote Msg + vbCrLf + BUILD_FAILED
 End Sub
 
 'on command success
@@ -417,7 +418,7 @@ End Sub
 'one more connection
 Private Sub Server_ConnectionRequest(ByVal requestID As Long)
     If (Not isServerBusy) Then
-        log.xInfo "Accepted connection request " & requestID
+        log.xDebug "Accepted connection request " & requestID
         Service.Close
         Service.Accept requestID
     Else
@@ -439,7 +440,7 @@ Private Sub Server_Error(ByVal Number As Integer, Description As String, ByVal S
 End Sub
 
 Private Sub Service_Close()
-    log.xInfo "Service connection closed"
+    log.xDebug "Service connection closed"
     isRemote = False
 End Sub
 
@@ -497,9 +498,9 @@ Private Sub remoteExec(arg As String)
     End If
 End Sub
 
-Private Sub sendRemote(msg As String)
+Private Sub sendRemote(Msg As String)
    If (isRemote) Then
-       Service.SendData msg
+       Service.SendData Msg
    End If
 End Sub
 
