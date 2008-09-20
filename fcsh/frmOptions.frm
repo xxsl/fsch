@@ -2,20 +2,19 @@ VERSION 5.00
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
 Object = "{FE0065C0-1B7B-11CF-9D53-00AA003C9CB6}#1.1#0"; "COMCT232.OCX"
 Begin VB.Form frmOptions 
-   BorderStyle     =   4  'Fixed ToolWindow
+   BorderStyle     =   1  'Fixed Single
    Caption         =   "Options"
-   ClientHeight    =   6000
+   ClientHeight    =   5970
    ClientLeft      =   2565
-   ClientTop       =   1380
-   ClientWidth     =   6675
+   ClientTop       =   1500
+   ClientWidth     =   8520
    Icon            =   "frmOptions.frx":0000
    KeyPreview      =   -1  'True
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   6000
-   ScaleWidth      =   6675
-   ShowInTaskbar   =   0   'False
+   ScaleHeight     =   5970
+   ScaleWidth      =   8520
    StartUpPosition =   1  'CenterOwner
    Begin VB.Frame Frame2 
       Caption         =   "Applications"
@@ -23,7 +22,167 @@ Begin VB.Form frmOptions
       Left            =   120
       TabIndex        =   17
       Top             =   1680
-      Width           =   6495
+      Width           =   8295
+      Begin VB.Frame Frame3 
+         Height          =   3495
+         Left            =   2040
+         TabIndex        =   20
+         Top             =   120
+         Width           =   6135
+         Begin VB.TextBox txtLibraries 
+            Height          =   285
+            Left            =   2160
+            TabIndex        =   36
+            Top             =   1560
+            Width           =   3855
+         End
+         Begin VB.ComboBox cmdDebug 
+            Height          =   315
+            ItemData        =   "frmOptions.frx":1CFA
+            Left            =   2160
+            List            =   "frmOptions.frx":1D04
+            TabIndex        =   35
+            Text            =   "true"
+            Top             =   3000
+            Width           =   3855
+         End
+         Begin VB.TextBox txtContext 
+            Height          =   285
+            Left            =   2160
+            TabIndex        =   34
+            Text            =   "/"
+            Top             =   2640
+            Width           =   3855
+         End
+         Begin VB.TextBox txtServices 
+            Height          =   285
+            Left            =   2160
+            TabIndex        =   33
+            Top             =   2280
+            Width           =   3855
+         End
+         Begin VB.TextBox txtOutput 
+            Height          =   285
+            Left            =   2160
+            TabIndex        =   32
+            Top             =   1920
+            Width           =   3855
+         End
+         Begin VB.TextBox txtSource 
+            Height          =   285
+            Left            =   2160
+            TabIndex        =   31
+            Top             =   1200
+            Width           =   3855
+         End
+         Begin VB.TextBox txtName 
+            Height          =   315
+            Left            =   2160
+            TabIndex        =   30
+            Text            =   "name"
+            Top             =   825
+            Width           =   3855
+         End
+         Begin VB.ComboBox cmbCommands 
+            Height          =   315
+            ItemData        =   "frmOptions.frx":1D15
+            Left            =   2160
+            List            =   "frmOptions.frx":1D1C
+            TabIndex        =   29
+            Text            =   "mxmlc"
+            Top             =   440
+            Width           =   3855
+         End
+         Begin VB.Label Label5 
+            Caption         =   "Aplication properties"
+            ForeColor       =   &H00C00000&
+            Height          =   255
+            Left            =   120
+            TabIndex        =   37
+            Top             =   120
+            Width           =   1815
+         End
+         Begin VB.Label lblApp 
+            Alignment       =   1  'Right Justify
+            Caption         =   "Include libraries"
+            Height          =   255
+            Index           =   7
+            Left            =   120
+            TabIndex        =   28
+            Top             =   1560
+            Width           =   1935
+         End
+         Begin VB.Label lblApp 
+            Alignment       =   1  'Right Justify
+            Caption         =   "Debug"
+            Height          =   255
+            Index           =   6
+            Left            =   120
+            TabIndex        =   27
+            Top             =   3000
+            Width           =   1935
+         End
+         Begin VB.Label lblApp 
+            Alignment       =   1  'Right Justify
+            Caption         =   "Context root"
+            Height          =   255
+            Index           =   5
+            Left            =   120
+            TabIndex        =   26
+            Top             =   2640
+            Width           =   1935
+         End
+         Begin VB.Label lblApp 
+            Alignment       =   1  'Right Justify
+            Caption         =   "Service config path (*.xml)"
+            Height          =   255
+            Index           =   4
+            Left            =   120
+            TabIndex        =   25
+            Top             =   2280
+            Width           =   1935
+         End
+         Begin VB.Label lblApp 
+            Alignment       =   1  'Right Justify
+            Caption         =   "Output path"
+            Height          =   255
+            Index           =   3
+            Left            =   120
+            TabIndex        =   24
+            Top             =   1920
+            Width           =   1935
+         End
+         Begin VB.Label lblApp 
+            Alignment       =   1  'Right Justify
+            Caption         =   "Application path (*.mxml)"
+            Height          =   255
+            Index           =   2
+            Left            =   120
+            TabIndex        =   23
+            Top             =   1200
+            Width           =   1935
+         End
+         Begin VB.Label lblApp 
+            Alignment       =   1  'Right Justify
+            Caption         =   "Name"
+            Height          =   255
+            Index           =   1
+            Left            =   120
+            TabIndex        =   22
+            Top             =   840
+            Width           =   1935
+         End
+         Begin VB.Label lblApp 
+            Alignment       =   1  'Right Justify
+            Caption         =   "Command"
+            Height          =   255
+            Index           =   0
+            Left            =   120
+            TabIndex        =   21
+            Top             =   480
+            Width           =   1935
+         End
+      End
       Begin MSComctlLib.Toolbar Toolbar1 
          Height          =   330
          Left            =   120
@@ -63,11 +222,11 @@ Begin VB.Form frmOptions
          BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
             NumListImages   =   2
             BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-               Picture         =   "frmOptions.frx":000C
+               Picture         =   "frmOptions.frx":1D27
                Key             =   ""
             EndProperty
             BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-               Picture         =   "frmOptions.frx":035E
+               Picture         =   "frmOptions.frx":2079
                Key             =   ""
             EndProperty
          EndProperty
@@ -77,14 +236,14 @@ Begin VB.Form frmOptions
          Height          =   2955
          Left            =   120
          TabIndex        =   18
-         Top             =   650
+         Top             =   645
          Width           =   1815
       End
    End
    Begin VB.CommandButton cmdSave 
       Caption         =   "Save"
       Height          =   375
-      Left            =   4320
+      Left            =   6120
       TabIndex        =   8
       Top             =   5520
       Width           =   1095
@@ -92,7 +251,7 @@ Begin VB.Form frmOptions
    Begin VB.CommandButton cmdCancel 
       Caption         =   "Cancel"
       Height          =   375
-      Left            =   5520
+      Left            =   7320
       TabIndex        =   7
       Top             =   5520
       Width           =   1095
@@ -103,7 +262,7 @@ Begin VB.Form frmOptions
       Left            =   120
       TabIndex        =   6
       Top             =   120
-      Width           =   6495
+      Width           =   8295
       Begin VB.CheckBox chkBaloon 
          Height          =   255
          Left            =   2040
@@ -129,7 +288,7 @@ Begin VB.Form frmOptions
          _Version        =   327681
          Value           =   44000
          BuddyControl    =   "txtPort"
-         BuddyDispid     =   196614
+         BuddyDispid     =   196616
          OrigLeft        =   2760
          OrigTop         =   360
          OrigRight       =   3015
@@ -142,7 +301,6 @@ Begin VB.Form frmOptions
       End
       Begin VB.TextBox txtPort 
          Alignment       =   1  'Right Justify
-         Appearance      =   0  'Flat
          Height          =   285
          Left            =   2040
          TabIndex        =   12
@@ -271,6 +429,8 @@ Public Sub loadPrefs(ByRef cfg As clsConfiguration)
     Else
         chkBaloon.value = 0
     End If
+    
+    
 End Sub
 
 
@@ -284,5 +444,6 @@ Private Sub cmdSave_Click()
     config.SHOW_BALOON = (chkBaloon = 1)
     Me.Hide
 End Sub
+
 
 
