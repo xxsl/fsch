@@ -13,6 +13,7 @@ Begin VB.Form MainForm
    ScaleHeight     =   6585
    ScaleWidth      =   9750
    StartUpPosition =   2  'CenterScreen
+   Visible         =   0   'False
    Begin VB.Timer Timer1 
       Enabled         =   0   'False
       Interval        =   100
@@ -147,6 +148,7 @@ Begin VB.Form MainForm
       _ExtentX        =   17198
       _ExtentY        =   582
       ButtonWidth     =   609
+      ButtonHeight    =   582
       Style           =   1
       ImageList       =   "enabledIcons"
       DisabledImageList=   "disabledIcons"
@@ -363,6 +365,7 @@ End Sub
 Private Sub Form_Load()
 
     If (Len(Trim(Command)) > 0) Then
+        Me.Visible = False
         config.Load
         Dim result As Long
         result = WriteStdOut("fcsh remote compiler " & app.Revision & vbCrLf)
@@ -370,12 +373,13 @@ Private Sub Form_Load()
             MsgBox "Relink executable to support stdOut"
             End
         End If
-        Me.Visible = False
         Timer1.Enabled = True
         Controller.RemotePort = config.SERVER_PORT
         Controller.LocalPort = 0
         Controller.Connect
     Else
+        Me.Visible = True
+    
         'set up logging
         log.clsLog rtbLog
 
@@ -600,17 +604,17 @@ Private Sub build(index As Long)
     Set app = config.LoadApplication(index)
         
     If (fcsh.isRunning) Then
-        If (targets.Exists(app.fName) And targets.Exists(app.fTargetID > 0)) Then
-            Set lastTarget = targets.Item(app.fName)
-            fcsh.exec lastTarget.getExecRecompile
-        Else
-            If (Not targets.Exists(app.fName)) Then
-                Set lastTarget = app
-                targets.Add app.fName, app
-                fcsh.exec app.getExecCommand
+        If (targets.Exists(app.fName)) Then
+            If (targets.Item(app.fName)) Then
+                Set lastTarget = targets.Item(app.fName)
+                fcsh.exec lastTarget.getExecRecompile
             Else
                 fcsh_onError "No targets were assigned yet. Nothing to recompile."
             End If
+        Else
+            Set lastTarget = app
+            targets.Add app.fName, app
+            fcsh.exec app.getExecCommand
         End If
     Else
         fcsh_onError "fcsh stopped, cant exec"
