@@ -189,7 +189,6 @@ Begin VB.Form MainForm
       _Version        =   393217
       BackColor       =   -2147483633
       BorderStyle     =   0
-      Enabled         =   -1  'True
       ScrollBars      =   3
       Appearance      =   0
       AutoVerbMenu    =   -1  'True
@@ -567,7 +566,7 @@ Private Sub Toolbar_ButtonClick(ByVal Button As MSComctlLib.Button)
                     log.Text vbCrLf
                 End If
         Case 4:
-                frmOptions.loadPrefs config
+                frmOptions.loadPrefs config, log
                 frmOptions.Show 1, Me
         Case 6:
                 log.Clear

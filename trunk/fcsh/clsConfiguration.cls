@@ -61,10 +61,10 @@ Public Sub Load()
     fAPPLICATIONS = Val(prefs.GetValue("applications", "count", "0"))
 End Sub
 
-Public Function LoadApplication(index As Long) As clsTarget
+Public Function LoadApplication(Index As Long) As clsTarget
     Dim target As New clsTarget
     Dim num As String
-    num = Trim(Str(index))
+    num = Trim(Str(Index))
     target.fCommand = prefs.GetValue(num, "command", "mxmlc")
     target.fName = prefs.GetValue(num, "name", "")
     target.fSource = prefs.GetValue(num, "source", "")
@@ -75,6 +75,21 @@ Public Function LoadApplication(index As Long) As clsTarget
     target.fLibraries = prefs.GetValue(num, "libraries", "")
     Set LoadApplication = target
 End Function
+
+Public Sub saveApplication(Index As Long, ByRef target As clsTarget)
+    Dim num As String
+    num = Trim(Str(Index))
+    
+    prefs.WriteValue num, "command", target.fCommand
+    prefs.WriteValue num, "name", target.fName
+    prefs.WriteValue num, "source", target.fSource
+    prefs.WriteValue num, "output", target.fOutput
+    prefs.WriteValue num, "debug", target.fDebug
+    prefs.WriteValue num, "services", target.fServices
+    prefs.WriteValue num, "context", target.fContext
+    prefs.WriteValue num, "libraries", target.fLibraries
+End Sub
+
 'save boolean -------------------------
 Private Sub saveBool(node As String, key As String, value As Boolean)
     If (value) Then
