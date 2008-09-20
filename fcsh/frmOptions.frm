@@ -33,6 +33,7 @@ Begin VB.Form frmOptions
          _ExtentX        =   3201
          _ExtentY        =   582
          ButtonWidth     =   609
+         ButtonHeight    =   582
          Appearance      =   1
          Style           =   1
          ImageList       =   "toolbarIcons"
