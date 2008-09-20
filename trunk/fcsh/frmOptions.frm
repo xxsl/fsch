@@ -460,7 +460,9 @@ Private Sub AppToolbar_ButtonClick(ByVal Button As MSComctlLib.Button)
                     Dim appName As String
                     appName = InputBox("Enter application name", "New application")
                     If (uniqueName(appName)) Then
+                        newApp.fCommand = "mxmlc"
                         newApp.fName = appName
+                        newApp.fDebug = "false"
                         appsCollection.Add newApp
                     Else
                         MsgBox "This name already exists - " + appName, vbCritical
@@ -528,6 +530,7 @@ Private Sub cmdSave_Click()
     
     config.APPLICATIONS = i
     
+    MainForm.loadApps
     Me.Hide
 End Sub
 
