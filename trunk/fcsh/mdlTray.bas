@@ -150,7 +150,7 @@ Dim ret As Long
       .szInfo = sText & vbNullChar
    End With
 
-   If (Main.config.SHOW_BALOON) Then
+   If (MainForm.config.SHOW_BALOON) Then
        ret = Shell_NotifyIcon(NIM_MODIFY, TrayIcon)
    End If
 End Sub

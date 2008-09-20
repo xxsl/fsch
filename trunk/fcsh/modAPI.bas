@@ -31,6 +31,11 @@ Public Declare Function GetWindow Lib "user32" (ByVal hwnd As Long, ByVal wCmd A
 
 Public Declare Function SendMessage Lib "user32.dll" Alias "SendMessageA" (ByVal hwnd As Long, ByVal Msg As Long, wParam As Any, lParam As Any) As Long
 
+Public Declare Function PathFileExists Lib "shlwapi" Alias "PathFileExistsA" (ByVal pszPath As String) As Long
+
+Public Declare Function PathIsDirectory Lib "shlwapi" Alias "PathIsDirectoryA" (ByVal pszPath As String) As Long
+
+
 Dim sPattern As String, hFind As Long
 
 
@@ -90,4 +95,8 @@ Public Function WriteStdOut(ByVal Text As String) As Long
     ElseIf BytesWritten < Len(Text) Then
         WriteStdOut = 1002 ', , "Incomplete write operation"
     End If
+End Function
+
+Public Function FileExists(ByVal sPath As String) As Boolean
+      If (PathFileExists(sPath)) And Not (PathIsDirectory(sPath)) Then FileExists = True
 End Function

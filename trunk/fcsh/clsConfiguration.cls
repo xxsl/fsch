@@ -13,52 +13,22 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Option Explicit
 
-'api
-Private Declare Function PathFileExists Lib "shlwapi" Alias "PathFileExistsA" (ByVal pszPath As String) As Long
-Private Declare Function PathIsDirectory Lib "shlwapi" Alias "PathIsDirectoryA" (ByVal pszPath As String) As Long
-
 'local vars
 Private log As clsLog
 Private prefs As New ARINIManager
 Private initialized As Boolean
 
-Public SERVER_PORT As Long
-Public LOG_DEBUG As Boolean
-Public APPLICATIONS As Long
-Public SHOW_BALOON As Boolean
+Private fSERVER_PORT As Long
+Private fLOG_DEBUG As Boolean
+Private fAPPLICATIONS As Long
+Private fSHOW_BALOON As Boolean
 
 Const PREFERENCE As String = "preferences"
 
 
-Public Sub Load()
-    setupConfiguration
-    SERVER_PORT = Val(prefs.GetValue(PREFERENCE, "port", "44000"))
-    
-    Dim useDebug As Long
-    useDebug = Val(prefs.GetValue(PREFERENCE, "debug", "0"))
-    LOG_DEBUG = (useDebug > 0)
-    
-    Dim showBaloon As Long
-    showBaloon = Val(prefs.GetValue(PREFERENCE, "showBaloonTips", "0"))
-    SHOW_BALOON = (showBaloon > 0)
-    
-    APPLICATIONS = Val(prefs.GetValue("applications", "count", "0"))
-End Sub
-
-Public Function LoadApplication(index As Long) As clsTarget
-    Dim target As New clsTarget
-    Dim num As String
-    num = Trim(Str(index))
-    target.fCommand = prefs.GetValue(num, "command", "mxmlc")
-    target.fName = prefs.GetValue(num, "name", "")
-    target.fSource = prefs.GetValue(num, "source", "")
-    target.fOutput = prefs.GetValue(num, "output", "")
-    target.fDebug = prefs.GetValue(num, "debug", "")
-    target.fServices = prefs.GetValue(num, "services", "")
-    target.fContext = prefs.GetValue(num, "context", "")
-    target.fLibraries = prefs.GetValue(num, "libraries", "")
-    Set LoadApplication = target
-End Function
+Public Property Let logger(ByVal vNewValue As clsLog)
+    Set log = vNewValue
+End Property
 
 Private Sub setupConfiguration()
     If (Not initialized) Then
@@ -76,11 +46,81 @@ Private Sub setupConfiguration()
     End If
 End Sub
 
-Private Function FileExists(ByVal sPath As String) As Boolean
-      If (PathFileExists(sPath)) And Not (PathIsDirectory(sPath)) Then FileExists = True
+Public Sub Load()
+    setupConfiguration
+    fSERVER_PORT = Val(prefs.GetValue(PREFERENCE, "port", "44000"))
+    
+    Dim useDebug As Long
+    useDebug = Val(prefs.GetValue(PREFERENCE, "debug", "0"))
+    fLOG_DEBUG = (useDebug > 0)
+    
+    Dim showBaloon As Long
+    showBaloon = Val(prefs.GetValue(PREFERENCE, "showBaloonTips", "0"))
+    fSHOW_BALOON = (showBaloon > 0)
+    
+    fAPPLICATIONS = Val(prefs.GetValue("applications", "count", "0"))
+End Sub
+
+Public Function LoadApplication(index As Long) As clsTarget
+    Dim target As New clsTarget
+    Dim num As String
+    num = Trim(Str(index))
+    target.fCommand = prefs.GetValue(num, "command", "mxmlc")
+    target.fName = prefs.GetValue(num, "name", "")
+    target.fSource = prefs.GetValue(num, "source", "")
+    target.fOutput = prefs.GetValue(num, "output", "")
+    target.fDebug = prefs.GetValue(num, "debug", "")
+    target.fServices = prefs.GetValue(num, "services", "")
+    target.fContext = prefs.GetValue(num, "context", "")
+    target.fLibraries = prefs.GetValue(num, "libraries", "")
+    Set LoadApplication = target
 End Function
+'save boolean -------------------------
+Private Sub saveBool(node As String, key As String, value As Boolean)
+    If (value) Then
+        prefs.WriteValue node, key, 1
+    Else
+        prefs.WriteValue node, key, 0
+    End If
+End Sub
 
-
-Public Property Let logger(ByVal vNewValue As clsLog)
-    Set log = vNewValue
+'server port --------------------------
+Public Property Get SERVER_PORT() As Long
+    SERVER_PORT = fSERVER_PORT
 End Property
+
+Public Property Let SERVER_PORT(ByVal vNewValue As Long)
+    fSERVER_PORT = vNewValue
+    prefs.WriteValue PREFERENCE, "port", Str(fSERVER_PORT)
+End Property
+
+'log debug ----------------------------
+Public Property Get LOG_DEBUG() As Boolean
+    LOG_DEBUG = fLOG_DEBUG
+End Property
+
+Public Property Let LOG_DEBUG(ByVal vNewValue As Boolean)
+    fLOG_DEBUG = vNewValue
+    saveBool PREFERENCE, "debug", fLOG_DEBUG
+End Property
+
+'show baloons
+Public Property Get SHOW_BALOON() As Boolean
+    SHOW_BALOON = fSHOW_BALOON
+End Property
+
+Public Property Let SHOW_BALOON(ByVal vNewValue As Boolean)
+    fSHOW_BALOON = vNewValue
+    saveBool PREFERENCE, "showBaloonTips", fSHOW_BALOON
+End Property
+
+'apps count
+Public Property Get APPLICATIONS() As Long
+    APPLICATIONS = fAPPLICATIONS
+End Property
+
+Public Property Let APPLICATIONS(ByVal vNewValue As Long)
+    fAPPLICATIONS = vNewValue
+    prefs.WriteValue "applications", "count", Str(fAPPLICATIONS)
+End Property
+
