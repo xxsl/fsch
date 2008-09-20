@@ -63,13 +63,15 @@ End Function
 Private Sub setupConfiguration()
     If (Not initialized) Then
         Dim path As String
-        path = App.path + "/" + "fcsh.ini"
+        path = app.path + "/" + "fcsh.ini"
         prefs.INIFile = path
         initialized = True
-        If (FileExists(path)) Then
-            log.xInfo "Preferences have loaded successfully"
-        Else
-            log.xError "Preferences are not found: fcsh.ini"
+        If (Not log Is Nothing) Then
+            If (FileExists(path)) Then
+                log.xInfo "Preferences have loaded successfully"
+            Else
+                log.xError "Preferences are not found: fcsh.ini"
+            End If
         End If
     End If
 End Sub
