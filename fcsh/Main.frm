@@ -190,6 +190,7 @@ Begin VB.Form Main
       _Version        =   393217
       BackColor       =   -2147483633
       BorderStyle     =   0
+      Enabled         =   -1  'True
       ScrollBars      =   3
       Appearance      =   0
       AutoVerbMenu    =   -1  'True
@@ -460,7 +461,7 @@ Private Sub Service_DataArrival(ByVal bytesTotal As Long)
 
     Service.GetData strData, vbString
     
-    log.xInfo "Socket in: " + strData
+    log.xDebug "Socket in: " + strData
     
     isRemote = True
     
