@@ -190,7 +190,6 @@ Begin VB.Form Main
       _Version        =   393217
       BackColor       =   -2147483633
       BorderStyle     =   0
-      Enabled         =   -1  'True
       ScrollBars      =   3
       Appearance      =   0
       AutoVerbMenu    =   -1  'True
@@ -216,6 +215,15 @@ Begin VB.Form Main
    Begin VB.Menu mnuShell 
       Caption         =   "Shell"
       Visible         =   0   'False
+      Begin VB.Menu mnuRecompile 
+         Caption         =   "Recompile"
+      End
+      Begin VB.Menu mnuSep1 
+         Caption         =   "-"
+      End
+      Begin VB.Menu mnuExit 
+         Caption         =   "Exit"
+      End
    End
 End
 Attribute VB_Name = "Main"
@@ -416,6 +424,19 @@ End Sub
 
 
 
+Private Sub mnuExit_Click()
+    End
+End Sub
+
+Private Sub mnuRecompile_Click()
+   If (Not (lastTarget Is Nothing)) Then
+       fcsh.exec lastTarget.getExecRecompile
+   Else
+       log.xError "No targets were assigned yet. Nothing to recompile."
+       log.Text vbCrLf
+   End If
+End Sub
+
 'one more connection
 Private Sub Server_ConnectionRequest(ByVal requestID As Long)
     If (Not isServerBusy) Then
@@ -573,6 +594,7 @@ Private Sub fakeTray_MouseMove(Button As Integer, Shift As Integer, X As Single,
             Debug.Print "MouseMove"
         Case LeftUp
             log.xDebug "Left Up"
+            Main.Visible = Not Main.Visible
         Case LeftDown
             log.xDebug "Left Down"
         Case LeftDbClick
@@ -584,7 +606,7 @@ Private Sub fakeTray_MouseMove(Button As Integer, Shift As Integer, X As Single,
         Case MiddleDbClick
             log.xDebug "MiddleDbClick"
         Case RightUp
-            log.xDebug "RightUp" ': PopupMenu mnuShell
+            log.xDebug "RightUp": PopupMenu mnuShell
         Case RightDown
             log.xDebug "RightDown"
         Case RightDbClick
