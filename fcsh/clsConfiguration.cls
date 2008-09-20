@@ -61,10 +61,10 @@ Public Sub Load()
     fAPPLICATIONS = Val(prefs.GetValue("applications", "count", "0"))
 End Sub
 
-Public Function LoadApplication(Index As Long) As clsTarget
+Public Function LoadApplication(index As Long) As clsTarget
     Dim target As New clsTarget
     Dim num As String
-    num = Trim(Str(Index))
+    num = Trim(Str(index))
     target.fCommand = prefs.GetValue(num, "command", "mxmlc")
     target.fName = prefs.GetValue(num, "name", "")
     target.fSource = prefs.GetValue(num, "source", "")
@@ -76,9 +76,9 @@ Public Function LoadApplication(Index As Long) As clsTarget
     Set LoadApplication = target
 End Function
 
-Public Sub saveApplication(Index As Long, ByRef target As clsTarget)
+Public Sub saveApplication(index As Long, ByRef target As clsTarget)
     Dim num As String
-    num = Trim(Str(Index))
+    num = Trim(Str(index))
     
     prefs.WriteValue num, "command", target.fCommand
     prefs.WriteValue num, "name", target.fName
@@ -88,6 +88,12 @@ Public Sub saveApplication(Index As Long, ByRef target As clsTarget)
     prefs.WriteValue num, "services", target.fServices
     prefs.WriteValue num, "context", target.fContext
     prefs.WriteValue num, "libraries", target.fLibraries
+End Sub
+
+
+Public Sub Clear()
+Open app.path + "/" + "fcsh.ini" For Output As #1
+Close #1
 End Sub
 
 'save boolean -------------------------
