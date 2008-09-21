@@ -1,0 +1,1 @@
+add this file to vb6.exe folder to make it use XP Styles
