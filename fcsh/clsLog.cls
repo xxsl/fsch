@@ -11,6 +11,13 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
+'***********************************************************************************
+'* nimrod97@gmail.com                                                              *
+'* Project homepage http://code.google.com/p/fsch/                                 *
+'* Adobe Flex Compiler Shell wrapper                                               *
+'* 2008                                                                            *
+'***********************************************************************************
+
 Option Explicit
 
 Private logger As RichTextBox

@@ -11,6 +11,13 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
+'***********************************************************************************
+'* nimrod97@gmail.com                                                              *
+'* Project homepage http://code.google.com/p/fsch/                                 *
+'* Adobe Flex Compiler Shell wrapper                                               *
+'* 2008                                                                            *
+'***********************************************************************************
+
 Option Explicit
 
 Public isError As Boolean
@@ -95,7 +102,7 @@ Private Sub parseID(data As String)
         myRegExp.Pattern = "[0-9]+"
         Set myMatches = myRegExp.Execute(data)
         For Each myMatch In myMatches
-          TargetID = Val(myMatch.Value)
+          TargetID = Val(myMatch.value)
         Next
 End Sub
 

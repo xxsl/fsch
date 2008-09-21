@@ -1,4 +1,12 @@
 Attribute VB_Name = "modApi"
+'***********************************************************************************
+'* nimrod97@gmail.com                                                              *
+'* Project homepage http://code.google.com/p/fsch/                                 *
+'* Adobe Flex Compiler Shell wrapper                                               *
+'* 2008                                                                            *
+'***********************************************************************************
+
+
 Option Explicit
 
 Private Declare Function GetStdHandle Lib "kernel32" (ByVal nStdHandle As Long) As Long
