@@ -15,15 +15,16 @@ Option Explicit
 
 Private logger As RichTextBox
 Private color As Long
-Private Level As Boolean
+Private config As clsConfiguration
 
-Public Sub clsLog(ByRef log As RichTextBox)
+Public Sub clsLog(ByRef log As RichTextBox, cfg As clsConfiguration)
     Set logger = log
+    Set config = cfg
     color = vbBlue
 End Sub
 
 Public Sub xDebug(ByVal Msg As String)
-    If (Level) Then
+    If (config.LOG_DEBUG) Then
         output "[DEBUG] " + Msg + vbCrLf
     Else
         Write #1, Msg
@@ -67,7 +68,7 @@ End Sub
 
  
 Private Sub Class_Initialize()
-Open App.path + "/" + "fcsh.log" For Append As #1
+Open app.path + "/" + "fcsh.log" For Append As #1
 Print #1, vbCrLf
 Print #1, Now
 Print #1, "--------------------------------------------------------------------------"
@@ -78,6 +79,3 @@ Close 1
 End Sub
 
 
-Public Property Let LogLevel(ByVal vNewValue As Boolean)
-    Level = vNewValue
-End Property

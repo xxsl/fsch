@@ -158,7 +158,6 @@ Begin VB.Form MainForm
       _Version        =   393217
       BackColor       =   -2147483633
       BorderStyle     =   0
-      Enabled         =   -1  'True
       ScrollBars      =   3
       Appearance      =   0
       AutoVerbMenu    =   -1  'True
@@ -298,16 +297,13 @@ End Sub
 
 'start application
 Private Sub Form_Load()
-        'set up logging
-        log.clsLog rtbLog
-
         'init prefs
-        config.logger = log
         config.Load
         
-        'set loglevel
-        log.LogLevel = config.LOG_DEBUG
-            
+        'set up logging
+        log.clsLog rtbLog, config
+
+          
         'init vars
         isServerBusy = False
         initSockets 'listen for requests
