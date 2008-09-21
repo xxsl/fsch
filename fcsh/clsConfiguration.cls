@@ -14,7 +14,6 @@ Attribute VB_Exposed = False
 Option Explicit
 
 'local vars
-Private log As clsLog
 Private prefs As New ARINIManager
 Private initialized As Boolean
 
@@ -26,22 +25,15 @@ Private fSHOW_BALOON As Boolean
 Const PREFERENCE As String = "preferences"
 
 
-Public Property Let logger(ByVal vNewValue As clsLog)
-    Set log = vNewValue
-End Property
-
 Private Sub setupConfiguration()
     If (Not initialized) Then
         Dim path As String
         path = app.path + "/" + "fcsh.ini"
         prefs.INIFile = path
         initialized = True
-        If (Not log Is Nothing) Then
-            If (FileExists(path)) Then
-                log.xInfo "Preferences have loaded successfully"
-            Else
-                log.xError "Preferences are not found: fcsh.ini"
-            End If
+
+        If (Not FileExists(path)) Then
+           MsgBox "Preferences are not found: fcsh.ini", vbCritical
         End If
     End If
 End Sub
