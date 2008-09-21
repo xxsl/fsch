@@ -13,10 +13,9 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Option Explicit
 
-Private Const SHELL As String = "fcsh.exe"
-
 Private log As clsLog
 Private outputParser As New clsParser
+Private config As clsConfiguration
 
 
 Private isInitialized As Boolean
@@ -48,13 +47,14 @@ Attribute fcsh.VB_VarHelpID = -1
 
 
 'set log and params
-Public Sub Initialize(ByRef logger As clsLog)
+Public Sub Initialize(ByRef logger As clsLog, ByRef cfg As clsConfiguration)
     If (Not isInitialized) Then
         Set log = logger
+        Set config = cfg
         Set fcsh = New RedirectLib.Application
         fcsh.BufferSize = 8192
         fcsh.Wait = 100
-        fcsh.name = SHELL
+        fcsh.name = config.FCSH_PATH
         
         outputParser.log = logger
                 

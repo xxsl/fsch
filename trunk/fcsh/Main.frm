@@ -158,7 +158,6 @@ Begin VB.Form MainForm
       _Version        =   393217
       BackColor       =   -2147483633
       BorderStyle     =   0
-      Enabled         =   -1  'True
       ScrollBars      =   3
       Appearance      =   0
       AutoVerbMenu    =   -1  'True
@@ -311,7 +310,7 @@ Private Sub Form_Load()
         
         'setup fcsh
         Set fcsh = New clsFCSH
-        fcsh.Initialize log
+        fcsh.Initialize log, config
             
         'add tray icon
         TrayAdd fakeTray.hwnd, Me.Icon, "Flex compiler shell", MouseMove

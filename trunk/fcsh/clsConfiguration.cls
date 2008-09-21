@@ -21,6 +21,7 @@ Private fSERVER_PORT As Long
 Private fLOG_DEBUG As Boolean
 Private fAPPLICATIONS As Long
 Private fSHOW_BALOON As Boolean
+Private fFCSH_PATH As String
 
 Const PREFERENCE As String = "preferences"
 
@@ -49,6 +50,8 @@ Public Sub Load()
     Dim showBaloon As Long
     showBaloon = Val(prefs.GetValue(PREFERENCE, "showBaloonTips", "0"))
     fSHOW_BALOON = (showBaloon > 0)
+    
+    fFCSH_PATH = prefs.GetValue(PREFERENCE, "fcsh_exe_path", "fcsh.exe")
     
     fAPPLICATIONS = Val(prefs.GetValue("applications", "count", "0"))
 End Sub
@@ -137,3 +140,13 @@ Public Property Let APPLICATIONS(ByVal vNewValue As Long)
     prefs.WriteValue "applications", "count", Str(fAPPLICATIONS)
 End Property
 
+
+'apps count
+Public Property Get FCSH_PATH() As String
+    FCSH_PATH = fFCSH_PATH
+End Property
+
+Public Property Let FCSH_PATH(ByVal vNewValue As String)
+    fFCSH_PATH = vNewValue
+    prefs.WriteValue PREFERENCE, "fcsh_exe_path", fFCSH_PATH
+End Property
