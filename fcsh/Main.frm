@@ -30,23 +30,6 @@ Begin VB.Form MainForm
       RemotePort      =   44000
       LocalPort       =   44001
    End
-   Begin VB.TextBox Text1 
-      Height          =   375
-      Left            =   6960
-      TabIndex        =   4
-      Top             =   4200
-      Visible         =   0   'False
-      Width           =   2415
-   End
-   Begin VB.CommandButton Command1 
-      Caption         =   "Command1"
-      Height          =   375
-      Left            =   6120
-      TabIndex        =   3
-      Top             =   4200
-      Visible         =   0   'False
-      Width           =   615
-   End
    Begin MSComctlLib.ImageList disabledIcons 
       Left            =   8520
       Top             =   2760
@@ -191,7 +174,6 @@ Begin VB.Form MainForm
       _Version        =   393217
       BackColor       =   -2147483633
       BorderStyle     =   0
-      Enabled         =   -1  'True
       ScrollBars      =   3
       Appearance      =   0
       AutoVerbMenu    =   -1  'True
@@ -303,37 +285,44 @@ End Sub
 '***********************************************************************************************
 'fcsh event handling
 '***********************************************************************************************
-Private Sub fcsh_onError(ByVal Msg As String)
-    log.xError "fcsh:" + Msg
+Private Sub fcsh_onError(target As clsTarget)
+    Dim msg As String
+    msg = target.fMessage
+    
+    log.xError msg
     log.Text vbCrLf
-    DisplayBalloon "Flex compiler shell", Msg, NIIF_ERROR
-    sendRemote Msg + vbCrLf + BUILD_FAILED
-    If (lastTarget.fTargetID = 0) Then
-        targets.Remove lastTarget.fName
+    DisplayBalloon "Flex compiler shell", BUILD_FAILED + ". " + msg, NIIF_ERROR
+    
+    If ((target.fTargetID = 0) And (targets.Exists(target.fName))) Then
+        targets.Remove target.fName
     End If
+    
+    sendRemote msg + vbCrLf + BUILD_FAILED
 End Sub
 
 'on command success
-Private Sub fcsh_onFinish()
+Private Sub fcsh_onFinish(target As clsTarget)
     log.xFcsh "Exec completed"
     log.Text vbCrLf
     DisplayBalloon "Flex compiler shell", BUILD_SUCESSFULL, NIIF_INFO
-    sendRemote BUILD_SUCESSFULL
-    If (lastTarget.fTargetID = 0) Then
-        targets.Remove lastTarget.fName
+    
+    If ((target.fTargetID = 0) And (targets.Exists(target.fName))) Then
+        targets.Remove target.fName
     End If
+    
+    sendRemote BUILD_SUCESSFULL
 End Sub
 
 'on new compile target id
-Private Sub fcsh_onIdAssigned(ByVal id As Long)
-    log.xFcsh "Exec completed. id is " & id
+Private Sub fcsh_onIdAssigned(target As clsTarget)
+    log.xFcsh "Exec completed. id is " & target.fTargetID
     log.Text vbCrLf
-    DisplayBalloon "Flex compiler shell", "Assigned Target id " & id, NIIF_INFO
-    If (Not lastTarget Is Nothing) Then
-        lastTarget.fTargetID = id
-    Else
-        log.xError "last target is nothing!?"
+    DisplayBalloon "Flex compiler shell", BUILD_SUCESSFULL + ". Assigned Target id " & target.fTargetID, NIIF_INFO
+    
+    If (Not targets.Exists(target.fName)) Then
+        targets.Add target.fName, target
     End If
+    
     sendRemote BUILD_SUCESSFULL
 End Sub
 
@@ -450,7 +439,7 @@ End Sub
 
 Private Sub mnuRecompile_Click()
    If (Not (lastTarget Is Nothing)) Then
-       fcsh.exec lastTarget.getExecRecompile
+       fcsh.exec lastTarget
    Else
        log.xError "No targets were assigned yet. Nothing to recompile."
        log.Text vbCrLf
@@ -549,9 +538,9 @@ Private Sub remoteExec(arg As String)
     End If
 End Sub
 
-Private Sub sendRemote(Msg As String)
+Private Sub sendRemote(msg As String)
    If (isRemote) Then
-       Service.SendData Msg
+       Service.SendData msg
    End If
 End Sub
 
@@ -582,7 +571,7 @@ Private Sub Toolbar_ButtonClick(ByVal Button As MSComctlLib.Button)
                     log.Text vbCrLf
                     Exit Sub
                 End If
-                fcsh.exec lastTarget.getExecRecompile
+                fcsh.exec lastTarget
         Case 4:
                 frmOptions.loadPrefs config, log
                 frmOptions.Show 1, Me
@@ -593,31 +582,26 @@ End Sub
 
 Private Sub Toolbar_ButtonMenuClick(ByVal ButtonMenu As MSComctlLib.ButtonMenu)
     Dim index As Long
-   
     index = Val(ButtonMenu.key)
     build index
 End Sub
 
 Private Sub build(index As Long)
     Dim app As clsTarget
-    
     Set app = config.LoadApplication(index)
         
     If (fcsh.isRunning) Then
         If (targets.Exists(app.fName)) Then
-            If (targets.Item(app.fName)) Then
-                Set lastTarget = targets.Item(app.fName)
-                fcsh.exec lastTarget.getExecRecompile
-            Else
-                fcsh_onError "No targets were assigned yet. Nothing to recompile."
-            End If
+            Set lastTarget = targets.Item(app.fName)
+            fcsh.exec lastTarget
         Else
             Set lastTarget = app
             targets.Add app.fName, app
-            fcsh.exec app.getExecCommand
+            fcsh.exec app
         End If
     Else
-        fcsh_onError "fcsh stopped, cant exec"
+        app.fMessage = "Cant exec: fcsh stopped"
+        fcsh_onError app
     End If
 End Sub
 
@@ -671,12 +655,6 @@ Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
     Server.Close
     Unload frmOptions
 End Sub
-
-'todo remove--------------------
-Private Sub Command1_Click()
-    fcsh.exec Text1.Text
-End Sub
-
 
 
 

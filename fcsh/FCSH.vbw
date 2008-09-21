@@ -1,7 +1,7 @@
 MainForm = 114, 144, 701, 667, Z, 66, 87, 728, 610, C
 clsLog = 0, 0, 587, 523, C
 clsConfiguration = 115, 176, 777, 699, 
-clsFCSH = 110, 145, 764, 668, C
+clsFCSH = 110, 145, 764, 668, 
 mdlTray = 154, 203, 808, 726, C
 modApi = 176, 232, 788, 755, C
 clsParser = 132, 174, 794, 697, C
