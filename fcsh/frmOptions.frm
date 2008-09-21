@@ -40,11 +40,20 @@ Begin VB.Form frmOptions
          TabIndex        =   24
          Top             =   120
          Width           =   6135
-         Begin VB.ComboBox cmbDebug 
+         Begin VB.ComboBox cmbCommand 
             Height          =   315
             ItemData        =   "frmOptions.frx":1CFA
             Left            =   2400
             List            =   "frmOptions.frx":1D04
+            TabIndex        =   46
+            Top             =   320
+            Width           =   3495
+         End
+         Begin VB.ComboBox cmbDebug 
+            Height          =   315
+            ItemData        =   "frmOptions.frx":1D16
+            Left            =   2400
+            List            =   "frmOptions.frx":1D20
             TabIndex        =   45
             Top             =   2880
             Width           =   3495
@@ -132,10 +141,11 @@ Begin VB.Form frmOptions
          Begin VB.TextBox txtTarget 
             Height          =   285
             Index           =   0
-            Left            =   2400
+            Left            =   240
             TabIndex        =   26
-            Top             =   360
-            Width           =   3495
+            Top             =   480
+            Visible         =   0   'False
+            Width           =   615
          End
          Begin VB.Label lblApp 
             Alignment       =   1  'Right Justify
@@ -279,15 +289,15 @@ Begin VB.Form frmOptions
          BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
             NumListImages   =   3
             BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-               Picture         =   "frmOptions.frx":1D15
+               Picture         =   "frmOptions.frx":1D31
                Key             =   ""
             EndProperty
             BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-               Picture         =   "frmOptions.frx":2067
+               Picture         =   "frmOptions.frx":2083
                Key             =   ""
             EndProperty
             BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-               Picture         =   "frmOptions.frx":23B9
+               Picture         =   "frmOptions.frx":23D5
                Key             =   ""
             EndProperty
          EndProperty
@@ -353,7 +363,7 @@ Begin VB.Form frmOptions
          _Version        =   327681
          Value           =   44000
          BuddyControl    =   "UpDown1"
-         BuddyDispid     =   196621
+         BuddyDispid     =   196640
          OrigLeft        =   2760
          OrigTop         =   360
          OrigRight       =   3015
@@ -648,6 +658,15 @@ Private Function uniqueName(name As String) As Boolean
 End Function
 
 
+
+Private Sub cmbCommand_Click()
+    Dim target As Long
+    If (lstApps.ListIndex >= 0 And Not isLoading) Then
+        target = lstApps.ListIndex + 1
+        appsCollection.Item(target).fCommand = cmbCommand.Text
+    End If
+End Sub
+
 Private Sub cmbDebug_Click()
     Dim target As Long
     If (lstApps.ListIndex >= 0 And Not isLoading) Then
@@ -700,7 +719,7 @@ Private Sub cmdOutput_Click()
 
     szTitle = "This is the title"
     With tBrowseInfo
-            .hWndOwner = Me.hWnd
+            .hWndOwner = Me.hwnd
             .lpszTitle = lstrcat(szTitle, "")
             .ulFlags = BIF_RETURNONLYFSDIRS + BIF_DONTGOBELOWDOMAIN
     End With
@@ -711,11 +730,19 @@ Private Sub cmdOutput_Click()
         SHGetPathFromIDList lpIDList, sBuffer
         sBuffer = Left(sBuffer, InStr(sBuffer, vbNullChar) - 1)
     End If
+    
+    Dim ext As String
+    If (cmbCommand.Text = "mxmlc") Then
+        ext = ".swf"
+    Else
+        ext = ".swc"
+    End If
+    
     If (Len(Trim(sBuffer)) = 3) Then
-        txtTarget(4).Text = sBuffer + txtTarget(1).Text + ".swf"
+        txtTarget(4).Text = sBuffer + txtTarget(1).Text + ext
     End If
     If (Len(Trim(sBuffer)) > 3) Then
-        txtTarget(4).Text = sBuffer + "\" + txtTarget(1).Text + ".swf"
+        txtTarget(4).Text = sBuffer + "\" + txtTarget(1).Text + ext
     End If
 End Sub
 
@@ -758,7 +785,11 @@ Private Sub lstApps_Click()
     Dim index As Long
     If (lstApps.ListIndex >= 0) Then
         index = lstApps.ListIndex + 1
-        txtTarget(0).Text = appsCollection.Item(index).fCommand
+        If (LCase(appsCollection.Item(index).fCommand) = "mxmlc") Then
+            cmbCommand.ListIndex = 0
+        Else
+            cmbCommand.ListIndex = 1
+        End If
         txtTarget(1).Text = appsCollection.Item(index).fName
         txtTarget(2).Text = appsCollection.Item(index).fSource
         txtTarget(3).Text = appsCollection.Item(index).fLibraries
@@ -780,7 +811,7 @@ Private Sub txtTarget_Change(index As Integer)
     Dim target As Long
     If (lstApps.ListIndex >= 0 And Not isLoading) Then
         target = lstApps.ListIndex + 1
-        appsCollection.Item(target).fCommand = txtTarget(0).Text
+        appsCollection.Item(target).fCommand = cmbCommand.Text
         appsCollection.Item(target).fName = txtTarget(1).Text
         appsCollection.Item(target).fSource = txtTarget(2).Text
         appsCollection.Item(target).fLibraries = txtTarget(3).Text
@@ -797,4 +828,5 @@ Private Sub resetControls()
         txtTarget(i).Text = ""
     Next i
     cmbDebug.Text = ""
+    cmbCommand.Text = ""
 End Sub
