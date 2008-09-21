@@ -13,15 +13,20 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Option Explicit
 
-Private log As clsLog
+Private Const SHELL As String = "fcsh.exe"
 
-Const SHELL As String = "fcsh.exe"
+Private log As clsLog
+Private outputParser As New clsParser
+
+
 Private isInitialized As Boolean
 
-Private outputParser As New clsParser
+
 
 Public isRunning As Boolean
 Public isExec As Boolean
+Private currentTarget As clsTarget
+
 
 '***************************************************************************************
 'fcsh.exe stop
@@ -29,11 +34,11 @@ Public Event onStop()
 'fcsh.exe launch
 Public Event onStart()
 'compile target id assigned
-Public Event onIdAssigned(ByVal id As Long)
+Public Event onIdAssigned(target As clsTarget)
 'command finished
-Public Event onFinish()
+Public Event onFinish(target As clsTarget)
 'error while processing command
-Public Event onError(ByVal Msg As String)
+Public Event onError(target As clsTarget)
 '***************************************************************************************
 
 'console stdOut capture
@@ -49,7 +54,7 @@ Public Sub Initialize(ByRef logger As clsLog)
         Set fcsh = New RedirectLib.Application
         fcsh.BufferSize = 8192
         fcsh.Wait = 100
-        fcsh.Name = SHELL
+        fcsh.name = SHELL
         
         outputParser.log = logger
                 
@@ -62,18 +67,23 @@ End Sub
 
 'start shell
 Public Sub Start()
+Dim fakeTarget As New clsTarget
+
     If (Not isRunning) Then
         Select Case fcsh.Start
            Case laAlreadyRunning
                 log.xError "fcsh is already running"
-                 RaiseEvent onError("fcsh is already running")
+                fakeTarget.fMessage = "fcsh is already running"
+                RaiseEvent onError(fakeTarget)
            Case laWindowsError
+                fakeTarget.fMessage = "Windows error: " & CStr(fcsh.LastErrorNumber)
                 log.xError "Windows error: " & CStr(fcsh.LastErrorNumber)
                 isRunning = False
-                RaiseEvent onError("Windows error: " & CStr(fcsh.LastErrorNumber) & vbCrLf)
+                RaiseEvent onError(fakeTarget)
            Case laOk
                 isRunning = True
                 outputParser.Begin
+                Set currentTarget = Nothing
                 RaiseEvent onStart
                 log.xDebug "fcsh started"
         End Select
@@ -94,19 +104,29 @@ Private Sub fcsh_ProcessEnded()
     isExec = False
     isRunning = False
     log.xDebug "fcsh stopped"
+    Set currentTarget = Nothing
     RaiseEvent onStop
 End Sub
 
 'write to fcsh stdIn
-Public Sub exec(args As String)
-    log.xExec args
+Public Sub exec(target As clsTarget)
+    Set currentTarget = target
+    
     outputParser.Begin
+    
     If (isRunning) Then
         isExec = True
-        fcsh.Write ToOEM(args) + vbCrLf
+        If (currentTarget.fTargetID = 0) Then
+            log.xExec currentTarget.getExecCommand
+            fcsh.Write ToOEM(currentTarget.getExecCommand) + vbCrLf
+        Else
+            log.xExec currentTarget.getExecRecompile
+            fcsh.Write ToOEM(currentTarget.getExecRecompile) + vbCrLf
+        End If
     Else
         log.xError "Cant exec: fcsh stopped" + vbCrLf
-        RaiseEvent onError("Cant exec: fcsh stopped" + vbCrLf)
+        target.fMessage = "Cant exec: fcsh stopped"
+        RaiseEvent onError(target)
     End If
 End Sub
 
@@ -123,14 +143,16 @@ Private Sub fcsh_DataReceived(ByVal sData As String)
         
         If (outputParser.isError) Then
             'if error any error happend
-            RaiseEvent onError(outputParser.ErrorMessage)
+            currentTarget.fMessage = outputParser.ErrorMessage
+            RaiseEvent onError(currentTarget)
         Else
             'if new compile id was assigned
             If (outputParser.isIdAssigned) Then
-                RaiseEvent onIdAssigned(outputParser.TargetID)
+                currentTarget.fTargetID = outputParser.TargetID
+                RaiseEvent onIdAssigned(currentTarget)
             'if all was succesfull
             Else
-                RaiseEvent onFinish
+                RaiseEvent onFinish(currentTarget)
             End If
         End If
     End If

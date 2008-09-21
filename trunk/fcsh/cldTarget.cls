@@ -22,6 +22,7 @@ Public fDebug As String
 Public fContext As String
 Public fServices As String
 Public fTargetID As Long
+Public fMessage As String
 
 
 Public Function getExecCommand() As String
