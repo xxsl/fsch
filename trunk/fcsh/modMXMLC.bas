@@ -1,4 +1,12 @@
 Attribute VB_Name = "modMXMLC"
+'***********************************************************************************
+'* nimrod97@gmail.com                                                              *
+'* Project homepage http://code.google.com/p/fsch/                                 *
+'* Adobe Flex Compiler Shell wrapper                                               *
+'* 2008                                                                            *
+'***********************************************************************************
+
+
 Public Const OUTPUT_PATH As String = " -output="
 Public Const INCLUDE_LIBRARIES As String = " -include-libraries="
 Public Const COMPILE_DEBUG As String = " -debug="
