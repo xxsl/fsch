@@ -15,8 +15,8 @@ Begin VB.Form MainForm
    StartUpPosition =   2  'CenterScreen
    Visible         =   0   'False
    Begin MSComctlLib.ImageList disabledIcons 
-      Left            =   8520
-      Top             =   2760
+      Left            =   5520
+      Top             =   2040
       _ExtentX        =   1005
       _ExtentY        =   1005
       BackColor       =   -2147483643
@@ -49,8 +49,8 @@ Begin VB.Form MainForm
       EndProperty
    End
    Begin MSComctlLib.ImageList enabledIcons 
-      Left            =   8520
-      Top             =   2040
+      Left            =   5520
+      Top             =   1320
       _ExtentX        =   1005
       _ExtentY        =   1005
       BackColor       =   -2147483643
@@ -92,15 +92,15 @@ Begin VB.Form MainForm
       Width           =   1815
    End
    Begin MSWinsockLib.Winsock Abort 
-      Left            =   7920
-      Top             =   3600
+      Left            =   4920
+      Top             =   2760
       _ExtentX        =   741
       _ExtentY        =   741
       _Version        =   393216
    End
    Begin MSWinsockLib.Winsock Service 
-      Left            =   7920
-      Top             =   2880
+      Left            =   4920
+      Top             =   2040
       _ExtentX        =   741
       _ExtentY        =   741
       _Version        =   393216
@@ -148,17 +148,16 @@ Begin VB.Form MainForm
       EndProperty
    End
    Begin RichTextLib.RichTextBox rtbLog 
-      Height          =   5655
+      Height          =   3615
       Left            =   0
       TabIndex        =   0
       Top             =   360
-      Width           =   7815
-      _ExtentX        =   13785
-      _ExtentY        =   9975
+      Width           =   4335
+      _ExtentX        =   7646
+      _ExtentY        =   6376
       _Version        =   393217
       BackColor       =   -2147483633
       BorderStyle     =   0
-      Enabled         =   -1  'True
       ScrollBars      =   3
       Appearance      =   0
       AutoVerbMenu    =   -1  'True
@@ -174,8 +173,8 @@ Begin VB.Form MainForm
       EndProperty
    End
    Begin MSWinsockLib.Winsock Server 
-      Left            =   7920
-      Top             =   2160
+      Left            =   4920
+      Top             =   1320
       _ExtentX        =   741
       _ExtentY        =   741
       _Version        =   393216
@@ -483,7 +482,7 @@ End Sub
 '***********************************************************************************************
 'click
 Private Sub Toolbar_ButtonClick(ByVal Button As MSComctlLib.Button)
-    Select Case Button.index
+    Select Case Button.Index
         Case 1:
                 If (Not fcsh.isRunning) Then
                     fcsh.Start
@@ -511,14 +510,14 @@ Private Sub Toolbar_ButtonClick(ByVal Button As MSComctlLib.Button)
 End Sub
 
 Private Sub Toolbar_ButtonMenuClick(ByVal ButtonMenu As MSComctlLib.ButtonMenu)
-    Dim index As Long
-    index = Val(ButtonMenu.key)
-    build index
+    Dim Index As Long
+    Index = Val(ButtonMenu.key)
+    build Index
 End Sub
 
-Private Sub build(index As Long)
+Private Sub build(Index As Long)
     Dim app As clsTarget
-    Set app = config.LoadApplication(index)
+    Set app = config.LoadApplication(Index)
         
     If (fcsh.isRunning) Then
         If (targets.Exists(app.fName)) Then
