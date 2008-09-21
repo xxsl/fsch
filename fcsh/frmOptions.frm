@@ -4,7 +4,7 @@ Object = "{FE0065C0-1B7B-11CF-9D53-00AA003C9CB6}#1.1#0"; "COMCT232.OCX"
 Begin VB.Form frmOptions 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Options"
-   ClientHeight    =   5970
+   ClientHeight    =   6330
    ClientLeft      =   2565
    ClientTop       =   1500
    ClientWidth     =   8520
@@ -13,7 +13,7 @@ Begin VB.Form frmOptions
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   5970
+   ScaleHeight     =   6330
    ScaleWidth      =   8520
    StartUpPosition =   1  'CenterOwner
    Begin VB.Frame Frame2 
@@ -21,7 +21,7 @@ Begin VB.Form frmOptions
       Height          =   3735
       Left            =   120
       TabIndex        =   17
-      Top             =   1680
+      Top             =   2040
       Width           =   8295
       Begin VB.Frame Frame3 
          Height          =   3495
@@ -246,7 +246,7 @@ Begin VB.Form frmOptions
       Height          =   375
       Left            =   6120
       TabIndex        =   8
-      Top             =   5520
+      Top             =   5880
       Width           =   1095
    End
    Begin VB.CommandButton cmdCancel 
@@ -254,16 +254,23 @@ Begin VB.Form frmOptions
       Height          =   375
       Left            =   7320
       TabIndex        =   7
-      Top             =   5520
+      Top             =   5880
       Width           =   1095
    End
    Begin VB.Frame Frame1 
       Caption         =   "Preferences"
-      Height          =   1455
+      Height          =   1815
       Left            =   120
       TabIndex        =   6
       Top             =   120
       Width           =   8295
+      Begin VB.TextBox txtFcsh 
+         Height          =   285
+         Left            =   2040
+         TabIndex        =   39
+         Top             =   1440
+         Width           =   6135
+      End
       Begin VB.CheckBox chkBaloon 
          Height          =   255
          Left            =   2040
@@ -309,8 +316,17 @@ Begin VB.Form frmOptions
          Top             =   360
          Width           =   720
       End
+      Begin VB.Label Label6 
+         Alignment       =   1  'Right Justify
+         Caption         =   "Path to fcsh.exe"
+         Height          =   255
+         Left            =   120
+         TabIndex        =   38
+         Top             =   1440
+         Width           =   1815
+      End
       Begin VB.Label Label4 
-         Caption         =   "(restart required)"
+         Caption         =   "Restart required!"
          Height          =   255
          Left            =   3120
          TabIndex        =   16
@@ -442,6 +458,8 @@ Public Sub loadPrefs(ByRef cfg As clsConfiguration, ByRef logger As clsLog)
         chkBaloon.value = 0
     End If
     
+    txtFcsh.Text = config.FCSH_PATH
+    
     Dim i As Long
     Dim app As clsTarget
     
@@ -520,6 +538,7 @@ Private Sub cmdSave_Click()
     config.LOG_DEBUG = (chkDebug.value = 1)
     config.SERVER_PORT = txtPort.Text
     config.SHOW_BALOON = (chkBaloon = 1)
+    config.FCSH_PATH = txtFcsh.Text
     
     Dim i As Long
     Dim app As clsTarget
