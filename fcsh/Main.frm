@@ -14,22 +14,6 @@ Begin VB.Form MainForm
    ScaleWidth      =   9750
    StartUpPosition =   2  'CenterScreen
    Visible         =   0   'False
-   Begin VB.Timer Timer1 
-      Enabled         =   0   'False
-      Interval        =   100
-      Left            =   7920
-      Top             =   5400
-   End
-   Begin MSWinsockLib.Winsock Controller 
-      Left            =   7920
-      Top             =   4680
-      _ExtentX        =   741
-      _ExtentY        =   741
-      _Version        =   393216
-      RemoteHost      =   "localhost"
-      RemotePort      =   44000
-      LocalPort       =   44001
-   End
    Begin MSComctlLib.ImageList disabledIcons 
       Left            =   8520
       Top             =   2760
@@ -174,6 +158,7 @@ Begin VB.Form MainForm
       _Version        =   393217
       BackColor       =   -2147483633
       BorderStyle     =   0
+      Enabled         =   -1  'True
       ScrollBars      =   3
       Appearance      =   0
       AutoVerbMenu    =   -1  'True
@@ -235,69 +220,30 @@ Private isRemote As Boolean
 Private isServerBusy As Boolean
 Private responce As String
 
-Private ms As Long
+
 
 Const BUILD_BUTTON As Long = 2
 Const RUN_BUTTON As Long = 1
 Const BUILD_FAILED As String = "Build failed"
 Const BUILD_SUCESSFULL As String = "Build successfull"
 
-'***********************************************************************************************
-'Sockets Client
-'***********************************************************************************************
-Private Sub Controller_Close()
-    End
-End Sub
-
-Private Sub Controller_Connect()
-    Controller.SendData Command
-End Sub
-
-Private Sub Controller_DataArrival(ByVal bytesTotal As Long)
-    Dim s As String
-    On Error Resume Next
-    Controller.GetData s, vbString, bytesTotal
-    responce = responce + s
-    WriteStdOut s
-    If (InStr(1, responce, BUILD_FAILED) > 0 Or InStr(1, responce, BUILD_SUCESSFULL) > 0) Then
-        WriteStdOut vbCrLf
-        WriteStdOut "Build time: " & ms * 100 & " ms" & vbCrLf
-        End
-    End If
-    If (Err.Number <> 0) Then
-        WriteStdOut "Error: " & Err.Number & " " & Err.Description & vbCrLf
-        If (Err.Number = 10054) Then
-            WriteStdOut "fcsh is stopped"
-        End If
-        Err.Clear
-        WriteStdOut vbCrLf
-        WriteStdOut "Build time: " & ms * 100 & " ms" & vbCrLf
-        End
-    End If
-End Sub
-
-Private Sub Controller_Error(ByVal Number As Integer, Description As String, ByVal Scode As Long, ByVal Source As String, ByVal HelpFile As String, ByVal HelpContext As Long, CancelDisplay As Boolean)
-    WriteStdOut Description + vbCrLf + BUILD_FAILED
-    Controller.Close
-    End
-End Sub
 
 '***********************************************************************************************
 'fcsh event handling
 '***********************************************************************************************
 Private Sub fcsh_onError(target As clsTarget)
-    Dim msg As String
-    msg = target.fMessage
+    Dim Msg As String
+    Msg = target.fMessage
     
-    log.xError msg
+    log.xError Msg
     log.Text vbCrLf
-    DisplayBalloon "Flex compiler shell", BUILD_FAILED + ". " + msg, NIIF_ERROR
+    DisplayBalloon "Flex compiler shell", BUILD_FAILED + ". " + Msg, NIIF_ERROR
     
     If ((target.fTargetID = 0) And (targets.Exists(target.fName))) Then
         targets.Remove target.fName
     End If
     
-    sendRemote msg + vbCrLf + BUILD_FAILED
+    sendRemote Msg + vbCrLf + BUILD_FAILED
 End Sub
 
 'on command success
@@ -352,23 +298,6 @@ End Sub
 
 'start application
 Private Sub Form_Load()
-
-    If (Len(Trim(Command)) > 0) Then
-        Me.Visible = False
-        config.Load
-        Dim result As Long
-        result = WriteStdOut("fcsh remote compiler " & app.Revision & vbCrLf)
-        If (result <> 0) Then
-            MsgBox "Relink executable to support stdOut"
-            End
-        End If
-        Timer1.Enabled = True
-        Controller.RemotePort = config.SERVER_PORT
-        Controller.LocalPort = 0
-        Controller.Connect
-    Else
-        Me.Visible = True
-    
         'set up logging
         log.clsLog rtbLog
 
@@ -395,7 +324,6 @@ Private Sub Form_Load()
         
         'load configured apps
         loadApps
-    End If
 End Sub
 
 Public Sub loadApps()
@@ -538,15 +466,13 @@ Private Sub remoteExec(arg As String)
     End If
 End Sub
 
-Private Sub sendRemote(msg As String)
+Private Sub sendRemote(Msg As String)
    If (isRemote) Then
-       Service.SendData msg
+       Service.SendData Msg
    End If
 End Sub
 
-Private Sub Timer1_Timer()
-    ms = ms + 1
-End Sub
+
 
 '***********************************************************************************************
 'toolbar
