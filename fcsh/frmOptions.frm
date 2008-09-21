@@ -95,7 +95,7 @@ Begin VB.Form frmOptions
             Width           =   3495
          End
          Begin VB.Label Label5 
-            Caption         =   "Aplication properties"
+            Caption         =   "Application properties"
             ForeColor       =   &H00C00000&
             Height          =   255
             Left            =   120
