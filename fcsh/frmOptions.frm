@@ -30,68 +30,69 @@ Begin VB.Form frmOptions
          Top             =   120
          Width           =   6135
          Begin VB.TextBox txtTarget 
+            Enabled         =   0   'False
             Height          =   285
             Index           =   0
-            Left            =   2160
+            Left            =   2520
             TabIndex        =   37
             Top             =   480
-            Width           =   3855
+            Width           =   3495
          End
          Begin VB.TextBox txtTarget 
             Height          =   285
             Index           =   7
-            Left            =   2160
+            Left            =   2520
             TabIndex        =   36
             Top             =   3000
-            Width           =   3855
+            Width           =   3495
          End
          Begin VB.TextBox txtTarget 
             Height          =   285
             Index           =   3
-            Left            =   2160
+            Left            =   2520
             TabIndex        =   34
             Top             =   1560
-            Width           =   3855
+            Width           =   3495
          End
          Begin VB.TextBox txtTarget 
             Height          =   285
             Index           =   6
-            Left            =   2160
+            Left            =   2520
             TabIndex        =   33
             Top             =   2640
-            Width           =   3855
+            Width           =   3495
          End
          Begin VB.TextBox txtTarget 
             Height          =   285
             Index           =   5
-            Left            =   2160
+            Left            =   2520
             TabIndex        =   32
             Top             =   2280
-            Width           =   3855
+            Width           =   3495
          End
          Begin VB.TextBox txtTarget 
             Height          =   285
             Index           =   4
-            Left            =   2160
+            Left            =   2520
             TabIndex        =   31
             Top             =   1920
-            Width           =   3855
+            Width           =   3495
          End
          Begin VB.TextBox txtTarget 
             Height          =   285
             Index           =   2
-            Left            =   2160
+            Left            =   2520
             TabIndex        =   30
             Top             =   1200
-            Width           =   3855
+            Width           =   3495
          End
          Begin VB.TextBox txtTarget 
             Height          =   315
             Index           =   1
-            Left            =   2160
+            Left            =   2520
             TabIndex        =   29
             Top             =   825
-            Width           =   3855
+            Width           =   3495
          End
          Begin VB.Label Label5 
             Caption         =   "Aplication properties"
@@ -104,13 +105,13 @@ Begin VB.Form frmOptions
          End
          Begin VB.Label lblApp 
             Alignment       =   1  'Right Justify
-            Caption         =   "Include libraries"
+            Caption         =   "Include libraries (separated by ;)"
             Height          =   255
             Index           =   7
             Left            =   120
             TabIndex        =   28
             Top             =   1560
-            Width           =   1935
+            Width           =   2295
          End
          Begin VB.Label lblApp 
             Alignment       =   1  'Right Justify
@@ -120,7 +121,7 @@ Begin VB.Form frmOptions
             Left            =   120
             TabIndex        =   27
             Top             =   3000
-            Width           =   1935
+            Width           =   2295
          End
          Begin VB.Label lblApp 
             Alignment       =   1  'Right Justify
@@ -130,7 +131,7 @@ Begin VB.Form frmOptions
             Left            =   120
             TabIndex        =   26
             Top             =   2640
-            Width           =   1935
+            Width           =   2295
          End
          Begin VB.Label lblApp 
             Alignment       =   1  'Right Justify
@@ -140,7 +141,7 @@ Begin VB.Form frmOptions
             Left            =   120
             TabIndex        =   25
             Top             =   2280
-            Width           =   1935
+            Width           =   2295
          End
          Begin VB.Label lblApp 
             Alignment       =   1  'Right Justify
@@ -150,7 +151,7 @@ Begin VB.Form frmOptions
             Left            =   120
             TabIndex        =   24
             Top             =   1920
-            Width           =   1935
+            Width           =   2295
          End
          Begin VB.Label lblApp 
             Alignment       =   1  'Right Justify
@@ -160,7 +161,7 @@ Begin VB.Form frmOptions
             Left            =   120
             TabIndex        =   23
             Top             =   1200
-            Width           =   1935
+            Width           =   2295
          End
          Begin VB.Label lblApp 
             Alignment       =   1  'Right Justify
@@ -170,7 +171,7 @@ Begin VB.Form frmOptions
             Left            =   120
             TabIndex        =   22
             Top             =   840
-            Width           =   1935
+            Width           =   2295
          End
          Begin VB.Label lblApp 
             Alignment       =   1  'Right Justify
@@ -180,7 +181,7 @@ Begin VB.Form frmOptions
             Left            =   120
             TabIndex        =   21
             Top             =   480
-            Width           =   1935
+            Width           =   2295
          End
       End
       Begin MSComctlLib.Toolbar AppToolbar 
