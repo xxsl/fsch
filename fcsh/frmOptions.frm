@@ -30,6 +30,22 @@ Begin VB.Form frmOptions
       TabIndex        =   21
       Top             =   2160
       Width           =   8295
+      Begin VB.CommandButton cmdRemove 
+         Caption         =   "Remove"
+         Height          =   375
+         Left            =   1080
+         TabIndex        =   47
+         Top             =   3120
+         Width           =   855
+      End
+      Begin VB.CommandButton cmdAdd 
+         Caption         =   "Add"
+         Height          =   375
+         Left            =   120
+         TabIndex        =   46
+         Top             =   3120
+         Width           =   855
+      End
       Begin VB.PictureBox picAppFrame 
          Appearance      =   0  'Flat
          Enabled         =   0   'False
@@ -38,7 +54,7 @@ Begin VB.Form frmOptions
          Left            =   2040
          ScaleHeight     =   3345
          ScaleWidth      =   6105
-         TabIndex        =   24
+         TabIndex        =   23
          Top             =   120
          Width           =   6135
          Begin VB.ComboBox cmbCommand 
@@ -46,7 +62,7 @@ Begin VB.Form frmOptions
             ItemData        =   "frmOptions.frx":1CFA
             Left            =   2400
             List            =   "frmOptions.frx":1D04
-            TabIndex        =   46
+            TabIndex        =   45
             Top             =   320
             Width           =   3495
          End
@@ -55,7 +71,7 @@ Begin VB.Form frmOptions
             ItemData        =   "frmOptions.frx":1D16
             Left            =   2400
             List            =   "frmOptions.frx":1D20
-            TabIndex        =   45
+            TabIndex        =   44
             Top             =   2880
             Width           =   3495
          End
@@ -63,7 +79,7 @@ Begin VB.Form frmOptions
             Caption         =   "+"
             Height          =   285
             Left            =   5520
-            TabIndex        =   44
+            TabIndex        =   43
             Top             =   1440
             Width           =   375
          End
@@ -71,7 +87,7 @@ Begin VB.Form frmOptions
             Caption         =   "..."
             Height          =   285
             Left            =   5520
-            TabIndex        =   43
+            TabIndex        =   42
             Top             =   1800
             Width           =   375
          End
@@ -79,7 +95,7 @@ Begin VB.Form frmOptions
             Caption         =   "..."
             Height          =   285
             Left            =   5520
-            TabIndex        =   42
+            TabIndex        =   41
             Top             =   2160
             Width           =   375
          End
@@ -87,7 +103,7 @@ Begin VB.Form frmOptions
             Caption         =   "..."
             Height          =   285
             Left            =   5520
-            TabIndex        =   41
+            TabIndex        =   40
             Top             =   1080
             Width           =   375
          End
@@ -95,7 +111,7 @@ Begin VB.Form frmOptions
             Height          =   315
             Index           =   1
             Left            =   2400
-            TabIndex        =   32
+            TabIndex        =   31
             Top             =   705
             Width           =   3495
          End
@@ -103,7 +119,7 @@ Begin VB.Form frmOptions
             Height          =   285
             Index           =   2
             Left            =   2400
-            TabIndex        =   31
+            TabIndex        =   30
             Top             =   1080
             Width           =   3015
          End
@@ -111,7 +127,7 @@ Begin VB.Form frmOptions
             Height          =   285
             Index           =   4
             Left            =   2400
-            TabIndex        =   30
+            TabIndex        =   29
             Top             =   1800
             Width           =   3015
          End
@@ -119,7 +135,7 @@ Begin VB.Form frmOptions
             Height          =   285
             Index           =   5
             Left            =   2400
-            TabIndex        =   29
+            TabIndex        =   28
             Top             =   2160
             Width           =   3015
          End
@@ -127,7 +143,7 @@ Begin VB.Form frmOptions
             Height          =   285
             Index           =   6
             Left            =   2400
-            TabIndex        =   28
+            TabIndex        =   27
             Top             =   2520
             Width           =   3495
          End
@@ -135,7 +151,7 @@ Begin VB.Form frmOptions
             Height          =   285
             Index           =   3
             Left            =   2400
-            TabIndex        =   27
+            TabIndex        =   26
             Top             =   1440
             Width           =   3015
          End
@@ -143,7 +159,7 @@ Begin VB.Form frmOptions
             Height          =   285
             Index           =   0
             Left            =   240
-            TabIndex        =   26
+            TabIndex        =   25
             Top             =   480
             Visible         =   0   'False
             Width           =   615
@@ -154,7 +170,7 @@ Begin VB.Form frmOptions
             Height          =   255
             Index           =   0
             Left            =   0
-            TabIndex        =   40
+            TabIndex        =   39
             Top             =   360
             Width           =   2295
          End
@@ -164,7 +180,7 @@ Begin VB.Form frmOptions
             Height          =   255
             Index           =   1
             Left            =   0
-            TabIndex        =   39
+            TabIndex        =   38
             Top             =   720
             Width           =   2295
          End
@@ -174,7 +190,7 @@ Begin VB.Form frmOptions
             Height          =   255
             Index           =   2
             Left            =   0
-            TabIndex        =   38
+            TabIndex        =   37
             Top             =   1080
             Width           =   2295
          End
@@ -184,7 +200,7 @@ Begin VB.Form frmOptions
             Height          =   255
             Index           =   3
             Left            =   0
-            TabIndex        =   37
+            TabIndex        =   36
             Top             =   1800
             Width           =   2295
          End
@@ -194,7 +210,7 @@ Begin VB.Form frmOptions
             Height          =   255
             Index           =   4
             Left            =   0
-            TabIndex        =   36
+            TabIndex        =   35
             Top             =   2160
             Width           =   2295
          End
@@ -204,7 +220,7 @@ Begin VB.Form frmOptions
             Height          =   255
             Index           =   5
             Left            =   0
-            TabIndex        =   35
+            TabIndex        =   34
             Top             =   2520
             Width           =   2295
          End
@@ -214,7 +230,7 @@ Begin VB.Form frmOptions
             Height          =   255
             Index           =   6
             Left            =   0
-            TabIndex        =   34
+            TabIndex        =   33
             Top             =   2880
             Width           =   2295
          End
@@ -224,7 +240,7 @@ Begin VB.Form frmOptions
             Height          =   255
             Index           =   7
             Left            =   0
-            TabIndex        =   33
+            TabIndex        =   32
             Top             =   1440
             Width           =   2295
          End
@@ -238,7 +254,7 @@ Begin VB.Form frmOptions
             ForeColor       =   &H8000000D&
             Height          =   255
             Left            =   -10
-            TabIndex        =   25
+            TabIndex        =   24
             Top             =   -10
             Width           =   1665
          End
@@ -247,35 +263,9 @@ Begin VB.Form frmOptions
          Appearance      =   0  'Flat
          Height          =   2955
          Left            =   120
-         TabIndex        =   23
-         Top             =   525
-         Width           =   1815
-      End
-      Begin MSComctlLib.Toolbar AppToolbar 
-         Height          =   330
-         Left            =   120
          TabIndex        =   22
          Top             =   120
          Width           =   1815
-         _ExtentX        =   3201
-         _ExtentY        =   582
-         ButtonWidth     =   609
-         ButtonHeight    =   582
-         Appearance      =   1
-         Style           =   1
-         ImageList       =   "toolbarIcons"
-         _Version        =   393216
-         BeginProperty Buttons {66833FE8-8583-11D1-B16A-00C0F0283628} 
-            NumButtons      =   2
-            BeginProperty Button1 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-               Object.ToolTipText     =   "Add aplication"
-               ImageIndex      =   1
-            EndProperty
-            BeginProperty Button2 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-               Object.ToolTipText     =   "Rermove application"
-               ImageIndex      =   2
-            EndProperty
-         EndProperty
       End
       Begin MSComctlLib.ImageList toolbarIcons 
          Left            =   840
@@ -677,6 +667,52 @@ Private Sub cmbDebug_Click()
     End If
 End Sub
 
+
+Private Sub cmdRemove_Click()
+    Dim app As clsTarget
+    Dim index As Long
+    If (lstApps.ListIndex >= 0) Then
+        Dim i As Long
+        Dim name As String
+        name = lstApps.List(lstApps.ListIndex)
+        
+        i = 1
+        For Each app In appsCollection
+            If (app.fName = name) Then
+                appsCollection.Remove i
+            End If
+            i = i + 1
+        Next
+    End If
+    lstApps.Clear
+    For Each app In appsCollection
+       lstApps.AddItem app.fName
+    Next
+    resetControls
+End Sub
+
+
+Private Sub cmdAdd_Click()
+   Dim app As clsTarget
+   Dim newApp As New clsTarget
+   Dim appName As String
+   appName = InputBox("Enter application name", "New application")
+   If (uniqueName(appName)) Then
+       newApp.fCommand = "mxmlc"
+       newApp.fName = appName
+       newApp.fDebug = "false"
+       appsCollection.Add newApp
+   Else
+       MsgBox "This name already exists - " + appName, vbCritical
+   End If
+   
+   lstApps.Clear
+   For Each app In appsCollection
+       lstApps.AddItem app.fName
+   Next
+   resetControls
+End Sub
+
 Private Sub cmdCancel_Click()
     Me.Hide
 End Sub
@@ -748,6 +784,8 @@ Private Sub cmdOutput_Click()
     End If
 End Sub
 
+
+
 Private Sub cmdServices_Click()
     CD1.FileName = ""
     CD1.Filter = "XML document (*.xml)|*.xml"
@@ -778,6 +816,7 @@ Private Sub cmdSave_Click()
     MainForm.loadApps
     Me.Hide
 End Sub
+
 
 
 
