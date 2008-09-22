@@ -36,7 +36,7 @@ Public Function getExecCommand() As String
     Dim result As String
     result = fCommand + " " + fSource + " " + Add(OUTPUT_PATH, fOutput) + _
                 Add(INCLUDE_LIBRARIES, fLibraries) + Add(SERVICES, fServices) + _
-                Add(COMPILE_DEBUG, fDebug)
+                Add(CONTEXT_ROOT, fContext) + Add(COMPILE_DEBUG, fDebug)
     getExecCommand = result
 End Function
 
