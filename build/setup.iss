@@ -7,7 +7,7 @@
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{F8D67705-8244-4864-A722-7966741FC208}
 AppName=Flex Compiler Shell wrapper
-AppVerName=1.0
+AppVerName=1.1
 AppPublisher=nimrod97@gmail.com
 AppPublisherURL=http://code.google.com/p/fsch/
 AppSupportURL=http://code.google.com/p/fsch/
