@@ -45,23 +45,16 @@ Public Declare Function PathIsDirectory Lib "shlwapi" Alias "PathIsDirectoryA" (
 
 Public Declare Function GetShortPathName Lib "kernel32" Alias "GetShortPathNameA" (ByVal lpszLongPath As String, ByVal lpszShortPath As String, ByVal cchBuffer As Long) As Long
     
-Dim sPattern As String, hFind As Long
+    
+Public Function GetShortName(ByVal fFileName As String) As String
+  Dim bufTxt As String * 261
+  Dim RetLen As Long
 
-
-
-
-Public Function GetShortName(sFile As String) As String
-    Dim sShortFile As String * 67
-    Dim lResult As Long
-
-    'Make a call to the GetShortPathName API
-    lResult = GetShortPathName(sFile, sShortFile, _
-    Len(sShortFile))
-
-    'Trim out unused characters from the string.
-    GetShortName = Left$(sShortFile, lResult)
-
+  RetLen = GetShortPathName(fFileName, bufTxt, 260)
+  GetShortName = Left$(bufTxt, RetLen)
 End Function
+    
+
 
 Public Function OemToCharS(sOutput As String)
    Dim outputstr As String
@@ -80,32 +73,6 @@ Public Function ToOEM(sourcestring As String)
 End Function
 
 
-Function EnumWinProc(ByVal hwnd As Long, ByVal lParam As Long) As Long
-  Dim k As Long, sName As String
-  hFind = 0
-  'IsWindowVisible(hwnd) And
-  If GetParent(hwnd) = 0 Then
-     sName = Space$(128)
-     k = GetWindowText(hwnd, sName, 128)
-     If k > 0 Then
-        sName = Left$(sName, k)
-        If lParam = 0 Then sName = UCase(sName)
-        If sName Like sPattern Then
-           hFind = hwnd
-           EnumWinProc = 0
-           Exit Function
-        End If
-     End If
-  End If
-  EnumWinProc = 1
-End Function
-
-Public Function FindWindowWild(sWild As String, Optional bMatchCase As Boolean = True) As Long
-  sPattern = sWild
-  If Not bMatchCase Then sPattern = UCase(sPattern)
-  EnumWindows AddressOf EnumWinProc, bMatchCase
-  FindWindowWild = hFind
-End Function
 
 Public Function WriteStdOut(ByVal Text As String) As Long
     Dim StdOut As Long
