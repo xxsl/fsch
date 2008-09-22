@@ -27,23 +27,23 @@ Begin VB.Form MainForm
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
          NumListImages   =   5
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Main.frx":1CFA
+            Picture         =   "Main.frx":058A
             Key             =   ""
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Main.frx":204C
+            Picture         =   "Main.frx":08DC
             Key             =   ""
          EndProperty
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Main.frx":239E
+            Picture         =   "Main.frx":0C2E
             Key             =   ""
          EndProperty
          BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Main.frx":26F0
+            Picture         =   "Main.frx":0F80
             Key             =   ""
          EndProperty
          BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Main.frx":2A42
+            Picture         =   "Main.frx":12D2
             Key             =   ""
          EndProperty
       EndProperty
@@ -61,23 +61,23 @@ Begin VB.Form MainForm
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
          NumListImages   =   5
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Main.frx":2E14
+            Picture         =   "Main.frx":16A4
             Key             =   ""
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Main.frx":3166
+            Picture         =   "Main.frx":19F6
             Key             =   ""
          EndProperty
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Main.frx":34B8
+            Picture         =   "Main.frx":1D48
             Key             =   ""
          EndProperty
          BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Main.frx":380A
+            Picture         =   "Main.frx":209A
             Key             =   ""
          EndProperty
          BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Main.frx":3B5C
+            Picture         =   "Main.frx":23EC
             Key             =   ""
          EndProperty
       EndProperty
@@ -158,10 +158,11 @@ Begin VB.Form MainForm
       _Version        =   393217
       BackColor       =   -2147483633
       BorderStyle     =   0
+      Enabled         =   -1  'True
       ScrollBars      =   3
       Appearance      =   0
       AutoVerbMenu    =   -1  'True
-      TextRTF         =   $"Main.frx":3F2E
+      TextRTF         =   $"Main.frx":27BE
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Courier"
          Size            =   9.75
@@ -482,7 +483,7 @@ End Sub
 '***********************************************************************************************
 'click
 Private Sub Toolbar_ButtonClick(ByVal Button As MSComctlLib.Button)
-    Select Case Button.Index
+    Select Case Button.index
         Case 1:
                 If (Not fcsh.isRunning) Then
                     fcsh.Start
@@ -510,14 +511,14 @@ Private Sub Toolbar_ButtonClick(ByVal Button As MSComctlLib.Button)
 End Sub
 
 Private Sub Toolbar_ButtonMenuClick(ByVal ButtonMenu As MSComctlLib.ButtonMenu)
-    Dim Index As Long
-    Index = Val(ButtonMenu.key)
-    build Index
+    Dim index As Long
+    index = Val(ButtonMenu.key)
+    build index
 End Sub
 
-Private Sub build(Index As Long)
+Private Sub build(index As Long)
     Dim app As clsTarget
-    Set app = config.LoadApplication(Index)
+    Set app = config.LoadApplication(index)
         
     If (fcsh.isRunning) Then
         If (targets.Exists(app.fName)) Then
