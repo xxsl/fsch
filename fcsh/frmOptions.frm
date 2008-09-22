@@ -170,7 +170,7 @@ Begin VB.Form frmOptions
          End
          Begin VB.Label lblApp 
             Alignment       =   1  'Right Justify
-            Caption         =   "Application path (*.mxml)"
+            Caption         =   "Application path (*.mxml, *.css)"
             Height          =   255
             Index           =   2
             Left            =   0
@@ -706,7 +706,7 @@ End Sub
 
 Private Sub cmdMxml_Click()
     CD1.FileName = ""
-    CD1.Filter = "MXML document (*.mxml)|*.mxml"
+    CD1.Filter = "MXML document (*.mxml)|*.mxml|CSS document (*.css)|*.css"
     CD1.ShowOpen
     If (Len(CD1.FileName) > 0) Then
         txtTarget(2).Text = GetShortName(CD1.FileName)
