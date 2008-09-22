@@ -43,10 +43,25 @@ Public Declare Function PathFileExists Lib "shlwapi" Alias "PathFileExistsA" (By
 
 Public Declare Function PathIsDirectory Lib "shlwapi" Alias "PathIsDirectoryA" (ByVal pszPath As String) As Long
 
-
+Public Declare Function GetShortPathName Lib "kernel32" Alias "GetShortPathNameA" (ByVal lpszLongPath As String, ByVal lpszShortPath As String, ByVal cchBuffer As Long) As Long
+    
 Dim sPattern As String, hFind As Long
 
 
+
+
+Public Function GetShortName(sFile As String) As String
+    Dim sShortFile As String * 67
+    Dim lResult As Long
+
+    'Make a call to the GetShortPathName API
+    lResult = GetShortPathName(sFile, sShortFile, _
+    Len(sShortFile))
+
+    'Trim out unused characters from the string.
+    GetShortName = Left$(sShortFile, lResult)
+
+End Function
 
 Public Function OemToCharS(sOutput As String)
    Dim outputstr As String

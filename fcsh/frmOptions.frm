@@ -695,9 +695,9 @@ Private Sub cmdLib_Click()
     CD1.ShowOpen
     If (Len(CD1.FileName) > 0) Then
         If (Len(Trim(txtTarget(3).Text)) = 0) Then
-            txtTarget(3).Text = CD1.FileName
+            txtTarget(3).Text = GetShortName(CD1.FileName)
         Else
-            txtTarget(3).Text = txtTarget(3).Text + ";" + CD1.FileName
+            txtTarget(3).Text = txtTarget(3).Text + ";" + GetShortName(CD1.FileName)
         End If
     End If
 End Sub
@@ -707,7 +707,7 @@ Private Sub cmdMxml_Click()
     CD1.Filter = "MXML document (*.mxml)|*.mxml"
     CD1.ShowOpen
     If (Len(CD1.FileName) > 0) Then
-        txtTarget(2).Text = CD1.FileName
+        txtTarget(2).Text = GetShortName(CD1.FileName)
     End If
 End Sub
 
@@ -739,10 +739,10 @@ Private Sub cmdOutput_Click()
     End If
     
     If (Len(Trim(sBuffer)) = 3) Then
-        txtTarget(4).Text = sBuffer + txtTarget(1).Text + ext
+        txtTarget(4).Text = GetShortName(sBuffer) + txtTarget(1).Text + ext
     End If
     If (Len(Trim(sBuffer)) > 3) Then
-        txtTarget(4).Text = sBuffer + "\" + txtTarget(1).Text + ext
+        txtTarget(4).Text = GetShortName(sBuffer) + "\" + txtTarget(1).Text + ext
     End If
 End Sub
 
@@ -751,7 +751,7 @@ Private Sub cmdServices_Click()
     CD1.Filter = "XML document (*.xml)|*.xml"
     CD1.ShowOpen
     If (Len(CD1.FileName) > 0) Then
-        txtTarget(5).Text = CD1.FileName
+        txtTarget(5).Text = GetShortName(CD1.FileName)
     End If
 End Sub
 
