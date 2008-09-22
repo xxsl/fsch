@@ -70,7 +70,7 @@ Public Sub output(Text As String)
     logger.SelLength = Len(Text)
     logger.SelColor = color
     logger.SelStart = Len(logger.Text)
-    Write #1, Text
+    Print #1, Text
 End Sub
 
  
