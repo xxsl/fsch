@@ -59,18 +59,18 @@ Begin VB.Form frmOptions
          Width           =   6135
          Begin VB.ComboBox cmbCommand 
             Height          =   315
-            ItemData        =   "frmOptions.frx":1CFA
+            ItemData        =   "frmOptions.frx":058A
             Left            =   2400
-            List            =   "frmOptions.frx":1D04
+            List            =   "frmOptions.frx":0594
             TabIndex        =   45
             Top             =   320
             Width           =   3495
          End
          Begin VB.ComboBox cmbDebug 
             Height          =   315
-            ItemData        =   "frmOptions.frx":1D16
+            ItemData        =   "frmOptions.frx":05A6
             Left            =   2400
-            List            =   "frmOptions.frx":1D20
+            List            =   "frmOptions.frx":05B0
             TabIndex        =   44
             Top             =   2880
             Width           =   3495
@@ -280,15 +280,15 @@ Begin VB.Form frmOptions
          BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
             NumListImages   =   3
             BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-               Picture         =   "frmOptions.frx":1D31
+               Picture         =   "frmOptions.frx":05C1
                Key             =   ""
             EndProperty
             BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-               Picture         =   "frmOptions.frx":2083
+               Picture         =   "frmOptions.frx":0913
                Key             =   ""
             EndProperty
             BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-               Picture         =   "frmOptions.frx":23D5
+               Picture         =   "frmOptions.frx":0C65
                Key             =   ""
             EndProperty
          EndProperty
@@ -354,7 +354,7 @@ Begin VB.Form frmOptions
          _Version        =   327681
          Value           =   44000
          BuddyControl    =   "UpDown1"
-         BuddyDispid     =   196641
+         BuddyDispid     =   196642
          OrigLeft        =   2760
          OrigTop         =   360
          OrigRight       =   3015
