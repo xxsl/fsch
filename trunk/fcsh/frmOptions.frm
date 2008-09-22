@@ -30,8 +30,9 @@ Begin VB.Form frmOptions
       TabIndex        =   21
       Top             =   2160
       Width           =   8295
-      Begin VB.PictureBox Picture3 
+      Begin VB.PictureBox picAppFrame 
          Appearance      =   0  'Flat
+         Enabled         =   0   'False
          ForeColor       =   &H80000008&
          Height          =   3375
          Left            =   2040
@@ -363,7 +364,7 @@ Begin VB.Form frmOptions
          _Version        =   327681
          Value           =   44000
          BuddyControl    =   "UpDown1"
-         BuddyDispid     =   196640
+         BuddyDispid     =   196641
          OrigLeft        =   2760
          OrigTop         =   360
          OrigRight       =   3015
@@ -572,6 +573,7 @@ Public Sub loadPrefs(ByRef cfg As clsConfiguration, ByRef logger As clsLog)
     Set config = cfg
     Set appsCollection = New Collection
     lstApps.Clear
+    picAppFrame.Enabled = False
     resetControls
     
     txtPort.Text = config.SERVER_PORT
@@ -784,6 +786,7 @@ Private Sub lstApps_Click()
     isLoading = True
     Dim index As Long
     If (lstApps.ListIndex >= 0) Then
+        picAppFrame.Enabled = True
         index = lstApps.ListIndex + 1
         If (LCase(appsCollection.Item(index).fCommand) = "mxmlc") Then
             cmbCommand.ListIndex = 0
@@ -801,6 +804,8 @@ Private Sub lstApps_Click()
         Else
             cmbDebug.ListIndex = 1
         End If
+    Else
+        picAppFrame.Enabled = False
     End If
     isLoading = False
 End Sub
@@ -829,4 +834,5 @@ Private Sub resetControls()
     Next i
     cmbDebug.Text = ""
     cmbCommand.Text = ""
+    picAppFrame.Enabled = False
 End Sub
