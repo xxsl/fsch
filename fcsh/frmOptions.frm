@@ -640,6 +640,8 @@ Private Function uniqueName(name As String) As Boolean
     
     isResult = True
     
+    isResult = (Len(Trim(name)) > 0)
+    
     For Each app In appsCollection
         If (LCase(name) = LCase(app.fName)) Then
             isResult = False
