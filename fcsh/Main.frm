@@ -240,6 +240,11 @@ Attribute VB_Exposed = False
 
 Option Explicit
 
+Private Const BUILD_BUTTON As Long = 2
+Private Const RUN_BUTTON As Long = 1
+Private Const BUILD_FAILED As String = "Build failed"
+Private Const BUILD_SUCESSFULL As String = "Build successfull"
+
 Private log As New clsLog
 Public config As New clsConfiguration
 Dim WithEvents fcsh As clsFCSH
@@ -252,12 +257,9 @@ Private isRemote As Boolean
 Private isServerBusy As Boolean
 Private responce As String
 
+Private lastState As Long
 
 
-Const BUILD_BUTTON As Long = 2
-Const RUN_BUTTON As Long = 1
-Const BUILD_FAILED As String = "Build failed"
-Const BUILD_SUCESSFULL As String = "Build successfull"
 
 
 '***********************************************************************************************
@@ -353,6 +355,7 @@ Private Sub Form_Load()
         
         'load configured apps
         loadApps
+        
 End Sub
 
 Public Sub loadApps()
@@ -587,10 +590,11 @@ Private Sub fakeTray_MouseMove(Button As Integer, Shift As Integer, X As Single,
             log.xDebug "Left Up"
             If (Me.Visible) Then
                 Me.Visible = False
+                lastState = Me.WindowState
                 Me.WindowState = vbMinimized
             Else
                 Me.Visible = True
-                Me.WindowState = vbNormal
+                Me.WindowState = lastState
             End If
         Case LeftDown
             log.xDebug "Left Down"
