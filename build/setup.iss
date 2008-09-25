@@ -21,8 +21,11 @@ InfoAfterFile=
 OutputDir=/setup
 OutputBaseFilename=fcsh-setup-1.1
 SetupIconFile=Adobe-Flex-CS3.ico
-Compression=lzma
+Compression=lzma/ultra
 SolidCompression=yes
+VersionInfoVersion=1.1.0.0
+VersionInfoCopyright=nimrod97@gmail.com
+
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
