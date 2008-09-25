@@ -116,7 +116,7 @@ Private Sub fcsh_ProcessEnded()
 End Sub
 
 'write to fcsh stdIn
-Public Sub exec(target As clsTarget)
+Public Sub exec(target As clsTarget, Optional incremental As Boolean = True)
     Set currentTarget = target
     
     outputParser.Begin
@@ -127,8 +127,13 @@ Public Sub exec(target As clsTarget)
             log.xExec currentTarget.getExecCommand
             fcsh.Write ToOEM(currentTarget.getExecCommand) + vbCrLf
         Else
-            log.xExec currentTarget.getExecRecompile
-            fcsh.Write ToOEM(currentTarget.getExecRecompile) + vbCrLf
+            If (incremental) Then
+                log.xExec currentTarget.getExecRecompile
+                fcsh.Write ToOEM(currentTarget.getExecRecompile) + vbCrLf
+            Else
+                log.xExec currentTarget.getExecCommand
+                fcsh.Write ToOEM(currentTarget.getExecCommand) + vbCrLf
+            End If
         End If
     Else
         log.xError "Cant exec: fcsh stopped" + vbCrLf

@@ -25,7 +25,7 @@ Begin VB.Form MainForm
       MaskColor       =   16711935
       _Version        =   393216
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
-         NumListImages   =   6
+         NumListImages   =   7
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
             Picture         =   "Main.frx":058A
             Key             =   ""
@@ -50,6 +50,10 @@ Begin VB.Form MainForm
             Picture         =   "Main.frx":16A4
             Key             =   ""
          EndProperty
+         BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "Main.frx":19F6
+            Key             =   ""
+         EndProperty
       EndProperty
    End
    Begin MSComctlLib.ImageList enabledIcons 
@@ -63,29 +67,33 @@ Begin VB.Form MainForm
       MaskColor       =   16711935
       _Version        =   393216
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
-         NumListImages   =   6
+         NumListImages   =   7
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Main.frx":19F6
-            Key             =   ""
-         EndProperty
-         BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
             Picture         =   "Main.frx":1D48
             Key             =   ""
          EndProperty
-         BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+         BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
             Picture         =   "Main.frx":209A
             Key             =   ""
          EndProperty
-         BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+         BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
             Picture         =   "Main.frx":23EC
             Key             =   ""
          EndProperty
-         BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+         BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
             Picture         =   "Main.frx":273E
             Key             =   ""
          EndProperty
+         BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "Main.frx":2A90
+            Key             =   ""
+         EndProperty
          BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Main.frx":2B10
+            Picture         =   "Main.frx":2E62
+            Key             =   ""
+         EndProperty
+         BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "Main.frx":31B4
             Key             =   ""
          EndProperty
       EndProperty
@@ -141,6 +149,7 @@ Begin VB.Form MainForm
          EndProperty
          BeginProperty Button3 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Object.ToolTipText     =   "Incremental build"
+            ImageIndex      =   7
             Style           =   1
             Value           =   1
          EndProperty
@@ -175,11 +184,10 @@ Begin VB.Form MainForm
       _Version        =   393217
       BackColor       =   -2147483633
       BorderStyle     =   0
-      Enabled         =   -1  'True
       ScrollBars      =   3
       Appearance      =   0
       AutoVerbMenu    =   -1  'True
-      TextRTF         =   $"Main.frx":2E62
+      TextRTF         =   $"Main.frx":3506
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Courier"
          Size            =   9.75
@@ -518,7 +526,7 @@ Private Sub Toolbar_ButtonClick(ByVal Button As MSComctlLib.Button)
                     log.Text vbCrLf
                     Exit Sub
                 End If
-                fcsh.exec lastTarget
+                fcsh.exec lastTarget, (Toolbar.Buttons(3).value = tbrPressed)
         Case 4:
                 If ((lastTarget Is Nothing)) Then
                     log.xError "No targets were assigned yet. Nothing to recompile."
@@ -553,7 +561,7 @@ Private Sub build(index As Long)
     If (fcsh.isRunning) Then
         If (targets.Exists(app.fName)) Then
             Set lastTarget = targets.item(app.fName)
-            fcsh.exec lastTarget
+            fcsh.exec lastTarget, (Toolbar.Buttons(3).value = tbrPressed)
         Else
             Set lastTarget = app
             targets.Add app.fName, app
@@ -577,7 +585,13 @@ Private Sub fakeTray_MouseMove(Button As Integer, Shift As Integer, X As Single,
             Debug.Print "MouseMove"
         Case LeftUp
             log.xDebug "Left Up"
-            Me.Visible = Not Me.Visible
+            If (Me.Visible) Then
+                Me.Visible = False
+                Me.WindowState = vbMinimized
+            Else
+                Me.Visible = True
+                Me.WindowState = vbNormal
+            End If
         Case LeftDown
             log.xDebug "Left Down"
         Case LeftDbClick
