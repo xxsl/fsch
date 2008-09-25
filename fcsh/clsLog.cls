@@ -27,7 +27,7 @@ Private config As clsConfiguration
 Public Sub clsLog(ByRef log As RichTextBox, cfg As clsConfiguration)
     Set logger = log
     Set config = cfg
-    color = vbBlue
+    color = RGB(0, 126, 255)
 End Sub
 
 Public Sub xDebug(ByVal Msg As String)

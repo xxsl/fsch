@@ -184,12 +184,13 @@ Begin VB.Form MainForm
       _Version        =   393217
       BackColor       =   -2147483633
       BorderStyle     =   0
+      Enabled         =   -1  'True
       ScrollBars      =   3
       Appearance      =   0
       AutoVerbMenu    =   -1  'True
       TextRTF         =   $"Main.frx":3506
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-         Name            =   "Courier"
+         Name            =   "Courier New"
          Size            =   9.75
          Charset         =   204
          Weight          =   400
@@ -355,7 +356,6 @@ Private Sub Form_Load()
         
         'load configured apps
         loadApps
-        
 End Sub
 
 Public Sub loadApps()
