@@ -75,6 +75,7 @@ Public Function LoadApplication(index As Long) As clsTarget
     target.fServices = prefs.GetValue(num, "services", "")
     target.fContext = prefs.GetValue(num, "context", "")
     target.fLibraries = prefs.GetValue(num, "libraries", "")
+    'target.fOther = prefs.GetValue(num, "other", "")
     Set LoadApplication = target
 End Function
 
@@ -90,6 +91,7 @@ Public Sub saveApplication(index As Long, ByRef target As clsTarget)
     prefs.WriteValue num, "services", target.fServices
     prefs.WriteValue num, "context", target.fContext
     prefs.WriteValue num, "libraries", target.fLibraries
+    'prefs.WriteValue num, "other", target.fOther
 End Sub
 
 

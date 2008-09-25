@@ -6,10 +6,10 @@ Begin VB.Form frmOptions
    AutoRedraw      =   -1  'True
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Options"
-   ClientHeight    =   6330
+   ClientHeight    =   6675
    ClientLeft      =   2565
    ClientTop       =   1500
-   ClientWidth     =   8520
+   ClientWidth     =   10260
    FillColor       =   &H00FFFF80&
    ForeColor       =   &H8000000D&
    Icon            =   "frmOptions.frx":0000
@@ -17,25 +17,26 @@ Begin VB.Form frmOptions
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   6330
-   ScaleWidth      =   8520
+   ScaleHeight     =   6675
+   ScaleWidth      =   10260
    StartUpPosition =   1  'CenterOwner
    Begin VB.PictureBox Picture2 
       Appearance      =   0  'Flat
       ForeColor       =   &H80000008&
-      Height          =   3615
+      Height          =   3975
       Left            =   120
-      ScaleHeight     =   3585
-      ScaleWidth      =   8265
+      ScaleHeight     =   3945
+      ScaleWidth      =   10065
       TabIndex        =   21
       Top             =   2160
-      Width           =   8295
+      Width           =   10095
       Begin VB.CommandButton cmdRemove 
          Caption         =   "Remove"
          Height          =   375
          Left            =   1080
          TabIndex        =   47
-         Top             =   3120
+         ToolTipText     =   "Remove application"
+         Top             =   3480
          Width           =   855
       End
       Begin VB.CommandButton cmdAdd 
@@ -43,67 +44,120 @@ Begin VB.Form frmOptions
          Height          =   375
          Left            =   120
          TabIndex        =   46
-         Top             =   3120
+         ToolTipText     =   "Add application"
+         Top             =   3480
          Width           =   855
       End
       Begin VB.PictureBox picAppFrame 
          Appearance      =   0  'Flat
          Enabled         =   0   'False
          ForeColor       =   &H80000008&
-         Height          =   3375
+         Height          =   3735
          Left            =   2040
-         ScaleHeight     =   3345
-         ScaleWidth      =   6105
+         ScaleHeight     =   3705
+         ScaleWidth      =   7905
          TabIndex        =   23
          Top             =   120
-         Width           =   6135
+         Width           =   7935
+         Begin VB.CommandButton cmdRemoveOther 
+            Caption         =   "-"
+            Height          =   285
+            Left            =   7440
+            TabIndex        =   53
+            ToolTipText     =   "remove option"
+            Top             =   3250
+            Visible         =   0   'False
+            Width           =   375
+         End
+         Begin VB.CommandButton cmdOther 
+            Caption         =   "+"
+            Height          =   285
+            Left            =   6960
+            TabIndex        =   52
+            ToolTipText     =   "Add option"
+            Top             =   3250
+            Visible         =   0   'False
+            Width           =   375
+         End
+         Begin VB.ComboBox cmbOptions 
+            Height          =   315
+            Left            =   2400
+            Style           =   2  'Dropdown List
+            TabIndex        =   51
+            Top             =   3250
+            Visible         =   0   'False
+            Width           =   4455
+         End
+         Begin VB.CommandButton cmdRemoveLib 
+            Caption         =   "-"
+            Height          =   285
+            Left            =   7440
+            TabIndex        =   49
+            ToolTipText     =   "Remove library"
+            Top             =   1440
+            Width           =   375
+         End
+         Begin VB.ComboBox cmbLibs 
+            Height          =   315
+            Left            =   2400
+            Style           =   2  'Dropdown List
+            TabIndex        =   48
+            Top             =   1440
+            Width           =   4455
+         End
          Begin VB.ComboBox cmbCommand 
             Height          =   315
             ItemData        =   "frmOptions.frx":058A
             Left            =   2400
-            List            =   "frmOptions.frx":0594
+            List            =   "frmOptions.frx":058C
+            Style           =   2  'Dropdown List
             TabIndex        =   45
-            Top             =   320
-            Width           =   3495
+            Top             =   315
+            Width           =   5415
          End
          Begin VB.ComboBox cmbDebug 
             Height          =   315
-            ItemData        =   "frmOptions.frx":05A6
+            ItemData        =   "frmOptions.frx":058E
             Left            =   2400
-            List            =   "frmOptions.frx":05B0
+            List            =   "frmOptions.frx":0590
+            Style           =   2  'Dropdown List
             TabIndex        =   44
             Top             =   2880
-            Width           =   3495
+            Width           =   5415
          End
          Begin VB.CommandButton cmdLib 
             Caption         =   "+"
             Height          =   285
-            Left            =   5520
+            Left            =   6960
             TabIndex        =   43
+            ToolTipText     =   "Add library"
             Top             =   1440
             Width           =   375
          End
          Begin VB.CommandButton cmdOutput 
             Caption         =   "..."
             Height          =   285
-            Left            =   5520
+            Left            =   7440
             TabIndex        =   42
+            ToolTipText     =   "Select folder"
             Top             =   1800
             Width           =   375
          End
          Begin VB.CommandButton cmdServices 
             Caption         =   "..."
             Height          =   285
-            Left            =   5520
+            Left            =   7440
             TabIndex        =   41
+            ToolTipText     =   "Select file"
             Top             =   2160
             Width           =   375
          End
          Begin VB.CommandButton cmdMxml 
             Caption         =   "..."
             Height          =   285
-            Left            =   5520
+            Left            =   7440
             TabIndex        =   40
+            ToolTipText     =   "Select Flex application"
             Top             =   1080
             Width           =   375
          End
@@ -113,7 +167,7 @@ Begin VB.Form frmOptions
             Left            =   2400
             TabIndex        =   31
             Top             =   705
-            Width           =   3495
+            Width           =   5415
          End
          Begin VB.TextBox txtTarget 
             Height          =   285
@@ -121,15 +175,15 @@ Begin VB.Form frmOptions
             Left            =   2400
             TabIndex        =   30
             Top             =   1080
-            Width           =   3015
+            Width           =   4935
          End
          Begin VB.TextBox txtTarget 
             Height          =   285
             Index           =   4
             Left            =   2400
             TabIndex        =   29
-            Top             =   1800
-            Width           =   3015
+            Top             =   1820
+            Width           =   4935
          End
          Begin VB.TextBox txtTarget 
             Height          =   285
@@ -137,7 +191,7 @@ Begin VB.Form frmOptions
             Left            =   2400
             TabIndex        =   28
             Top             =   2160
-            Width           =   3015
+            Width           =   4935
          End
          Begin VB.TextBox txtTarget 
             Height          =   285
@@ -145,15 +199,16 @@ Begin VB.Form frmOptions
             Left            =   2400
             TabIndex        =   27
             Top             =   2520
-            Width           =   3495
+            Width           =   4935
          End
          Begin VB.TextBox txtTarget 
             Height          =   285
             Index           =   3
-            Left            =   2400
+            Left            =   240
             TabIndex        =   26
-            Top             =   1440
-            Width           =   3015
+            Top             =   2760
+            Visible         =   0   'False
+            Width           =   735
          End
          Begin VB.TextBox txtTarget 
             Height          =   285
@@ -163,6 +218,16 @@ Begin VB.Form frmOptions
             Top             =   480
             Visible         =   0   'False
             Width           =   615
+         End
+         Begin VB.Label Label8 
+            Alignment       =   1  'Right Justify
+            Caption         =   "Other options"
+            Height          =   255
+            Left            =   120
+            TabIndex        =   50
+            Top             =   3240
+            Visible         =   0   'False
+            Width           =   2175
          End
          Begin VB.Label lblApp 
             Alignment       =   1  'Right Justify
@@ -261,7 +326,7 @@ Begin VB.Form frmOptions
       End
       Begin VB.ListBox lstApps 
          Appearance      =   0  'Flat
-         Height          =   2955
+         Height          =   3345
          Left            =   120
          TabIndex        =   22
          Top             =   120
@@ -280,15 +345,15 @@ Begin VB.Form frmOptions
          BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
             NumListImages   =   3
             BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-               Picture         =   "frmOptions.frx":05C1
+               Picture         =   "frmOptions.frx":0592
                Key             =   ""
             EndProperty
             BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-               Picture         =   "frmOptions.frx":0913
+               Picture         =   "frmOptions.frx":08E4
                Key             =   ""
             EndProperty
             BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-               Picture         =   "frmOptions.frx":0C65
+               Picture         =   "frmOptions.frx":0C36
                Key             =   ""
             EndProperty
          EndProperty
@@ -301,14 +366,14 @@ Begin VB.Form frmOptions
       Height          =   1935
       Left            =   120
       ScaleHeight     =   1905
-      ScaleWidth      =   8265
+      ScaleWidth      =   10065
       TabIndex        =   8
       Top             =   120
-      Width           =   8295
+      Width           =   10095
       Begin VB.CommandButton cmdFcsh 
          Caption         =   "..."
          Height          =   285
-         Left            =   7800
+         Left            =   9600
          TabIndex        =   20
          Top             =   1440
          Width           =   375
@@ -341,7 +406,7 @@ Begin VB.Form frmOptions
          Left            =   1920
          TabIndex        =   9
          Top             =   1440
-         Width           =   5775
+         Width           =   7575
       End
       Begin ComCtl2.UpDown UpDown1 
          Height          =   285
@@ -437,17 +502,17 @@ Begin VB.Form frmOptions
    Begin VB.CommandButton cmdSave 
       Caption         =   "Save"
       Height          =   375
-      Left            =   6120
+      Left            =   7920
       TabIndex        =   7
-      Top             =   5880
+      Top             =   6240
       Width           =   1095
    End
    Begin VB.CommandButton cmdCancel 
       Caption         =   "Cancel"
       Height          =   375
-      Left            =   7320
+      Left            =   9120
       TabIndex        =   6
-      Top             =   5880
+      Top             =   6240
       Width           =   1095
    End
    Begin VB.PictureBox picOptions 
@@ -525,17 +590,6 @@ Attribute VB_Exposed = False
 
 Option Explicit
 
-Private appsCollection As Collection
-
-Private config As clsConfiguration
-Private log As clsLog
-
-Private isLoading As Boolean
-
-Private Const BIF_RETURNONLYFSDIRS = 1
-Private Const BIF_DONTGOBELOWDOMAIN = 2
-Private Const MAX_PATH = 260
-
 Private Declare Function SHBrowseForFolder Lib "shell32" _
                                         (lpbi As BrowseInfo) As Long
 
@@ -556,6 +610,78 @@ Private Type BrowseInfo
          lParam         As Long
          iImage         As Long
 End Type
+
+Private Const BIF_RETURNONLYFSDIRS = 1
+Private Const BIF_DONTGOBELOWDOMAIN = 2
+Private Const MAX_PATH = 260
+
+
+Private appsCollection As Collection
+
+Private config As clsConfiguration
+Private log As clsLog
+
+Private isLoading As Boolean
+
+Private optionDebug As New clsFixedCombo
+Private optionCommand As New clsFixedCombo
+Private optionLibs As New clsStringCombo
+Private optionOther As New clsStringCombo
+
+
+Private Sub cmdOther_Click()
+    Dim other As String
+    other = InputBox("Enter new option e.g. -debug=true", "Add option")
+    
+    If (Len(Trim(other)) > 0) Then
+        optionOther.Add other
+    End If
+
+    Dim target As Long
+    If (lstApps.ListIndex >= 0 And Not isLoading) Then
+        target = lstApps.ListIndex + 1
+        appsCollection.item(target).fOther = optionOther.Property
+    End If
+End Sub
+
+Private Sub cmdRemoveLib_Click()
+    If (cmbLibs.ListIndex >= 0) Then
+        optionLibs.Remove cmbLibs.List(cmbLibs.ListIndex)
+    End If
+    Dim target As Long
+    If (lstApps.ListIndex >= 0 And Not isLoading) Then
+        target = lstApps.ListIndex + 1
+        appsCollection.item(target).fLibraries = optionLibs.Property
+    End If
+End Sub
+
+
+
+Private Sub cmdRemoveOther_Click()
+    If (cmbOptions.ListIndex >= 0) Then
+        optionOther.Remove cmbOptions.List(cmbOptions.ListIndex)
+    End If
+    Dim target As Long
+    If (lstApps.ListIndex >= 0 And Not isLoading) Then
+        target = lstApps.ListIndex + 1
+        appsCollection.item(target).fOther = optionOther.Property
+    End If
+End Sub
+
+Private Sub Form_Load()
+    Dim debugItems(1 To 2) As String
+    debugItems(1) = "false"
+    debugItems(2) = "true"
+    optionDebug.Bind cmbDebug, debugItems
+    
+    Dim commandItems(1 To 2) As String
+    commandItems(1) = "mxmlc"
+    commandItems(2) = "compc"
+    optionCommand.Bind cmbCommand, commandItems
+    
+    optionLibs.Bind cmbLibs, ";"
+    optionOther.Bind cmbOptions, " "
+End Sub
 
 
 Public Sub loadPrefs(ByRef cfg As clsConfiguration, ByRef logger As clsLog)
@@ -657,7 +783,7 @@ Private Sub cmbCommand_Click()
     Dim target As Long
     If (lstApps.ListIndex >= 0 And Not isLoading) Then
         target = lstApps.ListIndex + 1
-        appsCollection.Item(target).fCommand = cmbCommand.Text
+        appsCollection.item(target).fCommand = optionCommand.Property
     End If
 End Sub
 
@@ -665,7 +791,7 @@ Private Sub cmbDebug_Click()
     Dim target As Long
     If (lstApps.ListIndex >= 0 And Not isLoading) Then
         target = lstApps.ListIndex + 1
-        appsCollection.Item(target).fDebug = Str(cmbDebug.ListIndex = 0)
+        appsCollection.item(target).fDebug = optionDebug.Property
     End If
 End Sub
 
@@ -734,11 +860,12 @@ Private Sub cmdLib_Click()
     CD1.Filter = "Flex library (*.swc)|*.swc"
     CD1.ShowOpen
     If (Len(CD1.FileName) > 0) Then
-        If (Len(Trim(txtTarget(3).Text)) = 0) Then
-            txtTarget(3).Text = GetShortName(CD1.FileName)
-        Else
-            txtTarget(3).Text = txtTarget(3).Text + ";" + GetShortName(CD1.FileName)
-        End If
+        optionLibs.Add CD1.FileName
+    End If
+    Dim target As Long
+    If (lstApps.ListIndex >= 0 And Not isLoading) Then
+        target = lstApps.ListIndex + 1
+        appsCollection.item(target).fLibraries = optionLibs.Property
     End If
 End Sub
 
@@ -772,7 +899,7 @@ Private Sub cmdOutput_Click()
     End If
     
     Dim ext As String
-    If (cmbCommand.Text = "mxmlc") Then
+    If (LCase(Trim(cmbCommand.Text)) = "mxmlc") Then
         ext = ".swf"
     Else
         ext = ".swc"
@@ -823,28 +950,22 @@ End Sub
 
 
 
+
+
 Private Sub lstApps_Click()
     isLoading = True
     Dim index As Long
     If (lstApps.ListIndex >= 0) Then
         picAppFrame.Enabled = True
         index = lstApps.ListIndex + 1
-        If (LCase(appsCollection.Item(index).fCommand) = "mxmlc") Then
-            cmbCommand.ListIndex = 0
-        Else
-            cmbCommand.ListIndex = 1
-        End If
-        txtTarget(1).Text = appsCollection.Item(index).fName
-        txtTarget(2).Text = appsCollection.Item(index).fSource
-        txtTarget(3).Text = appsCollection.Item(index).fLibraries
-        txtTarget(4).Text = appsCollection.Item(index).fOutput
-        txtTarget(5).Text = appsCollection.Item(index).fServices
-        txtTarget(6).Text = appsCollection.Item(index).fContext
-        If (LCase(appsCollection.Item(index).fDebug) = "true") Then
-            cmbDebug.ListIndex = 0
-        Else
-            cmbDebug.ListIndex = 1
-        End If
+        optionCommand.Property = appsCollection.item(index).fCommand
+        txtTarget(1).Text = appsCollection.item(index).fName
+        txtTarget(2).Text = appsCollection.item(index).fSource
+        optionLibs.Property = appsCollection.item(index).fLibraries
+        txtTarget(4).Text = appsCollection.item(index).fOutput
+        txtTarget(5).Text = appsCollection.item(index).fServices
+        txtTarget(6).Text = appsCollection.item(index).fContext
+        optionDebug.Property = appsCollection.item(index).fDebug
     Else
         picAppFrame.Enabled = False
     End If
@@ -857,14 +978,14 @@ Private Sub txtTarget_Change(index As Integer)
     Dim target As Long
     If (lstApps.ListIndex >= 0 And Not isLoading) Then
         target = lstApps.ListIndex + 1
-        appsCollection.Item(target).fCommand = cmbCommand.Text
-        appsCollection.Item(target).fName = txtTarget(1).Text
-        appsCollection.Item(target).fSource = txtTarget(2).Text
-        appsCollection.Item(target).fLibraries = txtTarget(3).Text
-        appsCollection.Item(target).fOutput = txtTarget(4).Text
-        appsCollection.Item(target).fServices = txtTarget(5).Text
-        appsCollection.Item(target).fContext = txtTarget(6).Text
-        appsCollection.Item(target).fDebug = Str(cmbDebug.ListIndex = 0)
+        appsCollection.item(target).fCommand = cmbCommand.Text
+        appsCollection.item(target).fName = txtTarget(1).Text
+        appsCollection.item(target).fSource = txtTarget(2).Text
+        appsCollection.item(target).fLibraries = optionLibs.Property
+        appsCollection.item(target).fOutput = txtTarget(4).Text
+        appsCollection.item(target).fServices = txtTarget(5).Text
+        appsCollection.item(target).fContext = txtTarget(6).Text
+        appsCollection.item(target).fDebug = optionDebug.Property
     End If
 End Sub
 
@@ -873,7 +994,9 @@ Private Sub resetControls()
     For i = 0 To txtTarget.Count - 1
         txtTarget(i).Text = ""
     Next i
-    cmbDebug.Text = ""
-    cmbCommand.Text = ""
+    optionDebug.Reset
+    optionCommand.Reset
+    optionLibs.Reset
+    optionOther.Reset
     picAppFrame.Enabled = False
 End Sub
