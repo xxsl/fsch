@@ -30,19 +30,20 @@ Public fContext As String
 Public fServices As String
 Public fTargetID As Long
 Public fMessage As String
+Public fOther As String
 
 
 Public Function getExecCommand() As String
     Dim result As String
     result = fCommand + " " + fSource + " " + Add(OUTPUT_PATH, fOutput) + _
                 Add(INCLUDE_LIBRARIES, fLibraries) + Add(SERVICES, fServices) + _
-                Add(CONTEXT_ROOT, fContext) + Add(COMPILE_DEBUG, fDebug)
+                Add(CONTEXT_ROOT, fContext) + Add(COMPILE_DEBUG, fDebug) + " " + fOther
     getExecCommand = result
 End Function
 
-Private Function Add(property As String, arg As String)
+Private Function Add(Property As String, arg As String)
     If (Len(Trim(arg)) > 0) Then
-        Add = property + arg + " "
+        Add = Property + arg + " "
             Else
         Add = " "
     End If
@@ -53,5 +54,13 @@ Public Function getExecRecompile() As String
         getExecRecompile = "compile " & fTargetID
     Else
         getExecRecompile = ""
+    End If
+End Function
+
+Public Function getExecInfo() As String
+    If (fTargetID > 0) Then
+        getExecInfo = "info " & fTargetID
+    Else
+        getExecInfo = ""
     End If
 End Function

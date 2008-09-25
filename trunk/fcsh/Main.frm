@@ -25,7 +25,7 @@ Begin VB.Form MainForm
       MaskColor       =   16711935
       _Version        =   393216
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
-         NumListImages   =   5
+         NumListImages   =   6
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
             Picture         =   "Main.frx":058A
             Key             =   ""
@@ -46,6 +46,10 @@ Begin VB.Form MainForm
             Picture         =   "Main.frx":12D2
             Key             =   ""
          EndProperty
+         BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "Main.frx":16A4
+            Key             =   ""
+         EndProperty
       EndProperty
    End
    Begin MSComctlLib.ImageList enabledIcons 
@@ -59,25 +63,29 @@ Begin VB.Form MainForm
       MaskColor       =   16711935
       _Version        =   393216
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
-         NumListImages   =   5
+         NumListImages   =   6
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Main.frx":16A4
-            Key             =   ""
-         EndProperty
-         BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
             Picture         =   "Main.frx":19F6
             Key             =   ""
          EndProperty
-         BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+         BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
             Picture         =   "Main.frx":1D48
             Key             =   ""
          EndProperty
-         BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+         BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
             Picture         =   "Main.frx":209A
             Key             =   ""
          EndProperty
-         BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+         BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
             Picture         =   "Main.frx":23EC
+            Key             =   ""
+         EndProperty
+         BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "Main.frx":273E
+            Key             =   ""
+         EndProperty
+         BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "Main.frx":2B10
             Key             =   ""
          EndProperty
       EndProperty
@@ -121,7 +129,7 @@ Begin VB.Form MainForm
       DisabledImageList=   "disabledIcons"
       _Version        =   393216
       BeginProperty Buttons {66833FE8-8583-11D1-B16A-00C0F0283628} 
-         NumButtons      =   6
+         NumButtons      =   8
          BeginProperty Button1 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Object.ToolTipText     =   "Start fcsh"
             ImageIndex      =   1
@@ -132,16 +140,25 @@ Begin VB.Form MainForm
             Style           =   5
          EndProperty
          BeginProperty Button3 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Style           =   3
+            Object.ToolTipText     =   "Incremental build"
+            Style           =   1
+            Value           =   1
          EndProperty
          BeginProperty Button4 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Object.ToolTipText     =   "Options"
-            ImageIndex      =   4
+            Object.ToolTipText     =   "Show target info"
+            ImageIndex      =   6
          EndProperty
          BeginProperty Button5 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Style           =   3
          EndProperty
          BeginProperty Button6 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Object.ToolTipText     =   "Options"
+            ImageIndex      =   4
+         EndProperty
+         BeginProperty Button7 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Style           =   3
+         EndProperty
+         BeginProperty Button8 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Object.ToolTipText     =   "Clear log"
             ImageIndex      =   5
          EndProperty
@@ -162,7 +179,7 @@ Begin VB.Form MainForm
       ScrollBars      =   3
       Appearance      =   0
       AutoVerbMenu    =   -1  'True
-      TextRTF         =   $"Main.frx":27BE
+      TextRTF         =   $"Main.frx":2E62
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Courier"
          Size            =   9.75
@@ -281,8 +298,8 @@ End Sub
 
 'on fcsh.exe start
 Private Sub fcsh_onStart()
-   Toolbar.Buttons.Item(RUN_BUTTON).Image = 2
-   Toolbar.Buttons.Item(RUN_BUTTON).ToolTipText = "Stop fcsh"
+   Toolbar.Buttons.item(RUN_BUTTON).Image = 2
+   Toolbar.Buttons.item(RUN_BUTTON).ToolTipText = "Stop fcsh"
    targets.RemoveAll
    Set lastTarget = Nothing
    DisplayBalloon "Flex compiler shell", "fcsh is started", NIIF_INFO
@@ -290,8 +307,8 @@ End Sub
 
 'on fcsh.exe stop
 Private Sub fcsh_onStop()
-   Toolbar.Buttons.Item(RUN_BUTTON).Image = 1
-   Toolbar.Buttons.Item(RUN_BUTTON).ToolTipText = "Start fcsh"
+   Toolbar.Buttons.item(RUN_BUTTON).Image = 1
+   Toolbar.Buttons.item(RUN_BUTTON).ToolTipText = "Start fcsh"
    targets.RemoveAll
    Set lastTarget = Nothing
    log.Text vbCrLf
@@ -503,9 +520,22 @@ Private Sub Toolbar_ButtonClick(ByVal Button As MSComctlLib.Button)
                 End If
                 fcsh.exec lastTarget
         Case 4:
+                If ((lastTarget Is Nothing)) Then
+                    log.xError "No targets were assigned yet. Nothing to recompile."
+                    log.Text vbCrLf
+                    Exit Sub
+                End If
+                If (lastTarget.fTargetID = 0) Then
+                    log.xError "No targets were assigned yet. Nothing to recompile."
+                    log.Text vbCrLf
+                    Exit Sub
+                End If
+                fcsh.info lastTarget
+                
+        Case 6:
                 frmOptions.loadPrefs config, log
                 frmOptions.Show 1, Me
-        Case 6:
+        Case 8:
                 log.Clear
     End Select
 End Sub
@@ -522,7 +552,7 @@ Private Sub build(index As Long)
         
     If (fcsh.isRunning) Then
         If (targets.Exists(app.fName)) Then
-            Set lastTarget = targets.Item(app.fName)
+            Set lastTarget = targets.item(app.fName)
             fcsh.exec lastTarget
         Else
             Set lastTarget = app

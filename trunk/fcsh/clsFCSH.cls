@@ -137,6 +137,25 @@ Public Sub exec(target As clsTarget)
     End If
 End Sub
 
+'write to fcsh stdIn
+Public Sub info(target As clsTarget)
+    Set currentTarget = target
+    
+    outputParser.Begin
+    
+    If (isRunning) Then
+        isExec = True
+        If (currentTarget.fTargetID > 0) Then
+            log.xExec currentTarget.getExecInfo
+            fcsh.Write ToOEM(currentTarget.getExecInfo) + vbCrLf
+        End If
+    Else
+        log.xError "Cant exec: fcsh stopped" + vbCrLf
+        target.fMessage = "Cant exec: fcsh stopped"
+        RaiseEvent onError(target)
+    End If
+End Sub
+
 
 'on fcsh output event handler
 Private Sub fcsh_DataReceived(ByVal sData As String)
