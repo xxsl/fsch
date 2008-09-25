@@ -4,6 +4,4 @@ The SOFTWARE is provided "as is" and without warranty of any kind, either expres
 
 The self-extracting executable installation file of the SOFTWARE may be freely copied and distributed without any limitations and by any media in its original unmodified state. No prior consent from  owners of http://code.google.com/p/fsch/ project is necessary.
 
-A single user license entitles you to use the SOFTWARE on a single computer only. If you want to use the SOFTWARE on more than one computer, you must either seek individual licenses for each computer or purchase a site license or a world-wide license, accordingly.
-
 By installing and using the SOFTWARE you are agreeing to the above terms
