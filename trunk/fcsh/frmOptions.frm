@@ -370,10 +370,37 @@ Begin VB.Form frmOptions
       TabIndex        =   8
       Top             =   120
       Width           =   10095
+      Begin ComCtl2.UpDown UpDown2 
+         Height          =   285
+         Left            =   7560
+         TabIndex        =   56
+         Top             =   360
+         Width           =   255
+         _ExtentX        =   450
+         _ExtentY        =   503
+         _Version        =   327681
+         BuddyControl    =   "txtAlpha"
+         BuddyDispid     =   196651
+         OrigLeft        =   7560
+         OrigTop         =   360
+         OrigRight       =   7815
+         OrigBottom      =   735
+         Max             =   255
+         SyncBuddy       =   -1  'True
+         BuddyProperty   =   65547
+         Enabled         =   -1  'True
+      End
+      Begin VB.TextBox txtAlpha 
+         Height          =   285
+         Left            =   6720
+         TabIndex        =   55
+         Top             =   360
+         Width           =   840
+      End
       Begin VB.CommandButton cmdFcsh 
          Caption         =   "..."
          Height          =   285
-         Left            =   9600
+         Left            =   4800
          TabIndex        =   20
          Top             =   1440
          Width           =   375
@@ -385,7 +412,7 @@ Begin VB.Form frmOptions
          TabIndex        =   13
          Text            =   "44000"
          Top             =   360
-         Width           =   720
+         Width           =   705
       End
       Begin VB.CheckBox chkDebug 
          Height          =   255
@@ -406,11 +433,11 @@ Begin VB.Form frmOptions
          Left            =   1920
          TabIndex        =   9
          Top             =   1440
-         Width           =   7575
+         Width           =   2775
       End
       Begin ComCtl2.UpDown UpDown1 
          Height          =   285
-         Left            =   2640
+         Left            =   2625
          TabIndex        =   12
          Top             =   360
          Width           =   255
@@ -418,8 +445,8 @@ Begin VB.Form frmOptions
          _ExtentY        =   503
          _Version        =   327681
          Value           =   44000
-         BuddyControl    =   "UpDown1"
-         BuddyDispid     =   196642
+         BuddyControl    =   "txtPort"
+         BuddyDispid     =   196631
          OrigLeft        =   2760
          OrigTop         =   360
          OrigRight       =   3015
@@ -429,6 +456,15 @@ Begin VB.Form frmOptions
          SyncBuddy       =   -1  'True
          BuddyProperty   =   65547
          Enabled         =   -1  'True
+      End
+      Begin VB.Label Label9 
+         Alignment       =   1  'Right Justify
+         Caption         =   "Transparency"
+         Height          =   255
+         Left            =   5520
+         TabIndex        =   54
+         Top             =   360
+         Width           =   975
       End
       Begin VB.Label Label7 
          Appearance      =   0  'Flat
@@ -708,6 +744,8 @@ Public Sub loadPrefs(ByRef cfg As clsConfiguration, ByRef logger As clsLog)
     
     txtFcsh.Text = config.FCSH_PATH
     
+    txtAlpha.Text = config.ALPHA
+    
     Dim i As Long
     Dim app As clsTarget
     
@@ -886,7 +924,7 @@ Private Sub cmdOutput_Click()
 
     szTitle = "This is the title"
     With tBrowseInfo
-            .hWndOwner = Me.hwnd
+            .hWndOwner = Me.hWnd
             .lpszTitle = lstrcat(szTitle, "")
             .ulFlags = BIF_RETURNONLYFSDIRS + BIF_DONTGOBELOWDOMAIN
     End With
@@ -931,6 +969,7 @@ Private Sub cmdSave_Click()
     config.SERVER_PORT = txtPort.Text
     config.SHOW_BALOON = (chkBaloon = 1)
     config.FCSH_PATH = txtFcsh.Text
+    config.ALPHA = txtAlpha.Text
     
     Dim i As Long
     Dim app As clsTarget
@@ -971,7 +1010,6 @@ Private Sub lstApps_Click()
     End If
     isLoading = False
 End Sub
-
 
 
 Private Sub txtTarget_Change(index As Integer)

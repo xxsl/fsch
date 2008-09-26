@@ -29,6 +29,7 @@ Private fLOG_DEBUG As Boolean
 Private fAPPLICATIONS As Long
 Private fSHOW_BALOON As Boolean
 Private fFCSH_PATH As String
+Private fALPHA As String
 
 Const PREFERENCE As String = "preferences"
 
@@ -59,6 +60,8 @@ Public Sub Load()
     fSHOW_BALOON = (showBaloon > 0)
     
     fFCSH_PATH = prefs.GetValue(PREFERENCE, "fcsh_exe_path", "fcsh.exe")
+    
+    fALPHA = CByte(Val(prefs.GetValue(PREFERENCE, "alpha", "128")))
     
     fAPPLICATIONS = Val(prefs.GetValue("applications", "count", "0"))
 End Sub
@@ -159,3 +162,14 @@ Public Property Let FCSH_PATH(ByVal vNewValue As String)
     fFCSH_PATH = vNewValue
     prefs.WriteValue PREFERENCE, "fcsh_exe_path", fFCSH_PATH
 End Property
+
+'apps count
+Public Property Get ALPHA() As Byte
+    ALPHA = fALPHA
+End Property
+
+Public Property Let ALPHA(ByVal vNewValue As Byte)
+    fALPHA = vNewValue
+    prefs.WriteValue PREFERENCE, "alpha", fALPHA
+End Property
+

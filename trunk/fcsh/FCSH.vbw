@@ -1,4 +1,4 @@
-MainForm = 114, 144, 701, 667, Z, 124, 287, 786, 810, C
+MainForm = 114, 144, 701, 667, C, 124, 287, 786, 810, C
 clsLog = 0, 0, 587, 523, C
 clsConfiguration = 115, 176, 777, 699, C
 clsFCSH = 110, 145, 764, 668, C
@@ -7,7 +7,7 @@ modApi = 176, 232, 788, 755, C
 clsParser = 132, 174, 794, 697, C
 clsTarget = 0, 0, 612, 523, C
 modMXMLC = 88, 116, 700, 639, C
-frmOptions = 137, 250, 749, 773, C, 110, 145, 722, 668, C
+frmOptions = 137, 250, 749, 773, , 110, 145, 722, 668, C
 modMain = 88, 116, 700, 639, C
 clsFixedCombo = 0, 0, 0, 0, C
 clsStringCombo = 0, 0, 0, 0, C
