@@ -370,9 +370,35 @@ Begin VB.Form frmOptions
       TabIndex        =   8
       Top             =   120
       Width           =   10095
+      Begin VB.PictureBox picFore 
+         Appearance      =   0  'Flat
+         BackColor       =   &H80000005&
+         ForeColor       =   &H80000008&
+         Height          =   255
+         Left            =   6840
+         ScaleHeight     =   225
+         ScaleWidth      =   825
+         TabIndex        =   60
+         ToolTipText     =   "Select color"
+         Top             =   1080
+         Width           =   855
+      End
+      Begin VB.PictureBox picBack 
+         Appearance      =   0  'Flat
+         BackColor       =   &H80000005&
+         ForeColor       =   &H80000008&
+         Height          =   255
+         Left            =   6840
+         ScaleHeight     =   225
+         ScaleWidth      =   825
+         TabIndex        =   59
+         ToolTipText     =   "Select color"
+         Top             =   720
+         Width           =   855
+      End
       Begin ComCtl2.UpDown UpDown2 
          Height          =   285
-         Left            =   7560
+         Left            =   7680
          TabIndex        =   56
          Top             =   360
          Width           =   255
@@ -380,7 +406,7 @@ Begin VB.Form frmOptions
          _ExtentY        =   503
          _Version        =   327681
          BuddyControl    =   "txtAlpha"
-         BuddyDispid     =   196651
+         BuddyDispid     =   196630
          OrigLeft        =   7560
          OrigTop         =   360
          OrigRight       =   7815
@@ -392,7 +418,7 @@ Begin VB.Form frmOptions
       End
       Begin VB.TextBox txtAlpha 
          Height          =   285
-         Left            =   6720
+         Left            =   6840
          TabIndex        =   55
          Top             =   360
          Width           =   840
@@ -412,7 +438,7 @@ Begin VB.Form frmOptions
          TabIndex        =   13
          Text            =   "44000"
          Top             =   360
-         Width           =   705
+         Width           =   825
       End
       Begin VB.CheckBox chkDebug 
          Height          =   255
@@ -437,7 +463,7 @@ Begin VB.Form frmOptions
       End
       Begin ComCtl2.UpDown UpDown1 
          Height          =   285
-         Left            =   2625
+         Left            =   2745
          TabIndex        =   12
          Top             =   360
          Width           =   255
@@ -446,7 +472,7 @@ Begin VB.Form frmOptions
          _Version        =   327681
          Value           =   44000
          BuddyControl    =   "txtPort"
-         BuddyDispid     =   196631
+         BuddyDispid     =   196632
          OrigLeft        =   2760
          OrigTop         =   360
          OrigRight       =   3015
@@ -456,6 +482,36 @@ Begin VB.Form frmOptions
          SyncBuddy       =   -1  'True
          BuddyProperty   =   65547
          Enabled         =   -1  'True
+      End
+      Begin VB.Label Label12 
+         Caption         =   "Clear log to see changes"
+         Height          =   375
+         Left            =   7920
+         TabIndex        =   61
+         Top             =   960
+         Width           =   2055
+      End
+      Begin VB.Line Line1 
+         X1              =   5280
+         X2              =   5280
+         Y1              =   240
+         Y2              =   1800
+      End
+      Begin VB.Label Label11 
+         Caption         =   "Log forecolor"
+         Height          =   255
+         Left            =   5520
+         TabIndex        =   58
+         Top             =   1080
+         Width           =   1215
+      End
+      Begin VB.Label Label10 
+         Caption         =   "Log backcolor"
+         Height          =   255
+         Left            =   5520
+         TabIndex        =   57
+         Top             =   720
+         Width           =   1215
       End
       Begin VB.Label Label9 
          Alignment       =   1  'Right Justify
@@ -528,8 +584,8 @@ Begin VB.Form frmOptions
       End
    End
    Begin MSComDlg.CommonDialog CD1 
-      Left            =   120
-      Top             =   5880
+      Left            =   360
+      Top             =   6120
       _ExtentX        =   847
       _ExtentY        =   847
       _Version        =   393216
@@ -745,6 +801,9 @@ Public Sub loadPrefs(ByRef cfg As clsConfiguration, ByRef logger As clsLog)
     txtFcsh.Text = config.FCSH_PATH
     
     txtAlpha.Text = config.ALPHA
+    
+    picBack.BACKCOLOR = config.BACKCOLOR
+    picFore.BACKCOLOR = config.FORECOLOR
     
     Dim i As Long
     Dim app As clsTarget
@@ -971,6 +1030,9 @@ Private Sub cmdSave_Click()
     config.FCSH_PATH = txtFcsh.Text
     config.ALPHA = txtAlpha.Text
     
+    config.BACKCOLOR = picBack.BACKCOLOR
+    config.FORECOLOR = picFore.BACKCOLOR
+    
     Dim i As Long
     Dim app As clsTarget
     i = 0
@@ -1011,6 +1073,18 @@ Private Sub lstApps_Click()
     isLoading = False
 End Sub
 
+
+Private Sub picBack_Click()
+    CD1.color = picBack.BACKCOLOR
+    CD1.ShowColor
+    picBack.BACKCOLOR = CD1.color
+End Sub
+
+Private Sub picFore_Click()
+    CD1.color = picFore.BACKCOLOR
+    CD1.ShowColor
+    picFore.BACKCOLOR = CD1.color
+End Sub
 
 Private Sub txtTarget_Change(index As Integer)
     Dim target As Long

@@ -21,13 +21,11 @@ Attribute VB_Exposed = False
 Option Explicit
 
 Private logger As RichTextBox
-Private color As Long
 Private config As clsConfiguration
 
 Public Sub clsLog(ByRef log As RichTextBox, cfg As clsConfiguration)
     Set logger = log
     Set config = cfg
-    color = RGB(0, 126, 255)
 End Sub
 
 Public Sub xDebug(ByVal Msg As String)
@@ -65,10 +63,12 @@ End Sub
 
 'logs to console
 Public Sub output(Text As String)
+    logger.BACKCOLOR = config.BACKCOLOR
+    logger.SelColor = config.FORECOLOR
     logger.Text = logger.Text + Text
     logger.SelStart = Len(logger.Text) - Len(Text)
     logger.SelLength = Len(Text)
-    logger.SelColor = color
+    logger.SelColor = config.FORECOLOR
     logger.SelStart = Len(logger.Text)
     Print #1, Text
 End Sub
