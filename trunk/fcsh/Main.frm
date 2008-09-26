@@ -67,7 +67,7 @@ Begin VB.Form MainForm
       MaskColor       =   16711935
       _Version        =   393216
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
-         NumListImages   =   7
+         NumListImages   =   9
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
             Picture         =   "Main.frx":1D48
             Key             =   ""
@@ -94,6 +94,14 @@ Begin VB.Form MainForm
          EndProperty
          BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
             Picture         =   "Main.frx":31B4
+            Key             =   ""
+         EndProperty
+         BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "Main.frx":3506
+            Key             =   ""
+         EndProperty
+         BeginProperty ListImage9 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "Main.frx":3858
             Key             =   ""
          EndProperty
       EndProperty
@@ -137,7 +145,7 @@ Begin VB.Form MainForm
       DisabledImageList=   "disabledIcons"
       _Version        =   393216
       BeginProperty Buttons {66833FE8-8583-11D1-B16A-00C0F0283628} 
-         NumButtons      =   8
+         NumButtons      =   11
          BeginProperty Button1 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Object.ToolTipText     =   "Start fcsh"
             ImageIndex      =   1
@@ -171,6 +179,19 @@ Begin VB.Form MainForm
             Object.ToolTipText     =   "Clear log"
             ImageIndex      =   5
          EndProperty
+         BeginProperty Button9 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Style           =   3
+         EndProperty
+         BeginProperty Button10 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Object.ToolTipText     =   "Place window on top"
+            ImageIndex      =   8
+            Style           =   1
+         EndProperty
+         BeginProperty Button11 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Object.ToolTipText     =   "Maake window transparent"
+            ImageIndex      =   9
+            Style           =   1
+         EndProperty
       EndProperty
    End
    Begin RichTextLib.RichTextBox rtbLog 
@@ -184,11 +205,10 @@ Begin VB.Form MainForm
       _Version        =   393217
       BackColor       =   -2147483633
       BorderStyle     =   0
-      Enabled         =   -1  'True
       ScrollBars      =   3
       Appearance      =   0
       AutoVerbMenu    =   -1  'True
-      TextRTF         =   $"Main.frx":3506
+      TextRTF         =   $"Main.frx":3BAA
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Courier New"
          Size            =   9.75
@@ -349,7 +369,7 @@ Private Sub Form_Load()
         fcsh.Initialize log, config
             
         'add tray icon
-        TrayAdd fakeTray.hwnd, Me.Icon, "Flex compiler shell", MouseMove
+        TrayAdd fakeTray.hWnd, Me.Icon, "Flex compiler shell", MouseMove
         
         'log and show tooltip
         log.xDebug "Application initialized"
@@ -548,6 +568,22 @@ Private Sub Toolbar_ButtonClick(ByVal Button As MSComctlLib.Button)
                 frmOptions.Show 1, Me
         Case 8:
                 log.Clear
+        Case 10:
+                If (Toolbar.Buttons(10).value = tbrPressed) Then
+                    SetAlwaysOnTopMode Me.hWnd, True
+                Else
+                    SetAlwaysOnTopMode Me.hWnd, False
+                End If
+        Case 11:
+                If (Toolbar.Buttons(11).value = tbrPressed) Then
+                     Dim bytOpacity As Byte
+                     'Set the transparency level
+                     bytOpacity = 128
+                     Call SetWindowLong(Me.hWnd, GWL_EXSTYLE, GetWindowLong(Me.hWnd, GWL_EXSTYLE) Or WS_EX_LAYERED)
+                     Call SetLayeredWindowAttributes(Me.hWnd, 0, bytOpacity, LWA_ALPHA)
+                Else
+                    Call SetWindowLong(Me.hWnd, GWL_EXSTYLE, GetWindowLong(Me.hWnd, GWL_EXSTYLE) And (Not WS_EX_LAYERED))
+                End If
     End Select
 End Sub
 
