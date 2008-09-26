@@ -79,12 +79,10 @@ Dim fakeTarget As New clsTarget
     If (Not isRunning) Then
         Select Case fcsh.Start
            Case laAlreadyRunning
-                log.xError "fcsh is already running"
                 fakeTarget.fMessage = "fcsh is already running"
                 RaiseEvent onError(fakeTarget)
            Case laWindowsError
                 fakeTarget.fMessage = "Windows error: " & CStr(fcsh.LastErrorNumber)
-                log.xError "Windows error: " & CStr(fcsh.LastErrorNumber)
                 isRunning = False
                 RaiseEvent onError(fakeTarget)
            Case laOk

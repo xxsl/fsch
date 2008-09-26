@@ -5,13 +5,13 @@ Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
 Begin VB.Form MainForm 
    AutoRedraw      =   -1  'True
    Caption         =   "Flex compiler shell"
-   ClientHeight    =   6585
+   ClientHeight    =   6450
    ClientLeft      =   3840
    ClientTop       =   2220
-   ClientWidth     =   9750
+   ClientWidth     =   13785
    Icon            =   "Main.frx":0000
-   ScaleHeight     =   6585
-   ScaleWidth      =   9750
+   ScaleHeight     =   6450
+   ScaleWidth      =   13785
    StartUpPosition =   2  'CenterScreen
    Visible         =   0   'False
    Begin MSComctlLib.ImageList disabledIcons 
@@ -135,8 +135,8 @@ Begin VB.Form MainForm
       Left            =   0
       TabIndex        =   1
       Top             =   0
-      Width           =   9750
-      _ExtentX        =   17198
+      Width           =   13785
+      _ExtentX        =   24315
       _ExtentY        =   582
       ButtonWidth     =   609
       ButtonHeight    =   582
@@ -188,7 +188,7 @@ Begin VB.Form MainForm
             Style           =   1
          EndProperty
          BeginProperty Button11 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Object.ToolTipText     =   "Maake window transparent"
+            Object.ToolTipText     =   "Make window transparent"
             ImageIndex      =   9
             Style           =   1
          EndProperty
@@ -205,7 +205,6 @@ Begin VB.Form MainForm
       _Version        =   393217
       BackColor       =   -2147483633
       BorderStyle     =   0
-      Enabled         =   -1  'True
       ScrollBars      =   3
       Appearance      =   0
       AutoVerbMenu    =   -1  'True
@@ -214,7 +213,7 @@ Begin VB.Form MainForm
          Name            =   "Courier New"
          Size            =   9.75
          Charset         =   204
-         Weight          =   400
+         Weight          =   700
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
@@ -377,6 +376,7 @@ Private Sub Form_Load()
         
         'load configured apps
         loadApps
+        
 End Sub
 
 Public Sub loadApps()

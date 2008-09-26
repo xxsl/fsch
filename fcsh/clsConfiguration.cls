@@ -29,7 +29,9 @@ Private fLOG_DEBUG As Boolean
 Private fAPPLICATIONS As Long
 Private fSHOW_BALOON As Boolean
 Private fFCSH_PATH As String
-Private fALPHA As String
+Private fALPHA As Byte
+Private fBACKCOLOR As Long
+Private fFORECOLOR As Long
 
 Const PREFERENCE As String = "preferences"
 
@@ -62,6 +64,10 @@ Public Sub Load()
     fFCSH_PATH = prefs.GetValue(PREFERENCE, "fcsh_exe_path", "fcsh.exe")
     
     fALPHA = CByte(Val(prefs.GetValue(PREFERENCE, "alpha", "128")))
+    
+    fBACKCOLOR = Val(prefs.GetValue(PREFERENCE, "backcolor", "-2147483633"))
+    
+    fFORECOLOR = Val(prefs.GetValue(PREFERENCE, "forecolor", "16743936"))
     
     fAPPLICATIONS = Val(prefs.GetValue("applications", "count", "0"))
 End Sub
@@ -153,7 +159,7 @@ Public Property Let APPLICATIONS(ByVal vNewValue As Long)
 End Property
 
 
-'apps count
+'fcsh path
 Public Property Get FCSH_PATH() As String
     FCSH_PATH = fFCSH_PATH
 End Property
@@ -163,13 +169,32 @@ Public Property Let FCSH_PATH(ByVal vNewValue As String)
     prefs.WriteValue PREFERENCE, "fcsh_exe_path", fFCSH_PATH
 End Property
 
-'apps count
+'transparency
 Public Property Get ALPHA() As Byte
     ALPHA = fALPHA
 End Property
 
 Public Property Let ALPHA(ByVal vNewValue As Byte)
     fALPHA = vNewValue
-    prefs.WriteValue PREFERENCE, "alpha", fALPHA
+    prefs.WriteValue PREFERENCE, "alpha", Trim(Str(fALPHA))
 End Property
 
+'log backcolor
+Public Property Get BACKCOLOR() As Long
+    BACKCOLOR = fBACKCOLOR
+End Property
+
+Public Property Let BACKCOLOR(ByVal vNewValue As Long)
+    fBACKCOLOR = vNewValue
+    prefs.WriteValue PREFERENCE, "backcolor", Str(fBACKCOLOR)
+End Property
+
+'log forecolor
+Public Property Get FORECOLOR() As Long
+    FORECOLOR = fFORECOLOR
+End Property
+
+Public Property Let FORECOLOR(ByVal vNewValue As Long)
+    fFORECOLOR = vNewValue
+    prefs.WriteValue PREFERENCE, "forecolor", Str(fFORECOLOR)
+End Property
