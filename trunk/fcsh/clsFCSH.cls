@@ -82,7 +82,7 @@ Dim fakeTarget As New clsTarget
                 fakeTarget.fMessage = "fcsh is already running"
                 RaiseEvent onError(fakeTarget)
            Case laWindowsError
-                fakeTarget.fMessage = "Windows error: " & CStr(fcsh.LastErrorNumber)
+                fakeTarget.fMessage = "Windows error: " & CStr(fcsh.LastErrorNumber) & ". Make sure you have configured fcsh.exe path."
                 isRunning = False
                 RaiseEvent onError(fakeTarget)
            Case laOk
