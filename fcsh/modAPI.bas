@@ -53,6 +53,8 @@ Public Declare Function SetLayeredWindowAttributes Lib "user32" (ByVal hWnd As L
 
 Public Declare Function SetWindowPos Lib "user32" (ByVal hWnd As Long, ByVal hWndInsertAfter As Long, ByVal X As Long, ByVal Y As Long, ByVal cx As Long, ByVal cy As Long, ByVal wFlags As Long) As Long
 
+Public Declare Function RoundRect Lib "gdi32" (ByVal hdc As Long, ByVal X1 As Long, ByVal Y1 As Long, ByVal X2 As Long, ByVal Y2 As Long, ByVal X3 As Long, ByVal Y3 As Long) As Long
+
 Public Const SWP_NOSIZE = &H1
 Public Const SWP_NOMOVE = &H2
 Public Const SWP_SHOWWINDOW = &H40
