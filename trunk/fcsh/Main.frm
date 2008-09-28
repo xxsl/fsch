@@ -8,15 +8,55 @@ Begin VB.Form MainForm
    ClientHeight    =   6450
    ClientLeft      =   3840
    ClientTop       =   2220
-   ClientWidth     =   13785
+   ClientWidth     =   10590
    Icon            =   "Main.frx":0000
    ScaleHeight     =   6450
-   ScaleWidth      =   13785
+   ScaleWidth      =   10590
    StartUpPosition =   2  'CenterScreen
    Visible         =   0   'False
-   Begin MSComctlLib.ImageList disabledIcons 
+   Begin MSComctlLib.ImageList pngImages 
+      Left            =   5640
+      Top             =   3480
+      _ExtentX        =   1005
+      _ExtentY        =   1005
+      BackColor       =   -2147483643
+      ImageWidth      =   16
+      ImageHeight     =   16
+      MaskColor       =   12632256
+      UseMaskColor    =   0   'False
+      _Version        =   393216
+   End
+   Begin VB.PictureBox picClear 
+      Appearance      =   0  'Flat
+      AutoRedraw      =   -1  'True
+      ForeColor       =   &H80000008&
+      Height          =   270
+      Left            =   5280
+      ScaleHeight     =   16
+      ScaleMode       =   3  'Pixel
+      ScaleWidth      =   16
+      TabIndex        =   4
+      Top             =   3480
+      Visible         =   0   'False
+      Width           =   270
+   End
+   Begin VB.PictureBox picIconLoad 
+      Appearance      =   0  'Flat
+      AutoRedraw      =   -1  'True
+      ForeColor       =   &H80000008&
+      Height          =   270
+      Left            =   4920
+      ScaleHeight     =   16
+      ScaleMode       =   3  'Pixel
+      ScaleWidth      =   16
+      TabIndex        =   3
+      Top             =   3480
+      Visible         =   0   'False
+      Width           =   270
+   End
+   Begin MSComctlLib.ImageList enabledIcons 
       Left            =   5520
-      Top             =   2040
+      Top             =   1320
       _ExtentX        =   1005
       _ExtentY        =   1005
       BackColor       =   -2147483643
@@ -25,7 +65,7 @@ Begin VB.Form MainForm
       MaskColor       =   16711935
       _Version        =   393216
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
-         NumListImages   =   7
+         NumListImages   =   9
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
             Picture         =   "Main.frx":058A
             Key             =   ""
@@ -54,54 +94,12 @@ Begin VB.Form MainForm
             Picture         =   "Main.frx":19F6
             Key             =   ""
          EndProperty
-      EndProperty
-   End
-   Begin MSComctlLib.ImageList enabledIcons 
-      Left            =   5520
-      Top             =   1320
-      _ExtentX        =   1005
-      _ExtentY        =   1005
-      BackColor       =   -2147483643
-      ImageWidth      =   16
-      ImageHeight     =   16
-      MaskColor       =   16711935
-      _Version        =   393216
-      BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
-         NumListImages   =   9
-         BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+         BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
             Picture         =   "Main.frx":1D48
             Key             =   ""
          EndProperty
-         BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Main.frx":209A
-            Key             =   ""
-         EndProperty
-         BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Main.frx":23EC
-            Key             =   ""
-         EndProperty
-         BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Main.frx":273E
-            Key             =   ""
-         EndProperty
-         BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Main.frx":2A90
-            Key             =   ""
-         EndProperty
-         BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Main.frx":2E62
-            Key             =   ""
-         EndProperty
-         BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Main.frx":31B4
-            Key             =   ""
-         EndProperty
-         BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Main.frx":3506
-            Key             =   ""
-         EndProperty
          BeginProperty ListImage9 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Main.frx":3858
+            Picture         =   "Main.frx":209A
             Key             =   ""
          EndProperty
       EndProperty
@@ -135,62 +133,70 @@ Begin VB.Form MainForm
       Left            =   0
       TabIndex        =   1
       Top             =   0
-      Width           =   13785
-      _ExtentX        =   24315
+      Width           =   10590
+      _ExtentX        =   18680
       _ExtentY        =   582
       ButtonWidth     =   609
       ButtonHeight    =   582
       Style           =   1
       ImageList       =   "enabledIcons"
-      DisabledImageList=   "disabledIcons"
       _Version        =   393216
       BeginProperty Buttons {66833FE8-8583-11D1-B16A-00C0F0283628} 
-         NumButtons      =   11
+         NumButtons      =   14
          BeginProperty Button1 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Object.ToolTipText     =   "Start fcsh"
             ImageIndex      =   1
          EndProperty
          BeginProperty Button2 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Style           =   3
+         EndProperty
+         BeginProperty Button3 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Object.ToolTipText     =   "Build"
             ImageIndex      =   3
             Style           =   5
          EndProperty
-         BeginProperty Button3 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+         BeginProperty Button4 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Object.ToolTipText     =   "Incremental build"
             ImageIndex      =   7
             Style           =   1
             Value           =   1
          EndProperty
-         BeginProperty Button4 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+         BeginProperty Button5 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Object.ToolTipText     =   "Show target info"
             ImageIndex      =   6
          EndProperty
-         BeginProperty Button5 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+         BeginProperty Button6 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Style           =   3
          EndProperty
-         BeginProperty Button6 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+         BeginProperty Button7 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Object.ToolTipText     =   "Options"
             ImageIndex      =   4
          EndProperty
-         BeginProperty Button7 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+         BeginProperty Button8 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Style           =   3
          EndProperty
-         BeginProperty Button8 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+         BeginProperty Button9 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Object.ToolTipText     =   "Clear log"
             ImageIndex      =   5
          EndProperty
-         BeginProperty Button9 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+         BeginProperty Button10 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Style           =   3
          EndProperty
-         BeginProperty Button10 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+         BeginProperty Button11 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Object.ToolTipText     =   "Place window on top"
             ImageIndex      =   8
             Style           =   1
          EndProperty
-         BeginProperty Button11 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+         BeginProperty Button12 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Object.ToolTipText     =   "Make window transparent"
             ImageIndex      =   9
             Style           =   1
+         EndProperty
+         BeginProperty Button13 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Style           =   3
+         EndProperty
+         BeginProperty Button14 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Object.ToolTipText     =   "About"
          EndProperty
       EndProperty
    End
@@ -208,7 +214,7 @@ Begin VB.Form MainForm
       ScrollBars      =   3
       Appearance      =   0
       AutoVerbMenu    =   -1  'True
-      TextRTF         =   $"Main.frx":3BAA
+      TextRTF         =   $"Main.frx":23EC
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Courier New"
          Size            =   9.75
@@ -261,8 +267,16 @@ Attribute VB_Exposed = False
 
 Option Explicit
 
-Private Const BUILD_BUTTON As Long = 2
+Private Const ABOUT_BUTTON As Long = 14
+Private Const TRANSPARENT_BUTTON As Long = 12
+Private Const ONTOP_BUTTON As Long = 11
+Private Const CLEAR_BUTTON As Long = 9
+Private Const OPTIONS_BUTTON As Long = 7
+Private Const INFO_BUTTON As Long = 5
+Private Const TYPE_BUTTON As Long = 4
+Private Const BUILD_BUTTON As Long = 3
 Private Const RUN_BUTTON As Long = 1
+
 Private Const BUILD_FAILED As String = "Build failed"
 Private Const BUILD_SUCESSFULL As String = "Build successfull"
 
@@ -369,7 +383,7 @@ Private Sub Form_Load()
         fcsh.Initialize log, config
             
         'add tray icon
-        TrayAdd fakeTray.hWnd, Me.Icon, "Flex compiler shell", MouseMove
+        TrayAdd fakeTray.hWnd, Me.icon, "Flex compiler shell", MouseMove
         
         'log and show tooltip
         log.xDebug "Application initialized"
@@ -377,10 +391,49 @@ Private Sub Form_Load()
         'load configured apps
         loadApps
         
+        'load png images
+        LoadPNG
+        
+End Sub
+
+Private Sub LoadPNG()
+    'extract files and save
+    Dim files As New Collection
+    files.Add "toolbar/application_xp_terminal.png"
+    files.Add "toolbar/stop.png"
+    files.Add "toolbar/bricks.png"
+    files.Add "toolbar/brick_add.png"
+    files.Add "toolbar/brick_delete.png"
+    files.Add "toolbar/information.png"
+    files.Add "toolbar/wrench_orange.png"
+    files.Add "toolbar/page_delete.png"
+    files.Add "toolbar/application_get.png"
+    files.Add "toolbar/shading.png"
+    files.Add "toolbar/help.png"
+    
+    
+    
+    
+    'load
+    Dim pngLoader As New clsPngToImageList
+    pngLoader.Initialize picIconLoad, picClear, pngImages, log
+    pngLoader.LoadIcons files
+    
+    'setup toolbar
+    Set Toolbar.ImageList = pngImages
+    Toolbar.Buttons(RUN_BUTTON).Image = 1
+    Toolbar.Buttons(BUILD_BUTTON).Image = 3
+    Toolbar.Buttons(TYPE_BUTTON).Image = 4
+    Toolbar.Buttons(INFO_BUTTON).Image = 6
+    Toolbar.Buttons(OPTIONS_BUTTON).Image = 7
+    Toolbar.Buttons(CLEAR_BUTTON).Image = 8
+    Toolbar.Buttons(ONTOP_BUTTON).Image = 9
+    Toolbar.Buttons(TRANSPARENT_BUTTON).Image = 10
+    Toolbar.Buttons(ABOUT_BUTTON).Image = 11
 End Sub
 
 Public Sub loadApps()
-    Toolbar.Buttons(BUILD_BUTTON).ButtonMenus.Clear
+    Toolbar.Buttons(BUILD_BUTTON).ButtonMenus.clear
     Dim i As Long
     Dim app As clsTarget
     Dim key As String
@@ -406,7 +459,7 @@ Private Sub initSockets()
     Server.Listen
     If Err.Number <> 0 Then
         log.xError "Cant start server: " + Err.Description
-        Err.Clear
+        Err.clear
     End If
 End Sub
 
@@ -532,8 +585,8 @@ End Sub
 '***********************************************************************************************
 'click
 Private Sub Toolbar_ButtonClick(ByVal Button As MSComctlLib.Button)
-    Select Case Button.index
-        Case 1:
+    Select Case Button.Index
+        Case RUN_BUTTON:
                 If (Not fcsh.isRunning) Then
                     fcsh.Start
                 Else
@@ -550,58 +603,66 @@ Private Sub Toolbar_ButtonClick(ByVal Button As MSComctlLib.Button)
                     log.Text vbCrLf
                     Exit Sub
                 End If
-                fcsh.exec lastTarget, (Toolbar.Buttons(3).value = tbrPressed)
-        Case 4:
+                fcsh.exec lastTarget, (Toolbar.Buttons(3).Value = tbrPressed)
+        Case TYPE_BUTTON:
+                If (Toolbar.Buttons(TYPE_BUTTON).Value = tbrPressed) Then
+                    Toolbar.Buttons(TYPE_BUTTON).Image = 4
+                Else
+                    Toolbar.Buttons(TYPE_BUTTON).Image = 5
+                End If
+        Case INFO_BUTTON:
                 If ((lastTarget Is Nothing)) Then
-                    log.xError "No targets were assigned yet. Nothing to recompile."
+                    log.xError "No targets were assigned yet. Nothing to show."
                     log.Text vbCrLf
                     Exit Sub
                 End If
                 If (lastTarget.fTargetID = 0) Then
-                    log.xError "No targets were assigned yet. Nothing to recompile."
+                    log.xError "No targets were assigned yet. Nothing to show."
                     log.Text vbCrLf
                     Exit Sub
                 End If
                 fcsh.info lastTarget
                 
-        Case 6:
+        Case OPTIONS_BUTTON:
                 frmOptions.loadPrefs config, log
                 frmOptions.Show 1, Me
-        Case 8:
-                log.Clear
-        Case 10:
-                If (Toolbar.Buttons(10).value = tbrPressed) Then
+        Case CLEAR_BUTTON:
+                log.clear
+        Case ONTOP_BUTTON:
+                If (Toolbar.Buttons(ONTOP_BUTTON).Value = tbrPressed) Then
                     SetAlwaysOnTopMode Me.hWnd, True
                 Else
                     SetAlwaysOnTopMode Me.hWnd, False
                 End If
-        Case 11:
-                If (Toolbar.Buttons(11).value = tbrPressed) Then
+        Case TRANSPARENT_BUTTON:
+                If (Toolbar.Buttons(TRANSPARENT_BUTTON).Value = tbrPressed) Then
                      Dim bytOpacity As Byte
                      'Set the transparency level
-                     bytOpacity = config.ALPHA
+                     bytOpacity = config.Alpha
                      Call SetWindowLong(Me.hWnd, GWL_EXSTYLE, GetWindowLong(Me.hWnd, GWL_EXSTYLE) Or WS_EX_LAYERED)
                      Call SetLayeredWindowAttributes(Me.hWnd, 0, bytOpacity, LWA_ALPHA)
                 Else
                     Call SetWindowLong(Me.hWnd, GWL_EXSTYLE, GetWindowLong(Me.hWnd, GWL_EXSTYLE) And (Not WS_EX_LAYERED))
                 End If
+        Case ABOUT_BUTTON:
+                frmAbout.Show 1
     End Select
 End Sub
 
 Private Sub Toolbar_ButtonMenuClick(ByVal ButtonMenu As MSComctlLib.ButtonMenu)
-    Dim index As Long
-    index = Val(ButtonMenu.key)
-    build index
+    Dim Index As Long
+    Index = Val(ButtonMenu.key)
+    build Index
 End Sub
 
-Private Sub build(index As Long)
+Private Sub build(Index As Long)
     Dim app As clsTarget
-    Set app = config.LoadApplication(index)
+    Set app = config.LoadApplication(Index)
         
     If (fcsh.isRunning) Then
         If (targets.Exists(app.fName)) Then
             Set lastTarget = targets.item(app.fName)
-            fcsh.exec lastTarget, (Toolbar.Buttons(3).value = tbrPressed)
+            fcsh.exec lastTarget, (Toolbar.Buttons(3).Value = tbrPressed)
         Else
             Set lastTarget = app
             targets.Add app.fName, app
@@ -669,6 +730,7 @@ Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
     TrayDelete
     Server.Close
     Unload frmOptions
+    Unload frmAbout
 End Sub
 
 
