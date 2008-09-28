@@ -370,32 +370,32 @@ Private Sub LoadPNG()
     'extract files and save
     Dim files As New Collection
     Dim imgArray() As Byte
-    Dim i As Long
+    Dim I As Long
     
-    For i = 101 To 111
-        imgArray = LoadResData(i, "custom")
+    For I = 101 To 111
+        imgArray = LoadResData(I, "custom")
         
-        Open i & ".png" For Output As #2
+        Open I & ".png" For Output As #2
         Close #2
         
-        Open i & ".png" For Binary As #2
+        Open I & ".png" For Binary As #2
            Put #2, , imgArray()
         Close #2
-        files.Add i & ".png"
-    Next i
+        files.Add I & ".png"
+    Next I
     
     'load
     Dim pngLoader As New clsPngToImageList
     pngLoader.Initialize picIconLoad, picClear, pngImages, log
     pngLoader.LoadIcons files
     
-    For i = 101 To 111
-        If (FileExists(i & ".png")) Then
-            Kill i & ".png"
+    For I = 101 To 111
+        If (FileExists(I & ".png")) Then
+            Kill I & ".png"
         Else
-            log.xDebug "File not found " & i & ".png"
+            log.xDebug "File not found " & I & ".png"
         End If
-    Next i
+    Next I
     
     'setup toolbar
     Set Toolbar.ImageList = pngImages
@@ -412,16 +412,16 @@ End Sub
 
 Public Sub loadApps()
     Toolbar.Buttons(BUILD_BUTTON).ButtonMenus.clear
-    Dim i As Long
+    Dim I As Long
     Dim app As clsTarget
     Dim key As String
     Dim ButtonMenu As MSComctlLib.ButtonMenu
     
-    For i = 1 To config.APPLICATIONS
-        Set app = config.LoadApplication(i)
-        key = i & "app"
-        Toolbar.Buttons(BUILD_BUTTON).ButtonMenus.Add i, key, app.fName
-    Next i
+    For I = 1 To config.APPLICATIONS
+        Set app = config.LoadApplication(I)
+        key = I & "app"
+        Toolbar.Buttons(BUILD_BUTTON).ButtonMenus.Add I, key, app.fName
+    Next I
 End Sub
 
 
@@ -521,17 +521,17 @@ End Sub
 
 
 Private Sub remoteExec(arg As String)
-    Dim i As Long
+    Dim I As Long
     Dim app As clsTarget
     Dim appFound As Boolean
     
-    For i = 1 To config.APPLICATIONS
-        Set app = config.LoadApplication(i)
+    For I = 1 To config.APPLICATIONS
+        Set app = config.LoadApplication(I)
         If (LCase(app.fName) = LCase(arg)) Then
             appFound = True
             Exit For
         End If
-    Next i
+    Next I
     
     If (Not fcsh.isRunning) Then
         sendRemote "fsch is stopped" + vbCrLf + BUILD_FAILED
@@ -546,7 +546,7 @@ Private Sub remoteExec(arg As String)
     If (Not appFound) Then
         sendRemote "Application not found [" + arg + "]" + vbCrLf + BUILD_FAILED
     Else
-        build i
+        build I
     End If
 End Sub
 
@@ -581,7 +581,7 @@ Private Sub Toolbar_ButtonClick(ByVal Button As MSComctlLib.Button)
                     log.Text vbCrLf
                     Exit Sub
                 End If
-                fcsh.exec lastTarget, (Toolbar.Buttons(3).Value = tbrPressed)
+                fcsh.exec lastTarget, (Toolbar.Buttons(TYPE_BUTTON).Value = tbrPressed)
         Case TYPE_BUTTON:
                 If (Toolbar.Buttons(TYPE_BUTTON).Value = tbrPressed) Then
                     Toolbar.Buttons(TYPE_BUTTON).Image = 4
@@ -640,7 +640,7 @@ Private Sub build(Index As Long)
     If (fcsh.isRunning) Then
         If (targets.Exists(app.fName)) Then
             Set lastTarget = targets.item(app.fName)
-            fcsh.exec lastTarget, (Toolbar.Buttons(3).Value = tbrPressed)
+            fcsh.exec lastTarget, (Toolbar.Buttons(TYPE_BUTTON).Value = tbrPressed)
         Else
             Set lastTarget = app
             targets.Add app.fName, app
