@@ -14,6 +14,24 @@ Begin VB.Form MainForm
    ScaleWidth      =   10590
    StartUpPosition =   2  'CenterScreen
    Visible         =   0   'False
+   Begin MSComctlLib.ImageList fakeList 
+      Left            =   5640
+      Top             =   1320
+      _ExtentX        =   1005
+      _ExtentY        =   1005
+      BackColor       =   -2147483643
+      ImageWidth      =   16
+      ImageHeight     =   16
+      MaskColor       =   12632256
+      _Version        =   393216
+      BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
+         NumListImages   =   1
+         BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "Main.frx":058A
+            Key             =   ""
+         EndProperty
+      EndProperty
+   End
    Begin MSComctlLib.ImageList pngImages 
       Left            =   5640
       Top             =   3480
@@ -54,56 +72,6 @@ Begin VB.Form MainForm
       Visible         =   0   'False
       Width           =   270
    End
-   Begin MSComctlLib.ImageList enabledIcons 
-      Left            =   5520
-      Top             =   1320
-      _ExtentX        =   1005
-      _ExtentY        =   1005
-      BackColor       =   -2147483643
-      ImageWidth      =   16
-      ImageHeight     =   16
-      MaskColor       =   16711935
-      _Version        =   393216
-      BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
-         NumListImages   =   9
-         BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Main.frx":058A
-            Key             =   ""
-         EndProperty
-         BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Main.frx":08DC
-            Key             =   ""
-         EndProperty
-         BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Main.frx":0C2E
-            Key             =   ""
-         EndProperty
-         BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Main.frx":0F80
-            Key             =   ""
-         EndProperty
-         BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Main.frx":12D2
-            Key             =   ""
-         EndProperty
-         BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Main.frx":16A4
-            Key             =   ""
-         EndProperty
-         BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Main.frx":19F6
-            Key             =   ""
-         EndProperty
-         BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Main.frx":1D48
-            Key             =   ""
-         EndProperty
-         BeginProperty ListImage9 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Main.frx":209A
-            Key             =   ""
-         EndProperty
-      EndProperty
-   End
    Begin VB.CommandButton fakeTray 
       Caption         =   "fakeTray"
       Height          =   615
@@ -139,7 +107,7 @@ Begin VB.Form MainForm
       ButtonWidth     =   609
       ButtonHeight    =   582
       Style           =   1
-      ImageList       =   "enabledIcons"
+      ImageList       =   "fakeList"
       _Version        =   393216
       BeginProperty Buttons {66833FE8-8583-11D1-B16A-00C0F0283628} 
          NumButtons      =   14
@@ -152,44 +120,44 @@ Begin VB.Form MainForm
          EndProperty
          BeginProperty Button3 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Object.ToolTipText     =   "Build"
-            ImageIndex      =   3
+            ImageIndex      =   1
             Style           =   5
          EndProperty
          BeginProperty Button4 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Object.ToolTipText     =   "Incremental build"
-            ImageIndex      =   7
+            ImageIndex      =   1
             Style           =   1
             Value           =   1
          EndProperty
          BeginProperty Button5 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Object.ToolTipText     =   "Show target info"
-            ImageIndex      =   6
+            ImageIndex      =   1
          EndProperty
          BeginProperty Button6 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Style           =   3
          EndProperty
          BeginProperty Button7 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Object.ToolTipText     =   "Options"
-            ImageIndex      =   4
+            ImageIndex      =   1
          EndProperty
          BeginProperty Button8 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Style           =   3
          EndProperty
          BeginProperty Button9 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Object.ToolTipText     =   "Clear log"
-            ImageIndex      =   5
+            ImageIndex      =   1
          EndProperty
          BeginProperty Button10 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Style           =   3
          EndProperty
          BeginProperty Button11 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Object.ToolTipText     =   "Place window on top"
-            ImageIndex      =   8
+            ImageIndex      =   1
             Style           =   1
          EndProperty
          BeginProperty Button12 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Object.ToolTipText     =   "Make window transparent"
-            ImageIndex      =   9
+            ImageIndex      =   1
             Style           =   1
          EndProperty
          BeginProperty Button13 {66833FEA-8583-11D1-B16A-00C0F0283628} 
@@ -197,6 +165,7 @@ Begin VB.Form MainForm
          EndProperty
          BeginProperty Button14 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Object.ToolTipText     =   "About"
+            ImageIndex      =   1
          EndProperty
       EndProperty
    End
@@ -214,7 +183,7 @@ Begin VB.Form MainForm
       ScrollBars      =   3
       Appearance      =   0
       AutoVerbMenu    =   -1  'True
-      TextRTF         =   $"Main.frx":23EC
+      TextRTF         =   $"Main.frx":2294
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Courier New"
          Size            =   9.75
