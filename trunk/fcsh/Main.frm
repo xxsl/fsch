@@ -180,6 +180,7 @@ Begin VB.Form MainForm
       _Version        =   393217
       BackColor       =   -2147483633
       BorderStyle     =   0
+      Enabled         =   -1  'True
       ScrollBars      =   3
       Appearance      =   0
       AutoVerbMenu    =   -1  'True
@@ -368,25 +369,33 @@ End Sub
 Private Sub LoadPNG()
     'extract files and save
     Dim files As New Collection
-    files.Add "toolbar/application_xp_terminal.png"
-    files.Add "toolbar/stop.png"
-    files.Add "toolbar/bricks.png"
-    files.Add "toolbar/brick_add.png"
-    files.Add "toolbar/brick_delete.png"
-    files.Add "toolbar/information.png"
-    files.Add "toolbar/wrench_orange.png"
-    files.Add "toolbar/page_delete.png"
-    files.Add "toolbar/application_get.png"
-    files.Add "toolbar/shading.png"
-    files.Add "toolbar/help.png"
+    Dim imgArray() As Byte
+    Dim i As Long
     
-    
-    
+    For i = 101 To 111
+        imgArray = LoadResData(i, "custom")
+        
+        Open i & ".png" For Output As #2
+        Close #2
+        
+        Open i & ".png" For Binary As #2
+           Put #2, , imgArray()
+        Close #2
+        files.Add i & ".png"
+    Next i
     
     'load
     Dim pngLoader As New clsPngToImageList
     pngLoader.Initialize picIconLoad, picClear, pngImages, log
     pngLoader.LoadIcons files
+    
+    For i = 101 To 111
+        If (FileExists(i & ".png")) Then
+            Kill i & ".png"
+        Else
+            log.xDebug "File not found " & i & ".png"
+        End If
+    Next i
     
     'setup toolbar
     Set Toolbar.ImageList = pngImages
