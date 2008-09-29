@@ -37,7 +37,7 @@ Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescrip
 [Files]
 
 Source: "shell.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "fcsh.ini"; DestDir: "{app}"; Flags: ignoreversion
+Source: "fcsh.ini"; DestDir: "{app}"; Flags: uninsneveruninstall onlyifdoesntexist
 Source: "shell.exe.manifest"; DestDir: "{app}"; Flags: ignoreversion
 Source: "compiler.exe"; DestDir: "{app}"; Flags: ignoreversion
 
