@@ -97,15 +97,15 @@ Begin VB.Form MainForm
    End
    Begin MSComctlLib.Toolbar Toolbar 
       Align           =   1  'Align Top
-      Height          =   570
+      Height          =   360
       Left            =   0
       TabIndex        =   1
       Top             =   0
       Width           =   10590
       _ExtentX        =   18680
-      _ExtentY        =   1005
-      ButtonWidth     =   1746
-      ButtonHeight    =   953
+      _ExtentY        =   635
+      ButtonWidth     =   609
+      ButtonHeight    =   582
       Wrappable       =   0   'False
       Appearance      =   1
       Style           =   1
@@ -114,13 +114,11 @@ Begin VB.Form MainForm
       BeginProperty Buttons {66833FE8-8583-11D1-B16A-00C0F0283628} 
          NumButtons      =   13
          BeginProperty Button1 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Caption         =   "Run fcsh"
             Key             =   "run"
             Object.ToolTipText     =   "Start fcsh"
             ImageIndex      =   1
          EndProperty
          BeginProperty Button2 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Caption         =   "Clear log"
             Object.ToolTipText     =   "Clear log"
             ImageIndex      =   1
          EndProperty
@@ -128,21 +126,18 @@ Begin VB.Form MainForm
             Style           =   3
          EndProperty
          BeginProperty Button4 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Caption         =   "Build"
             Key             =   "build"
             Object.ToolTipText     =   "Build"
             ImageIndex      =   1
             Style           =   5
          EndProperty
          BeginProperty Button5 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Caption         =   "Incremental"
             Key             =   "type"
             Object.ToolTipText     =   "Incremental build"
             ImageIndex      =   1
             Style           =   1
          EndProperty
          BeginProperty Button6 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Caption         =   "Target"
             Key             =   "info"
             Object.ToolTipText     =   "Show target info"
             ImageIndex      =   1
@@ -151,7 +146,6 @@ Begin VB.Form MainForm
             Style           =   3
          EndProperty
          BeginProperty Button8 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Caption         =   "Options"
             Key             =   "options"
             Object.ToolTipText     =   "Options"
             ImageIndex      =   1
@@ -160,14 +154,12 @@ Begin VB.Form MainForm
             Style           =   3
          EndProperty
          BeginProperty Button10 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Caption         =   "On top"
             Key             =   "ontop"
             Object.ToolTipText     =   "Place window on top"
             ImageIndex      =   1
             Style           =   1
          EndProperty
          BeginProperty Button11 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Caption         =   "Transparent"
             Key             =   "transparent"
             Object.ToolTipText     =   "Make window transparent"
             ImageIndex      =   1
@@ -177,7 +169,6 @@ Begin VB.Form MainForm
             Style           =   3
          EndProperty
          BeginProperty Button13 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Caption         =   "About"
             Key             =   "about"
             Object.ToolTipText     =   "About"
             ImageIndex      =   1
@@ -189,14 +180,13 @@ Begin VB.Form MainForm
       Height          =   3615
       Left            =   0
       TabIndex        =   0
-      Top             =   560
+      Top             =   360
       Width           =   4335
       _ExtentX        =   7646
       _ExtentY        =   6376
       _Version        =   393217
       BackColor       =   -2147483633
       BorderStyle     =   0
-      Enabled         =   -1  'True
       ScrollBars      =   3
       Appearance      =   0
       AutoVerbMenu    =   -1  'True
@@ -346,7 +336,7 @@ End Sub
 Private Sub fcsh_onStart()
    Toolbar.Buttons.item(RUN_BUTTON).Image = STOP_PNG
    Toolbar.Buttons.item(RUN_BUTTON).ToolTipText = "Stop fcsh"
-   Toolbar.Buttons.item(RUN_BUTTON).Caption = "Stop fcsh"
+   'Toolbar.Buttons.item(RUN_BUTTON).Caption = "Stop fcsh"
    targets.RemoveAll
    Set lastTarget = Nothing
    DisplayBalloon "Flex compiler shell", "fcsh is started", NIIF_INFO
@@ -356,7 +346,7 @@ End Sub
 Private Sub fcsh_onStop()
    Toolbar.Buttons.item(RUN_BUTTON).Image = RUN_PNG
    Toolbar.Buttons.item(RUN_BUTTON).ToolTipText = "Start fcsh"
-   Toolbar.Buttons.item(RUN_BUTTON).Caption = "Start fcsh"
+   'Toolbar.Buttons.item(RUN_BUTTON).Caption = "Start fcsh"
    targets.RemoveAll
    Set lastTarget = Nothing
    log.Text vbCrLf
