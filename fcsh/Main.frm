@@ -97,83 +97,99 @@ Begin VB.Form MainForm
    End
    Begin MSComctlLib.Toolbar Toolbar 
       Align           =   1  'Align Top
-      Height          =   330
+      Height          =   570
       Left            =   0
       TabIndex        =   1
       Top             =   0
       Width           =   10590
       _ExtentX        =   18680
-      _ExtentY        =   582
-      ButtonWidth     =   609
-      ButtonHeight    =   582
+      _ExtentY        =   1005
+      ButtonWidth     =   1746
+      ButtonHeight    =   953
+      Wrappable       =   0   'False
+      Appearance      =   1
       Style           =   1
       ImageList       =   "fakeList"
       _Version        =   393216
       BeginProperty Buttons {66833FE8-8583-11D1-B16A-00C0F0283628} 
-         NumButtons      =   14
+         NumButtons      =   13
          BeginProperty Button1 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Caption         =   "Run fcsh"
+            Key             =   "run"
             Object.ToolTipText     =   "Start fcsh"
             ImageIndex      =   1
          EndProperty
          BeginProperty Button2 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Style           =   3
+            Caption         =   "Clear log"
+            Object.ToolTipText     =   "Clear log"
+            ImageIndex      =   1
          EndProperty
          BeginProperty Button3 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Style           =   3
+         EndProperty
+         BeginProperty Button4 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Caption         =   "Build"
+            Key             =   "build"
             Object.ToolTipText     =   "Build"
             ImageIndex      =   1
             Style           =   5
          EndProperty
-         BeginProperty Button4 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+         BeginProperty Button5 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Caption         =   "Incremental"
+            Key             =   "type"
             Object.ToolTipText     =   "Incremental build"
             ImageIndex      =   1
             Style           =   1
-            Value           =   1
          EndProperty
-         BeginProperty Button5 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+         BeginProperty Button6 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Caption         =   "Target"
+            Key             =   "info"
             Object.ToolTipText     =   "Show target info"
             ImageIndex      =   1
          EndProperty
-         BeginProperty Button6 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+         BeginProperty Button7 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Style           =   3
          EndProperty
-         BeginProperty Button7 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+         BeginProperty Button8 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Caption         =   "Options"
+            Key             =   "options"
             Object.ToolTipText     =   "Options"
             ImageIndex      =   1
          EndProperty
-         BeginProperty Button8 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Style           =   3
-         EndProperty
          BeginProperty Button9 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Object.ToolTipText     =   "Clear log"
-            ImageIndex      =   1
+            Style           =   3
          EndProperty
          BeginProperty Button10 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Style           =   3
-         EndProperty
-         BeginProperty Button11 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Caption         =   "On top"
+            Key             =   "ontop"
             Object.ToolTipText     =   "Place window on top"
             ImageIndex      =   1
             Style           =   1
          EndProperty
-         BeginProperty Button12 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+         BeginProperty Button11 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Caption         =   "Transparent"
+            Key             =   "transparent"
             Object.ToolTipText     =   "Make window transparent"
             ImageIndex      =   1
             Style           =   1
          EndProperty
-         BeginProperty Button13 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+         BeginProperty Button12 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Style           =   3
          EndProperty
-         BeginProperty Button14 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+         BeginProperty Button13 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Caption         =   "About"
+            Key             =   "about"
             Object.ToolTipText     =   "About"
             ImageIndex      =   1
          EndProperty
       EndProperty
+      BorderStyle     =   1
    End
    Begin RichTextLib.RichTextBox rtbLog 
       Height          =   3615
       Left            =   0
       TabIndex        =   0
-      Top             =   360
+      Top             =   560
       Width           =   4335
       _ExtentX        =   7646
       _ExtentY        =   6376
@@ -237,14 +253,29 @@ Attribute VB_Exposed = False
 
 Option Explicit
 
-Private Const ABOUT_BUTTON As Long = 14
-Private Const TRANSPARENT_BUTTON As Long = 12
-Private Const ONTOP_BUTTON As Long = 11
-Private Const CLEAR_BUTTON As Long = 9
-Private Const OPTIONS_BUTTON As Long = 7
-Private Const INFO_BUTTON As Long = 5
-Private Const TYPE_BUTTON As Long = 4
-Private Const BUILD_BUTTON As Long = 3
+Private Const EXEC_PNG As Long = 12
+Private Const ABOUT_PNG As Long = 11
+Private Const TRANSPARENT_PNG As Long = 10
+Private Const ONTOP_PNG As Long = 9
+Private Const CLEAR_PNG As Long = 8
+Private Const OPTIONS_PNG As Long = 7
+Private Const INFO_PNG As Long = 6
+Private Const TYPE_FALSE_PNG As Long = 5
+Private Const TYPE_TRUE_PNG As Long = 4
+Private Const BUILD_PNG As Long = 3
+Private Const STOP_PNG As Long = 2
+Private Const RUN_PNG As Long = 1
+
+
+
+Private Const ABOUT_BUTTON As Long = 13
+Private Const TRANSPARENT_BUTTON As Long = 11
+Private Const ONTOP_BUTTON As Long = 10
+Private Const CLEAR_BUTTON As Long = 2
+Private Const OPTIONS_BUTTON As Long = 8
+Private Const INFO_BUTTON As Long = 6
+Private Const TYPE_BUTTON As Long = 5
+Private Const BUILD_BUTTON As Long = 4
 Private Const RUN_BUTTON As Long = 1
 
 Private Const BUILD_FAILED As String = "Build failed"
@@ -313,8 +344,9 @@ End Sub
 
 'on fcsh.exe start
 Private Sub fcsh_onStart()
-   Toolbar.Buttons.item(RUN_BUTTON).Image = 2
+   Toolbar.Buttons.item(RUN_BUTTON).Image = STOP_PNG
    Toolbar.Buttons.item(RUN_BUTTON).ToolTipText = "Stop fcsh"
+   Toolbar.Buttons.item(RUN_BUTTON).Caption = "Stop fcsh"
    targets.RemoveAll
    Set lastTarget = Nothing
    DisplayBalloon "Flex compiler shell", "fcsh is started", NIIF_INFO
@@ -322,8 +354,9 @@ End Sub
 
 'on fcsh.exe stop
 Private Sub fcsh_onStop()
-   Toolbar.Buttons.item(RUN_BUTTON).Image = 1
+   Toolbar.Buttons.item(RUN_BUTTON).Image = RUN_PNG
    Toolbar.Buttons.item(RUN_BUTTON).ToolTipText = "Start fcsh"
+   Toolbar.Buttons.item(RUN_BUTTON).Caption = "Start fcsh"
    targets.RemoveAll
    Set lastTarget = Nothing
    log.Text vbCrLf
@@ -389,7 +422,7 @@ Private Sub LoadPNG()
     pngLoader.Initialize picIconLoad, picClear, pngImages, log
     pngLoader.LoadIcons files
     
-    For I = 101 To 111
+    For I = 101 To 112
         If (FileExists(I & ".png")) Then
             Kill I & ".png"
         Else
@@ -399,15 +432,15 @@ Private Sub LoadPNG()
     
     'setup toolbar
     Set Toolbar.ImageList = pngImages
-    Toolbar.Buttons(RUN_BUTTON).Image = 1
-    Toolbar.Buttons(BUILD_BUTTON).Image = 3
-    Toolbar.Buttons(TYPE_BUTTON).Image = 4
-    Toolbar.Buttons(INFO_BUTTON).Image = 6
-    Toolbar.Buttons(OPTIONS_BUTTON).Image = 7
-    Toolbar.Buttons(CLEAR_BUTTON).Image = 8
-    Toolbar.Buttons(ONTOP_BUTTON).Image = 9
-    Toolbar.Buttons(TRANSPARENT_BUTTON).Image = 10
-    Toolbar.Buttons(ABOUT_BUTTON).Image = 11
+    Toolbar.Buttons(RUN_BUTTON).Image = RUN_PNG
+    Toolbar.Buttons(BUILD_BUTTON).Image = BUILD_PNG
+    Toolbar.Buttons(TYPE_BUTTON).Image = TYPE_TRUE_PNG
+    Toolbar.Buttons(INFO_BUTTON).Image = INFO_PNG
+    Toolbar.Buttons(OPTIONS_BUTTON).Image = OPTIONS_PNG
+    Toolbar.Buttons(CLEAR_BUTTON).Image = CLEAR_PNG
+    Toolbar.Buttons(ONTOP_BUTTON).Image = ONTOP_PNG
+    Toolbar.Buttons(TRANSPARENT_BUTTON).Image = TRANSPARENT_PNG
+    Toolbar.Buttons(ABOUT_BUTTON).Image = ABOUT_PNG
 End Sub
 
 Public Sub loadApps()
@@ -581,12 +614,12 @@ Private Sub Toolbar_ButtonClick(ByVal Button As MSComctlLib.Button)
                     log.Text vbCrLf
                     Exit Sub
                 End If
-                fcsh.exec lastTarget, (Toolbar.Buttons(TYPE_BUTTON).Value = tbrPressed)
+                fcsh.exec lastTarget, (Toolbar.Buttons(TYPE_BUTTON).Value = tbrUnpressed)
         Case TYPE_BUTTON:
-                If (Toolbar.Buttons(TYPE_BUTTON).Value = tbrPressed) Then
-                    Toolbar.Buttons(TYPE_BUTTON).Image = 4
+                If (Toolbar.Buttons(TYPE_BUTTON).Value = tbrUnpressed) Then
+                    Toolbar.Buttons(TYPE_BUTTON).Image = TYPE_TRUE_PNG
                 Else
-                    Toolbar.Buttons(TYPE_BUTTON).Image = 5
+                    Toolbar.Buttons(TYPE_BUTTON).Image = TYPE_FALSE_PNG
                 End If
         Case INFO_BUTTON:
                 If ((lastTarget Is Nothing)) Then
@@ -640,7 +673,7 @@ Private Sub build(Index As Long)
     If (fcsh.isRunning) Then
         If (targets.Exists(app.fName)) Then
             Set lastTarget = targets.item(app.fName)
-            fcsh.exec lastTarget, (Toolbar.Buttons(TYPE_BUTTON).Value = tbrPressed)
+            fcsh.exec lastTarget, (Toolbar.Buttons(TYPE_BUTTON).Value = tbrUnpressed)
         Else
             Set lastTarget = app
             targets.Add app.fName, app
