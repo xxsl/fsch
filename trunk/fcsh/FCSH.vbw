@@ -1,4 +1,4 @@
-MainForm = 152, 73, 739, 596, C, 124, 287, 786, 810, C
+MainForm = 152, 73, 739, 596, , 124, 287, 786, 810, C
 clsLog = 0, 0, 587, 523, C
 clsConfiguration = 115, 176, 777, 699, C
 clsFCSH = 110, 145, 764, 668, C
@@ -22,4 +22,4 @@ cPNGparser = 0, 0, 0, 0, C
 cPNGwriter = 0, 0, 0, 0, C
 cTGAparser = 0, 0, 0, 0, C
 clsPngToImageList = 44, 58, 673, 581, C
-frmAbout = 183, 102, 863, 625, , 0, 0, 680, 523, C
+frmAbout = 183, 102, 863, 625, C, 0, 0, 680, 523, C
