@@ -196,7 +196,6 @@ Begin VB.Form MainForm
       _Version        =   393217
       BackColor       =   -2147483633
       BorderStyle     =   0
-      Enabled         =   -1  'True
       ScrollBars      =   3
       Appearance      =   0
       AutoVerbMenu    =   -1  'True
@@ -218,14 +217,6 @@ Begin VB.Form MainForm
       _ExtentY        =   741
       _Version        =   393216
       LocalPort       =   44000
-   End
-   Begin VB.Image appIcon 
-      Height          =   240
-      Left            =   5400
-      Picture         =   "Main.frx":2332
-      Top             =   4200
-      Visible         =   0   'False
-      Width           =   240
    End
    Begin VB.Menu mnuShell 
       Caption         =   "Shell"
@@ -378,7 +369,7 @@ End Sub
 
 'start application
 Private Sub Form_Load()
-        Me.icon = appIcon.Picture
+        Me.icon = frmAbout.icon
 
         'init prefs
         config.Load
