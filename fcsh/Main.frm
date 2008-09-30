@@ -219,6 +219,14 @@ Begin VB.Form MainForm
       _Version        =   393216
       LocalPort       =   44000
    End
+   Begin VB.Image appIcon 
+      Height          =   240
+      Left            =   5400
+      Picture         =   "Main.frx":2332
+      Top             =   4200
+      Visible         =   0   'False
+      Width           =   240
+   End
    Begin VB.Menu mnuShell 
       Caption         =   "Shell"
       Visible         =   0   'False
@@ -370,6 +378,8 @@ End Sub
 
 'start application
 Private Sub Form_Load()
+        Me.icon = appIcon.Picture
+
         'init prefs
         config.Load
         
