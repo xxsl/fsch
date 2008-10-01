@@ -105,7 +105,6 @@ Begin VB.Form MainForm
       _ExtentX        =   18680
       _ExtentY        =   635
       ButtonWidth     =   609
-      ButtonHeight    =   582
       Wrappable       =   0   'False
       Appearance      =   1
       Style           =   1
@@ -187,6 +186,7 @@ Begin VB.Form MainForm
       _Version        =   393217
       BackColor       =   -2147483633
       BorderStyle     =   0
+      Enabled         =   -1  'True
       ScrollBars      =   3
       Appearance      =   0
       AutoVerbMenu    =   -1  'True
@@ -222,6 +222,12 @@ Begin VB.Form MainForm
          Caption         =   "Run/Stop fcsh"
       End
       Begin VB.Menu mnuSep2 
+         Caption         =   "-"
+      End
+      Begin VB.Menu mnuFloat 
+         Caption         =   "Show floating window"
+      End
+      Begin VB.Menu mnuSep3 
          Caption         =   "-"
       End
       Begin VB.Menu mnuExit 
@@ -368,6 +374,8 @@ Private Sub Form_Load()
         'set up logging
         log.clsLog rtbLog, config
 
+        'load png images
+        LoadPNG
           
         'init vars
         isServerBusy = False
@@ -385,10 +393,6 @@ Private Sub Form_Load()
         
         'load configured apps
         loadApps
-        
-        'load png images
-        LoadPNG
-        
 End Sub
 
 Private Sub LoadPNG()
@@ -437,6 +441,7 @@ End Sub
 
 Public Sub loadApps()
     Toolbar.Buttons(BUILD_BUTTON).ButtonMenus.clear
+    frmFloat.Toolbar1.Buttons(1).ButtonMenus.clear
     Dim I As Long
     Dim app As clsTarget
     Dim key As String
@@ -446,6 +451,7 @@ Public Sub loadApps()
         Set app = config.LoadApplication(I)
         key = I & "app"
         Toolbar.Buttons(BUILD_BUTTON).ButtonMenus.Add I, key, app.fName
+        frmFloat.Toolbar1.Buttons(1).ButtonMenus.Add I, key, app.fName
     Next I
 End Sub
 
@@ -468,10 +474,24 @@ End Sub
 
 
 
-
 Private Sub mnuExit_Click()
-    Form_QueryUnload 0, 0
+    Form_Unload 0
     End
+End Sub
+
+Private Sub mnuFloat_Click()
+    mnuFloat.Checked = Not mnuFloat.Checked
+    If (mnuFloat.Checked = True) Then
+        frmFloat.Show
+        SetAlwaysOnTopMode frmFloat.hWnd, True
+        'Dim bytOpacity As Byte
+        'Set the transparency level
+        'bytOpacity = config.Alpha
+        'Call SetWindowLong(frmFloat.hWnd, GWL_EXSTYLE, GetWindowLong(frmFloat.hWnd, GWL_EXSTYLE) Or WS_EX_LAYERED)
+        'Call SetLayeredWindowAttributes(frmFloat.hWnd, 0, bytOpacity, LWA_ALPHA)
+    Else
+        frmFloat.Hide
+    End If
 End Sub
 
 Private Sub mnuRecompile_Click()
@@ -596,17 +616,7 @@ Private Sub Toolbar_ButtonClick(ByVal Button As MSComctlLib.Button)
                     fcsh.Quit
                 End If
         Case BUILD_BUTTON:
-                If ((lastTarget Is Nothing)) Then
-                    log.xError "No targets were assigned yet. Nothing to recompile."
-                    log.Text vbCrLf
-                    Exit Sub
-                End If
-                If (lastTarget.fTargetID = 0) Then
-                    log.xError "No targets were assigned yet. Nothing to recompile."
-                    log.Text vbCrLf
-                    Exit Sub
-                End If
-                fcsh.exec lastTarget, (Toolbar.Buttons(TYPE_BUTTON).Value = tbrUnpressed)
+                rebuild
         Case TYPE_BUTTON:
                 If (Toolbar.Buttons(TYPE_BUTTON).Value = tbrUnpressed) Then
                     Toolbar.Buttons(TYPE_BUTTON).Image = TYPE_TRUE_PNG
@@ -658,7 +668,21 @@ Private Sub Toolbar_ButtonMenuClick(ByVal ButtonMenu As MSComctlLib.ButtonMenu)
     build Index
 End Sub
 
-Private Sub build(Index As Long)
+Public Sub rebuild()
+    If ((lastTarget Is Nothing)) Then
+       log.xError "No targets were assigned yet. Nothing to recompile."
+       log.Text vbCrLf
+       Exit Sub
+    End If
+    If (lastTarget.fTargetID = 0) Then
+       log.xError "No targets were assigned yet. Nothing to recompile."
+       log.Text vbCrLf
+       Exit Sub
+    End If
+    fcsh.exec lastTarget, (Toolbar.Buttons(TYPE_BUTTON).Value = tbrUnpressed)
+End Sub
+
+Public Sub build(Index As Long)
     Dim app As clsTarget
     Set app = config.LoadApplication(Index)
         
@@ -681,9 +705,9 @@ End Sub
 'basic
 '***********************************************************************************************
 'tray events
-Private Sub fakeTray_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub fakeTray_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
     Dim cEvent As Single
-    cEvent = X / Screen.TwipsPerPixelX
+    cEvent = x / Screen.TwipsPerPixelX
     Select Case cEvent
         Case MouseMove
             Debug.Print "MouseMove"
@@ -727,13 +751,23 @@ Private Sub Form_Resize()
     End If
 End Sub
 
+
 'on quit
-Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
+Private Sub Form_Unload(Cancel As Integer)
     log.xDebug "Application stopped"
     TrayDelete
     Server.Close
     Unload frmOptions
     Unload frmAbout
+    Unload frmFloat
+End Sub
+
+
+Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
+    Me.Visible = False
+    lastState = Me.WindowState
+    Me.WindowState = vbMinimized
+    Cancel = 1
 End Sub
 
 
