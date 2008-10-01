@@ -105,6 +105,7 @@ Begin VB.Form MainForm
       _ExtentX        =   18680
       _ExtentY        =   635
       ButtonWidth     =   609
+      ButtonHeight    =   582
       Wrappable       =   0   'False
       Appearance      =   1
       Style           =   1
@@ -186,7 +187,6 @@ Begin VB.Form MainForm
       _Version        =   393217
       BackColor       =   -2147483633
       BorderStyle     =   0
-      Enabled         =   -1  'True
       ScrollBars      =   3
       Appearance      =   0
       AutoVerbMenu    =   -1  'True
@@ -249,7 +249,6 @@ Attribute VB_Exposed = False
 
 Option Explicit
 
-Private Const EXEC_PNG As Long = 12
 Private Const ABOUT_PNG As Long = 11
 Private Const TRANSPARENT_PNG As Long = 10
 Private Const ONTOP_PNG As Long = 9
@@ -309,6 +308,9 @@ Private Sub fcsh_onError(target As clsTarget)
         targets.Remove target.fName
     End If
     
+    frmFloat.idle
+    
+    
     sendRemote Msg + vbCrLf + BUILD_FAILED
 End Sub
 
@@ -321,6 +323,8 @@ Private Sub fcsh_onFinish(target As clsTarget)
     If ((target.fTargetID = 0) And (targets.Exists(target.fName))) Then
         targets.Remove target.fName
     End If
+    
+    frmFloat.idle
     
     sendRemote BUILD_SUCESSFULL
 End Sub
@@ -335,6 +339,8 @@ Private Sub fcsh_onIdAssigned(target As clsTarget)
         targets.Add target.fName, target
     End If
     
+    frmFloat.idle
+    
     sendRemote BUILD_SUCESSFULL
 End Sub
 
@@ -346,6 +352,7 @@ Private Sub fcsh_onStart()
    targets.RemoveAll
    Set lastTarget = Nothing
    DisplayBalloon "Flex compiler shell", "fcsh is started", NIIF_INFO
+   frmFloat.idle
 End Sub
 
 'on fcsh.exe stop
@@ -357,6 +364,7 @@ Private Sub fcsh_onStop()
    Set lastTarget = Nothing
    log.Text vbCrLf
    DisplayBalloon "Flex compiler shell", "fcsh is stopped", NIIF_WARNING
+   frmFloat.stopped
 End Sub
 
 '***********************************************************************************************
@@ -401,7 +409,7 @@ Private Sub LoadPNG()
     Dim imgArray() As Byte
     Dim I As Long
     
-    For I = 101 To 111
+    For I = 101 To 114
         imgArray = LoadResData(I, "custom")
         
         Open I & ".png" For Output As #2
@@ -705,9 +713,9 @@ End Sub
 'basic
 '***********************************************************************************************
 'tray events
-Private Sub fakeTray_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub fakeTray_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
     Dim cEvent As Single
-    cEvent = x / Screen.TwipsPerPixelX
+    cEvent = X / Screen.TwipsPerPixelX
     Select Case cEvent
         Case MouseMove
             Debug.Print "MouseMove"
