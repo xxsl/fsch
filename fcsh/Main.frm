@@ -187,6 +187,7 @@ Begin VB.Form MainForm
       _Version        =   393217
       BackColor       =   -2147483633
       BorderStyle     =   0
+      Enabled         =   -1  'True
       ScrollBars      =   3
       Appearance      =   0
       AutoVerbMenu    =   -1  'True
@@ -308,7 +309,7 @@ Private Sub fcsh_onError(target As clsTarget)
         targets.Remove target.fName
     End If
     
-    frmFloat.idle
+    frmFloat.error
     
     
     sendRemote Msg + vbCrLf + BUILD_FAILED
@@ -408,7 +409,7 @@ Private Sub LoadPNG()
     Dim files As New Collection
     Dim imgArray() As Byte
     Dim I As Long
-    Const counter As Long = 114
+    Const counter As Long = 115
     
     For I = 101 To counter
         imgArray = LoadResData(I, "custom")

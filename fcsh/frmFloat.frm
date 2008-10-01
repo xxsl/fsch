@@ -52,6 +52,7 @@ Attribute VB_Exposed = False
 Private Declare Function SendMessage Lib "user32" Alias "SendMessageA" (ByVal hWnd As Long, ByVal wMsg As Long, ByVal wParam As Long, lParam As Any) As Long
 Private Declare Sub ReleaseCapture Lib "user32" ()
 
+Private Const ERROR_PNG As Long = 15
 Private Const EXEC_PNG As Long = 14
 Private Const STOPPED_PNG As Long = 13
 Private Const IDLE_PNG As Long = 12
@@ -59,6 +60,7 @@ Private Const IDLE_PNG As Long = 12
 Private Const BUILD_STOPPED As String = "Stopped"
 Private Const BUILD_ACTIVE As String = "Active"
 Private Const BUILD_IDLE As String = "Idle"
+Private Const BUILD_ERROR As String = "Error"
 
 Private Sub Form_Load()
     Toolbar1.ImageList = MainForm.pngImages
@@ -102,6 +104,11 @@ End Sub
 Public Sub stopped()
     Toolbar1.Buttons(2).Image = STOPPED_PNG
     Toolbar1.Buttons(2).ToolTipText = BUILD_STOPPED
+End Sub
+
+Public Sub error()
+    Toolbar1.Buttons(2).Image = ERROR_PNG
+    Toolbar1.Buttons(2).ToolTipText = BUILD_ERROR
 End Sub
 
 
