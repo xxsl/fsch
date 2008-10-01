@@ -408,8 +408,9 @@ Private Sub LoadPNG()
     Dim files As New Collection
     Dim imgArray() As Byte
     Dim I As Long
+    Const counter As Long = 114
     
-    For I = 101 To 114
+    For I = 101 To counter
         imgArray = LoadResData(I, "custom")
         
         Open I & ".png" For Output As #2
@@ -426,7 +427,7 @@ Private Sub LoadPNG()
     pngLoader.Initialize picIconLoad, picClear, pngImages, log
     pngLoader.LoadIcons files
     
-    For I = 101 To 112
+    For I = 101 To counter
         If (FileExists(I & ".png")) Then
             Kill I & ".png"
         Else
