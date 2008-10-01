@@ -41,12 +41,16 @@ Attribute VB_Exposed = False
 
 Option Explicit
 
+Private Declare Function GetTickCount Lib "kernel32" () As Long
+
 Public config As New clsConfiguration
 
 Private ms As Long
 
 Const BUILD_FAILED As String = "Build failed"
 Const BUILD_SUCESSFULL As String = "Build successfull"
+
+Private responce As String
 
 Private Sub Form_Load()
     If (Len(Trim(Command)) > 0) Then
@@ -57,7 +61,7 @@ Private Sub Form_Load()
             MsgBox "Relink executable to support stdOut"
             End
         End If
-        Timer1.Enabled = True
+        ms = GetTickCount
         Controller.RemotePort = config.SERVER_PORT
         Controller.LocalPort = 0
         Controller.Connect
@@ -95,7 +99,7 @@ Private Sub Controller_DataArrival(ByVal bytesTotal As Long)
     WriteStdOut s
     If (InStr(1, responce, BUILD_FAILED) > 0 Or InStr(1, responce, BUILD_SUCESSFULL) > 0) Then
         WriteStdOut vbCrLf
-        WriteStdOut "Build time: " & ms * 100 & " ms" & vbCrLf
+        WriteStdOut "Build time: " & (GetTickCount - ms) & " ms" & vbCrLf
         End
     End If
     If (Err.Number <> 0) Then
@@ -105,7 +109,7 @@ Private Sub Controller_DataArrival(ByVal bytesTotal As Long)
         End If
         Err.Clear
         WriteStdOut vbCrLf
-        WriteStdOut "Build time: " & ms * 100 & " ms" & vbCrLf
+        WriteStdOut "Build time: " & (GetTickCount - ms) & " ms" & vbCrLf
         End
     End If
 End Sub
