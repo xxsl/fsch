@@ -3,28 +3,27 @@ Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
 Begin VB.Form frmFloat 
    BorderStyle     =   0  'None
    Caption         =   "Form1"
-   ClientHeight    =   360
+   ClientHeight    =   570
    ClientLeft      =   15120
    ClientTop       =   11190
-   ClientWidth     =   900
+   ClientWidth     =   1395
    ControlBox      =   0   'False
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   360
-   ScaleWidth      =   900
+   ScaleHeight     =   570
+   ScaleWidth      =   1395
    ShowInTaskbar   =   0   'False
    Begin MSComctlLib.Toolbar Toolbar1 
-      Align           =   1  'Align Top
-      Height          =   360
+      Height          =   570
       Left            =   0
       TabIndex        =   0
       Top             =   0
-      Width           =   900
-      _ExtentX        =   1588
-      _ExtentY        =   635
-      ButtonWidth     =   609
-      ButtonHeight    =   582
+      Width           =   1395
+      _ExtentX        =   2461
+      _ExtentY        =   1005
+      ButtonWidth     =   1085
+      ButtonHeight    =   953
       AllowCustomize  =   0   'False
       Wrappable       =   0   'False
       Appearance      =   1
@@ -33,10 +32,12 @@ Begin VB.Form frmFloat
       BeginProperty Buttons {66833FE8-8583-11D1-B16A-00C0F0283628} 
          NumButtons      =   2
          BeginProperty Button1 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Caption         =   "  Build  "
             Object.ToolTipText     =   "Build"
             Style           =   5
          EndProperty
          BeginProperty Button2 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Caption         =   "State"
             Object.ToolTipText     =   "Build state"
          EndProperty
       EndProperty
@@ -55,9 +56,9 @@ Private Const EXEC_PNG As Long = 14
 Private Const STOPPED_PNG As Long = 13
 Private Const IDLE_PNG As Long = 12
 
-Private Const BUILD_STOPPED As String = "stopped"
-Private Const BUILD_ACTIVE As String = "active"
-Private Const BUILD_IDLE As String = "idle"
+Private Const BUILD_STOPPED As String = "Stopped"
+Private Const BUILD_ACTIVE As String = "Active"
+Private Const BUILD_IDLE As String = "Idle"
 
 Private Sub Form_Load()
     Toolbar1.ImageList = MainForm.pngImages
