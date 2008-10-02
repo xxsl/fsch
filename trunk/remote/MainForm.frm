@@ -42,6 +42,7 @@ Attribute VB_Exposed = False
 Option Explicit
 
 Private Declare Function GetTickCount Lib "kernel32" () As Long
+Private Declare Sub ExitProcess Lib "kernel32" (ByVal uExitCode As Long)
 
 Public config As New clsConfiguration
 
@@ -97,10 +98,17 @@ Private Sub Controller_DataArrival(ByVal bytesTotal As Long)
     Controller.GetData s, vbString, bytesTotal
     responce = responce + s
     WriteStdOut s
-    If (InStr(1, responce, BUILD_FAILED) > 0 Or InStr(1, responce, BUILD_SUCESSFULL) > 0) Then
+    If (InStr(1, responce, BUILD_SUCESSFULL) > 0) Then
         WriteStdOut vbCrLf
         WriteStdOut "Build time: " & (GetTickCount - ms) & " ms" & vbCrLf
+        Controller.Close
         End
+    End If
+    If (InStr(1, responce, BUILD_FAILED) > 0) Then
+        WriteStdOut vbCrLf
+        WriteStdOut "Build time: " & (GetTickCount - ms) & " ms" & vbCrLf
+        Controller.Close
+        ExitProcess 1&
     End If
     If (Err.Number <> 0) Then
         WriteStdOut "Error: " & Err.Number & " " & Err.Description & vbCrLf
@@ -110,12 +118,12 @@ Private Sub Controller_DataArrival(ByVal bytesTotal As Long)
         Err.Clear
         WriteStdOut vbCrLf
         WriteStdOut "Build time: " & (GetTickCount - ms) & " ms" & vbCrLf
-        End
+        ExitProcess 2&
     End If
 End Sub
 
 Private Sub Controller_Error(ByVal Number As Integer, Description As String, ByVal Scode As Long, ByVal Source As String, ByVal HelpFile As String, ByVal HelpContext As Long, CancelDisplay As Boolean)
     WriteStdOut Description + vbCrLf + BUILD_FAILED
     Controller.Close
-    End
+    ExitProcess 3&
 End Sub
