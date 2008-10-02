@@ -187,6 +187,7 @@ Begin VB.Form MainForm
       _Version        =   393217
       BackColor       =   -2147483633
       BorderStyle     =   0
+      Enabled         =   -1  'True
       ScrollBars      =   3
       Appearance      =   0
       AutoVerbMenu    =   -1  'True
@@ -680,7 +681,11 @@ End Sub
 Public Sub rebuild()
     Dim target As New clsTarget
     If ((lastTarget Is Nothing)) Then
-       target.fMessage = "No targets were assigned yet. Nothing to recompile."
+       If (fcsh.isRunning) Then
+           target.fMessage = "No targets were assigned yet. Nothing to recompile."
+       Else
+           target.fMessage = "Cant exec: fcsh stopped"
+       End If
        fcsh_onError target
        Exit Sub
     End If
