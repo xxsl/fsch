@@ -187,7 +187,6 @@ Begin VB.Form MainForm
       _Version        =   393217
       BackColor       =   -2147483633
       BorderStyle     =   0
-      Enabled         =   -1  'True
       ScrollBars      =   3
       Appearance      =   0
       AutoVerbMenu    =   -1  'True
@@ -505,13 +504,7 @@ Private Sub mnuFloat_Click()
 End Sub
 
 Private Sub mnuRecompile_Click()
-   If (Not (lastTarget Is Nothing)) Then
-       fcsh.exec lastTarget
-   Else
-       log.xError "No targets were assigned yet. Nothing to recompile."
-       log.Text vbCrLf
-       DisplayBalloon "Flex compiler shell", "No targets were assigned yet. Nothing to recompile.", NIIF_WARNING
-   End If
+   rebuild
 End Sub
 
 Private Sub mnuRun_Click()
