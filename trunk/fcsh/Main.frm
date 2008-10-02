@@ -187,7 +187,6 @@ Begin VB.Form MainForm
       _Version        =   393217
       BackColor       =   -2147483633
       BorderStyle     =   0
-      Enabled         =   -1  'True
       ScrollBars      =   3
       Appearance      =   0
       AutoVerbMenu    =   -1  'True
@@ -643,7 +642,7 @@ Private Sub Toolbar_ButtonClick(ByVal Button As MSComctlLib.Button)
         Case OPTIONS_BUTTON:
                 frmOptions.loadPrefs config, log
                 SetAlwaysOnTopMode frmOptions.hWnd, (Toolbar.Buttons(ONTOP_BUTTON).Value = tbrPressed)
-                frmAbout.Move (Screen.Width - frmOptions.Width) \ 2, ((Screen.Height - frmOptions.Height) \ 2)
+                frmOptions.Move (Screen.Width - frmOptions.Width) \ 2, ((Screen.Height - frmOptions.Height) \ 2)
         Case CLEAR_BUTTON:
                 log.clear
         Case ONTOP_BUTTON:
