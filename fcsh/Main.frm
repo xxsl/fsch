@@ -641,7 +641,8 @@ Private Sub Toolbar_ButtonClick(ByVal Button As MSComctlLib.Button)
                 
         Case OPTIONS_BUTTON:
                 frmOptions.loadPrefs config, log
-                frmOptions.Show 1, Me
+                SetAlwaysOnTopMode frmOptions.hWnd, (Toolbar.Buttons(ONTOP_BUTTON).Value = tbrPressed)
+                frmAbout.Move (Screen.Width - frmAbout.Width) \ 2, ((Screen.Height - frmAbout.Height) \ 2)
         Case CLEAR_BUTTON:
                 log.clear
         Case ONTOP_BUTTON:
@@ -661,7 +662,8 @@ Private Sub Toolbar_ButtonClick(ByVal Button As MSComctlLib.Button)
                     Call SetWindowLong(Me.hWnd, GWL_EXSTYLE, GetWindowLong(Me.hWnd, GWL_EXSTYLE) And (Not WS_EX_LAYERED))
                 End If
         Case ABOUT_BUTTON:
-                frmAbout.Show 1
+                SetAlwaysOnTopMode frmAbout.hWnd, (Toolbar.Buttons(ONTOP_BUTTON).Value = tbrPressed)
+                frmAbout.Move (Screen.Width - frmAbout.Width) \ 2, ((Screen.Height - frmAbout.Height) \ 2)
     End Select
 End Sub
 
@@ -686,6 +688,7 @@ Public Sub rebuild()
        target.fMessage = "No targets were assigned yet. Nothing to recompile."
        fcsh_onError target
     End If
+    frmFloat.active
     fcsh.exec lastTarget, (Toolbar.Buttons(TYPE_BUTTON).Value = tbrUnpressed)
 End Sub
 
@@ -694,6 +697,7 @@ Public Sub build(Index As Long)
     Set app = config.LoadApplication(Index)
         
     If (fcsh.isRunning) Then
+        frmFloat.active
         If (targets.Exists(app.fName)) Then
             Set lastTarget = targets.item(app.fName)
             fcsh.exec lastTarget, (Toolbar.Buttons(TYPE_BUTTON).Value = tbrUnpressed)
