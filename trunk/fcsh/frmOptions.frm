@@ -19,7 +19,8 @@ Begin VB.Form frmOptions
    MinButton       =   0   'False
    ScaleHeight     =   6675
    ScaleWidth      =   10335
-   StartUpPosition =   1  'CenterOwner
+   ShowInTaskbar   =   0   'False
+   StartUpPosition =   2  'CenterScreen
    Begin VB.PictureBox picFrameNoName 
       Appearance      =   0  'Flat
       AutoRedraw      =   -1  'True
@@ -686,7 +687,7 @@ Attribute VB_Exposed = False
 Option Explicit
 
 Private Declare Function SHBrowseForFolder Lib "shell32" _
-                                        (lpbi As BrowseInfo) As Long
+                                        (lpBI As BrowseInfo) As Long
 
 Private Declare Function SHGetPathFromIDList Lib "shell32" _
                                         (ByVal pidList As Long, _
@@ -780,9 +781,9 @@ Private Sub Form_Load()
     Dim padding As Long, corner As Long
     corner = 10
     padding = 4
-    RoundRect picFramePrefs.hdc, padding, padding, picFramePrefs.ScaleWidth - padding, picFramePrefs.ScaleHeight - padding, corner, corner
-    RoundRect picFrameNoName.hdc, padding, padding, picFrameNoName.ScaleWidth - padding, picFrameNoName.ScaleHeight - padding, corner, corner
-    RoundRect picAppFrame.hdc, padding, padding, picAppFrame.ScaleWidth - padding, picAppFrame.ScaleHeight - padding, corner, corner
+    RoundRect picFramePrefs.hDC, padding, padding, picFramePrefs.ScaleWidth - padding, picFramePrefs.ScaleHeight - padding, corner, corner
+    RoundRect picFrameNoName.hDC, padding, padding, picFrameNoName.ScaleWidth - padding, picFrameNoName.ScaleHeight - padding, corner, corner
+    RoundRect picAppFrame.hDC, padding, padding, picAppFrame.ScaleWidth - padding, picAppFrame.ScaleHeight - padding, corner, corner
 
 End Sub
 
@@ -791,45 +792,45 @@ Public Sub loadPrefs(ByRef cfg As clsConfiguration, ByRef logger As clsLog)
     Set log = logger
     Set config = cfg
     Set appsCollection = New Collection
-    lstApps.Clear
+    lstApps.clear
     picAppFrame.Enabled = False
     resetControls
     
     txtPort.Text = config.SERVER_PORT
     
     If (config.LOG_DEBUG) Then
-        chkDebug.value = 1
+        chkDebug.Value = 1
     Else
-        chkDebug.value = 0
+        chkDebug.Value = 0
     End If
     
     If (config.SHOW_BALOON) Then
-        chkBaloon.value = 1
+        chkBaloon.Value = 1
     Else
-        chkBaloon.value = 0
+        chkBaloon.Value = 0
     End If
     
     txtFcsh.Text = config.FCSH_PATH
     
-    txtAlpha.Text = config.ALPHA
+    txtAlpha.Text = config.Alpha
     
-    picBack.BACKCOLOR = config.BACKCOLOR
-    picFore.BACKCOLOR = config.FORECOLOR
+    picBack.BackColor = config.BackColor
+    picFore.BackColor = config.ForeColor
     
-    Dim i As Long
+    Dim I As Long
     Dim app As clsTarget
     
-    For i = 1 To config.APPLICATIONS
-        Set app = config.LoadApplication(i)
+    For I = 1 To config.APPLICATIONS
+        Set app = config.LoadApplication(I)
         appsCollection.Add app
         lstApps.AddItem app.fName
-    Next i
+    Next I
     
 End Sub
 
 
 Private Sub AppToolbar_ButtonClick(ByVal Button As MSComctlLib.Button)
-    Select Case Button.index
+    Select Case Button.Index
             Case 1:
                     Dim newApp As New clsTarget
                     Dim appName As String
@@ -843,25 +844,25 @@ Private Sub AppToolbar_ButtonClick(ByVal Button As MSComctlLib.Button)
                         MsgBox "This name already exists - " + appName, vbCritical
                     End If
             Case 2:
-                    Dim index As Long
+                    Dim Index As Long
                     If (lstApps.ListIndex >= 0) Then
-                        Dim i As Long
+                        Dim I As Long
                         Dim name As String
                         name = lstApps.List(lstApps.ListIndex)
                         Dim app As clsTarget
                        
-                        i = 1
+                        I = 1
                         For Each app In appsCollection
                             If (app.fName = name) Then
-                                appsCollection.Remove i
+                                appsCollection.Remove I
                             End If
-                            i = i + 1
+                            I = I + 1
                         Next
                       
                     End If
     End Select
     
-    lstApps.Clear
+    lstApps.clear
     For Each app In appsCollection
         lstApps.AddItem app.fName
     Next
@@ -906,21 +907,21 @@ End Sub
 
 Private Sub cmdRemove_Click()
     Dim app As clsTarget
-    Dim index As Long
+    Dim Index As Long
     If (lstApps.ListIndex >= 0) Then
-        Dim i As Long
+        Dim I As Long
         Dim name As String
         name = lstApps.List(lstApps.ListIndex)
         
-        i = 1
+        I = 1
         For Each app In appsCollection
             If (app.fName = name) Then
-                appsCollection.Remove i
+                appsCollection.Remove I
             End If
-            i = i + 1
+            I = I + 1
         Next
     End If
-    lstApps.Clear
+    lstApps.clear
     For Each app In appsCollection
        lstApps.AddItem app.fName
     Next
@@ -942,7 +943,7 @@ Private Sub cmdAdd_Click()
        MsgBox "This name already exists - " + appName, vbCritical
    End If
    
-   lstApps.Clear
+   lstApps.clear
    For Each app In appsCollection
        lstApps.AddItem app.fName
    Next
@@ -1035,24 +1036,24 @@ End Sub
 Private Sub cmdSave_Click()
     'config.Clear
 
-    config.LOG_DEBUG = (chkDebug.value = 1)
+    config.LOG_DEBUG = (chkDebug.Value = 1)
     config.SERVER_PORT = txtPort.Text
     config.SHOW_BALOON = (chkBaloon = 1)
     config.FCSH_PATH = txtFcsh.Text
-    config.ALPHA = txtAlpha.Text
+    config.Alpha = txtAlpha.Text
     
-    config.BACKCOLOR = picBack.BACKCOLOR
-    config.FORECOLOR = picFore.BACKCOLOR
+    config.BackColor = picBack.BackColor
+    config.ForeColor = picFore.BackColor
     
-    Dim i As Long
+    Dim I As Long
     Dim app As clsTarget
-    i = 0
+    I = 0
     For Each app In appsCollection
-        i = i + 1
-        config.saveApplication i, app
+        I = I + 1
+        config.saveApplication I, app
     Next
     
-    config.APPLICATIONS = i
+    config.APPLICATIONS = I
     
     MainForm.loadApps
     Me.Hide
@@ -1066,18 +1067,18 @@ End Sub
 
 Private Sub lstApps_Click()
     isLoading = True
-    Dim index As Long
+    Dim Index As Long
     If (lstApps.ListIndex >= 0) Then
         picAppFrame.Enabled = True
-        index = lstApps.ListIndex + 1
-        optionCommand.Property = appsCollection.item(index).fCommand
-        txtTarget(1).Text = appsCollection.item(index).fName
-        txtTarget(2).Text = appsCollection.item(index).fSource
-        optionLibs.Property = appsCollection.item(index).fLibraries
-        txtTarget(4).Text = appsCollection.item(index).fOutput
-        txtTarget(5).Text = appsCollection.item(index).fServices
-        txtTarget(6).Text = appsCollection.item(index).fContext
-        optionDebug.Property = appsCollection.item(index).fDebug
+        Index = lstApps.ListIndex + 1
+        optionCommand.Property = appsCollection.item(Index).fCommand
+        txtTarget(1).Text = appsCollection.item(Index).fName
+        txtTarget(2).Text = appsCollection.item(Index).fSource
+        optionLibs.Property = appsCollection.item(Index).fLibraries
+        txtTarget(4).Text = appsCollection.item(Index).fOutput
+        txtTarget(5).Text = appsCollection.item(Index).fServices
+        txtTarget(6).Text = appsCollection.item(Index).fContext
+        optionDebug.Property = appsCollection.item(Index).fDebug
     Else
         picAppFrame.Enabled = False
     End If
@@ -1086,18 +1087,18 @@ End Sub
 
 
 Private Sub picBack_Click()
-    CD1.Color = picBack.BACKCOLOR
+    CD1.Color = picBack.BackColor
     CD1.ShowColor
-    picBack.BACKCOLOR = CD1.Color
+    picBack.BackColor = CD1.Color
 End Sub
 
 Private Sub picFore_Click()
-    CD1.Color = picFore.BACKCOLOR
+    CD1.Color = picFore.BackColor
     CD1.ShowColor
-    picFore.BACKCOLOR = CD1.Color
+    picFore.BackColor = CD1.Color
 End Sub
 
-Private Sub txtTarget_Change(index As Integer)
+Private Sub txtTarget_Change(Index As Integer)
     Dim target As Long
     If (lstApps.ListIndex >= 0 And Not isLoading) Then
         target = lstApps.ListIndex + 1
@@ -1113,10 +1114,10 @@ Private Sub txtTarget_Change(index As Integer)
 End Sub
 
 Private Sub resetControls()
-    Dim i As Long
-    For i = 0 To txtTarget.Count - 1
-        txtTarget(i).Text = ""
-    Next i
+    Dim I As Long
+    For I = 0 To txtTarget.Count - 1
+        txtTarget(I).Text = ""
+    Next I
     optionDebug.Reset
     optionCommand.Reset
     optionLibs.Reset

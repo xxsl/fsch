@@ -126,5 +126,10 @@ Public Sub error()
     buildIcon.ToolTipText = BUILD_ERROR
 End Sub
 
+Public Sub active()
+    buildIcon.Picture = MainForm.pngImages.ListImages(EXEC_PNG).ExtractIcon
+    buildIcon.ToolTipText = BUILD_ACTIVE
+End Sub
+
 
 
