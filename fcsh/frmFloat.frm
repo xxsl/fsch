@@ -88,18 +88,18 @@ End Sub
 Private Sub Toolbar1_ButtonClick(ByVal Button As MSComctlLib.Button)
     Select Case Button.Index
     Case 1:
-            MainForm.rebuild
             buildIcon.Picture = MainForm.pngImages.ListImages(EXEC_PNG).ExtractIcon
             buildIcon.ToolTipText = BUILD_ACTIVE
+            MainForm.rebuild
     End Select
 End Sub
 
 Private Sub Toolbar1_ButtonMenuClick(ByVal ButtonMenu As MSComctlLib.ButtonMenu)
     Dim Index As Long
     Index = Val(ButtonMenu.key)
-    MainForm.build Index
     buildIcon.Picture = MainForm.pngImages.ListImages(EXEC_PNG).ExtractIcon
     buildIcon.ToolTipText = BUILD_ACTIVE
+    MainForm.build Index
 End Sub
 
 Private Sub buildIcon_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)

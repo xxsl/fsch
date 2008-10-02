@@ -187,7 +187,6 @@ Begin VB.Form MainForm
       _Version        =   393217
       BackColor       =   -2147483633
       BorderStyle     =   0
-      Enabled         =   -1  'True
       ScrollBars      =   3
       Appearance      =   0
       AutoVerbMenu    =   -1  'True
@@ -679,15 +678,15 @@ Private Sub Toolbar_ButtonMenuClick(ByVal ButtonMenu As MSComctlLib.ButtonMenu)
 End Sub
 
 Public Sub rebuild()
+    Dim target As New clsTarget
     If ((lastTarget Is Nothing)) Then
-       log.xError "No targets were assigned yet. Nothing to recompile."
-       log.Text vbCrLf
+       target.fMessage = "No targets were assigned yet. Nothing to recompile."
+       fcsh_onError target
        Exit Sub
     End If
     If (lastTarget.fTargetID = 0) Then
-       log.xError "No targets were assigned yet. Nothing to recompile."
-       log.Text vbCrLf
-       Exit Sub
+       target.fMessage = "No targets were assigned yet. Nothing to recompile."
+       fcsh_onError target
     End If
     fcsh.exec lastTarget, (Toolbar.Buttons(TYPE_BUTTON).Value = tbrUnpressed)
 End Sub
