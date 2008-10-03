@@ -49,7 +49,7 @@ Begin VB.Form frmFloat
       Width           =   255
       _ExtentX        =   450
       _ExtentY        =   238
-      Filename        =   "C:\work\trunk\fcsh\about\ajax-loader.gif"
+      Filename        =   "ajax-loader.gif"
       LoopAnimation   =   0   'False
    End
    Begin VB.Image buildIcon 
