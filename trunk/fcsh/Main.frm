@@ -4,7 +4,7 @@ Object = "{248DD890-BB45-11CF-9ABC-0080C7E7B78D}#1.0#0"; "MSWINSCK.OCX"
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
 Begin VB.Form MainForm 
    AutoRedraw      =   -1  'True
-   Caption         =   "Flex compiler shell"
+   Caption         =   "Flex Compiler SHell Wrapper"
    ClientHeight    =   6450
    ClientLeft      =   3840
    ClientTop       =   2220
@@ -187,6 +187,7 @@ Begin VB.Form MainForm
       _Version        =   393217
       BackColor       =   -2147483633
       BorderStyle     =   0
+      Enabled         =   -1  'True
       ScrollBars      =   3
       Appearance      =   0
       AutoVerbMenu    =   -1  'True

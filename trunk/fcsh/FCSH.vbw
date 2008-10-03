@@ -23,4 +23,4 @@ cPNGwriter = 0, 0, 0, 0, C
 cTGAparser = 0, 0, 0, 0, C
 clsPngToImageList = 44, 58, 673, 581, C
 frmAbout = 183, 102, 863, 625, C, 0, 0, 680, 523, C
-frmFloat = 110, 145, 737, 668, , 88, 116, 715, 639, C
+frmFloat = 110, 145, 737, 668, C, 88, 116, 715, 639, C
