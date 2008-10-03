@@ -40,6 +40,14 @@ Begin VB.Form frmFloat
          EndProperty
       EndProperty
    End
+   Begin VB.Label Label1 
+      BackStyle       =   0  'Transparent
+      Height          =   600
+      Left            =   720
+      TabIndex        =   2
+      Top             =   0
+      Width           =   600
+   End
    Begin prjQProGIF.QProGIF Gif 
       Height          =   495
       Left            =   730
@@ -85,6 +93,16 @@ End Sub
 
 
 Private Sub Form_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+  Const WM_NCLBUTTONDOWN = &HA1
+  Const HTCAPTION = 2
+  If Button = vbLeftButton Then
+    ReleaseCapture
+    Call SendMessage(Me.hWnd, WM_NCLBUTTONDOWN, HTCAPTION, 0&)
+  End If
+End Sub
+
+
+Private Sub Label1_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
   Const WM_NCLBUTTONDOWN = &HA1
   Const HTCAPTION = 2
   If Button = vbLeftButton Then
