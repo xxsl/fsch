@@ -1,5 +1,6 @@
 VERSION 5.00
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
+Object = "{C18424FD-277B-4362-B7A8-2788E7DBF8B4}#1.0#0"; "QProGIF.ocx"
 Begin VB.Form frmFloat 
    BorderStyle     =   4  'Fixed ToolWindow
    ClientHeight    =   540
@@ -32,14 +33,24 @@ Begin VB.Form frmFloat
       Style           =   1
       _Version        =   393216
       BeginProperty Buttons {66833FE8-8583-11D1-B16A-00C0F0283628} 
-         NumButtons      =   2
+         NumButtons      =   1
          BeginProperty Button1 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Caption         =   "Build"
             Style           =   5
          EndProperty
-         BeginProperty Button2 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-         EndProperty
       EndProperty
+   End
+   Begin prjQProGIF.QProGIF Gif 
+      Height          =   135
+      Left            =   840
+      TabIndex        =   1
+      Top             =   160
+      Visible         =   0   'False
+      Width           =   255
+      _ExtentX        =   450
+      _ExtentY        =   238
+      Filename        =   "C:\work\trunk\fcsh\about\ajax-loader.gif"
+      LoopAnimation   =   0   'False
    End
    Begin VB.Image buildIcon 
       Height          =   240
@@ -69,10 +80,8 @@ Private Const BUILD_ERROR As String = "Error"
 
 Private Sub Form_Load()
     Toolbar1.ImageList = MainForm.pngImages
-    Toolbar1.Buttons(1).Image = 3
-    Toolbar1.Buttons(2).Image = STOPPED_PNG
-    buildIcon.Picture = MainForm.pngImages.ListImages(STOPPED_PNG).ExtractIcon
-    buildIcon.ToolTipText = BUILD_STOPPED
+    Toolbar1.Buttons(1).image = 3
+    showPicture STOPPED_PNG, BUILD_STOPPED
 End Sub
 
 
@@ -88,8 +97,7 @@ End Sub
 Private Sub Toolbar1_ButtonClick(ByVal Button As MSComctlLib.Button)
     Select Case Button.Index
     Case 1:
-            buildIcon.Picture = MainForm.pngImages.ListImages(EXEC_PNG).ExtractIcon
-            buildIcon.ToolTipText = BUILD_ACTIVE
+            showAnimation
             MainForm.rebuild
     End Select
 End Sub
@@ -97,8 +105,7 @@ End Sub
 Private Sub Toolbar1_ButtonMenuClick(ByVal ButtonMenu As MSComctlLib.ButtonMenu)
     Dim Index As Long
     Index = Val(ButtonMenu.key)
-    buildIcon.Picture = MainForm.pngImages.ListImages(EXEC_PNG).ExtractIcon
-    buildIcon.ToolTipText = BUILD_ACTIVE
+    showAnimation
     MainForm.build Index
 End Sub
 
@@ -112,24 +119,34 @@ Private Sub buildIcon_MouseMove(Button As Integer, Shift As Integer, X As Single
 End Sub
 
 Public Sub idle()
-    buildIcon.Picture = MainForm.pngImages.ListImages(IDLE_PNG).ExtractIcon
-    buildIcon.ToolTipText = BUILD_IDLE
+    showPicture IDLE_PNG, BUILD_IDLE
 End Sub
 
 Public Sub stopped()
-    buildIcon.Picture = MainForm.pngImages.ListImages(STOPPED_PNG).ExtractIcon
-    buildIcon.ToolTipText = BUILD_STOPPED
+    showPicture STOPPED_PNG, BUILD_STOPPED
 End Sub
 
 Public Sub error()
-    buildIcon.Picture = MainForm.pngImages.ListImages(ERROR_PNG).ExtractIcon
-    buildIcon.ToolTipText = BUILD_ERROR
+    showPicture ERROR_PNG, BUILD_ERROR
 End Sub
 
 Public Sub active()
-    buildIcon.Picture = MainForm.pngImages.ListImages(EXEC_PNG).ExtractIcon
-    buildIcon.ToolTipText = BUILD_ACTIVE
+    showAnimation
 End Sub
 
+
+Private Sub showPicture(image As Long, text As String)
+    Gif.Visible = False
+    Gif.LoopAnimation = False
+    buildIcon.Visible = True
+    buildIcon.Picture = MainForm.pngImages.ListImages(image).ExtractIcon
+    buildIcon.ToolTipText = text
+End Sub
+
+Private Sub showAnimation()
+    Gif.Visible = True
+    Gif.LoopAnimation = True
+    buildIcon.Visible = False
+End Sub
 
 
