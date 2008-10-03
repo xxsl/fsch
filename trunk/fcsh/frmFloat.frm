@@ -77,8 +77,9 @@ Private Const BUILD_IDLE As String = "Idle"
 Private Const BUILD_ERROR As String = "Error"
 
 Private Sub Form_Load()
+    Gif.FileName = "ajax-loader.gif"
     Toolbar1.ImageList = MainForm.pngImages
-    Toolbar1.Buttons(1).image = 3
+    Toolbar1.Buttons(1).Image = 3
     showPicture STOPPED_PNG, BUILD_STOPPED
 End Sub
 
@@ -133,12 +134,12 @@ Public Sub active()
 End Sub
 
 
-Private Sub showPicture(image As Long, text As String)
+Private Sub showPicture(Image As Long, Text As String)
     Gif.Visible = False
     Gif.LoopAnimation = False
     buildIcon.Visible = True
-    buildIcon.Picture = MainForm.pngImages.ListImages(image).ExtractIcon
-    buildIcon.ToolTipText = text
+    buildIcon.Picture = MainForm.pngImages.ListImages(Image).ExtractIcon
+    buildIcon.ToolTipText = Text
 End Sub
 
 Private Sub showAnimation()
