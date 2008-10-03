@@ -41,16 +41,14 @@ Begin VB.Form frmFloat
       EndProperty
    End
    Begin prjQProGIF.QProGIF Gif 
-      Height          =   135
-      Left            =   840
+      Height          =   495
+      Left            =   730
       TabIndex        =   1
-      Top             =   160
-      Visible         =   0   'False
-      Width           =   255
-      _ExtentX        =   450
-      _ExtentY        =   238
+      Top             =   35
+      Width           =   495
+      _ExtentX        =   873
+      _ExtentY        =   873
       Filename        =   "ajax-loader.gif"
-      LoopAnimation   =   0   'False
    End
    Begin VB.Image buildIcon 
       Height          =   240
