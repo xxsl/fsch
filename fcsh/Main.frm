@@ -2,6 +2,7 @@ VERSION 5.00
 Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "RICHTX32.OCX"
 Object = "{248DD890-BB45-11CF-9ABC-0080C7E7B78D}#1.0#0"; "MSWINSCK.OCX"
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
+Object = "{95D85F43-414D-432F-909E-2ED57BBC389C}#1.2#0"; "MCLHotkey.ocx"
 Begin VB.Form MainForm 
    AutoRedraw      =   -1  'True
    Caption         =   "Flex Compiler SHell Wrapper"
@@ -14,6 +15,15 @@ Begin VB.Form MainForm
    ScaleWidth      =   10590
    StartUpPosition =   2  'CenterScreen
    Visible         =   0   'False
+   Begin MCLHotkey.VBHotKey HotKey 
+      Left            =   1200
+      Top             =   5280
+      _ExtentX        =   794
+      _ExtentY        =   794
+      CtrlKey         =   -1  'True
+      VKey            =   120
+      WinKey          =   0   'False
+   End
    Begin MSComctlLib.ImageList fakeList 
       Left            =   5640
       Top             =   1320
@@ -187,7 +197,6 @@ Begin VB.Form MainForm
       _Version        =   393217
       BackColor       =   -2147483633
       BorderStyle     =   0
-      Enabled         =   -1  'True
       ScrollBars      =   3
       Appearance      =   0
       AutoVerbMenu    =   -1  'True
@@ -483,6 +492,10 @@ Private Sub initSockets()
 End Sub
 
 
+'hot key build
+Private Sub HotKey_HotkeyPressed()
+    rebuild
+End Sub
 
 Private Sub mnuExit_Click()
     Form_Unload 0
