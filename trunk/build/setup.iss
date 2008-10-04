@@ -58,6 +58,8 @@ Source: "MSWINSCK.OCX"; DestDir: "{sys}"; Flags: sharedfile regserver  onlyifdoe
 Source: "MSCOMCTL.OCX"; DestDir: "{sys}"; Flags: sharedfile regserver  onlyifdoesntexist
 Source: "COMCT232.OCX"; DestDir: "{sys}"; Flags: sharedfile regserver  onlyifdoesntexist
 Source: "QProGIF.ocx"; DestDir: "{sys}"; Flags: sharedfile regserver  onlyifdoesntexist
+Source: "MCLHotkey.ocx"; DestDir: "{sys}"; Flags: sharedfile regserver  onlyifdoesntexist
+
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
