@@ -97,21 +97,27 @@ Begin VB.Form frmOptions
       TabCaption(2)   =   "Build"
       TabPicture(2)   =   "frmOptions.frx":0802
       Tab(2).ControlEnabled=   0   'False
-      Tab(2).Control(0)=   "toolbarIcons"
-      Tab(2).Control(0).Enabled=   0   'False
-      Tab(2).Control(1)=   "picAppFrame"
-      Tab(2).Control(1).Enabled=   0   'False
+      Tab(2).Control(0)=   "cmdRemove"
+      Tab(2).Control(1)=   "cmdAdd"
       Tab(2).Control(2)=   "lstApps"
-      Tab(2).Control(2).Enabled=   0   'False
-      Tab(2).Control(3)=   "cmdAdd"
-      Tab(2).Control(3).Enabled=   0   'False
-      Tab(2).Control(4)=   "cmdRemove"
-      Tab(2).Control(4).Enabled=   0   'False
+      Tab(2).Control(3)=   "picAppFrame"
+      Tab(2).Control(4)=   "toolbarIcons"
       Tab(2).ControlCount=   5
       TabCaption(3)   =   "Hot Keys"
       TabPicture(3)   =   "frmOptions.frx":0A83
       Tab(3).ControlEnabled=   0   'False
-      Tab(3).ControlCount=   0
+      Tab(3).Control(0)=   "Label5"
+      Tab(3).Control(0).Enabled=   0   'False
+      Tab(3).Control(1)=   "chkUseKey"
+      Tab(3).Control(1).Enabled=   0   'False
+      Tab(3).ControlCount=   2
+      Begin VB.CheckBox chkUseKey 
+         Height          =   255
+         Left            =   -73080
+         TabIndex        =   60
+         Top             =   150
+         Width           =   375
+      End
       Begin VB.TextBox txtAlpha 
          Height          =   285
          Left            =   -73080
@@ -484,7 +490,7 @@ Begin VB.Form frmOptions
          _Version        =   327681
          Value           =   44000
          BuddyControl    =   "txtPort"
-         BuddyDispid     =   196613
+         BuddyDispid     =   196631
          OrigLeft        =   2760
          OrigTop         =   360
          OrigRight       =   3015
@@ -531,7 +537,7 @@ Begin VB.Form frmOptions
          _ExtentY        =   503
          _Version        =   327681
          BuddyControl    =   "txtAlpha"
-         BuddyDispid     =   196611
+         BuddyDispid     =   196609
          OrigLeft        =   7560
          OrigTop         =   360
          OrigRight       =   7815
@@ -540,6 +546,15 @@ Begin VB.Form frmOptions
          SyncBuddy       =   -1  'True
          BuddyProperty   =   65547
          Enabled         =   -1  'True
+      End
+      Begin VB.Label Label5 
+         Alignment       =   1  'Right Justify
+         Caption         =   "Use global hot keys"
+         Height          =   255
+         Left            =   -74880
+         TabIndex        =   59
+         Top             =   150
+         Width           =   1650
       End
       Begin VB.Label Label9 
          Alignment       =   1  'Right Justify
