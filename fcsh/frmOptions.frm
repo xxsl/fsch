@@ -2,11 +2,12 @@ VERSION 5.00
 Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
 Object = "{FE0065C0-1B7B-11CF-9D53-00AA003C9CB6}#1.1#0"; "COMCT232.OCX"
+Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.OCX"
 Begin VB.Form frmOptions 
    AutoRedraw      =   -1  'True
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Options"
-   ClientHeight    =   6675
+   ClientHeight    =   4650
    ClientLeft      =   2565
    ClientTop       =   1500
    ClientWidth     =   10335
@@ -17,40 +18,157 @@ Begin VB.Form frmOptions
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   6675
+   ScaleHeight     =   4650
    ScaleWidth      =   10335
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
-   Begin VB.PictureBox picFrameNoName 
-      Appearance      =   0  'Flat
-      AutoRedraw      =   -1  'True
-      BorderStyle     =   0  'None
-      ForeColor       =   &H80000010&
-      Height          =   3975
-      Left            =   120
-      ScaleHeight     =   265
-      ScaleMode       =   3  'Pixel
-      ScaleWidth      =   673
-      TabIndex        =   21
-      Top             =   2160
-      Width           =   10095
+   Begin TabDlg.SSTab TabDialog 
+      Height          =   4215
+      Left            =   0
+      TabIndex        =   8
+      Top             =   0
+      Width           =   10335
+      _ExtentX        =   18230
+      _ExtentY        =   7435
+      _Version        =   393216
+      TabOrientation  =   1
+      Style           =   1
+      Tabs            =   4
+      TabsPerRow      =   4
+      TabHeight       =   520
+      WordWrap        =   0   'False
+      ForeColor       =   -2147483630
+      MouseIcon       =   "frmOptions.frx":058A
+      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "Arial"
+         Size            =   9
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      TabCaption(0)   =   "Main"
+      TabPicture(0)   =   "frmOptions.frx":05A6
+      Tab(0).ControlEnabled=   -1  'True
+      Tab(0).Control(0)=   "Label6"
+      Tab(0).Control(0).Enabled=   0   'False
+      Tab(0).Control(1)=   "Label4"
+      Tab(0).Control(1).Enabled=   0   'False
+      Tab(0).Control(2)=   "Label3"
+      Tab(0).Control(2).Enabled=   0   'False
+      Tab(0).Control(3)=   "Label2"
+      Tab(0).Control(3).Enabled=   0   'False
+      Tab(0).Control(4)=   "Label1"
+      Tab(0).Control(4).Enabled=   0   'False
+      Tab(0).Control(5)=   "UpDown1"
+      Tab(0).Control(5).Enabled=   0   'False
+      Tab(0).Control(6)=   "txtFcsh"
+      Tab(0).Control(6).Enabled=   0   'False
+      Tab(0).Control(7)=   "chkBaloon"
+      Tab(0).Control(7).Enabled=   0   'False
+      Tab(0).Control(8)=   "chkDebug"
+      Tab(0).Control(8).Enabled=   0   'False
+      Tab(0).Control(9)=   "txtPort"
+      Tab(0).Control(9).Enabled=   0   'False
+      Tab(0).Control(10)=   "cmdFcsh"
+      Tab(0).Control(10).Enabled=   0   'False
+      Tab(0).ControlCount=   11
+      TabCaption(1)   =   "Appearance"
+      TabPicture(1)   =   "frmOptions.frx":06D4
+      Tab(1).ControlEnabled=   0   'False
+      Tab(1).Control(0)=   "Label12"
+      Tab(1).Control(0).Enabled=   0   'False
+      Tab(1).Control(1)=   "Label11"
+      Tab(1).Control(1).Enabled=   0   'False
+      Tab(1).Control(2)=   "Label10"
+      Tab(1).Control(2).Enabled=   0   'False
+      Tab(1).Control(3)=   "Label9"
+      Tab(1).Control(3).Enabled=   0   'False
+      Tab(1).Control(4)=   "UpDown2"
+      Tab(1).Control(4).Enabled=   0   'False
+      Tab(1).Control(5)=   "picFore"
+      Tab(1).Control(5).Enabled=   0   'False
+      Tab(1).Control(6)=   "picBack"
+      Tab(1).Control(6).Enabled=   0   'False
+      Tab(1).Control(7)=   "txtAlpha"
+      Tab(1).Control(7).Enabled=   0   'False
+      Tab(1).ControlCount=   8
+      TabCaption(2)   =   "Build"
+      TabPicture(2)   =   "frmOptions.frx":0802
+      Tab(2).ControlEnabled=   0   'False
+      Tab(2).Control(0)=   "toolbarIcons"
+      Tab(2).Control(0).Enabled=   0   'False
+      Tab(2).Control(1)=   "picAppFrame"
+      Tab(2).Control(1).Enabled=   0   'False
+      Tab(2).Control(2)=   "lstApps"
+      Tab(2).Control(2).Enabled=   0   'False
+      Tab(2).Control(3)=   "cmdAdd"
+      Tab(2).Control(3).Enabled=   0   'False
+      Tab(2).Control(4)=   "cmdRemove"
+      Tab(2).Control(4).Enabled=   0   'False
+      Tab(2).ControlCount=   5
+      TabCaption(3)   =   "Hot Keys"
+      TabPicture(3)   =   "frmOptions.frx":0A83
+      Tab(3).ControlEnabled=   0   'False
+      Tab(3).ControlCount=   0
+      Begin VB.TextBox txtAlpha 
+         Height          =   285
+         Left            =   -73080
+         TabIndex        =   53
+         Top             =   150
+         Width           =   840
+      End
+      Begin VB.PictureBox picBack 
+         Appearance      =   0  'Flat
+         BackColor       =   &H80000005&
+         ForeColor       =   &H80000008&
+         Height          =   255
+         Left            =   -73080
+         ScaleHeight     =   225
+         ScaleWidth      =   825
+         TabIndex        =   52
+         ToolTipText     =   "Select color"
+         Top             =   510
+         Width           =   855
+      End
+      Begin VB.PictureBox picFore 
+         Appearance      =   0  'Flat
+         BackColor       =   &H80000005&
+         ForeColor       =   &H80000008&
+         Height          =   255
+         Left            =   -73080
+         ScaleHeight     =   225
+         ScaleWidth      =   825
+         TabIndex        =   51
+         ToolTipText     =   "Select color"
+         Top             =   870
+         Width           =   855
+      End
       Begin VB.CommandButton cmdRemove 
          Caption         =   "Remove"
          Height          =   375
-         Left            =   1020
-         TabIndex        =   47
+         Left            =   -74040
+         TabIndex        =   50
          ToolTipText     =   "Remove application"
-         Top             =   3420
+         Top             =   3360
          Width           =   855
       End
       Begin VB.CommandButton cmdAdd 
          Caption         =   "Add"
          Height          =   375
-         Left            =   180
-         TabIndex        =   46
+         Left            =   -74880
+         TabIndex        =   49
          ToolTipText     =   "Add application"
-         Top             =   3420
+         Top             =   3360
          Width           =   855
+      End
+      Begin VB.ListBox lstApps 
+         Height          =   3180
+         Left            =   -74880
+         TabIndex        =   48
+         Top             =   120
+         Width           =   1695
       End
       Begin VB.PictureBox picAppFrame 
          Appearance      =   0  'Flat
@@ -59,18 +177,18 @@ Begin VB.Form frmOptions
          Enabled         =   0   'False
          ForeColor       =   &H80000010&
          Height          =   3735
-         Left            =   1920
+         Left            =   -73080
          ScaleHeight     =   249
          ScaleMode       =   3  'Pixel
-         ScaleWidth      =   537
-         TabIndex        =   23
-         Top             =   120
-         Width           =   8055
+         ScaleWidth      =   545
+         TabIndex        =   20
+         Top             =   80
+         Width           =   8175
          Begin VB.CommandButton cmdRemoveOther 
             Caption         =   "-"
             Height          =   285
             Left            =   7560
-            TabIndex        =   53
+            TabIndex        =   38
             ToolTipText     =   "remove option"
             Top             =   3250
             Visible         =   0   'False
@@ -80,7 +198,7 @@ Begin VB.Form frmOptions
             Caption         =   "+"
             Height          =   285
             Left            =   7080
-            TabIndex        =   52
+            TabIndex        =   37
             ToolTipText     =   "Add option"
             Top             =   3250
             Visible         =   0   'False
@@ -90,7 +208,7 @@ Begin VB.Form frmOptions
             Height          =   315
             Left            =   2520
             Style           =   2  'Dropdown List
-            TabIndex        =   51
+            TabIndex        =   36
             Top             =   3250
             Visible         =   0   'False
             Width           =   4455
@@ -99,7 +217,7 @@ Begin VB.Form frmOptions
             Caption         =   "-"
             Height          =   285
             Left            =   7560
-            TabIndex        =   49
+            TabIndex        =   35
             ToolTipText     =   "Remove library"
             Top             =   1440
             Width           =   375
@@ -108,27 +226,27 @@ Begin VB.Form frmOptions
             Height          =   315
             Left            =   2520
             Style           =   2  'Dropdown List
-            TabIndex        =   48
+            TabIndex        =   34
             Top             =   1440
             Width           =   4455
          End
          Begin VB.ComboBox cmbCommand 
             Height          =   315
-            ItemData        =   "frmOptions.frx":058A
+            ItemData        =   "frmOptions.frx":0B21
             Left            =   2520
-            List            =   "frmOptions.frx":058C
+            List            =   "frmOptions.frx":0B23
             Style           =   2  'Dropdown List
-            TabIndex        =   45
+            TabIndex        =   33
             Top             =   315
             Width           =   5415
          End
          Begin VB.ComboBox cmbDebug 
             Height          =   315
-            ItemData        =   "frmOptions.frx":058E
+            ItemData        =   "frmOptions.frx":0B25
             Left            =   2520
-            List            =   "frmOptions.frx":0590
+            List            =   "frmOptions.frx":0B27
             Style           =   2  'Dropdown List
-            TabIndex        =   44
+            TabIndex        =   32
             Top             =   2880
             Width           =   5415
          End
@@ -136,7 +254,7 @@ Begin VB.Form frmOptions
             Caption         =   "+"
             Height          =   285
             Left            =   7080
-            TabIndex        =   43
+            TabIndex        =   31
             ToolTipText     =   "Add library"
             Top             =   1440
             Width           =   375
@@ -145,7 +263,7 @@ Begin VB.Form frmOptions
             Caption         =   "..."
             Height          =   285
             Left            =   7560
-            TabIndex        =   42
+            TabIndex        =   30
             ToolTipText     =   "Select folder"
             Top             =   1800
             Width           =   375
@@ -154,7 +272,7 @@ Begin VB.Form frmOptions
             Caption         =   "..."
             Height          =   285
             Left            =   7560
-            TabIndex        =   41
+            TabIndex        =   29
             ToolTipText     =   "Select file"
             Top             =   2160
             Width           =   375
@@ -163,7 +281,7 @@ Begin VB.Form frmOptions
             Caption         =   "..."
             Height          =   285
             Left            =   7560
-            TabIndex        =   40
+            TabIndex        =   28
             ToolTipText     =   "Select Flex application"
             Top             =   1080
             Width           =   375
@@ -172,7 +290,7 @@ Begin VB.Form frmOptions
             Height          =   315
             Index           =   1
             Left            =   2520
-            TabIndex        =   31
+            TabIndex        =   27
             Top             =   705
             Width           =   5415
          End
@@ -180,7 +298,7 @@ Begin VB.Form frmOptions
             Height          =   285
             Index           =   2
             Left            =   2520
-            TabIndex        =   30
+            TabIndex        =   26
             Top             =   1080
             Width           =   4935
          End
@@ -188,7 +306,7 @@ Begin VB.Form frmOptions
             Height          =   285
             Index           =   4
             Left            =   2520
-            TabIndex        =   29
+            TabIndex        =   25
             Top             =   1820
             Width           =   4935
          End
@@ -196,7 +314,7 @@ Begin VB.Form frmOptions
             Height          =   285
             Index           =   5
             Left            =   2520
-            TabIndex        =   28
+            TabIndex        =   24
             Top             =   2160
             Width           =   4935
          End
@@ -204,7 +322,7 @@ Begin VB.Form frmOptions
             Height          =   285
             Index           =   6
             Left            =   2520
-            TabIndex        =   27
+            TabIndex        =   23
             Top             =   2520
             Width           =   4935
          End
@@ -212,7 +330,7 @@ Begin VB.Form frmOptions
             Height          =   285
             Index           =   3
             Left            =   240
-            TabIndex        =   26
+            TabIndex        =   22
             Top             =   2760
             Visible         =   0   'False
             Width           =   735
@@ -221,7 +339,7 @@ Begin VB.Form frmOptions
             Height          =   285
             Index           =   0
             Left            =   240
-            TabIndex        =   25
+            TabIndex        =   21
             Top             =   480
             Visible         =   0   'False
             Width           =   615
@@ -231,7 +349,7 @@ Begin VB.Form frmOptions
             Caption         =   "Other options"
             Height          =   255
             Left            =   240
-            TabIndex        =   50
+            TabIndex        =   47
             Top             =   3240
             Visible         =   0   'False
             Width           =   2175
@@ -242,7 +360,7 @@ Begin VB.Form frmOptions
             Height          =   255
             Index           =   0
             Left            =   120
-            TabIndex        =   39
+            TabIndex        =   46
             Top             =   360
             Width           =   2295
          End
@@ -252,7 +370,7 @@ Begin VB.Form frmOptions
             Height          =   255
             Index           =   1
             Left            =   120
-            TabIndex        =   38
+            TabIndex        =   45
             Top             =   720
             Width           =   2295
          End
@@ -262,7 +380,7 @@ Begin VB.Form frmOptions
             Height          =   255
             Index           =   2
             Left            =   120
-            TabIndex        =   37
+            TabIndex        =   44
             Top             =   1080
             Width           =   2295
          End
@@ -272,7 +390,7 @@ Begin VB.Form frmOptions
             Height          =   255
             Index           =   3
             Left            =   120
-            TabIndex        =   36
+            TabIndex        =   43
             Top             =   1800
             Width           =   2295
          End
@@ -282,7 +400,7 @@ Begin VB.Form frmOptions
             Height          =   255
             Index           =   4
             Left            =   120
-            TabIndex        =   35
+            TabIndex        =   42
             Top             =   2160
             Width           =   2295
          End
@@ -292,7 +410,7 @@ Begin VB.Form frmOptions
             Height          =   255
             Index           =   5
             Left            =   120
-            TabIndex        =   34
+            TabIndex        =   41
             Top             =   2520
             Width           =   2295
          End
@@ -302,7 +420,7 @@ Begin VB.Form frmOptions
             Height          =   255
             Index           =   6
             Left            =   120
-            TabIndex        =   33
+            TabIndex        =   40
             Top             =   2880
             Width           =   2295
          End
@@ -312,173 +430,61 @@ Begin VB.Form frmOptions
             Height          =   255
             Index           =   7
             Left            =   120
-            TabIndex        =   32
+            TabIndex        =   39
             Top             =   1440
             Width           =   2295
          End
-         Begin VB.Label Label5 
-            Appearance      =   0  'Flat
-            AutoSize        =   -1  'True
-            Caption         =   " Application properties "
-            ForeColor       =   &H8000000D&
-            Height          =   195
-            Left            =   225
-            TabIndex        =   24
-            Top             =   -30
-            Width           =   1605
-         End
-      End
-      Begin VB.ListBox lstApps 
-         Height          =   3180
-         Left            =   180
-         TabIndex        =   22
-         Top             =   180
-         Width           =   1695
-      End
-      Begin MSComctlLib.ImageList toolbarIcons 
-         Left            =   840
-         Top             =   2160
-         _ExtentX        =   1005
-         _ExtentY        =   1005
-         BackColor       =   -2147483643
-         ImageWidth      =   16
-         ImageHeight     =   16
-         MaskColor       =   16711935
-         _Version        =   393216
-         BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
-            NumListImages   =   3
-            BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-               Picture         =   "frmOptions.frx":0592
-               Key             =   ""
-            EndProperty
-            BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-               Picture         =   "frmOptions.frx":08E4
-               Key             =   ""
-            EndProperty
-            BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-               Picture         =   "frmOptions.frx":0C36
-               Key             =   ""
-            EndProperty
-         EndProperty
-      End
-   End
-   Begin VB.PictureBox picFramePrefs 
-      Appearance      =   0  'Flat
-      AutoRedraw      =   -1  'True
-      BorderStyle     =   0  'None
-      FillColor       =   &H80000011&
-      ForeColor       =   &H80000010&
-      Height          =   1935
-      Left            =   120
-      ScaleHeight     =   129
-      ScaleMode       =   3  'Pixel
-      ScaleWidth      =   673
-      TabIndex        =   8
-      Top             =   120
-      Width           =   10095
-      Begin VB.PictureBox picFore 
-         Appearance      =   0  'Flat
-         BackColor       =   &H80000005&
-         ForeColor       =   &H80000008&
-         Height          =   255
-         Left            =   6840
-         ScaleHeight     =   225
-         ScaleWidth      =   825
-         TabIndex        =   60
-         ToolTipText     =   "Select color"
-         Top             =   1080
-         Width           =   855
-      End
-      Begin VB.PictureBox picBack 
-         Appearance      =   0  'Flat
-         BackColor       =   &H80000005&
-         ForeColor       =   &H80000008&
-         Height          =   255
-         Left            =   6840
-         ScaleHeight     =   225
-         ScaleWidth      =   825
-         TabIndex        =   59
-         ToolTipText     =   "Select color"
-         Top             =   720
-         Width           =   855
-      End
-      Begin ComCtl2.UpDown UpDown2 
-         Height          =   285
-         Left            =   7680
-         TabIndex        =   56
-         Top             =   360
-         Width           =   255
-         _ExtentX        =   450
-         _ExtentY        =   503
-         _Version        =   327681
-         BuddyControl    =   "txtAlpha"
-         BuddyDispid     =   196632
-         OrigLeft        =   7560
-         OrigTop         =   360
-         OrigRight       =   7815
-         OrigBottom      =   735
-         Max             =   255
-         SyncBuddy       =   -1  'True
-         BuddyProperty   =   65547
-         Enabled         =   -1  'True
-      End
-      Begin VB.TextBox txtAlpha 
-         Height          =   285
-         Left            =   6840
-         TabIndex        =   55
-         Top             =   360
-         Width           =   840
       End
       Begin VB.CommandButton cmdFcsh 
          Caption         =   "..."
          Height          =   285
-         Left            =   4800
-         TabIndex        =   20
-         Top             =   1440
-         Width           =   375
+         Left            =   7320
+         TabIndex        =   13
+         Top             =   1230
+         Width           =   495
       End
       Begin VB.TextBox txtPort 
          Alignment       =   1  'Right Justify
          Height          =   285
          Left            =   1920
-         TabIndex        =   13
+         TabIndex        =   12
          Text            =   "44000"
-         Top             =   360
+         Top             =   150
          Width           =   825
       End
       Begin VB.CheckBox chkDebug 
          Height          =   255
          Left            =   1920
          TabIndex        =   11
-         Top             =   720
+         Top             =   510
          Width           =   255
       End
       Begin VB.CheckBox chkBaloon 
          Height          =   255
          Left            =   1920
          TabIndex        =   10
-         Top             =   1080
+         Top             =   870
          Width           =   255
       End
       Begin VB.TextBox txtFcsh 
          Height          =   285
          Left            =   1920
          TabIndex        =   9
-         Top             =   1440
-         Width           =   2775
+         Top             =   1230
+         Width           =   5295
       End
       Begin ComCtl2.UpDown UpDown1 
          Height          =   285
-         Left            =   2745
-         TabIndex        =   12
-         Top             =   360
+         Left            =   2746
+         TabIndex        =   14
+         Top             =   150
          Width           =   255
          _ExtentX        =   450
          _ExtentY        =   503
          _Version        =   327681
          Value           =   44000
          BuddyControl    =   "txtPort"
-         BuddyDispid     =   196634
+         BuddyDispid     =   196613
          OrigLeft        =   2760
          OrigTop         =   360
          OrigRight       =   3015
@@ -489,65 +495,95 @@ Begin VB.Form frmOptions
          BuddyProperty   =   65547
          Enabled         =   -1  'True
       End
-      Begin VB.Label Label12 
-         Caption         =   "Clear log to see changes"
-         Height          =   375
-         Left            =   7920
-         TabIndex        =   61
-         Top             =   960
-         Width           =   2055
+      Begin MSComctlLib.ImageList toolbarIcons 
+         Left            =   -74280
+         Top             =   1800
+         _ExtentX        =   1005
+         _ExtentY        =   1005
+         BackColor       =   -2147483643
+         ImageWidth      =   16
+         ImageHeight     =   16
+         MaskColor       =   16711935
+         _Version        =   393216
+         BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
+            NumListImages   =   3
+            BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+               Picture         =   "frmOptions.frx":0B29
+               Key             =   ""
+            EndProperty
+            BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+               Picture         =   "frmOptions.frx":0E7B
+               Key             =   ""
+            EndProperty
+            BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+               Picture         =   "frmOptions.frx":11CD
+               Key             =   ""
+            EndProperty
+         EndProperty
       End
-      Begin VB.Line Line1 
-         BorderColor     =   &H80000010&
-         X1              =   352
-         X2              =   352
-         Y1              =   4
-         Y2              =   124
-      End
-      Begin VB.Label Label11 
-         Caption         =   "Log forecolor"
-         Height          =   255
-         Left            =   5520
-         TabIndex        =   58
-         Top             =   1080
-         Width           =   1215
-      End
-      Begin VB.Label Label10 
-         Caption         =   "Log backcolor"
-         Height          =   255
-         Left            =   5520
-         TabIndex        =   57
-         Top             =   720
-         Width           =   1215
+      Begin ComCtl2.UpDown UpDown2 
+         Height          =   285
+         Left            =   -72239
+         TabIndex        =   54
+         Top             =   150
+         Width           =   255
+         _ExtentX        =   450
+         _ExtentY        =   503
+         _Version        =   327681
+         BuddyControl    =   "txtAlpha"
+         BuddyDispid     =   196611
+         OrigLeft        =   7560
+         OrigTop         =   360
+         OrigRight       =   7815
+         OrigBottom      =   735
+         Max             =   255
+         SyncBuddy       =   -1  'True
+         BuddyProperty   =   65547
+         Enabled         =   -1  'True
       End
       Begin VB.Label Label9 
          Alignment       =   1  'Right Justify
-         Caption         =   "Transparency"
+         Caption         =   "Main window alpha"
          Height          =   255
-         Left            =   5520
-         TabIndex        =   54
-         Top             =   360
-         Width           =   975
+         Left            =   -74880
+         TabIndex        =   58
+         Top             =   150
+         Width           =   1650
       End
-      Begin VB.Label Label7 
-         Appearance      =   0  'Flat
-         AutoSize        =   -1  'True
-         Caption         =   " Preferences "
-         ForeColor       =   &H8000000D&
-         Height          =   195
-         Left            =   225
-         TabIndex        =   19
-         Top             =   -30
-         Width           =   945
+      Begin VB.Label Label10 
+         Alignment       =   1  'Right Justify
+         Caption         =   "Console backcolor"
+         Height          =   255
+         Left            =   -74880
+         TabIndex        =   57
+         Top             =   510
+         Width           =   1650
+      End
+      Begin VB.Label Label11 
+         Alignment       =   1  'Right Justify
+         Caption         =   "Console forecolor"
+         Height          =   255
+         Left            =   -74880
+         TabIndex        =   56
+         Top             =   870
+         Width           =   1650
+      End
+      Begin VB.Label Label12 
+         Caption         =   "Clear log to see changes"
+         Height          =   255
+         Left            =   -71640
+         TabIndex        =   55
+         Top             =   750
+         Width           =   1935
       End
       Begin VB.Label Label1 
          Alignment       =   1  'Right Justify
          Caption         =   "Server port"
          Height          =   255
          Left            =   120
-         TabIndex        =   18
-         Top             =   360
-         Width           =   1680
+         TabIndex        =   19
+         Top             =   150
+         Width           =   1650
       End
       Begin VB.Label Label2 
          Alignment       =   1  'Right Justify
@@ -555,8 +591,8 @@ Begin VB.Form frmOptions
          Caption         =   "Show debug messages"
          Height          =   195
          Left            =   120
-         TabIndex        =   17
-         Top             =   720
+         TabIndex        =   18
+         Top             =   510
          Width           =   1650
       End
       Begin VB.Label Label3 
@@ -565,16 +601,16 @@ Begin VB.Form frmOptions
          Caption         =   "Show baloon tips"
          Height          =   195
          Left            =   120
-         TabIndex        =   16
-         Top             =   1080
+         TabIndex        =   17
+         Top             =   870
          Width           =   1650
       End
       Begin VB.Label Label4 
          Caption         =   "Restart required!"
          Height          =   255
-         Left            =   3000
-         TabIndex        =   15
-         Top             =   360
+         Left            =   3240
+         TabIndex        =   16
+         Top             =   150
          Width           =   1215
       End
       Begin VB.Label Label6 
@@ -582,14 +618,14 @@ Begin VB.Form frmOptions
          Caption         =   "Path to fcsh.exe"
          Height          =   255
          Left            =   120
-         TabIndex        =   14
-         Top             =   1440
+         TabIndex        =   15
+         Top             =   1230
          Width           =   1650
       End
    End
    Begin MSComDlg.CommonDialog CD1 
-      Left            =   360
-      Top             =   6120
+      Left            =   960
+      Top             =   5040
       _ExtentX        =   847
       _ExtentY        =   847
       _Version        =   393216
@@ -600,15 +636,15 @@ Begin VB.Form frmOptions
       Height          =   375
       Left            =   7920
       TabIndex        =   7
-      Top             =   6240
+      Top             =   4200
       Width           =   1095
    End
    Begin VB.CommandButton cmdCancel 
       Caption         =   "Cancel"
       Height          =   375
-      Left            =   9100
+      Left            =   9120
       TabIndex        =   6
-      Top             =   6240
+      Top             =   4200
       Width           =   1095
    End
    Begin VB.PictureBox picOptions 
@@ -781,8 +817,8 @@ Private Sub Form_Load()
     Dim padding As Long, corner As Long
     corner = 10
     padding = 4
-    RoundRect picFramePrefs.hDC, padding, padding, picFramePrefs.ScaleWidth - padding, picFramePrefs.ScaleHeight - padding, corner, corner
-    RoundRect picFrameNoName.hDC, padding, padding, picFrameNoName.ScaleWidth - padding, picFrameNoName.ScaleHeight - padding, corner, corner
+    'RoundRect picFramePrefs.hDC, padding, padding, picFramePrefs.ScaleWidth - padding, picFramePrefs.ScaleHeight - padding, corner, corner
+    'RoundRect picFrameNoName.hDC, padding, padding, picFrameNoName.ScaleWidth - padding, picFrameNoName.ScaleHeight - padding, corner, corner
     RoundRect picAppFrame.hDC, padding, padding, picAppFrame.ScaleWidth - padding, picAppFrame.ScaleHeight - padding, corner, corner
 
 End Sub
