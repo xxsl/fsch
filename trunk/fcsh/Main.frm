@@ -196,7 +196,6 @@ Begin VB.Form MainForm
       _Version        =   393217
       BackColor       =   -2147483633
       BorderStyle     =   0
-      Enabled         =   -1  'True
       ScrollBars      =   3
       Appearance      =   0
       AutoVerbMenu    =   -1  'True
@@ -702,7 +701,6 @@ Public Sub rebuild()
        target.fMessage = "No targets were assigned yet. Nothing to recompile."
        fcsh_onError target
     End If
-    frmFloat.active
     fcsh.exec lastTarget, (Toolbar.Buttons(TYPE_BUTTON).Value = tbrUnpressed)
 End Sub
 

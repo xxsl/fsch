@@ -85,7 +85,7 @@ Private Const BUILD_IDLE As String = "Idle"
 Private Const BUILD_ERROR As String = "Error"
 
 Private Sub Form_Load()
-    Gif.FileName = "ajax-loader.gif"
+    Gif.FileName = app.path + "/ajax-loader.gif"
     Toolbar1.ImageList = MainForm.pngImages
     Toolbar1.Buttons(1).Image = 3
     showPicture STOPPED_PNG, BUILD_STOPPED
