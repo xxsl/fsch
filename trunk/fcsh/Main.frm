@@ -20,7 +20,6 @@ Begin VB.Form MainForm
       Top             =   5280
       _ExtentX        =   794
       _ExtentY        =   794
-      CtrlKey         =   -1  'True
       VKey            =   120
       WinKey          =   0   'False
    End
@@ -197,6 +196,7 @@ Begin VB.Form MainForm
       _Version        =   393217
       BackColor       =   -2147483633
       BorderStyle     =   0
+      Enabled         =   -1  'True
       ScrollBars      =   3
       Appearance      =   0
       AutoVerbMenu    =   -1  'True
