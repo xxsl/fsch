@@ -258,20 +258,6 @@ Attribute VB_Exposed = False
 
 Option Explicit
 
-Private Const ABOUT_PNG As Long = 11
-Private Const TRANSPARENT_PNG As Long = 10
-Private Const ONTOP_PNG As Long = 9
-Private Const CLEAR_PNG As Long = 8
-Private Const OPTIONS_PNG As Long = 7
-Private Const INFO_PNG As Long = 6
-Private Const TYPE_FALSE_PNG As Long = 5
-Private Const TYPE_TRUE_PNG As Long = 4
-Private Const BUILD_PNG As Long = 3
-Private Const STOP_PNG As Long = 2
-Private Const RUN_PNG As Long = 1
-
-
-
 Private Const ABOUT_BUTTON As Long = 13
 Private Const TRANSPARENT_BUTTON As Long = 11
 Private Const ONTOP_BUTTON As Long = 10
@@ -286,7 +272,10 @@ Private Const BUILD_FAILED As String = "Build failed"
 Private Const BUILD_SUCESSFULL As String = "Build successfull"
 
 Private log As New clsLog
+
 Public config As New clsConfiguration
+Public preloader As New clsResource
+
 Dim WithEvents fcsh As clsFCSH
 Attribute fcsh.VB_VarHelpID = -1
 
@@ -355,7 +344,7 @@ End Sub
 
 'on fcsh.exe start
 Private Sub fcsh_onStart()
-   Toolbar.Buttons.item(RUN_BUTTON).Image = STOP_PNG
+   Toolbar.Buttons.item(RUN_BUTTON).Image = preloader.getIndex(STOP_FCSH)
    Toolbar.Buttons.item(RUN_BUTTON).ToolTipText = "Stop fcsh"
    'Toolbar.Buttons.item(RUN_BUTTON).Caption = "Stop fcsh"
    targets.RemoveAll
@@ -366,7 +355,7 @@ End Sub
 
 'on fcsh.exe stop
 Private Sub fcsh_onStop()
-   Toolbar.Buttons.item(RUN_BUTTON).Image = RUN_PNG
+   Toolbar.Buttons.item(RUN_BUTTON).Image = preloader.getIndex(START_FCSH)
    Toolbar.Buttons.item(RUN_BUTTON).ToolTipText = "Start fcsh"
    'Toolbar.Buttons.item(RUN_BUTTON).Caption = "Start fcsh"
    targets.RemoveAll
@@ -414,63 +403,56 @@ End Sub
 
 Private Sub LoadPNG()
     'extract files and save
-    Dim files As New Collection
-    Dim imgArray() As Byte
-    Dim I As Long
-    Const counter As Long = 115
+    preloader.getResourceByName START_FCSH
+    preloader.getResourceByName STOP_FCSH
+    preloader.getResourceByName LOG_CLEAR
+    preloader.getResourceByName BUILD_TASK
+    preloader.getResourceByName INCREMENTAL_ON
+    preloader.getResourceByName INCREMENTAL_OFF
+    preloader.getResourceByName TARGET_INFO
+    preloader.getResourceByName OPTIONS
+    preloader.getResourceByName ON_TOP
+    preloader.getResourceByName ALPHA
+    preloader.getResourceByName ABOUT
     
-    For I = 101 To counter
-        imgArray = LoadResData(I, "custom")
-        
-        Open I & ".png" For Output As #2
-        Close #2
-        
-        Open I & ".png" For Binary As #2
-           Put #2, , imgArray()
-        Close #2
-        files.Add I & ".png"
-    Next I
+    preloader.getResourceByName IDLE_PNG
+    preloader.getResourceByName STOPPED_PNG
+    preloader.getResourceByName ERROR_PNG
+    preloader.getResourceByName EXEC_PNG, ".gif"
     
     'load
     Dim pngLoader As New clsPngToImageList
     pngLoader.Initialize picIconLoad, picClear, pngImages, log
-    pngLoader.LoadIcons files
+    pngLoader.LoadIcons preloader.extractedFiles
     
-    For I = 101 To counter
-        If (FileExists(I & ".png")) Then
-            Kill I & ".png"
-        Else
-            log.xDebug "File not found " & I & ".png"
-        End If
-    Next I
     
     'setup toolbar
     Set Toolbar.ImageList = pngImages
-    Toolbar.Buttons(RUN_BUTTON).Image = RUN_PNG
-    Toolbar.Buttons(BUILD_BUTTON).Image = BUILD_PNG
-    Toolbar.Buttons(TYPE_BUTTON).Image = TYPE_TRUE_PNG
-    Toolbar.Buttons(INFO_BUTTON).Image = INFO_PNG
-    Toolbar.Buttons(OPTIONS_BUTTON).Image = OPTIONS_PNG
-    Toolbar.Buttons(CLEAR_BUTTON).Image = CLEAR_PNG
-    Toolbar.Buttons(ONTOP_BUTTON).Image = ONTOP_PNG
-    Toolbar.Buttons(TRANSPARENT_BUTTON).Image = TRANSPARENT_PNG
-    Toolbar.Buttons(ABOUT_BUTTON).Image = ABOUT_PNG
+    Toolbar.Buttons(RUN_BUTTON).Image = preloader.getIndex(START_FCSH)
+    Toolbar.Buttons(BUILD_BUTTON).Image = preloader.getIndex(BUILD_TASK)
+    Toolbar.Buttons(TYPE_BUTTON).Image = preloader.getIndex(INCREMENTAL_ON)
+    Toolbar.Buttons(INFO_BUTTON).Image = preloader.getIndex(TARGET_INFO)
+    Toolbar.Buttons(OPTIONS_BUTTON).Image = preloader.getIndex(OPTIONS)
+    Toolbar.Buttons(CLEAR_BUTTON).Image = preloader.getIndex(LOG_CLEAR)
+    Toolbar.Buttons(ONTOP_BUTTON).Image = preloader.getIndex(ON_TOP)
+    Toolbar.Buttons(TRANSPARENT_BUTTON).Image = preloader.getIndex(ALPHA)
+    Toolbar.Buttons(ABOUT_BUTTON).Image = preloader.getIndex(ABOUT)
 End Sub
 
 Public Sub loadApps()
     Toolbar.Buttons(BUILD_BUTTON).ButtonMenus.clear
     frmFloat.Toolbar1.Buttons(1).ButtonMenus.clear
-    Dim I As Long
+    Dim i As Long
     Dim app As clsTarget
     Dim key As String
     Dim ButtonMenu As MSComctlLib.ButtonMenu
     
-    For I = 1 To config.APPLICATIONS
-        Set app = config.LoadApplication(I)
-        key = I & "app"
-        Toolbar.Buttons(BUILD_BUTTON).ButtonMenus.Add I, key, app.fName
-        frmFloat.Toolbar1.Buttons(1).ButtonMenus.Add I, key, app.fName
-    Next I
+    For i = 1 To config.APPLICATIONS
+        Set app = config.LoadApplication(i)
+        key = i & "app"
+        Toolbar.Buttons(BUILD_BUTTON).ButtonMenus.Add i, key, app.fName
+        frmFloat.Toolbar1.Buttons(1).ButtonMenus.Add i, key, app.fName
+    Next i
 End Sub
 
 
@@ -582,17 +564,17 @@ End Sub
 
 
 Private Sub remoteExec(arg As String)
-    Dim I As Long
+    Dim i As Long
     Dim app As clsTarget
     Dim appFound As Boolean
     
-    For I = 1 To config.APPLICATIONS
-        Set app = config.LoadApplication(I)
+    For i = 1 To config.APPLICATIONS
+        Set app = config.LoadApplication(i)
         If (LCase(app.fName) = LCase(arg)) Then
             appFound = True
             Exit For
         End If
-    Next I
+    Next i
     
     If (Not fcsh.isRunning) Then
         sendRemote "fsch is stopped" + vbCrLf + BUILD_FAILED
@@ -607,7 +589,7 @@ Private Sub remoteExec(arg As String)
     If (Not appFound) Then
         sendRemote "Application not found [" + arg + "]" + vbCrLf + BUILD_FAILED
     Else
-        build I
+        BUILD i
     End If
 End Sub
 
@@ -624,7 +606,7 @@ End Sub
 '***********************************************************************************************
 'click
 Private Sub Toolbar_ButtonClick(ByVal Button As MSComctlLib.Button)
-    Select Case Button.Index
+    Select Case Button.index
         Case RUN_BUTTON:
                 If (Not fcsh.isRunning) Then
                     fcsh.Start
@@ -635,9 +617,9 @@ Private Sub Toolbar_ButtonClick(ByVal Button As MSComctlLib.Button)
                 rebuild
         Case TYPE_BUTTON:
                 If (Toolbar.Buttons(TYPE_BUTTON).Value = tbrUnpressed) Then
-                    Toolbar.Buttons(TYPE_BUTTON).Image = TYPE_TRUE_PNG
+                    Toolbar.Buttons(TYPE_BUTTON).Image = preloader.getIndex(INCREMENTAL_ON)
                 Else
-                    Toolbar.Buttons(TYPE_BUTTON).Image = TYPE_FALSE_PNG
+                    Toolbar.Buttons(TYPE_BUTTON).Image = preloader.getIndex(INCREMENTAL_OFF)
                 End If
         Case INFO_BUTTON:
                 If ((lastTarget Is Nothing)) Then
@@ -668,7 +650,7 @@ Private Sub Toolbar_ButtonClick(ByVal Button As MSComctlLib.Button)
                 If (Toolbar.Buttons(TRANSPARENT_BUTTON).Value = tbrPressed) Then
                      Dim bytOpacity As Byte
                      'Set the transparency level
-                     bytOpacity = config.Alpha
+                     bytOpacity = config.ALPHA
                      Call SetWindowLong(Me.hWnd, GWL_EXSTYLE, GetWindowLong(Me.hWnd, GWL_EXSTYLE) Or WS_EX_LAYERED)
                      Call SetLayeredWindowAttributes(Me.hWnd, 0, bytOpacity, LWA_ALPHA)
                 Else
@@ -681,9 +663,9 @@ Private Sub Toolbar_ButtonClick(ByVal Button As MSComctlLib.Button)
 End Sub
 
 Private Sub Toolbar_ButtonMenuClick(ByVal ButtonMenu As MSComctlLib.ButtonMenu)
-    Dim Index As Long
-    Index = Val(ButtonMenu.key)
-    build Index
+    Dim index As Long
+    index = Val(ButtonMenu.key)
+    BUILD index
 End Sub
 
 Public Sub rebuild()
@@ -704,9 +686,9 @@ Public Sub rebuild()
     fcsh.exec lastTarget, (Toolbar.Buttons(TYPE_BUTTON).Value = tbrUnpressed)
 End Sub
 
-Public Sub build(Index As Long)
+Public Sub BUILD(index As Long)
     Dim app As clsTarget
-    Set app = config.LoadApplication(Index)
+    Set app = config.LoadApplication(index)
         
     If (fcsh.isRunning) Then
         frmFloat.active
@@ -777,6 +759,7 @@ End Sub
 
 'on quit
 Private Sub Form_Unload(Cancel As Integer)
+    preloader.clear
     log.xDebug "Application stopped"
     TrayDelete
     Server.Close
