@@ -34,6 +34,7 @@ Begin VB.Form frmOptions
       TabOrientation  =   1
       Style           =   1
       Tabs            =   4
+      Tab             =   1
       TabsPerRow      =   4
       TabHeight       =   520
       WordWrap        =   0   'False
@@ -50,7 +51,7 @@ Begin VB.Form frmOptions
       EndProperty
       TabCaption(0)   =   "Main"
       TabPicture(0)   =   "frmOptions.frx":05A6
-      Tab(0).ControlEnabled=   -1  'True
+      Tab(0).ControlEnabled=   0   'False
       Tab(0).Control(0)=   "Label6"
       Tab(0).Control(0).Enabled=   0   'False
       Tab(0).Control(1)=   "Label4"
@@ -75,8 +76,8 @@ Begin VB.Form frmOptions
       Tab(0).Control(10).Enabled=   0   'False
       Tab(0).ControlCount=   11
       TabCaption(1)   =   "Appearance"
-      TabPicture(1)   =   "frmOptions.frx":06D4
-      Tab(1).ControlEnabled=   0   'False
+      TabPicture(1)   =   "frmOptions.frx":05C2
+      Tab(1).ControlEnabled=   -1  'True
       Tab(1).Control(0)=   "Label12"
       Tab(1).Control(0).Enabled=   0   'False
       Tab(1).Control(1)=   "Label11"
@@ -95,16 +96,21 @@ Begin VB.Form frmOptions
       Tab(1).Control(7).Enabled=   0   'False
       Tab(1).ControlCount=   8
       TabCaption(2)   =   "Build"
-      TabPicture(2)   =   "frmOptions.frx":0802
+      TabPicture(2)   =   "frmOptions.frx":05DE
       Tab(2).ControlEnabled=   0   'False
-      Tab(2).Control(0)=   "cmdRemove"
-      Tab(2).Control(1)=   "cmdAdd"
+      Tab(2).Control(0)=   "toolbarIcons"
+      Tab(2).Control(0).Enabled=   0   'False
+      Tab(2).Control(1)=   "picAppFrame"
+      Tab(2).Control(1).Enabled=   0   'False
       Tab(2).Control(2)=   "lstApps"
-      Tab(2).Control(3)=   "picAppFrame"
-      Tab(2).Control(4)=   "toolbarIcons"
+      Tab(2).Control(2).Enabled=   0   'False
+      Tab(2).Control(3)=   "cmdAdd"
+      Tab(2).Control(3).Enabled=   0   'False
+      Tab(2).Control(4)=   "cmdRemove"
+      Tab(2).Control(4).Enabled=   0   'False
       Tab(2).ControlCount=   5
       TabCaption(3)   =   "Hot Keys"
-      TabPicture(3)   =   "frmOptions.frx":0A83
+      TabPicture(3)   =   "frmOptions.frx":05FA
       Tab(3).ControlEnabled=   0   'False
       Tab(3).Control(0)=   "Label5"
       Tab(3).Control(0).Enabled=   0   'False
@@ -120,7 +126,7 @@ Begin VB.Form frmOptions
       End
       Begin VB.TextBox txtAlpha 
          Height          =   285
-         Left            =   -73080
+         Left            =   1920
          TabIndex        =   53
          Top             =   150
          Width           =   840
@@ -130,7 +136,7 @@ Begin VB.Form frmOptions
          BackColor       =   &H80000005&
          ForeColor       =   &H80000008&
          Height          =   255
-         Left            =   -73080
+         Left            =   1920
          ScaleHeight     =   225
          ScaleWidth      =   825
          TabIndex        =   52
@@ -143,7 +149,7 @@ Begin VB.Form frmOptions
          BackColor       =   &H80000005&
          ForeColor       =   &H80000008&
          Height          =   255
-         Left            =   -73080
+         Left            =   1920
          ScaleHeight     =   225
          ScaleWidth      =   825
          TabIndex        =   51
@@ -238,9 +244,9 @@ Begin VB.Form frmOptions
          End
          Begin VB.ComboBox cmbCommand 
             Height          =   315
-            ItemData        =   "frmOptions.frx":0B21
+            ItemData        =   "frmOptions.frx":0616
             Left            =   2520
-            List            =   "frmOptions.frx":0B23
+            List            =   "frmOptions.frx":0618
             Style           =   2  'Dropdown List
             TabIndex        =   33
             Top             =   315
@@ -248,9 +254,9 @@ Begin VB.Form frmOptions
          End
          Begin VB.ComboBox cmbDebug 
             Height          =   315
-            ItemData        =   "frmOptions.frx":0B25
+            ItemData        =   "frmOptions.frx":061A
             Left            =   2520
-            List            =   "frmOptions.frx":0B27
+            List            =   "frmOptions.frx":061C
             Style           =   2  'Dropdown List
             TabIndex        =   32
             Top             =   2880
@@ -444,7 +450,7 @@ Begin VB.Form frmOptions
       Begin VB.CommandButton cmdFcsh 
          Caption         =   "..."
          Height          =   285
-         Left            =   7320
+         Left            =   -67680
          TabIndex        =   13
          Top             =   1230
          Width           =   495
@@ -452,7 +458,7 @@ Begin VB.Form frmOptions
       Begin VB.TextBox txtPort 
          Alignment       =   1  'Right Justify
          Height          =   285
-         Left            =   1920
+         Left            =   -73080
          TabIndex        =   12
          Text            =   "44000"
          Top             =   150
@@ -460,28 +466,28 @@ Begin VB.Form frmOptions
       End
       Begin VB.CheckBox chkDebug 
          Height          =   255
-         Left            =   1920
+         Left            =   -73080
          TabIndex        =   11
          Top             =   510
          Width           =   255
       End
       Begin VB.CheckBox chkBaloon 
          Height          =   255
-         Left            =   1920
+         Left            =   -73080
          TabIndex        =   10
          Top             =   870
          Width           =   255
       End
       Begin VB.TextBox txtFcsh 
          Height          =   285
-         Left            =   1920
+         Left            =   -73080
          TabIndex        =   9
          Top             =   1230
          Width           =   5295
       End
       Begin ComCtl2.UpDown UpDown1 
          Height          =   285
-         Left            =   2746
+         Left            =   -72254
          TabIndex        =   14
          Top             =   150
          Width           =   255
@@ -490,7 +496,7 @@ Begin VB.Form frmOptions
          _Version        =   327681
          Value           =   44000
          BuddyControl    =   "txtPort"
-         BuddyDispid     =   196631
+         BuddyDispid     =   196632
          OrigLeft        =   2760
          OrigTop         =   360
          OrigRight       =   3015
@@ -514,22 +520,22 @@ Begin VB.Form frmOptions
          BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
             NumListImages   =   3
             BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-               Picture         =   "frmOptions.frx":0B29
+               Picture         =   "frmOptions.frx":061E
                Key             =   ""
             EndProperty
             BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-               Picture         =   "frmOptions.frx":0E7B
+               Picture         =   "frmOptions.frx":0970
                Key             =   ""
             EndProperty
             BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-               Picture         =   "frmOptions.frx":11CD
+               Picture         =   "frmOptions.frx":0CC2
                Key             =   ""
             EndProperty
          EndProperty
       End
       Begin ComCtl2.UpDown UpDown2 
          Height          =   285
-         Left            =   -72239
+         Left            =   2761
          TabIndex        =   54
          Top             =   150
          Width           =   255
@@ -537,7 +543,7 @@ Begin VB.Form frmOptions
          _ExtentY        =   503
          _Version        =   327681
          BuddyControl    =   "txtAlpha"
-         BuddyDispid     =   196609
+         BuddyDispid     =   196610
          OrigLeft        =   7560
          OrigTop         =   360
          OrigRight       =   7815
@@ -560,7 +566,7 @@ Begin VB.Form frmOptions
          Alignment       =   1  'Right Justify
          Caption         =   "Main window alpha"
          Height          =   255
-         Left            =   -74880
+         Left            =   120
          TabIndex        =   58
          Top             =   150
          Width           =   1650
@@ -569,7 +575,7 @@ Begin VB.Form frmOptions
          Alignment       =   1  'Right Justify
          Caption         =   "Console backcolor"
          Height          =   255
-         Left            =   -74880
+         Left            =   120
          TabIndex        =   57
          Top             =   510
          Width           =   1650
@@ -578,7 +584,7 @@ Begin VB.Form frmOptions
          Alignment       =   1  'Right Justify
          Caption         =   "Console forecolor"
          Height          =   255
-         Left            =   -74880
+         Left            =   120
          TabIndex        =   56
          Top             =   870
          Width           =   1650
@@ -586,7 +592,7 @@ Begin VB.Form frmOptions
       Begin VB.Label Label12 
          Caption         =   "Clear log to see changes"
          Height          =   255
-         Left            =   -71640
+         Left            =   3360
          TabIndex        =   55
          Top             =   750
          Width           =   1935
@@ -595,7 +601,7 @@ Begin VB.Form frmOptions
          Alignment       =   1  'Right Justify
          Caption         =   "Server port"
          Height          =   255
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   19
          Top             =   150
          Width           =   1650
@@ -605,7 +611,7 @@ Begin VB.Form frmOptions
          AutoSize        =   -1  'True
          Caption         =   "Show debug messages"
          Height          =   195
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   18
          Top             =   510
          Width           =   1650
@@ -615,7 +621,7 @@ Begin VB.Form frmOptions
          AutoSize        =   -1  'True
          Caption         =   "Show baloon tips"
          Height          =   195
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   17
          Top             =   870
          Width           =   1650
@@ -623,7 +629,7 @@ Begin VB.Form frmOptions
       Begin VB.Label Label4 
          Caption         =   "Restart required!"
          Height          =   255
-         Left            =   3240
+         Left            =   -71760
          TabIndex        =   16
          Top             =   150
          Width           =   1215
@@ -632,7 +638,7 @@ Begin VB.Form frmOptions
          Alignment       =   1  'Right Justify
          Caption         =   "Path to fcsh.exe"
          Height          =   255
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   15
          Top             =   1230
          Width           =   1650
@@ -868,14 +874,14 @@ Public Sub loadPrefs(ByRef cfg As clsConfiguration, ByRef logger As clsLog)
     picBack.BackColor = config.BackColor
     picFore.BackColor = config.ForeColor
     
-    Dim I As Long
+    Dim i As Long
     Dim app As clsTarget
     
-    For I = 1 To config.APPLICATIONS
-        Set app = config.LoadApplication(I)
+    For i = 1 To config.APPLICATIONS
+        Set app = config.LoadApplication(i)
         appsCollection.Add app
         lstApps.AddItem app.fName
-    Next I
+    Next i
     
 End Sub
 
@@ -897,17 +903,17 @@ Private Sub AppToolbar_ButtonClick(ByVal Button As MSComctlLib.Button)
             Case 2:
                     Dim Index As Long
                     If (lstApps.ListIndex >= 0) Then
-                        Dim I As Long
-                        Dim name As String
-                        name = lstApps.List(lstApps.ListIndex)
+                        Dim i As Long
+                        Dim NAME As String
+                        NAME = lstApps.List(lstApps.ListIndex)
                         Dim app As clsTarget
                        
-                        I = 1
+                        i = 1
                         For Each app In appsCollection
-                            If (app.fName = name) Then
-                                appsCollection.Remove I
+                            If (app.fName = NAME) Then
+                                appsCollection.Remove i
                             End If
-                            I = I + 1
+                            i = i + 1
                         Next
                       
                     End If
@@ -920,16 +926,16 @@ Private Sub AppToolbar_ButtonClick(ByVal Button As MSComctlLib.Button)
     resetControls
 End Sub
 
-Private Function uniqueName(name As String) As Boolean
+Private Function uniqueName(NAME As String) As Boolean
     Dim app As clsTarget
     Dim isResult As Boolean
     
     isResult = True
     
-    isResult = (Len(Trim(name)) > 0)
+    isResult = (Len(Trim(NAME)) > 0)
     
     For Each app In appsCollection
-        If (LCase(name) = LCase(app.fName)) Then
+        If (LCase(NAME) = LCase(app.fName)) Then
             isResult = False
         End If
     Next
@@ -960,16 +966,16 @@ Private Sub cmdRemove_Click()
     Dim app As clsTarget
     Dim Index As Long
     If (lstApps.ListIndex >= 0) Then
-        Dim I As Long
-        Dim name As String
-        name = lstApps.List(lstApps.ListIndex)
+        Dim i As Long
+        Dim NAME As String
+        NAME = lstApps.List(lstApps.ListIndex)
         
-        I = 1
+        i = 1
         For Each app In appsCollection
-            If (app.fName = name) Then
-                appsCollection.Remove I
+            If (app.fName = NAME) Then
+                appsCollection.Remove i
             End If
-            I = I + 1
+            i = i + 1
         Next
     End If
     lstApps.clear
@@ -1096,15 +1102,15 @@ Private Sub cmdSave_Click()
     config.BackColor = picBack.BackColor
     config.ForeColor = picFore.BackColor
     
-    Dim I As Long
+    Dim i As Long
     Dim app As clsTarget
-    I = 0
+    i = 0
     For Each app In appsCollection
-        I = I + 1
-        config.saveApplication I, app
+        i = i + 1
+        config.saveApplication i, app
     Next
     
-    config.APPLICATIONS = I
+    config.APPLICATIONS = i
     
     MainForm.loadApps
     Me.Hide
@@ -1165,10 +1171,10 @@ Private Sub txtTarget_Change(Index As Integer)
 End Sub
 
 Private Sub resetControls()
-    Dim I As Long
-    For I = 0 To txtTarget.Count - 1
-        txtTarget(I).Text = ""
-    Next I
+    Dim i As Long
+    For i = 0 To txtTarget.Count - 1
+        txtTarget(i).Text = ""
+    Next i
     optionDebug.Reset
     optionCommand.Reset
     optionLibs.Reset
