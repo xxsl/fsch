@@ -3,6 +3,7 @@ Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
 Object = "{FE0065C0-1B7B-11CF-9D53-00AA003C9CB6}#1.1#0"; "COMCT232.OCX"
 Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.OCX"
+Object = "{EAFBDB7D-3DF2-42CB-86DA-2383D2449EA3}#1.0#0"; "HotKeyConfig.ocx"
 Begin VB.Form frmOptions 
    AutoRedraw      =   -1  'True
    BorderStyle     =   1  'Fixed Single
@@ -51,52 +52,97 @@ Begin VB.Form frmOptions
       TabCaption(0)   =   " Main"
       TabPicture(0)   =   "frmOptions.frx":05A6
       Tab(0).ControlEnabled=   0   'False
-      Tab(0).Control(0)=   "cmdFcsh"
-      Tab(0).Control(1)=   "txtPort"
-      Tab(0).Control(2)=   "chkDebug"
-      Tab(0).Control(3)=   "chkBaloon"
-      Tab(0).Control(4)=   "txtFcsh"
+      Tab(0).Control(0)=   "Label6"
+      Tab(0).Control(0).Enabled=   0   'False
+      Tab(0).Control(1)=   "Label4"
+      Tab(0).Control(1).Enabled=   0   'False
+      Tab(0).Control(2)=   "Label3"
+      Tab(0).Control(2).Enabled=   0   'False
+      Tab(0).Control(3)=   "Label2"
+      Tab(0).Control(3).Enabled=   0   'False
+      Tab(0).Control(4)=   "Label1"
+      Tab(0).Control(4).Enabled=   0   'False
       Tab(0).Control(5)=   "UpDown1"
-      Tab(0).Control(6)=   "Label1"
-      Tab(0).Control(7)=   "Label2"
-      Tab(0).Control(8)=   "Label3"
-      Tab(0).Control(9)=   "Label4"
-      Tab(0).Control(10)=   "Label6"
+      Tab(0).Control(5).Enabled=   0   'False
+      Tab(0).Control(6)=   "txtFcsh"
+      Tab(0).Control(6).Enabled=   0   'False
+      Tab(0).Control(7)=   "chkBaloon"
+      Tab(0).Control(7).Enabled=   0   'False
+      Tab(0).Control(8)=   "chkDebug"
+      Tab(0).Control(8).Enabled=   0   'False
+      Tab(0).Control(9)=   "txtPort"
+      Tab(0).Control(9).Enabled=   0   'False
+      Tab(0).Control(10)=   "cmdFcsh"
+      Tab(0).Control(10).Enabled=   0   'False
       Tab(0).ControlCount=   11
       TabCaption(1)   =   " Appearance"
       TabPicture(1)   =   "frmOptions.frx":05C2
       Tab(1).ControlEnabled=   0   'False
-      Tab(1).Control(0)=   "txtAlpha"
-      Tab(1).Control(1)=   "picBack"
-      Tab(1).Control(2)=   "picFore"
-      Tab(1).Control(3)=   "UpDown2"
-      Tab(1).Control(4)=   "Label9"
-      Tab(1).Control(5)=   "Label10"
-      Tab(1).Control(6)=   "Label11"
-      Tab(1).Control(7)=   "Label12"
+      Tab(1).Control(0)=   "Label12"
+      Tab(1).Control(0).Enabled=   0   'False
+      Tab(1).Control(1)=   "Label11"
+      Tab(1).Control(1).Enabled=   0   'False
+      Tab(1).Control(2)=   "Label10"
+      Tab(1).Control(2).Enabled=   0   'False
+      Tab(1).Control(3)=   "Label9"
+      Tab(1).Control(3).Enabled=   0   'False
+      Tab(1).Control(4)=   "UpDown2"
+      Tab(1).Control(4).Enabled=   0   'False
+      Tab(1).Control(5)=   "picFore"
+      Tab(1).Control(5).Enabled=   0   'False
+      Tab(1).Control(6)=   "picBack"
+      Tab(1).Control(6).Enabled=   0   'False
+      Tab(1).Control(7)=   "txtAlpha"
+      Tab(1).Control(7).Enabled=   0   'False
       Tab(1).ControlCount=   8
       TabCaption(2)   =   " Build"
       TabPicture(2)   =   "frmOptions.frx":05DE
       Tab(2).ControlEnabled=   0   'False
-      Tab(2).Control(0)=   "cmdRemove"
-      Tab(2).Control(1)=   "cmdAdd"
+      Tab(2).Control(0)=   "toolbarIcons"
+      Tab(2).Control(0).Enabled=   0   'False
+      Tab(2).Control(1)=   "picAppFrame"
+      Tab(2).Control(1).Enabled=   0   'False
       Tab(2).Control(2)=   "lstApps"
-      Tab(2).Control(3)=   "picAppFrame"
-      Tab(2).Control(4)=   "toolbarIcons"
+      Tab(2).Control(2).Enabled=   0   'False
+      Tab(2).Control(3)=   "cmdAdd"
+      Tab(2).Control(3).Enabled=   0   'False
+      Tab(2).Control(4)=   "cmdRemove"
+      Tab(2).Control(4).Enabled=   0   'False
       Tab(2).ControlCount=   5
       TabCaption(3)   =   " Hot Keys"
       TabPicture(3)   =   "frmOptions.frx":05FA
       Tab(3).ControlEnabled=   -1  'True
-      Tab(3).Control(0)=   "Label5"
+      Tab(3).Control(0)=   "Label7"
       Tab(3).Control(0).Enabled=   0   'False
       Tab(3).Control(1)=   "chkUseKey"
       Tab(3).Control(1).Enabled=   0   'False
-      Tab(3).ControlCount=   2
+      Tab(3).Control(2)=   "hkConfig"
+      Tab(3).Control(2).Enabled=   0   'False
+      Tab(3).ControlCount=   3
+      Begin HotKeyConfig.HotKey hkConfig 
+         Height          =   285
+         Left            =   1920
+         TabIndex        =   61
+         Top             =   240
+         Width           =   1575
+         _ExtentX        =   2778
+         _ExtentY        =   503
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "MS Sans Serif"
+            Size            =   8.25
+            Charset         =   204
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         HotKeyModifier  =   0
+      End
       Begin VB.CheckBox chkUseKey 
          Height          =   255
-         Left            =   1920
-         TabIndex        =   60
-         Top             =   150
+         Left            =   3600
+         TabIndex        =   59
+         Top             =   240
          Width           =   375
       End
       Begin VB.TextBox txtAlpha 
@@ -471,7 +517,7 @@ Begin VB.Form frmOptions
          _Version        =   327681
          Value           =   44000
          BuddyControl    =   "txtPort"
-         BuddyDispid     =   196632
+         BuddyDispid     =   196633
          OrigLeft        =   2760
          OrigTop         =   360
          OrigRight       =   3015
@@ -518,7 +564,7 @@ Begin VB.Form frmOptions
          _ExtentY        =   503
          _Version        =   327681
          BuddyControl    =   "txtAlpha"
-         BuddyDispid     =   196610
+         BuddyDispid     =   196611
          OrigLeft        =   7560
          OrigTop         =   360
          OrigRight       =   7815
@@ -528,13 +574,13 @@ Begin VB.Form frmOptions
          BuddyProperty   =   65547
          Enabled         =   -1  'True
       End
-      Begin VB.Label Label5 
+      Begin VB.Label Label7 
          Alignment       =   1  'Right Justify
-         Caption         =   "Use global hot keys"
+         Caption         =   "Recompile key"
          Height          =   255
          Left            =   120
-         TabIndex        =   59
-         Top             =   150
+         TabIndex        =   60
+         Top             =   270
          Width           =   1650
       End
       Begin VB.Label Label9 
@@ -756,6 +802,12 @@ Private optionLibs As New clsStringCombo
 Private optionOther As New clsStringCombo
 
 
+
+
+
+
+
+
 Private Sub cmdOther_Click()
     Dim other As String
     other = InputBox("Enter new option e.g. -debug=true", "Add option")
@@ -827,7 +879,7 @@ Public Sub loadPrefs(ByRef cfg As clsConfiguration, ByRef logger As clsLog)
     Set config = cfg
     Set appsCollection = New Collection
     lstApps.clear
-    picAppFrame.Enabled = False
+    picAppFrame.ENABLED = False
     resetControls
     
     txtPort.Text = config.SERVER_PORT
@@ -850,6 +902,11 @@ Public Sub loadPrefs(ByRef cfg As clsConfiguration, ByRef logger As clsLog)
     
     picBack.BackColor = config.BackColor
     picFore.BackColor = config.ForeColor
+    
+    chkUseKey.Value = config.RECOMPILE.ENABLED
+    
+    hkConfig.hotkey = config.RECOMPILE.KEY
+    hkConfig.HotKeyModifier = config.RECOMPILE.MODIFYER
     
     Dim i As Long
     Dim app As clsTarget
@@ -881,13 +938,13 @@ Private Sub AppToolbar_ButtonClick(ByVal Button As MSComctlLib.Button)
                     Dim index As Long
                     If (lstApps.ListIndex >= 0) Then
                         Dim i As Long
-                        Dim NAME As String
-                        NAME = lstApps.List(lstApps.ListIndex)
+                        Dim name As String
+                        name = lstApps.List(lstApps.ListIndex)
                         Dim app As clsTarget
                        
                         i = 1
                         For Each app In appsCollection
-                            If (app.fName = NAME) Then
+                            If (app.fName = name) Then
                                 appsCollection.Remove i
                             End If
                             i = i + 1
@@ -903,16 +960,16 @@ Private Sub AppToolbar_ButtonClick(ByVal Button As MSComctlLib.Button)
     resetControls
 End Sub
 
-Private Function uniqueName(NAME As String) As Boolean
+Private Function uniqueName(name As String) As Boolean
     Dim app As clsTarget
     Dim isResult As Boolean
     
     isResult = True
     
-    isResult = (Len(Trim(NAME)) > 0)
+    isResult = (Len(Trim(name)) > 0)
     
     For Each app In appsCollection
-        If (LCase(NAME) = LCase(app.fName)) Then
+        If (LCase(name) = LCase(app.fName)) Then
             isResult = False
         End If
     Next
@@ -944,12 +1001,12 @@ Private Sub cmdRemove_Click()
     Dim index As Long
     If (lstApps.ListIndex >= 0) Then
         Dim i As Long
-        Dim NAME As String
-        NAME = lstApps.List(lstApps.ListIndex)
+        Dim name As String
+        name = lstApps.List(lstApps.ListIndex)
         
         i = 1
         For Each app In appsCollection
-            If (app.fName = NAME) Then
+            If (app.fName = name) Then
                 appsCollection.Remove i
             End If
             i = i + 1
@@ -1079,6 +1136,11 @@ Private Sub cmdSave_Click()
     config.BackColor = picBack.BackColor
     config.ForeColor = picFore.BackColor
     
+    config.RECOMPILE.ENABLED = chkUseKey.Value
+    config.RECOMPILE.KEY = hkConfig.hotkey
+    config.RECOMPILE.MODIFYER = hkConfig.HotKeyModifier
+    
+    
     Dim i As Long
     Dim app As clsTarget
     i = 0
@@ -1089,21 +1151,18 @@ Private Sub cmdSave_Click()
     
     config.APPLICATIONS = i
     
+    Dim hotkeySetup As New clsHotKeySetup
+    hotkeySetup.SetupKey config.RECOMPILE, MainForm.hotkey
+    
     MainForm.loadApps
     Me.Hide
 End Sub
-
-
-
-
-
-
 
 Private Sub lstApps_Click()
     isLoading = True
     Dim index As Long
     If (lstApps.ListIndex >= 0) Then
-        picAppFrame.Enabled = True
+        picAppFrame.ENABLED = True
         index = lstApps.ListIndex + 1
         optionCommand.Property = appsCollection.item(index).fCommand
         txtTarget(1).Text = appsCollection.item(index).fName
@@ -1114,7 +1173,7 @@ Private Sub lstApps_Click()
         txtTarget(6).Text = appsCollection.item(index).fContext
         optionDebug.Property = appsCollection.item(index).fDebug
     Else
-        picAppFrame.Enabled = False
+        picAppFrame.ENABLED = False
     End If
     isLoading = False
 End Sub
@@ -1131,6 +1190,7 @@ Private Sub picFore_Click()
     CD1.ShowColor
     picFore.BackColor = CD1.Color
 End Sub
+
 
 Private Sub txtTarget_Change(index As Integer)
     Dim target As Long
@@ -1156,5 +1216,5 @@ Private Sub resetControls()
     optionCommand.Reset
     optionLibs.Reset
     optionOther.Reset
-    picAppFrame.Enabled = False
+    picAppFrame.ENABLED = False
 End Sub

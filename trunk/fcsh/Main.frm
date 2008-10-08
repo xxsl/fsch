@@ -20,8 +20,9 @@ Begin VB.Form MainForm
       Top             =   5280
       _ExtentX        =   794
       _ExtentY        =   794
-      VKey            =   120
+      VKey            =   1
       WinKey          =   0   'False
+      Enabled         =   0   'False
    End
    Begin MSComctlLib.ImageList fakeList 
       Left            =   5640
@@ -400,6 +401,10 @@ Private Sub Form_Load()
         
         'load configured apps
         loadApps
+        
+        'hotkeys
+        Dim hotkeySetup As New clsHotKeySetup
+        hotkeySetup.SetupKey config.RECOMPILE, hotkey
 End Sub
 
 Private Sub LoadPNG()
@@ -447,14 +452,14 @@ Public Sub loadApps()
     frmFloat.Toolbar1.Buttons(1).ButtonMenus.clear
     Dim i As Long
     Dim app As clsTarget
-    Dim key As String
+    Dim KEY As String
     Dim ButtonMenu As MSComctlLib.ButtonMenu
     
     For i = 1 To config.APPLICATIONS
         Set app = config.LoadApplication(i)
-        key = i & "app"
-        Toolbar.Buttons(BUILD_BUTTON).ButtonMenus.Add i, key, app.fName
-        frmFloat.Toolbar1.Buttons(1).ButtonMenus.Add i, key, app.fName
+        KEY = i & "app"
+        Toolbar.Buttons(BUILD_BUTTON).ButtonMenus.Add i, KEY, app.fName
+        frmFloat.Toolbar1.Buttons(1).ButtonMenus.Add i, KEY, app.fName
     Next i
 End Sub
 
@@ -478,7 +483,9 @@ End Sub
 
 'hot key build
 Private Sub HotKey_HotkeyPressed()
-    rebuild
+    If (config.RECOMPILE.ENABLED = 1) Then
+        rebuild
+    End If
 End Sub
 
 Private Sub mnuExit_Click()
@@ -667,7 +674,7 @@ End Sub
 
 Private Sub Toolbar_ButtonMenuClick(ByVal ButtonMenu As MSComctlLib.ButtonMenu)
     Dim index As Long
-    index = Val(ButtonMenu.key)
+    index = Val(ButtonMenu.KEY)
     BUILD index
 End Sub
 
