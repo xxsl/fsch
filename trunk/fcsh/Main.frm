@@ -197,6 +197,7 @@ Begin VB.Form MainForm
       _Version        =   393217
       BackColor       =   -2147483633
       BorderStyle     =   0
+      Enabled         =   -1  'True
       ScrollBars      =   3
       Appearance      =   0
       AutoVerbMenu    =   -1  'True
@@ -615,7 +616,7 @@ End Sub
 '***********************************************************************************************
 'click
 Private Sub Toolbar_ButtonClick(ByVal Button As MSComctlLib.Button)
-    Select Case Button.index
+    Select Case Button.Index
         Case RUN_BUTTON:
                 If (Not fcsh.isRunning) Then
                     fcsh.Start
@@ -672,9 +673,9 @@ Private Sub Toolbar_ButtonClick(ByVal Button As MSComctlLib.Button)
 End Sub
 
 Private Sub Toolbar_ButtonMenuClick(ByVal ButtonMenu As MSComctlLib.ButtonMenu)
-    Dim index As Long
-    index = Val(ButtonMenu.KEY)
-    BUILD index
+    Dim Index As Long
+    Index = Val(ButtonMenu.KEY)
+    BUILD Index
 End Sub
 
 Public Sub rebuild()
@@ -692,12 +693,13 @@ Public Sub rebuild()
        target.fMessage = "No targets were assigned yet. Nothing to recompile."
        fcsh_onError target
     End If
+    frmFloat.active
     fcsh.exec lastTarget, (Toolbar.Buttons(TYPE_BUTTON).Value = tbrUnpressed)
 End Sub
 
-Public Sub BUILD(index As Long)
+Public Sub BUILD(Index As Long)
     Dim app As clsTarget
-    Set app = config.LoadApplication(index)
+    Set app = config.LoadApplication(Index)
         
     If (fcsh.isRunning) Then
         frmFloat.active

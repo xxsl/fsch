@@ -33,7 +33,6 @@ Begin VB.Form frmOptions
       _Version        =   393216
       TabOrientation  =   1
       Style           =   1
-      Tabs            =   4
       TabsPerRow      =   4
       TabHeight       =   520
       ShowFocusRect   =   0   'False
@@ -61,19 +60,25 @@ Begin VB.Form frmOptions
       Tab(0).Control(3).Enabled=   0   'False
       Tab(0).Control(4)=   "Label1"
       Tab(0).Control(4).Enabled=   0   'False
-      Tab(0).Control(5)=   "UpDown1"
+      Tab(0).Control(5)=   "Label7"
       Tab(0).Control(5).Enabled=   0   'False
-      Tab(0).Control(6)=   "txtFcsh"
+      Tab(0).Control(6)=   "hkConfig"
       Tab(0).Control(6).Enabled=   0   'False
-      Tab(0).Control(7)=   "chkBaloon"
+      Tab(0).Control(7)=   "UpDown1"
       Tab(0).Control(7).Enabled=   0   'False
-      Tab(0).Control(8)=   "chkDebug"
+      Tab(0).Control(8)=   "txtFcsh"
       Tab(0).Control(8).Enabled=   0   'False
-      Tab(0).Control(9)=   "txtPort"
+      Tab(0).Control(9)=   "chkBaloon"
       Tab(0).Control(9).Enabled=   0   'False
-      Tab(0).Control(10)=   "cmdFcsh"
+      Tab(0).Control(10)=   "chkDebug"
       Tab(0).Control(10).Enabled=   0   'False
-      Tab(0).ControlCount=   11
+      Tab(0).Control(11)=   "txtPort"
+      Tab(0).Control(11).Enabled=   0   'False
+      Tab(0).Control(12)=   "cmdFcsh"
+      Tab(0).Control(12).Enabled=   0   'False
+      Tab(0).Control(13)=   "chkUseKey"
+      Tab(0).Control(13).Enabled=   0   'False
+      Tab(0).ControlCount=   14
       TabCaption(1)   =   " Appearance"
       TabPicture(1)   =   "frmOptions.frx":05C2
       Tab(1).ControlEnabled=   0   'False
@@ -114,17 +119,17 @@ Begin VB.Form frmOptions
       Tab(2).Control(4)=   "cmdRemove"
       Tab(2).Control(4).Enabled=   0   'False
       Tab(2).ControlCount=   5
-      TabCaption(3)   =   " Hot Keys"
-      TabPicture(3)   =   "frmOptions.frx":05FA
-      Tab(3).ControlEnabled=   0   'False
-      Tab(3).Control(0)=   "Label7"
-      Tab(3).Control(1)=   "chkUseKey"
-      Tab(3).Control(2)=   "hkConfig"
-      Tab(3).ControlCount=   3
+      Begin VB.CheckBox chkUseKey 
+         Height          =   255
+         Left            =   3600
+         TabIndex        =   63
+         Top             =   1560
+         Width           =   375
+      End
       Begin ComCtl2.UpDown UpDown3 
          Height          =   285
          Left            =   -72479
-         TabIndex        =   64
+         TabIndex        =   61
          Top             =   1200
          Width           =   255
          _ExtentX        =   450
@@ -145,35 +150,9 @@ Begin VB.Form frmOptions
          Height          =   285
          Left            =   -73080
          Locked          =   -1  'True
-         TabIndex        =   63
+         TabIndex        =   60
          Top             =   1200
          Width           =   600
-      End
-      Begin HotKeyConfig.HotKey hkConfig 
-         Height          =   285
-         Left            =   -73080
-         TabIndex        =   61
-         Top             =   240
-         Width           =   1575
-         _ExtentX        =   2778
-         _ExtentY        =   503
-         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-            Name            =   "MS Sans Serif"
-            Size            =   8.25
-            Charset         =   204
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         HotKeyModifier  =   0
-      End
-      Begin VB.CheckBox chkUseKey 
-         Height          =   255
-         Left            =   -71400
-         TabIndex        =   59
-         Top             =   240
-         Width           =   375
       End
       Begin VB.TextBox txtAlpha 
          Height          =   285
@@ -295,9 +274,9 @@ Begin VB.Form frmOptions
          End
          Begin VB.ComboBox cmbCommand 
             Height          =   315
-            ItemData        =   "frmOptions.frx":0616
+            ItemData        =   "frmOptions.frx":05FA
             Left            =   2520
-            List            =   "frmOptions.frx":0618
+            List            =   "frmOptions.frx":05FC
             Style           =   2  'Dropdown List
             TabIndex        =   33
             Top             =   315
@@ -305,9 +284,9 @@ Begin VB.Form frmOptions
          End
          Begin VB.ComboBox cmbDebug 
             Height          =   315
-            ItemData        =   "frmOptions.frx":061A
+            ItemData        =   "frmOptions.frx":05FE
             Left            =   2520
-            List            =   "frmOptions.frx":061C
+            List            =   "frmOptions.frx":0600
             Style           =   2  'Dropdown List
             TabIndex        =   32
             Top             =   2880
@@ -571,15 +550,15 @@ Begin VB.Form frmOptions
          BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
             NumListImages   =   3
             BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-               Picture         =   "frmOptions.frx":061E
+               Picture         =   "frmOptions.frx":0602
                Key             =   ""
             EndProperty
             BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-               Picture         =   "frmOptions.frx":0970
+               Picture         =   "frmOptions.frx":0954
                Key             =   ""
             EndProperty
             BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-               Picture         =   "frmOptions.frx":0CC2
+               Picture         =   "frmOptions.frx":0CA6
                Key             =   ""
             EndProperty
          EndProperty
@@ -604,22 +583,41 @@ Begin VB.Form frmOptions
          BuddyProperty   =   65547
          Enabled         =   -1  'True
       End
+      Begin HotKeyConfig.HotKey hkConfig 
+         Height          =   285
+         Left            =   1920
+         TabIndex        =   62
+         Top             =   1560
+         Width           =   1575
+         _ExtentX        =   2778
+         _ExtentY        =   503
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "MS Sans Serif"
+            Size            =   8.25
+            Charset         =   204
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         HotKeyModifier  =   0
+      End
+      Begin VB.Label Label7 
+         Alignment       =   1  'Right Justify
+         Caption         =   "Recompile hotkey"
+         Height          =   255
+         Left            =   120
+         TabIndex        =   64
+         Top             =   1590
+         Width           =   1650
+      End
       Begin VB.Label Label5 
          Alignment       =   1  'Right Justify
          Caption         =   "Floating window alpha"
          Height          =   255
          Left            =   -74880
-         TabIndex        =   62
+         TabIndex        =   59
          Top             =   1200
-         Width           =   1650
-      End
-      Begin VB.Label Label7 
-         Alignment       =   1  'Right Justify
-         Caption         =   "Recompile key"
-         Height          =   255
-         Left            =   -74880
-         TabIndex        =   60
-         Top             =   270
          Width           =   1650
       End
       Begin VB.Label Label9 
@@ -826,7 +824,6 @@ Private Const MAX_PATH = 260
 Private Const MAIN_TAB As Long = 0
 Private Const APPEARANCE_TAB As Long = 1
 Private Const BUILD_TAB As Long = 2
-Private Const HOTKEYS_TAB As Long = 3
 
 Private appsCollection As Collection
 
@@ -909,7 +906,7 @@ Private Sub Form_Load()
     TabDialog.TabPicture(MAIN_TAB) = MainForm.pngImages.ListImages(MainForm.preloader.getIndex(START_FCSH)).Picture
     TabDialog.TabPicture(APPEARANCE_TAB) = MainForm.pngImages.ListImages(MainForm.preloader.getIndex(APP_APPEARANCE)).Picture
     TabDialog.TabPicture(BUILD_TAB) = MainForm.pngImages.ListImages(MainForm.preloader.getIndex(BUILD_TASK)).Picture
-    TabDialog.TabPicture(HOTKEYS_TAB) = MainForm.pngImages.ListImages(MainForm.preloader.getIndex(KEYBOARD)).Picture
+    
 End Sub
 
 

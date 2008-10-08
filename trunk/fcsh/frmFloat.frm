@@ -107,7 +107,7 @@ Private Sub Label1_MouseMove(Button As Integer, Shift As Integer, X As Single, Y
 End Sub
 
 Private Sub Toolbar1_ButtonClick(ByVal Button As MSComctlLib.Button)
-    Select Case Button.index
+    Select Case Button.Index
     Case 1:
             showAnimation
             MainForm.rebuild
@@ -115,10 +115,10 @@ Private Sub Toolbar1_ButtonClick(ByVal Button As MSComctlLib.Button)
 End Sub
 
 Private Sub Toolbar1_ButtonMenuClick(ByVal ButtonMenu As MSComctlLib.ButtonMenu)
-    Dim index As Long
-    index = Val(ButtonMenu.key)
+    Dim Index As Long
+    Index = Val(ButtonMenu.KEY)
     showAnimation
-    MainForm.BUILD index
+    MainForm.BUILD Index
 End Sub
 
 Private Sub buildIcon_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
@@ -143,13 +143,14 @@ Public Sub error()
 End Sub
 
 Public Sub active()
+    Debug.Print "active"
     showAnimation
 End Sub
 
 
 Private Sub showPicture(Image As String, Text As String)
     Gif.Visible = False
-    Gif.LoopAnimation = False
+    Gif.PauseAnimation = True
     buildIcon.Visible = True
     buildIcon.Picture = MainForm.pngImages.ListImages(MainForm.preloader.getIndex(Image)).ExtractIcon
     buildIcon.ToolTipText = Text
@@ -157,7 +158,7 @@ End Sub
 
 Private Sub showAnimation()
     Gif.Visible = True
-    Gif.LoopAnimation = True
+    Gif.PauseAnimation = False
     buildIcon.Visible = False
 End Sub
 
