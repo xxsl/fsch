@@ -103,26 +103,23 @@ Begin VB.Form frmOptions
       TabCaption(2)   =   " Build"
       TabPicture(2)   =   "frmOptions.frx":05DE
       Tab(2).ControlEnabled=   0   'False
-      Tab(2).Control(0)=   "cmdRemove"
+      Tab(2).Control(0)=   "toolbarIcons"
       Tab(2).Control(0).Enabled=   0   'False
-      Tab(2).Control(1)=   "cmdAdd"
+      Tab(2).Control(1)=   "picAppFrame"
       Tab(2).Control(1).Enabled=   0   'False
       Tab(2).Control(2)=   "lstApps"
       Tab(2).Control(2).Enabled=   0   'False
-      Tab(2).Control(3)=   "picAppFrame"
+      Tab(2).Control(3)=   "cmdAdd"
       Tab(2).Control(3).Enabled=   0   'False
-      Tab(2).Control(4)=   "toolbarIcons"
+      Tab(2).Control(4)=   "cmdRemove"
       Tab(2).Control(4).Enabled=   0   'False
       Tab(2).ControlCount=   5
       TabCaption(3)   =   " Hot Keys"
       TabPicture(3)   =   "frmOptions.frx":05FA
       Tab(3).ControlEnabled=   0   'False
       Tab(3).Control(0)=   "Label7"
-      Tab(3).Control(0).Enabled=   0   'False
       Tab(3).Control(1)=   "chkUseKey"
-      Tab(3).Control(1).Enabled=   0   'False
       Tab(3).Control(2)=   "hkConfig"
-      Tab(3).Control(2).Enabled=   0   'False
       Tab(3).ControlCount=   3
       Begin ComCtl2.UpDown UpDown3 
          Height          =   285
@@ -134,7 +131,7 @@ Begin VB.Form frmOptions
          _ExtentY        =   503
          _Version        =   327681
          BuddyControl    =   "txtFloatAlpha"
-         BuddyDispid     =   196659
+         BuddyDispid     =   196609
          OrigLeft        =   2760
          OrigTop         =   1200
          OrigRight       =   3015
@@ -142,10 +139,12 @@ Begin VB.Form frmOptions
          Max             =   255
          SyncBuddy       =   -1  'True
          BuddyProperty   =   65547
+         Enabled         =   -1  'True
       End
       Begin VB.TextBox txtFloatAlpha 
          Height          =   285
          Left            =   -73080
+         Locked          =   -1  'True
          TabIndex        =   63
          Top             =   1200
          Width           =   600
@@ -490,7 +489,7 @@ Begin VB.Form frmOptions
          End
          Begin VB.Label lblApp 
             Alignment       =   1  'Right Justify
-            Caption         =   "Include libraries (separated by ;)"
+            Caption         =   "Include libraries"
             Height          =   255
             Index           =   7
             Left            =   120
@@ -595,7 +594,7 @@ Begin VB.Form frmOptions
          _ExtentY        =   503
          _Version        =   327681
          BuddyControl    =   "txtAlpha"
-         BuddyDispid     =   196610
+         BuddyDispid     =   196611
          OrigLeft        =   7560
          OrigTop         =   360
          OrigRight       =   7815
@@ -946,7 +945,7 @@ Public Sub loadPrefs(ByRef cfg As clsConfiguration, ByRef logger As clsLog)
     
     chkUseKey.Value = config.RECOMPILE.ENABLED
     
-    hkConfig.HotKey = config.RECOMPILE.KEY
+    hkConfig.hotkey = config.RECOMPILE.KEY
     hkConfig.HotKeyModifier = config.RECOMPILE.MODIFYER
     
     Dim i As Long
@@ -1112,7 +1111,7 @@ End Sub
 
 Private Sub cmdMxml_Click()
     CD1.FileName = ""
-    CD1.Filter = "MXML document (*.mxml)|*.mxml|CSS document (*.css)|*.css"
+    CD1.Filter = "Application (*.mxml;*.css)|*.mxml;*.css"
     CD1.ShowOpen
     If (Len(CD1.FileName) > 0) Then
         txtTarget(2).Text = GetShortName(CD1.FileName)
@@ -1179,7 +1178,7 @@ Private Sub cmdSave_Click()
     config.ForeColor = picFore.BackColor
     
     config.RECOMPILE.ENABLED = chkUseKey.Value
-    config.RECOMPILE.KEY = hkConfig.HotKey
+    config.RECOMPILE.KEY = hkConfig.hotkey
     config.RECOMPILE.MODIFYER = hkConfig.HotKeyModifier
     
     
@@ -1194,7 +1193,7 @@ Private Sub cmdSave_Click()
     config.APPLICATIONS = i
     
     Dim hotkeySetup As New clsHotKeySetup
-    hotkeySetup.SetupKey config.RECOMPILE, MainForm.HotKey
+    hotkeySetup.SetupKey config.RECOMPILE, MainForm.hotkey
     
     MainForm.loadApps
     Me.Hide
