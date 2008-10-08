@@ -33,6 +33,8 @@ Private fALPHA As Byte
 Private fBACKCOLOR As Long
 Private fFORECOLOR As Long
 
+Public RECOMPILE As New clsHotKey
+
 Const PREFERENCE As String = "preferences"
 
 
@@ -70,51 +72,53 @@ Public Sub Load()
     fFORECOLOR = Val(prefs.GetValue(PREFERENCE, "forecolor", "16743936"))
     
     fAPPLICATIONS = Val(prefs.GetValue("applications", "count", "0"))
+    
+    RECOMPILE.init prefs, "recompile_hotkey"
 End Sub
 
 Public Function LoadApplication(index As Long) As clsTarget
     Dim target As New clsTarget
-    Dim num As String
-    num = Trim(Str(index))
-    target.fCommand = prefs.GetValue(num, "command", "mxmlc")
-    target.fName = prefs.GetValue(num, "name", "")
-    target.fSource = prefs.GetValue(num, "source", "")
-    target.fOutput = prefs.GetValue(num, "output", "")
-    target.fDebug = prefs.GetValue(num, "debug", "")
-    target.fServices = prefs.GetValue(num, "services", "")
-    target.fContext = prefs.GetValue(num, "context", "")
-    target.fLibraries = prefs.GetValue(num, "libraries", "")
+    Dim Num As String
+    Num = Trim(Str(index))
+    target.fCommand = prefs.GetValue(Num, "command", "mxmlc")
+    target.fName = prefs.GetValue(Num, "name", "")
+    target.fSource = prefs.GetValue(Num, "source", "")
+    target.fOutput = prefs.GetValue(Num, "output", "")
+    target.fDebug = prefs.GetValue(Num, "debug", "")
+    target.fServices = prefs.GetValue(Num, "services", "")
+    target.fContext = prefs.GetValue(Num, "context", "")
+    target.fLibraries = prefs.GetValue(Num, "libraries", "")
     'target.fOther = prefs.GetValue(num, "other", "")
     Set LoadApplication = target
 End Function
 
 Public Sub saveApplication(index As Long, ByRef target As clsTarget)
-    Dim num As String
-    num = Trim(Str(index))
+    Dim Num As String
+    Num = Trim(Str(index))
     
-    prefs.WriteValue num, "command", target.fCommand
-    prefs.WriteValue num, "name", target.fName
-    prefs.WriteValue num, "source", target.fSource
-    prefs.WriteValue num, "output", target.fOutput
-    prefs.WriteValue num, "debug", target.fDebug
-    prefs.WriteValue num, "services", target.fServices
-    prefs.WriteValue num, "context", target.fContext
-    prefs.WriteValue num, "libraries", target.fLibraries
+    prefs.WriteValue Num, "command", target.fCommand
+    prefs.WriteValue Num, "name", target.fName
+    prefs.WriteValue Num, "source", target.fSource
+    prefs.WriteValue Num, "output", target.fOutput
+    prefs.WriteValue Num, "debug", target.fDebug
+    prefs.WriteValue Num, "services", target.fServices
+    prefs.WriteValue Num, "context", target.fContext
+    prefs.WriteValue Num, "libraries", target.fLibraries
     'prefs.WriteValue num, "other", target.fOther
 End Sub
 
 
-Public Sub Clear()
+Public Sub clear()
 Open app.path + "/" + "fcsh.ini" For Output As #1
 Close #1
 End Sub
 
 'save boolean -------------------------
-Private Sub saveBool(node As String, key As String, value As Boolean)
-    If (value) Then
-        prefs.WriteValue node, key, 1
+Private Sub saveBool(node As String, KEY As String, Value As Boolean)
+    If (Value) Then
+        prefs.WriteValue node, KEY, 1
     Else
-        prefs.WriteValue node, key, 0
+        prefs.WriteValue node, KEY, 0
     End If
 End Sub
 
@@ -170,31 +174,33 @@ Public Property Let FCSH_PATH(ByVal vNewValue As String)
 End Property
 
 'transparency
-Public Property Get ALPHA() As Byte
-    ALPHA = fALPHA
+Public Property Get Alpha() As Byte
+    Alpha = fALPHA
 End Property
 
-Public Property Let ALPHA(ByVal vNewValue As Byte)
+Public Property Let Alpha(ByVal vNewValue As Byte)
     fALPHA = vNewValue
     prefs.WriteValue PREFERENCE, "alpha", Trim(Str(fALPHA))
 End Property
 
 'log backcolor
-Public Property Get BACKCOLOR() As Long
-    BACKCOLOR = fBACKCOLOR
+Public Property Get BackColor() As Long
+    BackColor = fBACKCOLOR
 End Property
 
-Public Property Let BACKCOLOR(ByVal vNewValue As Long)
+Public Property Let BackColor(ByVal vNewValue As Long)
     fBACKCOLOR = vNewValue
     prefs.WriteValue PREFERENCE, "backcolor", Str(fBACKCOLOR)
 End Property
 
 'log forecolor
-Public Property Get FORECOLOR() As Long
-    FORECOLOR = fFORECOLOR
+Public Property Get ForeColor() As Long
+    ForeColor = fFORECOLOR
 End Property
 
-Public Property Let FORECOLOR(ByVal vNewValue As Long)
+Public Property Let ForeColor(ByVal vNewValue As Long)
     fFORECOLOR = vNewValue
     prefs.WriteValue PREFERENCE, "forecolor", Str(fFORECOLOR)
 End Property
+
+

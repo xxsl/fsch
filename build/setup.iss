@@ -7,7 +7,7 @@
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{F8D67705-8244-4864-A722-7966741FC208}
 AppName=Flex Compiler Shell Wrapper
-AppVerName=Flex Compiler Shell Wrapper 1.0.1.51
+AppVerName=Flex Compiler Shell Wrapper 1.0.1.60
 AppPublisher=nimrod97@gmail.com
 AppPublisherURL=http://code.google.com/p/fsch/
 AppSupportURL=http://code.google.com/p/fsch/
@@ -19,11 +19,11 @@ LicenseFile=license.txt
 InfoBeforeFile=
 InfoAfterFile=
 OutputDir=/setup
-OutputBaseFilename=fcsh-setup-1.0.1.51
+OutputBaseFilename=fcsh-setup-1.0.1.60
 SetupIconFile=Adobe-Flex-CS3.ico
 Compression=lzma/ultra
 SolidCompression=yes
-VersionInfoVersion=1.0.1.51
+VersionInfoVersion=1.0.1.60
 VersionInfoCopyright=nimrod97@gmail.com
 
 
@@ -58,6 +58,7 @@ Source: "MSCOMCTL.OCX"; DestDir: "{sys}"; Flags: sharedfile regserver  onlyifdoe
 Source: "COMCT232.OCX"; DestDir: "{sys}"; Flags: sharedfile regserver  onlyifdoesntexist
 Source: "QProGIF.ocx"; DestDir: "{sys}"; Flags: sharedfile regserver  onlyifdoesntexist
 Source: "MCLHotkey.ocx"; DestDir: "{sys}"; Flags: sharedfile regserver  onlyifdoesntexist
+Source: "HotKeyConfig.ocx"; DestDir: "{sys}"; Flags: sharedfile regserver  onlyifdoesntexist
 
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
