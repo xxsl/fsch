@@ -197,7 +197,6 @@ Begin VB.Form MainForm
       _Version        =   393217
       BackColor       =   -2147483633
       BorderStyle     =   0
-      Enabled         =   -1  'True
       ScrollBars      =   3
       Appearance      =   0
       AutoVerbMenu    =   -1  'True
@@ -404,7 +403,7 @@ Private Sub Form_Load()
         
         'hotkeys
         Dim hotkeySetup As New clsHotKeySetup
-        hotkeySetup.SetupKey config.RECOMPILE, hotkey
+        hotkeySetup.SetupKey config.RECOMPILE, HotKey
 End Sub
 
 Private Sub LoadPNG()
@@ -498,11 +497,11 @@ Private Sub mnuFloat_Click()
     If (mnuFloat.Checked = True) Then
         frmFloat.Show
         SetAlwaysOnTopMode frmFloat.hWnd, True
-        'Dim bytOpacity As Byte
+        Dim bytOpacity As Byte
         'Set the transparency level
-        'bytOpacity = config.Alpha
-        'Call SetWindowLong(frmFloat.hWnd, GWL_EXSTYLE, GetWindowLong(frmFloat.hWnd, GWL_EXSTYLE) Or WS_EX_LAYERED)
-        'Call SetLayeredWindowAttributes(frmFloat.hWnd, 0, bytOpacity, LWA_ALPHA)
+        bytOpacity = config.FLOATALPHA
+        Call SetWindowLong(frmFloat.hWnd, GWL_EXSTYLE, GetWindowLong(frmFloat.hWnd, GWL_EXSTYLE) Or WS_EX_LAYERED)
+        Call SetLayeredWindowAttributes(frmFloat.hWnd, 0, bytOpacity, LWA_ALPHA)
     Else
         frmFloat.Hide
     End If

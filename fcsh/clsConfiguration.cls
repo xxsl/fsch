@@ -30,6 +30,7 @@ Private fAPPLICATIONS As Long
 Private fSHOW_BALOON As Boolean
 Private fFCSH_PATH As String
 Private fALPHA As Byte
+Private fFLOATALPHA As Byte
 Private fBACKCOLOR As Long
 Private fFORECOLOR As Long
 
@@ -66,6 +67,7 @@ Public Sub Load()
     fFCSH_PATH = prefs.GetValue(PREFERENCE, "fcsh_exe_path", "fcsh.exe")
     
     fALPHA = CByte(Val(prefs.GetValue(PREFERENCE, "alpha", "128")))
+    fFLOATALPHA = CByte(Val(prefs.GetValue(PREFERENCE, "floatalpha", "255")))
     
     fBACKCOLOR = Val(prefs.GetValue(PREFERENCE, "backcolor", "-2147483633"))
     
@@ -181,6 +183,16 @@ End Property
 Public Property Let Alpha(ByVal vNewValue As Byte)
     fALPHA = vNewValue
     prefs.WriteValue PREFERENCE, "alpha", Trim(Str(fALPHA))
+End Property
+
+'transparency
+Public Property Get FLOATALPHA() As Byte
+    FLOATALPHA = fFLOATALPHA
+End Property
+
+Public Property Let FLOATALPHA(ByVal vNewValue As Byte)
+    fFLOATALPHA = vNewValue
+    prefs.WriteValue PREFERENCE, "floatalpha", Trim(Str(fFLOATALPHA))
 End Property
 
 'log backcolor
