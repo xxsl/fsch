@@ -22,12 +22,12 @@ End Sub
 
 
 Public Property Let ENABLED(ByVal vNewValue As Long)
-    prefs.WriteValue section, "enabled", Str(vNewValue)
+    prefs.WriteValue section, "key_enabled", Str(vNewValue)
 End Property
 
 'use hot keys
 Public Property Get ENABLED() As Long
-    ENABLED = Val(prefs.GetValue(section, "enabled", "0"))
+    ENABLED = Val(prefs.GetValue(section, "key_enabled", "0"))
 End Property
 
 Public Property Let KEY(ByVal vNewValue As Long)
@@ -40,10 +40,10 @@ Public Property Get KEY() As Long
 End Property
 
 Public Property Let MODIFYER(ByVal vNewValue As Long)
-    prefs.WriteValue section, "modifyer", Str(vNewValue)
+    prefs.WriteValue section, "key_modifyer", Str(vNewValue)
 End Property
 
 'use hot keys
 Public Property Get MODIFYER() As Long
-    MODIFYER = Val(prefs.GetValue(section, "modifyer", "0"))
+    MODIFYER = Val(prefs.GetValue(section, "key_modifyer", "0"))
 End Property
