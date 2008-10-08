@@ -40,7 +40,6 @@ Source: "shell.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "fcsh.ini"; DestDir: "{app}"; Flags: uninsneveruninstall onlyifdoesntexist
 Source: "shell.exe.manifest"; DestDir: "{app}"; Flags: ignoreversion
 Source: "compiler.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "ajax-loader.gif"; DestDir: "{app}"; Flags: ignoreversion
 
 Source: "msvbvm60.dll"; DestDir: "{sys}"; Flags: sharedfile regserver  onlyifdoesntexist
 Source: "oleaut32.dll"; DestDir: "{sys}"; Flags: sharedfile regserver  onlyifdoesntexist
