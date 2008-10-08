@@ -196,6 +196,7 @@ Begin VB.Form MainForm
       _Version        =   393217
       BackColor       =   -2147483633
       BorderStyle     =   0
+      Enabled         =   -1  'True
       ScrollBars      =   3
       Appearance      =   0
       AutoVerbMenu    =   -1  'True
@@ -412,8 +413,10 @@ Private Sub LoadPNG()
     preloader.getResourceByName TARGET_INFO
     preloader.getResourceByName OPTIONS
     preloader.getResourceByName ON_TOP
-    preloader.getResourceByName ALPHA
+    preloader.getResourceByName Alpha
     preloader.getResourceByName ABOUT
+    preloader.getResourceByName APP_APPEARANCE
+    preloader.getResourceByName KEYBOARD
     
     preloader.getResourceByName IDLE_PNG
     preloader.getResourceByName STOPPED_PNG
@@ -435,7 +438,7 @@ Private Sub LoadPNG()
     Toolbar.Buttons(OPTIONS_BUTTON).Image = preloader.getIndex(OPTIONS)
     Toolbar.Buttons(CLEAR_BUTTON).Image = preloader.getIndex(LOG_CLEAR)
     Toolbar.Buttons(ONTOP_BUTTON).Image = preloader.getIndex(ON_TOP)
-    Toolbar.Buttons(TRANSPARENT_BUTTON).Image = preloader.getIndex(ALPHA)
+    Toolbar.Buttons(TRANSPARENT_BUTTON).Image = preloader.getIndex(Alpha)
     Toolbar.Buttons(ABOUT_BUTTON).Image = preloader.getIndex(ABOUT)
 End Sub
 
@@ -650,7 +653,7 @@ Private Sub Toolbar_ButtonClick(ByVal Button As MSComctlLib.Button)
                 If (Toolbar.Buttons(TRANSPARENT_BUTTON).Value = tbrPressed) Then
                      Dim bytOpacity As Byte
                      'Set the transparency level
-                     bytOpacity = config.ALPHA
+                     bytOpacity = config.Alpha
                      Call SetWindowLong(Me.hWnd, GWL_EXSTYLE, GetWindowLong(Me.hWnd, GWL_EXSTYLE) Or WS_EX_LAYERED)
                      Call SetLayeredWindowAttributes(Me.hWnd, 0, bytOpacity, LWA_ALPHA)
                 Else
