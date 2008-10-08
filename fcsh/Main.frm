@@ -197,7 +197,7 @@ Begin VB.Form MainForm
       _Version        =   393217
       BackColor       =   -2147483633
       BorderStyle     =   0
-      Enabled         =   -1  'True
+      ReadOnly        =   -1  'True
       ScrollBars      =   3
       Appearance      =   0
       AutoVerbMenu    =   -1  'True
@@ -404,7 +404,7 @@ Private Sub Form_Load()
         
         'hotkeys
         Dim hotkeySetup As New clsHotKeySetup
-        hotkeySetup.SetupKey config.RECOMPILE, HotKey
+        hotkeySetup.SetupKey config.RECOMPILE, hotkey
 End Sub
 
 Private Sub LoadPNG()
