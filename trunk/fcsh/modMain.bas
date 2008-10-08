@@ -16,14 +16,17 @@ Public Const INCREMENTAL_OFF As String = "INCREMENTAL_OFF"
 Public Const TARGET_INFO As String = "TARGET_INFO"
 Public Const OPTIONS As String = "OPTIONS"
 Public Const ON_TOP As String = "ON_TOP"
-Public Const ALPHA As String = "ALPHA"
+Public Const Alpha As String = "ALPHA"
 Public Const ABOUT As String = "ABOUT"
 Public Const BUILD_PROGRESS As String = "BUILD_PROGRESS"
+Public Const APP_APPEARANCE As String = "APP_APPEARANCE"
+Public Const KEYBOARD As String = "KEYBOARD"
 
 Public Const ERROR_PNG As String = "ERROR_PNG"
 Public Const EXEC_PNG As String = "EXEC_PNG"
 Public Const STOPPED_PNG As String = "STOPPED_PNG"
 Public Const IDLE_PNG As String = "IDLE_PNG"
+
 
 Private Type tagInitCommonControlsEx
    lngSize As Long

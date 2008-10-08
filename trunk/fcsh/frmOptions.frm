@@ -20,7 +20,6 @@ Begin VB.Form frmOptions
    MinButton       =   0   'False
    ScaleHeight     =   4650
    ScaleWidth      =   10335
-   ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
    Begin TabDlg.SSTab TabDialog 
       Height          =   4215
@@ -34,84 +33,60 @@ Begin VB.Form frmOptions
       TabOrientation  =   1
       Style           =   1
       Tabs            =   4
-      Tab             =   1
+      Tab             =   3
       TabsPerRow      =   4
       TabHeight       =   520
-      WordWrap        =   0   'False
-      ForeColor       =   -2147483630
+      ShowFocusRect   =   0   'False
+      ForeColor       =   8404992
       MouseIcon       =   "frmOptions.frx":058A
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Arial"
          Size            =   9
          Charset         =   0
-         Weight          =   400
+         Weight          =   700
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      TabCaption(0)   =   "Main"
+      TabCaption(0)   =   " Main"
       TabPicture(0)   =   "frmOptions.frx":05A6
       Tab(0).ControlEnabled=   0   'False
-      Tab(0).Control(0)=   "Label6"
-      Tab(0).Control(0).Enabled=   0   'False
-      Tab(0).Control(1)=   "Label4"
-      Tab(0).Control(1).Enabled=   0   'False
-      Tab(0).Control(2)=   "Label3"
-      Tab(0).Control(2).Enabled=   0   'False
-      Tab(0).Control(3)=   "Label2"
-      Tab(0).Control(3).Enabled=   0   'False
-      Tab(0).Control(4)=   "Label1"
-      Tab(0).Control(4).Enabled=   0   'False
+      Tab(0).Control(0)=   "cmdFcsh"
+      Tab(0).Control(1)=   "txtPort"
+      Tab(0).Control(2)=   "chkDebug"
+      Tab(0).Control(3)=   "chkBaloon"
+      Tab(0).Control(4)=   "txtFcsh"
       Tab(0).Control(5)=   "UpDown1"
-      Tab(0).Control(5).Enabled=   0   'False
-      Tab(0).Control(6)=   "txtFcsh"
-      Tab(0).Control(6).Enabled=   0   'False
-      Tab(0).Control(7)=   "chkBaloon"
-      Tab(0).Control(7).Enabled=   0   'False
-      Tab(0).Control(8)=   "chkDebug"
-      Tab(0).Control(8).Enabled=   0   'False
-      Tab(0).Control(9)=   "txtPort"
-      Tab(0).Control(9).Enabled=   0   'False
-      Tab(0).Control(10)=   "cmdFcsh"
-      Tab(0).Control(10).Enabled=   0   'False
+      Tab(0).Control(6)=   "Label1"
+      Tab(0).Control(7)=   "Label2"
+      Tab(0).Control(8)=   "Label3"
+      Tab(0).Control(9)=   "Label4"
+      Tab(0).Control(10)=   "Label6"
       Tab(0).ControlCount=   11
-      TabCaption(1)   =   "Appearance"
+      TabCaption(1)   =   " Appearance"
       TabPicture(1)   =   "frmOptions.frx":05C2
-      Tab(1).ControlEnabled=   -1  'True
-      Tab(1).Control(0)=   "Label12"
-      Tab(1).Control(0).Enabled=   0   'False
-      Tab(1).Control(1)=   "Label11"
-      Tab(1).Control(1).Enabled=   0   'False
-      Tab(1).Control(2)=   "Label10"
-      Tab(1).Control(2).Enabled=   0   'False
-      Tab(1).Control(3)=   "Label9"
-      Tab(1).Control(3).Enabled=   0   'False
-      Tab(1).Control(4)=   "UpDown2"
-      Tab(1).Control(4).Enabled=   0   'False
-      Tab(1).Control(5)=   "picFore"
-      Tab(1).Control(5).Enabled=   0   'False
-      Tab(1).Control(6)=   "picBack"
-      Tab(1).Control(6).Enabled=   0   'False
-      Tab(1).Control(7)=   "txtAlpha"
-      Tab(1).Control(7).Enabled=   0   'False
+      Tab(1).ControlEnabled=   0   'False
+      Tab(1).Control(0)=   "txtAlpha"
+      Tab(1).Control(1)=   "picBack"
+      Tab(1).Control(2)=   "picFore"
+      Tab(1).Control(3)=   "UpDown2"
+      Tab(1).Control(4)=   "Label9"
+      Tab(1).Control(5)=   "Label10"
+      Tab(1).Control(6)=   "Label11"
+      Tab(1).Control(7)=   "Label12"
       Tab(1).ControlCount=   8
-      TabCaption(2)   =   "Build"
+      TabCaption(2)   =   " Build"
       TabPicture(2)   =   "frmOptions.frx":05DE
       Tab(2).ControlEnabled=   0   'False
-      Tab(2).Control(0)=   "toolbarIcons"
-      Tab(2).Control(0).Enabled=   0   'False
-      Tab(2).Control(1)=   "picAppFrame"
-      Tab(2).Control(1).Enabled=   0   'False
+      Tab(2).Control(0)=   "cmdRemove"
+      Tab(2).Control(1)=   "cmdAdd"
       Tab(2).Control(2)=   "lstApps"
-      Tab(2).Control(2).Enabled=   0   'False
-      Tab(2).Control(3)=   "cmdAdd"
-      Tab(2).Control(3).Enabled=   0   'False
-      Tab(2).Control(4)=   "cmdRemove"
-      Tab(2).Control(4).Enabled=   0   'False
+      Tab(2).Control(3)=   "picAppFrame"
+      Tab(2).Control(4)=   "toolbarIcons"
       Tab(2).ControlCount=   5
-      TabCaption(3)   =   "Hot Keys"
+      TabCaption(3)   =   " Hot Keys"
       TabPicture(3)   =   "frmOptions.frx":05FA
-      Tab(3).ControlEnabled=   0   'False
+      Tab(3).ControlEnabled=   -1  'True
       Tab(3).Control(0)=   "Label5"
       Tab(3).Control(0).Enabled=   0   'False
       Tab(3).Control(1)=   "chkUseKey"
@@ -119,14 +94,14 @@ Begin VB.Form frmOptions
       Tab(3).ControlCount=   2
       Begin VB.CheckBox chkUseKey 
          Height          =   255
-         Left            =   -73080
+         Left            =   1920
          TabIndex        =   60
          Top             =   150
          Width           =   375
       End
       Begin VB.TextBox txtAlpha 
          Height          =   285
-         Left            =   1920
+         Left            =   -73080
          TabIndex        =   53
          Top             =   150
          Width           =   840
@@ -136,7 +111,7 @@ Begin VB.Form frmOptions
          BackColor       =   &H80000005&
          ForeColor       =   &H80000008&
          Height          =   255
-         Left            =   1920
+         Left            =   -73080
          ScaleHeight     =   225
          ScaleWidth      =   825
          TabIndex        =   52
@@ -149,7 +124,7 @@ Begin VB.Form frmOptions
          BackColor       =   &H80000005&
          ForeColor       =   &H80000008&
          Height          =   255
-         Left            =   1920
+         Left            =   -73080
          ScaleHeight     =   225
          ScaleWidth      =   825
          TabIndex        =   51
@@ -535,7 +510,7 @@ Begin VB.Form frmOptions
       End
       Begin ComCtl2.UpDown UpDown2 
          Height          =   285
-         Left            =   2761
+         Left            =   -72239
          TabIndex        =   54
          Top             =   150
          Width           =   255
@@ -557,7 +532,7 @@ Begin VB.Form frmOptions
          Alignment       =   1  'Right Justify
          Caption         =   "Use global hot keys"
          Height          =   255
-         Left            =   -74880
+         Left            =   120
          TabIndex        =   59
          Top             =   150
          Width           =   1650
@@ -566,7 +541,7 @@ Begin VB.Form frmOptions
          Alignment       =   1  'Right Justify
          Caption         =   "Main window alpha"
          Height          =   255
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   58
          Top             =   150
          Width           =   1650
@@ -575,7 +550,7 @@ Begin VB.Form frmOptions
          Alignment       =   1  'Right Justify
          Caption         =   "Console backcolor"
          Height          =   255
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   57
          Top             =   510
          Width           =   1650
@@ -584,7 +559,7 @@ Begin VB.Form frmOptions
          Alignment       =   1  'Right Justify
          Caption         =   "Console forecolor"
          Height          =   255
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   56
          Top             =   870
          Width           =   1650
@@ -592,7 +567,7 @@ Begin VB.Form frmOptions
       Begin VB.Label Label12 
          Caption         =   "Clear log to see changes"
          Height          =   255
-         Left            =   3360
+         Left            =   -71640
          TabIndex        =   55
          Top             =   750
          Width           =   1935
@@ -743,16 +718,11 @@ Attribute VB_Exposed = False
 
 Option Explicit
 
-Private Declare Function SHBrowseForFolder Lib "shell32" _
-                                        (lpBI As BrowseInfo) As Long
+Private Declare Function SHBrowseForFolder Lib "shell32" (lpBI As BrowseInfo) As Long
 
-Private Declare Function SHGetPathFromIDList Lib "shell32" _
-                                        (ByVal pidList As Long, _
-                                        ByVal lpBuffer As String) As Long
+Private Declare Function SHGetPathFromIDList Lib "shell32" (ByVal pidList As Long, ByVal lpBuffer As String) As Long
+Private Declare Function lstrcat Lib "kernel32" Alias "lstrcatA" (ByVal lpString1 As String, ByVal lpString2 As String) As Long
 
-Private Declare Function lstrcat Lib "kernel32" Alias "lstrcatA" _
-                                        (ByVal lpString1 As String, ByVal _
-                                        lpString2 As String) As Long
 Private Type BrowseInfo
          hWndOwner      As Long
          pIDLRoot       As Long
@@ -768,6 +738,10 @@ Private Const BIF_RETURNONLYFSDIRS = 1
 Private Const BIF_DONTGOBELOWDOMAIN = 2
 Private Const MAX_PATH = 260
 
+Private Const MAIN_TAB As Long = 0
+Private Const APPEARANCE_TAB As Long = 1
+Private Const BUILD_TAB As Long = 2
+Private Const HOTKEYS_TAB As Long = 3
 
 Private appsCollection As Collection
 
@@ -835,13 +809,16 @@ Private Sub Form_Load()
     optionLibs.Bind cmbLibs, ";"
     optionOther.Bind cmbOptions, " "
     
+    'draw frame
     Dim padding As Long, corner As Long
     corner = 10
     padding = 4
-    'RoundRect picFramePrefs.hDC, padding, padding, picFramePrefs.ScaleWidth - padding, picFramePrefs.ScaleHeight - padding, corner, corner
-    'RoundRect picFrameNoName.hDC, padding, padding, picFrameNoName.ScaleWidth - padding, picFrameNoName.ScaleHeight - padding, corner, corner
     RoundRect picAppFrame.hDC, padding, padding, picAppFrame.ScaleWidth - padding, picAppFrame.ScaleHeight - padding, corner, corner
 
+    TabDialog.TabPicture(MAIN_TAB) = MainForm.pngImages.ListImages(MainForm.preloader.getIndex(START_FCSH)).Picture
+    TabDialog.TabPicture(APPEARANCE_TAB) = MainForm.pngImages.ListImages(MainForm.preloader.getIndex(APP_APPEARANCE)).Picture
+    TabDialog.TabPicture(BUILD_TAB) = MainForm.pngImages.ListImages(MainForm.preloader.getIndex(BUILD_TASK)).Picture
+    TabDialog.TabPicture(HOTKEYS_TAB) = MainForm.pngImages.ListImages(MainForm.preloader.getIndex(KEYBOARD)).Picture
 End Sub
 
 
@@ -887,7 +864,7 @@ End Sub
 
 
 Private Sub AppToolbar_ButtonClick(ByVal Button As MSComctlLib.Button)
-    Select Case Button.Index
+    Select Case Button.index
             Case 1:
                     Dim newApp As New clsTarget
                     Dim appName As String
@@ -901,7 +878,7 @@ Private Sub AppToolbar_ButtonClick(ByVal Button As MSComctlLib.Button)
                         MsgBox "This name already exists - " + appName, vbCritical
                     End If
             Case 2:
-                    Dim Index As Long
+                    Dim index As Long
                     If (lstApps.ListIndex >= 0) Then
                         Dim i As Long
                         Dim NAME As String
@@ -964,7 +941,7 @@ End Sub
 
 Private Sub cmdRemove_Click()
     Dim app As clsTarget
-    Dim Index As Long
+    Dim index As Long
     If (lstApps.ListIndex >= 0) Then
         Dim i As Long
         Dim NAME As String
@@ -1124,18 +1101,18 @@ End Sub
 
 Private Sub lstApps_Click()
     isLoading = True
-    Dim Index As Long
+    Dim index As Long
     If (lstApps.ListIndex >= 0) Then
         picAppFrame.Enabled = True
-        Index = lstApps.ListIndex + 1
-        optionCommand.Property = appsCollection.item(Index).fCommand
-        txtTarget(1).Text = appsCollection.item(Index).fName
-        txtTarget(2).Text = appsCollection.item(Index).fSource
-        optionLibs.Property = appsCollection.item(Index).fLibraries
-        txtTarget(4).Text = appsCollection.item(Index).fOutput
-        txtTarget(5).Text = appsCollection.item(Index).fServices
-        txtTarget(6).Text = appsCollection.item(Index).fContext
-        optionDebug.Property = appsCollection.item(Index).fDebug
+        index = lstApps.ListIndex + 1
+        optionCommand.Property = appsCollection.item(index).fCommand
+        txtTarget(1).Text = appsCollection.item(index).fName
+        txtTarget(2).Text = appsCollection.item(index).fSource
+        optionLibs.Property = appsCollection.item(index).fLibraries
+        txtTarget(4).Text = appsCollection.item(index).fOutput
+        txtTarget(5).Text = appsCollection.item(index).fServices
+        txtTarget(6).Text = appsCollection.item(index).fContext
+        optionDebug.Property = appsCollection.item(index).fDebug
     Else
         picAppFrame.Enabled = False
     End If
@@ -1155,7 +1132,7 @@ Private Sub picFore_Click()
     picFore.BackColor = CD1.Color
 End Sub
 
-Private Sub txtTarget_Change(Index As Integer)
+Private Sub txtTarget_Change(index As Integer)
     Dim target As Long
     If (lstApps.ListIndex >= 0 And Not isLoading) Then
         target = lstApps.ListIndex + 1
