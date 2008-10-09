@@ -21,6 +21,7 @@ Public Const ABOUT As String = "ABOUT"
 Public Const BUILD_PROGRESS As String = "BUILD_PROGRESS"
 Public Const APP_APPEARANCE As String = "APP_APPEARANCE"
 Public Const KEYBOARD As String = "KEYBOARD"
+Public Const CUSTOM_COMMAND As String = "CUSTOM_COMMAND"
 
 Public Const WARNING_PNG As String = "WARNING_PNG"
 Public Const ERROR_PNG As String = "ERROR_PNG"
