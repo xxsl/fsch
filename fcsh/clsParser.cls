@@ -81,6 +81,11 @@ Private Function detectEnd(newOutput() As String) As Boolean
             ErrorMessage = Trim(newOutput(i))
             logger.xDebug "Error: /" & Trim(newOutput(i)) & "/"
         End If
+        If (error(line)) Then
+            isError = True
+            ErrorMessage = Trim(newOutput(i))
+            logger.xDebug "Error: /" & Trim(newOutput(i)) & "/"
+        End If
         If (InStr(1, line, "assigned") > 0) Then
             isIdAssigned = True
             parseID (line)
@@ -96,6 +101,23 @@ Private Function detectEnd(newOutput() As String) As Boolean
         End If
     Next i
     detectEnd = result
+End Function
+
+Private Function error(Data As String) As Boolean
+        Dim myRegExp As RegExp
+        Dim myMatches As MatchCollection
+        Dim myMatch As Match
+        
+        Set myRegExp = New RegExp
+        myRegExp.IgnoreCase = True
+        myRegExp.Global = True
+        myRegExp.Pattern = "Target [0-9]+ not found"
+        Set myMatches = myRegExp.Execute(Data)
+        For Each myMatch In myMatches
+          error = True
+          Exit Function
+        Next
+        error = False
 End Function
 
 Private Sub parseID(Data As String)
