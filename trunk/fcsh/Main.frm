@@ -122,7 +122,7 @@ Begin VB.Form MainForm
       ImageList       =   "fakeList"
       _Version        =   393216
       BeginProperty Buttons {66833FE8-8583-11D1-B16A-00C0F0283628} 
-         NumButtons      =   13
+         NumButtons      =   14
          BeginProperty Button1 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Key             =   "run"
             Object.ToolTipText     =   "Start fcsh"
@@ -153,32 +153,36 @@ Begin VB.Form MainForm
             ImageIndex      =   1
          EndProperty
          BeginProperty Button7 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Style           =   3
+            Object.ToolTipText     =   "Execute command"
+            ImageIndex      =   1
          EndProperty
          BeginProperty Button8 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Style           =   3
+         EndProperty
+         BeginProperty Button9 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Key             =   "options"
             Object.ToolTipText     =   "Options"
             ImageIndex      =   1
          EndProperty
-         BeginProperty Button9 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+         BeginProperty Button10 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Style           =   3
          EndProperty
-         BeginProperty Button10 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+         BeginProperty Button11 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Key             =   "ontop"
             Object.ToolTipText     =   "Place window on top"
             ImageIndex      =   1
             Style           =   1
          EndProperty
-         BeginProperty Button11 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+         BeginProperty Button12 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Key             =   "transparent"
             Object.ToolTipText     =   "Make window transparent"
             ImageIndex      =   1
             Style           =   1
          EndProperty
-         BeginProperty Button12 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+         BeginProperty Button13 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Style           =   3
          EndProperty
-         BeginProperty Button13 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+         BeginProperty Button14 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Key             =   "about"
             Object.ToolTipText     =   "About"
             ImageIndex      =   1
@@ -264,15 +268,16 @@ Attribute VB_Exposed = False
 
 Option Explicit
 
-Private Const ABOUT_BUTTON As Long = 13
-Private Const TRANSPARENT_BUTTON As Long = 11
-Private Const ONTOP_BUTTON As Long = 10
+Private Const ABOUT_BUTTON As Long = 14
+Private Const TRANSPARENT_BUTTON As Long = 12
+Private Const ONTOP_BUTTON As Long = 11
 Private Const CLEAR_BUTTON As Long = 2
-Private Const OPTIONS_BUTTON As Long = 8
+Private Const OPTIONS_BUTTON As Long = 9
 Private Const INFO_BUTTON As Long = 6
 Private Const TYPE_BUTTON As Long = 5
 Private Const BUILD_BUTTON As Long = 4
 Private Const RUN_BUTTON As Long = 1
+Private Const CUSTOM_BUTTON As Long = 7
 
 Private Const BUILD_FAILED As String = "Build failed"
 Private Const BUILD_SUCESSFULL As String = "Build successfull"
@@ -447,6 +452,7 @@ Private Sub LoadPNG()
     preloader.getResourceByName APP_APPEARANCE
     preloader.getResourceByName KEYBOARD
     preloader.getResourceByName WARNING_PNG
+    preloader.getResourceByName CUSTOM_COMMAND
     
     preloader.getResourceByName IDLE_PNG
     preloader.getResourceByName STOPPED_PNG
@@ -465,6 +471,7 @@ Private Sub LoadPNG()
     Toolbar.Buttons(BUILD_BUTTON).Image = preloader.getIndex(BUILD_TASK)
     Toolbar.Buttons(TYPE_BUTTON).Image = preloader.getIndex(INCREMENTAL_ON)
     Toolbar.Buttons(INFO_BUTTON).Image = preloader.getIndex(TARGET_INFO)
+    Toolbar.Buttons(CUSTOM_BUTTON).Image = preloader.getIndex(CUSTOM_COMMAND)
     Toolbar.Buttons(OPTIONS_BUTTON).Image = preloader.getIndex(OPTIONS)
     Toolbar.Buttons(CLEAR_BUTTON).Image = preloader.getIndex(LOG_CLEAR)
     Toolbar.Buttons(ONTOP_BUTTON).Image = preloader.getIndex(ON_TOP)
@@ -674,6 +681,17 @@ Private Sub Toolbar_ButtonClick(ByVal Button As MSComctlLib.Button)
                 End If
                 fcsh.info lastTarget
                 
+        Case CUSTOM_BUTTON:
+                            If (fcsh.isRunning) Then
+                                Dim command As String
+                                command = InputBox("Enter command", "Execute command", "help")
+                                Dim fake As New clsTarget
+                                fake.fSource = command
+                                fcsh.exec fake
+                            Else
+                                fake.fMessage = "Cant exec: fcsh stopped"
+                                fcsh_onError fake
+                            End If
         Case OPTIONS_BUTTON:
                 frmOptions.loadPrefs config, log
                 SetAlwaysOnTopMode frmOptions.hWnd, (Toolbar.Buttons(ONTOP_BUTTON).Value = tbrPressed)
