@@ -33,6 +33,9 @@ Private fALPHA As Byte
 Private fFLOATALPHA As Byte
 Private fBACKCOLOR As Long
 Private fFORECOLOR As Long
+Private fAUTORUN_FCSH As Boolean
+Private fHIDE_ONCLOSE As Boolean
+Private fMINIMIZED As Boolean
 
 Public RECOMPILE As New clsHotKey
 
@@ -75,13 +78,22 @@ Public Sub Load()
     
     fAPPLICATIONS = Val(prefs.GetValue("applications", "count", "0"))
     
+    showBaloon = Val(prefs.GetValue(PREFERENCE, "autorun_fcsh", "0"))
+    fAUTORUN_FCSH = (showBaloon > 0)
+    
+    showBaloon = Val(prefs.GetValue(PREFERENCE, "hide_on_close", "0"))
+    fHIDE_ONCLOSE = (showBaloon > 0)
+    
+    showBaloon = Val(prefs.GetValue(PREFERENCE, "start_minimized", "0"))
+    fMINIMIZED = (showBaloon > 0)
+    
     RECOMPILE.init prefs, "recompile_hotkey"
 End Sub
 
-Public Function LoadApplication(index As Long) As clsTarget
+Public Function LoadApplication(Index As Long) As clsTarget
     Dim target As New clsTarget
     Dim Num As String
-    Num = Trim(Str(index))
+    Num = Trim(Str(Index))
     target.fCommand = prefs.GetValue(Num, "command", "mxmlc")
     target.fName = prefs.GetValue(Num, "name", "")
     target.fSource = prefs.GetValue(Num, "source", "")
@@ -94,9 +106,9 @@ Public Function LoadApplication(index As Long) As clsTarget
     Set LoadApplication = target
 End Function
 
-Public Sub saveApplication(index As Long, ByRef target As clsTarget)
+Public Sub saveApplication(Index As Long, ByRef target As clsTarget)
     Dim Num As String
-    Num = Trim(Str(index))
+    Num = Trim(Str(Index))
     
     prefs.WriteValue Num, "command", target.fCommand
     prefs.WriteValue Num, "name", target.fName
@@ -215,4 +227,32 @@ Public Property Let ForeColor(ByVal vNewValue As Long)
     prefs.WriteValue PREFERENCE, "forecolor", Str(fFORECOLOR)
 End Property
 
+'start
+Public Property Get AUTORUN_FCSH() As Boolean
+    AUTORUN_FCSH = fAUTORUN_FCSH
+End Property
 
+Public Property Let AUTORUN_FCSH(ByVal vNewValue As Boolean)
+    fAUTORUN_FCSH = vNewValue
+    saveBool PREFERENCE, "autorun_fcsh", fAUTORUN_FCSH
+End Property
+
+'hide
+Public Property Get HIDE_ONCLOSE() As Boolean
+    HIDE_ONCLOSE = fHIDE_ONCLOSE
+End Property
+
+Public Property Let HIDE_ONCLOSE(ByVal vNewValue As Boolean)
+    fHIDE_ONCLOSE = vNewValue
+    saveBool PREFERENCE, "hide_on_close", fHIDE_ONCLOSE
+End Property
+
+'start min
+Public Property Get START_MINIMIZED() As Boolean
+    START_MINIMIZED = fMINIMIZED
+End Property
+
+Public Property Let START_MINIMIZED(ByVal vNewValue As Boolean)
+    fMINIMIZED = vNewValue
+    saveBool PREFERENCE, "start_minimized", fMINIMIZED
+End Property

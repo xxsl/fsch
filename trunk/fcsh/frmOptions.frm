@@ -62,63 +62,80 @@ Begin VB.Form frmOptions
       Tab(0).Control(4).Enabled=   0   'False
       Tab(0).Control(5)=   "Label7"
       Tab(0).Control(5).Enabled=   0   'False
-      Tab(0).Control(6)=   "hkConfig"
+      Tab(0).Control(6)=   "Label13"
       Tab(0).Control(6).Enabled=   0   'False
-      Tab(0).Control(7)=   "UpDown1"
+      Tab(0).Control(7)=   "Label14"
       Tab(0).Control(7).Enabled=   0   'False
-      Tab(0).Control(8)=   "txtFcsh"
+      Tab(0).Control(8)=   "Label15"
       Tab(0).Control(8).Enabled=   0   'False
-      Tab(0).Control(9)=   "chkBaloon"
+      Tab(0).Control(9)=   "hkConfig"
       Tab(0).Control(9).Enabled=   0   'False
-      Tab(0).Control(10)=   "chkDebug"
+      Tab(0).Control(10)=   "UpDown1"
       Tab(0).Control(10).Enabled=   0   'False
-      Tab(0).Control(11)=   "txtPort"
+      Tab(0).Control(11)=   "txtFcsh"
       Tab(0).Control(11).Enabled=   0   'False
-      Tab(0).Control(12)=   "cmdFcsh"
+      Tab(0).Control(12)=   "chkBaloon"
       Tab(0).Control(12).Enabled=   0   'False
-      Tab(0).Control(13)=   "chkUseKey"
+      Tab(0).Control(13)=   "chkDebug"
       Tab(0).Control(13).Enabled=   0   'False
-      Tab(0).ControlCount=   14
+      Tab(0).Control(14)=   "txtPort"
+      Tab(0).Control(14).Enabled=   0   'False
+      Tab(0).Control(15)=   "cmdFcsh"
+      Tab(0).Control(15).Enabled=   0   'False
+      Tab(0).Control(16)=   "chkUseKey"
+      Tab(0).Control(16).Enabled=   0   'False
+      Tab(0).Control(17)=   "chkHide"
+      Tab(0).Control(17).Enabled=   0   'False
+      Tab(0).Control(18)=   "chkFcsh"
+      Tab(0).Control(18).Enabled=   0   'False
+      Tab(0).Control(19)=   "chkMin"
+      Tab(0).Control(19).Enabled=   0   'False
+      Tab(0).ControlCount=   20
       TabCaption(1)   =   " Appearance"
       TabPicture(1)   =   "frmOptions.frx":05C2
       Tab(1).ControlEnabled=   0   'False
-      Tab(1).Control(0)=   "UpDown3"
-      Tab(1).Control(0).Enabled=   0   'False
-      Tab(1).Control(1)=   "txtFloatAlpha"
-      Tab(1).Control(1).Enabled=   0   'False
-      Tab(1).Control(2)=   "txtAlpha"
-      Tab(1).Control(2).Enabled=   0   'False
-      Tab(1).Control(3)=   "picBack"
-      Tab(1).Control(3).Enabled=   0   'False
-      Tab(1).Control(4)=   "picFore"
-      Tab(1).Control(4).Enabled=   0   'False
+      Tab(1).Control(0)=   "Label12"
+      Tab(1).Control(1)=   "Label11"
+      Tab(1).Control(2)=   "Label10"
+      Tab(1).Control(3)=   "Label9"
+      Tab(1).Control(4)=   "Label5"
       Tab(1).Control(5)=   "UpDown2"
-      Tab(1).Control(5).Enabled=   0   'False
-      Tab(1).Control(6)=   "Label5"
-      Tab(1).Control(6).Enabled=   0   'False
-      Tab(1).Control(7)=   "Label9"
-      Tab(1).Control(7).Enabled=   0   'False
-      Tab(1).Control(8)=   "Label10"
-      Tab(1).Control(8).Enabled=   0   'False
-      Tab(1).Control(9)=   "Label11"
-      Tab(1).Control(9).Enabled=   0   'False
-      Tab(1).Control(10)=   "Label12"
-      Tab(1).Control(10).Enabled=   0   'False
+      Tab(1).Control(6)=   "picFore"
+      Tab(1).Control(7)=   "picBack"
+      Tab(1).Control(8)=   "txtAlpha"
+      Tab(1).Control(9)=   "txtFloatAlpha"
+      Tab(1).Control(10)=   "UpDown3"
       Tab(1).ControlCount=   11
       TabCaption(2)   =   " Build"
       TabPicture(2)   =   "frmOptions.frx":05DE
       Tab(2).ControlEnabled=   0   'False
-      Tab(2).Control(0)=   "toolbarIcons"
-      Tab(2).Control(0).Enabled=   0   'False
-      Tab(2).Control(1)=   "picAppFrame"
-      Tab(2).Control(1).Enabled=   0   'False
+      Tab(2).Control(0)=   "cmdRemove"
+      Tab(2).Control(1)=   "cmdAdd"
       Tab(2).Control(2)=   "lstApps"
-      Tab(2).Control(2).Enabled=   0   'False
-      Tab(2).Control(3)=   "cmdAdd"
-      Tab(2).Control(3).Enabled=   0   'False
-      Tab(2).Control(4)=   "cmdRemove"
-      Tab(2).Control(4).Enabled=   0   'False
+      Tab(2).Control(3)=   "picAppFrame"
+      Tab(2).Control(4)=   "toolbarIcons"
       Tab(2).ControlCount=   5
+      Begin VB.CheckBox chkMin 
+         Height          =   255
+         Left            =   1920
+         TabIndex        =   70
+         Top             =   2640
+         Width           =   375
+      End
+      Begin VB.CheckBox chkFcsh 
+         Height          =   255
+         Left            =   1920
+         TabIndex        =   68
+         Top             =   2280
+         Width           =   375
+      End
+      Begin VB.CheckBox chkHide 
+         Height          =   255
+         Left            =   1920
+         TabIndex        =   66
+         Top             =   1920
+         Width           =   495
+      End
       Begin VB.CheckBox chkUseKey 
          Height          =   255
          Left            =   3600
@@ -136,7 +153,7 @@ Begin VB.Form frmOptions
          _ExtentY        =   503
          _Version        =   327681
          BuddyControl    =   "txtFloatAlpha"
-         BuddyDispid     =   196609
+         BuddyDispid     =   196610
          OrigLeft        =   2760
          OrigTop         =   1200
          OrigRight       =   3015
@@ -602,6 +619,33 @@ Begin VB.Form frmOptions
          EndProperty
          HotKeyModifier  =   0
       End
+      Begin VB.Label Label15 
+         Alignment       =   1  'Right Justify
+         Caption         =   "Start minimized"
+         Height          =   255
+         Left            =   120
+         TabIndex        =   69
+         Top             =   2640
+         Width           =   1695
+      End
+      Begin VB.Label Label14 
+         Alignment       =   1  'Right Justify
+         Caption         =   "Run fcsh at startup"
+         Height          =   255
+         Left            =   120
+         TabIndex        =   67
+         Top             =   2280
+         Width           =   1695
+      End
+      Begin VB.Label Label13 
+         Alignment       =   1  'Right Justify
+         Caption         =   "Send to tray on close"
+         Height          =   255
+         Left            =   120
+         TabIndex        =   65
+         Top             =   1920
+         Width           =   1650
+      End
       Begin VB.Label Label7 
          Alignment       =   1  'Right Justify
          Caption         =   "Recompile hotkey"
@@ -932,6 +976,24 @@ Public Sub loadPrefs(ByRef cfg As clsConfiguration, ByRef logger As clsLog)
         chkBaloon.Value = 0
     End If
     
+    If (config.AUTORUN_FCSH) Then
+        chkFcsh.Value = 1
+    Else
+        chkFcsh.Value = 0
+    End If
+    
+    If (config.HIDE_ONCLOSE) Then
+        chkHide.Value = 1
+    Else
+        chkHide.Value = 0
+    End If
+    
+    If (config.START_MINIMIZED) Then
+        chkMin.Value = 1
+    Else
+        chkMin.Value = 0
+    End If
+    
     txtFcsh.Text = config.FCSH_PATH
     
     txtAlpha.Text = config.Alpha
@@ -942,7 +1004,7 @@ Public Sub loadPrefs(ByRef cfg As clsConfiguration, ByRef logger As clsLog)
     
     chkUseKey.Value = config.RECOMPILE.ENABLED
     
-    hkConfig.hotkey = config.RECOMPILE.KEY
+    hkConfig.HotKey = config.RECOMPILE.KEY
     hkConfig.HotKeyModifier = config.RECOMPILE.MODIFYER
     
     Dim i As Long
@@ -1171,11 +1233,15 @@ Private Sub cmdSave_Click()
     config.Alpha = txtAlpha.Text
     config.FLOATALPHA = txtFloatAlpha.Text
     
+    config.HIDE_ONCLOSE = (chkHide = 1)
+    config.AUTORUN_FCSH = (chkFcsh = 1)
+    config.START_MINIMIZED = (chkMin = 1)
+    
     config.BackColor = picBack.BackColor
     config.ForeColor = picFore.BackColor
     
     config.RECOMPILE.ENABLED = chkUseKey.Value
-    config.RECOMPILE.KEY = hkConfig.hotkey
+    config.RECOMPILE.KEY = hkConfig.HotKey
     config.RECOMPILE.MODIFYER = hkConfig.HotKeyModifier
     
     
@@ -1190,7 +1256,7 @@ Private Sub cmdSave_Click()
     config.APPLICATIONS = i
     
     Dim hotkeySetup As New clsHotKeySetup
-    hotkeySetup.SetupKey config.RECOMPILE, MainForm.hotkey
+    hotkeySetup.SetupKey config.RECOMPILE, MainForm.HotKey
     
     MainForm.loadApps
     Me.Hide
