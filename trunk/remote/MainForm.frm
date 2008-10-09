@@ -48,6 +48,7 @@ Public config As New clsConfiguration
 
 Private ms As Long
 
+
 Const BUILD_FAILED As String = "Build failed"
 Const BUILD_SUCESSFULL As String = "Build successfull"
 
@@ -102,7 +103,11 @@ Private Sub Controller_DataArrival(ByVal bytesTotal As Long)
         WriteStdOut vbCrLf
         WriteStdOut "Build time: " & (GetTickCount - ms) & " ms" & vbCrLf
         Controller.Close
-        End
+        If (InStr(1, LCase(responce), "warning:") > 0) Then
+            ExitProcess 4&
+        Else
+            End
+        End If
     End If
     If (InStr(1, responce, BUILD_FAILED) > 0) Then
         WriteStdOut vbCrLf
