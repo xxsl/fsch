@@ -3,10 +3,10 @@ Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
 Object = "{C18424FD-277B-4362-B7A8-2788E7DBF8B4}#1.0#0"; "QProGIF.ocx"
 Begin VB.Form frmFloat 
    BorderStyle     =   4  'Fixed ToolWindow
-   ClientHeight    =   540
+   ClientHeight    =   300
    ClientLeft      =   225
    ClientTop       =   1380
-   ClientWidth     =   1245
+   ClientWidth     =   990
    ClipControls    =   0   'False
    ControlBox      =   0   'False
    Icon            =   "frmFloat.frx":0000
@@ -14,19 +14,19 @@ Begin VB.Form frmFloat
    LinkTopic       =   "Form2"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   540
-   ScaleWidth      =   1245
+   ScaleHeight     =   300
+   ScaleWidth      =   990
    ShowInTaskbar   =   0   'False
    Begin MSComctlLib.Toolbar Toolbar1 
-      Height          =   540
+      Height          =   330
       Left            =   0
       TabIndex        =   0
       Top             =   0
-      Width           =   690
-      _ExtentX        =   1217
-      _ExtentY        =   953
-      ButtonWidth     =   767
-      ButtonHeight    =   953
+      Width           =   570
+      _ExtentX        =   1005
+      _ExtentY        =   582
+      ButtonWidth     =   609
+      ButtonHeight    =   582
       AllowCustomize  =   0   'False
       Wrappable       =   0   'False
       Style           =   1
@@ -34,34 +34,34 @@ Begin VB.Form frmFloat
       BeginProperty Buttons {66833FE8-8583-11D1-B16A-00C0F0283628} 
          NumButtons      =   1
          BeginProperty Button1 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Caption         =   "Build"
+            Object.ToolTipText     =   "Build"
             Style           =   5
          EndProperty
       EndProperty
    End
    Begin VB.Label Label1 
       BackStyle       =   0  'Transparent
-      Height          =   600
-      Left            =   720
+      Height          =   240
+      Left            =   600
       TabIndex        =   2
       Top             =   0
       Width           =   600
    End
    Begin prjQProGIF.QProGIF Gif 
-      Height          =   495
-      Left            =   730
+      Height          =   255
+      Left            =   720
       TabIndex        =   1
-      Top             =   35
-      Width           =   495
-      _ExtentX        =   873
-      _ExtentY        =   873
+      Top             =   30
+      Width           =   255
+      _ExtentX        =   450
+      _ExtentY        =   450
       Filename        =   "ajax-loader.gif"
    End
    Begin VB.Image buildIcon 
       Height          =   240
-      Left            =   840
+      Left            =   720
       Picture         =   "frmFloat.frx":000C
-      Top             =   120
+      Top             =   30
       Width           =   240
    End
 End

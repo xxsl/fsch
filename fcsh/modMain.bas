@@ -53,7 +53,7 @@ End Function
 
 Public Sub Main()
     InitCommonControlsVB
-    MainForm.Show
+    Load MainForm
 End Sub
 
 

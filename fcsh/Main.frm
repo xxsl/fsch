@@ -107,15 +107,15 @@ Begin VB.Form MainForm
    End
    Begin MSComctlLib.Toolbar Toolbar 
       Align           =   1  'Align Top
-      Height          =   360
+      Height          =   570
       Left            =   0
       TabIndex        =   1
       Top             =   0
       Width           =   10590
       _ExtentX        =   18680
-      _ExtentY        =   635
-      ButtonWidth     =   609
-      ButtonHeight    =   582
+      _ExtentY        =   1005
+      ButtonWidth     =   1693
+      ButtonHeight    =   953
       Wrappable       =   0   'False
       Appearance      =   1
       Style           =   1
@@ -124,11 +124,13 @@ Begin VB.Form MainForm
       BeginProperty Buttons {66833FE8-8583-11D1-B16A-00C0F0283628} 
          NumButtons      =   14
          BeginProperty Button1 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Caption         =   "Run/stop"
             Key             =   "run"
             Object.ToolTipText     =   "Start fcsh"
             ImageIndex      =   1
          EndProperty
          BeginProperty Button2 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Caption         =   "Clear log"
             Object.ToolTipText     =   "Clear log"
             ImageIndex      =   1
          EndProperty
@@ -136,23 +138,27 @@ Begin VB.Form MainForm
             Style           =   3
          EndProperty
          BeginProperty Button4 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Caption         =   "Build"
             Key             =   "build"
             Object.ToolTipText     =   "Build"
             ImageIndex      =   1
             Style           =   5
          EndProperty
          BeginProperty Button5 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Caption         =   "Incremental"
             Key             =   "type"
             Object.ToolTipText     =   "Incremental build"
             ImageIndex      =   1
             Style           =   1
          EndProperty
          BeginProperty Button6 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Caption         =   "Info"
             Key             =   "info"
             Object.ToolTipText     =   "Show target info"
             ImageIndex      =   1
          EndProperty
          BeginProperty Button7 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Caption         =   "Execute"
             Object.ToolTipText     =   "Execute command"
             ImageIndex      =   1
          EndProperty
@@ -160,6 +166,7 @@ Begin VB.Form MainForm
             Style           =   3
          EndProperty
          BeginProperty Button9 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Caption         =   "Options"
             Key             =   "options"
             Object.ToolTipText     =   "Options"
             ImageIndex      =   1
@@ -168,12 +175,14 @@ Begin VB.Form MainForm
             Style           =   3
          EndProperty
          BeginProperty Button11 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Caption         =   "On top"
             Key             =   "ontop"
             Object.ToolTipText     =   "Place window on top"
             ImageIndex      =   1
             Style           =   1
          EndProperty
          BeginProperty Button12 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Caption         =   "Alpha"
             Key             =   "transparent"
             Object.ToolTipText     =   "Make window transparent"
             ImageIndex      =   1
@@ -183,6 +192,7 @@ Begin VB.Form MainForm
             Style           =   3
          EndProperty
          BeginProperty Button14 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Caption         =   "About"
             Key             =   "about"
             Object.ToolTipText     =   "About"
             ImageIndex      =   1
@@ -201,7 +211,6 @@ Begin VB.Form MainForm
       _Version        =   393217
       BackColor       =   -2147483633
       BorderStyle     =   0
-      Enabled         =   -1  'True
       ReadOnly        =   -1  'True
       ScrollBars      =   3
       Appearance      =   0
@@ -242,7 +251,6 @@ Begin VB.Form MainForm
       End
       Begin VB.Menu mnuShowMain 
          Caption         =   "Main window"
-         Checked         =   -1  'True
       End
       Begin VB.Menu mnuFloat 
          Caption         =   "Floating window"
@@ -435,6 +443,15 @@ Private Sub Form_Load()
         'hotkeys
         Dim hotkeySetup As New clsHotKeySetup
         hotkeySetup.SetupKey config.RECOMPILE, HotKey
+        
+        If (config.AUTORUN_FCSH) Then
+            fcsh.Start
+        End If
+        
+        If (Not config.START_MINIMIZED) Then
+            mnuShowMain.Checked = True
+            Me.Show
+        End If
 End Sub
 
 Private Sub LoadPNG()
@@ -836,8 +853,10 @@ End Sub
 
 
 Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
-    showHide
-    Cancel = 1
+    If (config.HIDE_ONCLOSE) Then
+        showHide
+        Cancel = 1
+    End If
 End Sub
 
 
