@@ -17,7 +17,6 @@ Begin VB.Form frmFloat
    ScaleHeight     =   540
    ScaleWidth      =   1245
    ShowInTaskbar   =   0   'False
-   StartUpPosition =   2  'CenterScreen
    Begin MSComctlLib.Toolbar Toolbar1 
       Height          =   540
       Left            =   0
@@ -104,6 +103,12 @@ Private Sub Label1_MouseMove(Button As Integer, Shift As Integer, X As Single, Y
     ReleaseCapture
     Call SendMessage(Me.hWnd, WM_NCLBUTTONDOWN, HTCAPTION, 0&)
   End If
+End Sub
+
+Private Sub Label1_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+    If (Button = 2) Then
+        PopupMenu MainForm.mnuShell
+    End If
 End Sub
 
 Private Sub Toolbar1_ButtonClick(ByVal Button As MSComctlLib.Button)
