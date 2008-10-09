@@ -115,6 +115,7 @@ End Sub
 
 'write to fcsh stdIn
 Public Sub exec(target As clsTarget, Optional incremental As Boolean = True)
+    target.fMessage = ""
     Set currentTarget = target
     
     outputParser.Begin
@@ -164,9 +165,15 @@ End Sub
 Private Sub fcsh_DataReceived(ByVal sData As String)
     Dim output As String
     output = OemToCharS(sData)
+    Debug.Print output
     If (outputParser.Add(output)) Then
         log.xDebug "outputParser detected finish"
         isExec = False
+        
+        If (outputParser.isWarning) Then
+            'if error any error happend
+            currentTarget.fMessage = outputParser.ErrorMessage
+        End If
         
         If (outputParser.isFcshStart) Then Exit Sub
         

@@ -20,6 +20,7 @@ Attribute VB_Exposed = False
 
 Option Explicit
 
+Public isWarning As Boolean
 Public isError As Boolean
 Public ErrorMessage As String
 Public isIdAssigned As Boolean
@@ -37,29 +38,30 @@ Public Sub Begin()
     ErrorMessage = ""
     isFcshStart = False
     isError = False
+    isWarning = False
     isIdAssigned = False
     TargetID = 0
     ReDim Preserve output(0)
 End Sub
 
-Public Function Add(data As String) As Boolean
+Public Function Add(Data As String) As Boolean
     Dim newOutput() As String
     Dim i As Long
-    Dim length As Long
+    Dim Length As Long
     
-    newOutput = Split(data, vbLf)
-    length = UBound(newOutput)
+    newOutput = Split(Data, vbLf)
+    Length = UBound(newOutput)
     ReDim Preserve output(UBound(output) + UBound(newOutput))
     
     Add = detectEnd(newOutput)
     
     For i = 0 To UBound(newOutput) - 1
         logger.xFcsh newOutput(i)
-        output(UBound(output) - length + i) = newOutput(i)
+        output(UBound(output) - Length + i) = newOutput(i)
     Next i
     
     If (Not Add) Then
-        output(UBound(output) - length + UBound(newOutput)) = newOutput(UBound(newOutput))
+        output(UBound(output) - Length + UBound(newOutput)) = newOutput(UBound(newOutput))
     End If
 End Function
 
@@ -69,7 +71,12 @@ Private Function detectEnd(newOutput() As String) As Boolean
     Dim line As String
     For i = 0 To UBound(newOutput)
         line = Trim(LCase(newOutput(i)))
-        If (InStr(1, line, "error") > 0) Then
+        If (InStr(1, line, "warning:") > 0) Then
+            isWarning = True
+            ErrorMessage = Trim(newOutput(i))
+            logger.xDebug "Warn: /" & Trim(newOutput(i)) & "/"
+        End If
+        If (InStr(1, line, "error:") > 0) Then
             isError = True
             ErrorMessage = Trim(newOutput(i))
             logger.xDebug "Error: /" & Trim(newOutput(i)) & "/"
@@ -91,7 +98,7 @@ Private Function detectEnd(newOutput() As String) As Boolean
     detectEnd = result
 End Function
 
-Private Sub parseID(data As String)
+Private Sub parseID(Data As String)
         Dim myRegExp As RegExp
         Dim myMatches As MatchCollection
         Dim myMatch As Match
@@ -100,9 +107,9 @@ Private Sub parseID(data As String)
         myRegExp.IgnoreCase = True
         myRegExp.Global = True
         myRegExp.Pattern = "[0-9]+"
-        Set myMatches = myRegExp.Execute(data)
+        Set myMatches = myRegExp.Execute(Data)
         For Each myMatch In myMatches
-          TargetID = Val(myMatch.value)
+          TargetID = Val(myMatch.Value)
         Next
 End Sub
 
