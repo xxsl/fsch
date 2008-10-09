@@ -1,5 +1,5 @@
-MainForm = 44, 58, 673, 581, , 22, 29, 651, 552, C
-clsConfiguration = 88, 116, 717, 639, Z
+MainForm = 44, 58, 673, 581, Z, 22, 29, 651, 552, C
+clsConfiguration = 88, 116, 717, 639, 
 modApi = 66, 87, 695, 610, C
 clsLog = 110, 145, 739, 668, C
 clsTarget = 132, 174, 761, 697, C

@@ -103,11 +103,7 @@ Private Sub Controller_DataArrival(ByVal bytesTotal As Long)
         WriteStdOut vbCrLf
         WriteStdOut "Build time: " & (GetTickCount - ms) & " ms" & vbCrLf
         Controller.Close
-        If (InStr(1, LCase(responce), "warning:") > 0) Then
-            ExitProcess 4&
-        Else
-            End
-        End If
+        End
     End If
     If (InStr(1, responce, BUILD_FAILED) > 0) Then
         WriteStdOut vbCrLf
