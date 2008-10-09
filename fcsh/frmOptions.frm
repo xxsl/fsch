@@ -33,6 +33,7 @@ Begin VB.Form frmOptions
       _Version        =   393216
       TabOrientation  =   1
       Style           =   1
+      Tab             =   2
       TabsPerRow      =   4
       TabHeight       =   520
       ShowFocusRect   =   0   'False
@@ -49,7 +50,7 @@ Begin VB.Form frmOptions
       EndProperty
       TabCaption(0)   =   " Main"
       TabPicture(0)   =   "frmOptions.frx":05A6
-      Tab(0).ControlEnabled=   -1  'True
+      Tab(0).ControlEnabled=   0   'False
       Tab(0).Control(0)=   "Label6"
       Tab(0).Control(0).Enabled=   0   'False
       Tab(0).Control(1)=   "Label4"
@@ -107,7 +108,7 @@ Begin VB.Form frmOptions
       Tab(1).ControlCount=   11
       TabCaption(2)   =   " Build"
       TabPicture(2)   =   "frmOptions.frx":05DE
-      Tab(2).ControlEnabled=   0   'False
+      Tab(2).ControlEnabled=   -1  'True
       Tab(2).Control(0)=   "toolbarIcons"
       Tab(2).Control(0).Enabled=   0   'False
       Tab(2).Control(1)=   "picAppFrame"
@@ -121,7 +122,7 @@ Begin VB.Form frmOptions
       Tab(2).ControlCount=   5
       Begin VB.CheckBox chkUseKey 
          Height          =   255
-         Left            =   3600
+         Left            =   -71400
          TabIndex        =   63
          Top             =   1560
          Width           =   375
@@ -190,24 +191,24 @@ Begin VB.Form frmOptions
       Begin VB.CommandButton cmdRemove 
          Caption         =   "Remove"
          Height          =   375
-         Left            =   -74040
+         Left            =   1080
          TabIndex        =   50
          ToolTipText     =   "Remove application"
          Top             =   3360
-         Width           =   855
+         Width           =   735
       End
       Begin VB.CommandButton cmdAdd 
          Caption         =   "Add"
          Height          =   375
-         Left            =   -74880
+         Left            =   120
          TabIndex        =   49
          ToolTipText     =   "Add application"
          Top             =   3360
-         Width           =   855
+         Width           =   735
       End
       Begin VB.ListBox lstApps 
          Height          =   3180
-         Left            =   -74880
+         Left            =   120
          TabIndex        =   48
          Top             =   120
          Width           =   1695
@@ -219,7 +220,7 @@ Begin VB.Form frmOptions
          Enabled         =   0   'False
          ForeColor       =   &H80000010&
          Height          =   3735
-         Left            =   -73080
+         Left            =   1920
          ScaleHeight     =   249
          ScaleMode       =   3  'Pixel
          ScaleWidth      =   545
@@ -480,7 +481,7 @@ Begin VB.Form frmOptions
       Begin VB.CommandButton cmdFcsh 
          Caption         =   "..."
          Height          =   285
-         Left            =   7320
+         Left            =   -67680
          TabIndex        =   13
          Top             =   1230
          Width           =   495
@@ -488,7 +489,7 @@ Begin VB.Form frmOptions
       Begin VB.TextBox txtPort 
          Alignment       =   1  'Right Justify
          Height          =   285
-         Left            =   1920
+         Left            =   -73080
          TabIndex        =   12
          Text            =   "44000"
          Top             =   150
@@ -496,28 +497,28 @@ Begin VB.Form frmOptions
       End
       Begin VB.CheckBox chkDebug 
          Height          =   255
-         Left            =   1920
+         Left            =   -73080
          TabIndex        =   11
          Top             =   510
          Width           =   255
       End
       Begin VB.CheckBox chkBaloon 
          Height          =   255
-         Left            =   1920
+         Left            =   -73080
          TabIndex        =   10
          Top             =   870
          Width           =   255
       End
       Begin VB.TextBox txtFcsh 
          Height          =   285
-         Left            =   1920
+         Left            =   -73080
          TabIndex        =   9
          Top             =   1230
          Width           =   5295
       End
       Begin ComCtl2.UpDown UpDown1 
          Height          =   285
-         Left            =   2746
+         Left            =   -72254
          TabIndex        =   14
          Top             =   150
          Width           =   255
@@ -538,7 +539,7 @@ Begin VB.Form frmOptions
          Enabled         =   -1  'True
       End
       Begin MSComctlLib.ImageList toolbarIcons 
-         Left            =   -74280
+         Left            =   720
          Top             =   1800
          _ExtentX        =   1005
          _ExtentY        =   1005
@@ -585,7 +586,7 @@ Begin VB.Form frmOptions
       End
       Begin HotKeyConfig.HotKey hkConfig 
          Height          =   285
-         Left            =   1920
+         Left            =   -73080
          TabIndex        =   62
          Top             =   1560
          Width           =   1575
@@ -606,7 +607,7 @@ Begin VB.Form frmOptions
          Alignment       =   1  'Right Justify
          Caption         =   "Recompile hotkey"
          Height          =   255
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   64
          Top             =   1590
          Width           =   1650
@@ -659,7 +660,7 @@ Begin VB.Form frmOptions
          Alignment       =   1  'Right Justify
          Caption         =   "Server port"
          Height          =   255
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   19
          Top             =   150
          Width           =   1650
@@ -669,7 +670,7 @@ Begin VB.Form frmOptions
          AutoSize        =   -1  'True
          Caption         =   "Show debug messages"
          Height          =   195
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   18
          Top             =   510
          Width           =   1650
@@ -679,7 +680,7 @@ Begin VB.Form frmOptions
          AutoSize        =   -1  'True
          Caption         =   "Show baloon tips"
          Height          =   195
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   17
          Top             =   870
          Width           =   1650
@@ -687,7 +688,7 @@ Begin VB.Form frmOptions
       Begin VB.Label Label4 
          Caption         =   "Restart required!"
          Height          =   255
-         Left            =   3240
+         Left            =   -71760
          TabIndex        =   16
          Top             =   150
          Width           =   1215
@@ -696,7 +697,7 @@ Begin VB.Form frmOptions
          Alignment       =   1  'Right Justify
          Caption         =   "Path to fcsh.exe"
          Height          =   255
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   15
          Top             =   1230
          Width           =   1650
@@ -942,7 +943,7 @@ Public Sub loadPrefs(ByRef cfg As clsConfiguration, ByRef logger As clsLog)
     
     chkUseKey.Value = config.RECOMPILE.ENABLED
     
-    hkConfig.hotkey = config.RECOMPILE.KEY
+    hkConfig.HotKey = config.RECOMPILE.KEY
     hkConfig.HotKeyModifier = config.RECOMPILE.MODIFYER
     
     Dim i As Long
@@ -958,7 +959,7 @@ End Sub
 
 
 Private Sub AppToolbar_ButtonClick(ByVal Button As MSComctlLib.Button)
-    Select Case Button.index
+    Select Case Button.Index
             Case 1:
                     Dim newApp As New clsTarget
                     Dim appName As String
@@ -972,7 +973,7 @@ Private Sub AppToolbar_ButtonClick(ByVal Button As MSComctlLib.Button)
                         MsgBox "This name already exists - " + appName, vbCritical
                     End If
             Case 2:
-                    Dim index As Long
+                    Dim Index As Long
                     If (lstApps.ListIndex >= 0) Then
                         Dim i As Long
                         Dim name As String
@@ -1035,7 +1036,7 @@ End Sub
 
 Private Sub cmdRemove_Click()
     Dim app As clsTarget
-    Dim index As Long
+    Dim Index As Long
     If (lstApps.ListIndex >= 0) Then
         Dim i As Long
         Dim name As String
@@ -1175,7 +1176,7 @@ Private Sub cmdSave_Click()
     config.ForeColor = picFore.BackColor
     
     config.RECOMPILE.ENABLED = chkUseKey.Value
-    config.RECOMPILE.KEY = hkConfig.hotkey
+    config.RECOMPILE.KEY = hkConfig.HotKey
     config.RECOMPILE.MODIFYER = hkConfig.HotKeyModifier
     
     
@@ -1190,7 +1191,7 @@ Private Sub cmdSave_Click()
     config.APPLICATIONS = i
     
     Dim hotkeySetup As New clsHotKeySetup
-    hotkeySetup.SetupKey config.RECOMPILE, MainForm.hotkey
+    hotkeySetup.SetupKey config.RECOMPILE, MainForm.HotKey
     
     MainForm.loadApps
     Me.Hide
@@ -1198,18 +1199,18 @@ End Sub
 
 Private Sub lstApps_Click()
     isLoading = True
-    Dim index As Long
+    Dim Index As Long
     If (lstApps.ListIndex >= 0) Then
         picAppFrame.ENABLED = True
-        index = lstApps.ListIndex + 1
-        optionCommand.Property = appsCollection.item(index).fCommand
-        txtTarget(1).Text = appsCollection.item(index).fName
-        txtTarget(2).Text = appsCollection.item(index).fSource
-        optionLibs.Property = appsCollection.item(index).fLibraries
-        txtTarget(4).Text = appsCollection.item(index).fOutput
-        txtTarget(5).Text = appsCollection.item(index).fServices
-        txtTarget(6).Text = appsCollection.item(index).fContext
-        optionDebug.Property = appsCollection.item(index).fDebug
+        Index = lstApps.ListIndex + 1
+        optionCommand.Property = appsCollection.item(Index).fCommand
+        txtTarget(1).Text = appsCollection.item(Index).fName
+        txtTarget(2).Text = appsCollection.item(Index).fSource
+        optionLibs.Property = appsCollection.item(Index).fLibraries
+        txtTarget(4).Text = appsCollection.item(Index).fOutput
+        txtTarget(5).Text = appsCollection.item(Index).fServices
+        txtTarget(6).Text = appsCollection.item(Index).fContext
+        optionDebug.Property = appsCollection.item(Index).fDebug
     Else
         picAppFrame.ENABLED = False
     End If
@@ -1230,7 +1231,7 @@ Private Sub picFore_Click()
 End Sub
 
 
-Private Sub txtTarget_Change(index As Integer)
+Private Sub txtTarget_Change(Index As Integer)
     Dim target As Long
     If (lstApps.ListIndex >= 0 And Not isLoading) Then
         target = lstApps.ListIndex + 1

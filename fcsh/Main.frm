@@ -235,8 +235,12 @@ Begin VB.Form MainForm
       Begin VB.Menu mnuSep2 
          Caption         =   "-"
       End
+      Begin VB.Menu mnuShowMain 
+         Caption         =   "Main window"
+         Checked         =   -1  'True
+      End
       Begin VB.Menu mnuFloat 
-         Caption         =   "Show floating window"
+         Caption         =   "Floating window"
       End
       Begin VB.Menu mnuSep3 
          Caption         =   "-"
@@ -404,7 +408,7 @@ Private Sub Form_Load()
         
         'hotkeys
         Dim hotkeySetup As New clsHotKeySetup
-        hotkeySetup.SetupKey config.RECOMPILE, hotkey
+        hotkeySetup.SetupKey config.RECOMPILE, HotKey
 End Sub
 
 Private Sub LoadPNG()
@@ -496,13 +500,14 @@ End Sub
 Private Sub mnuFloat_Click()
     mnuFloat.Checked = Not mnuFloat.Checked
     If (mnuFloat.Checked = True) Then
-        frmFloat.Show
+        'frmFloat.Show
         SetAlwaysOnTopMode frmFloat.hWnd, True
         Dim bytOpacity As Byte
         'Set the transparency level
         bytOpacity = config.FLOATALPHA
         Call SetWindowLong(frmFloat.hWnd, GWL_EXSTYLE, GetWindowLong(frmFloat.hWnd, GWL_EXSTYLE) Or WS_EX_LAYERED)
         Call SetLayeredWindowAttributes(frmFloat.hWnd, 0, bytOpacity, LWA_ALPHA)
+        'frmFloat.Move (Screen.Width - frmOptions.Width) \ 2, ((Screen.Height - frmOptions.Height) \ 2)
     Else
         frmFloat.Hide
     End If
@@ -518,6 +523,10 @@ If (fcsh.isRunning) Then
 Else
     fcsh.Start
 End If
+End Sub
+
+Private Sub mnuShowMain_Click()
+    showHide
 End Sub
 
 'one more connection
@@ -729,14 +738,7 @@ Private Sub fakeTray_MouseMove(Button As Integer, Shift As Integer, X As Single,
             Debug.Print "MouseMove"
         Case LeftUp
             log.xDebug "Left Up"
-            If (Me.Visible) Then
-                Me.Visible = False
-                lastState = Me.WindowState
-                Me.WindowState = vbMinimized
-            Else
-                Me.Visible = True
-                Me.WindowState = lastState
-            End If
+            showHide
         Case LeftDown
             log.xDebug "Left Down"
         Case LeftDbClick
@@ -754,6 +756,19 @@ Private Sub fakeTray_MouseMove(Button As Integer, Shift As Integer, X As Single,
         Case RightDbClick
             log.xDebug "RightDbClick"
     End Select
+End Sub
+
+Public Sub showHide()
+            If (Me.Visible) Then
+                Me.Visible = False
+                lastState = Me.WindowState
+                Me.WindowState = vbMinimized
+                mnuShowMain.Checked = False
+            Else
+                Me.Visible = True
+                Me.WindowState = lastState
+                mnuShowMain.Checked = True
+            End If
 End Sub
 
 'on resize
@@ -781,9 +796,7 @@ End Sub
 
 
 Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
-    Me.Visible = False
-    lastState = Me.WindowState
-    Me.WindowState = vbMinimized
+    showHide
     Cancel = 1
 End Sub
 
