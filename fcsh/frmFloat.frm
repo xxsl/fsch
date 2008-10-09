@@ -75,7 +75,7 @@ Private Declare Sub ReleaseCapture Lib "user32" ()
 
 Private Const BUILD_STOPPED As String = "Stopped"
 Private Const BUILD_ACTIVE As String = "Active"
-Private Const BUILD_IDLE As String = "Idle"
+Private Const BUILD_IDLE As String = "Success"
 Private Const BUILD_ERROR As String = "Error"
 
 Private Sub Form_Load()
@@ -158,7 +158,7 @@ Private Sub showPicture(Image As String, Text As String)
     Gif.PauseAnimation = True
     buildIcon.Visible = True
     buildIcon.Picture = MainForm.pngImages.ListImages(MainForm.preloader.getIndex(Image)).ExtractIcon
-    buildIcon.ToolTipText = Text
+    Label1.ToolTipText = Text
 End Sub
 
 Private Sub showAnimation()

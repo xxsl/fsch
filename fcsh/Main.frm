@@ -322,7 +322,11 @@ End Sub
 Private Sub fcsh_onFinish(target As clsTarget)
     log.xFcsh "Exec completed"
     log.Text vbCrLf
-    DisplayBalloon "Flex compiler shell", BUILD_SUCESSFULL, NIIF_INFO
+    If (Len(target.fMessage) = 0) Then
+        DisplayBalloon "Flex compiler shell", BUILD_SUCESSFULL, NIIF_INFO
+    Else
+        DisplayBalloon "Flex compiler shell", BUILD_SUCESSFULL + ". " + target.fMessage, NIIF_WARNING
+    End If
     
     If ((target.fTargetID = 0) And (targets.Exists(target.fName))) Then
         targets.Remove target.fName
@@ -330,22 +334,35 @@ Private Sub fcsh_onFinish(target As clsTarget)
     
     frmFloat.idle
     
-    sendRemote BUILD_SUCESSFULL
+    If (Len(target.fMessage) = 0) Then
+        sendRemote BUILD_SUCESSFULL
+    Else
+        sendRemote BUILD_SUCESSFULL + vbCrLf + target.fMessage
+    End If
 End Sub
 
 'on new compile target id
 Private Sub fcsh_onIdAssigned(target As clsTarget)
     log.xFcsh "Exec completed. id is " & target.fTargetID
     log.Text vbCrLf
-    DisplayBalloon "Flex compiler shell", BUILD_SUCESSFULL + ". Assigned Target id " & target.fTargetID, NIIF_INFO
+    If (Len(target.fMessage) = 0) Then
+        DisplayBalloon "Flex compiler shell", BUILD_SUCESSFULL + ". Assigned Target id " & target.fTargetID, NIIF_INFO
+    Else
+        DisplayBalloon "Flex compiler shell", BUILD_SUCESSFULL + ". Assigned Target id " & target.fTargetID & ". " + target.fMessage, NIIF_WARNING
+    End If
+    
     
     If (Not targets.Exists(target.fName)) Then
         targets.Add target.fName, target
     End If
     
     frmFloat.idle
-    
-    sendRemote BUILD_SUCESSFULL
+        
+    If (Len(target.fMessage) = 0) Then
+        sendRemote BUILD_SUCESSFULL
+    Else
+        sendRemote BUILD_SUCESSFULL + vbCrLf + target.fMessage
+    End If
 End Sub
 
 'on fcsh.exe start
