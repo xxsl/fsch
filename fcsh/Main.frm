@@ -332,11 +332,13 @@ Private Sub fcsh_onFinish(target As clsTarget)
         targets.Remove target.fName
     End If
     
-    frmFloat.idle
+    
     
     If (Len(target.fMessage) = 0) Then
+        frmFloat.idle
         sendRemote BUILD_SUCESSFULL
     Else
+        frmFloat.warning
         sendRemote BUILD_SUCESSFULL + vbCrLf + target.fMessage
     End If
 End Sub
@@ -356,11 +358,12 @@ Private Sub fcsh_onIdAssigned(target As clsTarget)
         targets.Add target.fName, target
     End If
     
-    frmFloat.idle
         
     If (Len(target.fMessage) = 0) Then
+        frmFloat.idle
         sendRemote BUILD_SUCESSFULL
     Else
+        frmFloat.warning
         sendRemote BUILD_SUCESSFULL + vbCrLf + target.fMessage
     End If
 End Sub
@@ -443,6 +446,7 @@ Private Sub LoadPNG()
     preloader.getResourceByName ABOUT
     preloader.getResourceByName APP_APPEARANCE
     preloader.getResourceByName KEYBOARD
+    preloader.getResourceByName WARNING_PNG
     
     preloader.getResourceByName IDLE_PNG
     preloader.getResourceByName STOPPED_PNG
