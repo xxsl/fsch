@@ -77,6 +77,7 @@ Private Const BUILD_STOPPED As String = "Stopped"
 Private Const BUILD_ACTIVE As String = "Active"
 Private Const BUILD_IDLE As String = "Success"
 Private Const BUILD_ERROR As String = "Error"
+Private Const BUILD_WARN As String = "Warning"
 
 Private Sub Form_Load()
     Gif.FileName = MainForm.preloader.extractedFiles(MainForm.preloader.getIndex(EXEC_PNG))
@@ -147,8 +148,11 @@ Public Sub error()
     showPicture ERROR_PNG, BUILD_ERROR
 End Sub
 
+Public Sub warning()
+    showPicture WARNING_PNG, BUILD_WARN
+End Sub
+
 Public Sub active()
-    Debug.Print "active"
     showAnimation
 End Sub
 

@@ -22,6 +22,7 @@ Public Const BUILD_PROGRESS As String = "BUILD_PROGRESS"
 Public Const APP_APPEARANCE As String = "APP_APPEARANCE"
 Public Const KEYBOARD As String = "KEYBOARD"
 
+Public Const WARNING_PNG As String = "WARNING_PNG"
 Public Const ERROR_PNG As String = "ERROR_PNG"
 Public Const EXEC_PNG As String = "EXEC_PNG"
 Public Const STOPPED_PNG As String = "STOPPED_PNG"
