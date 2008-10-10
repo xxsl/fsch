@@ -211,7 +211,6 @@ Begin VB.Form MainForm
       _Version        =   393217
       BackColor       =   -2147483633
       BorderStyle     =   0
-      Enabled         =   -1  'True
       ReadOnly        =   -1  'True
       ScrollBars      =   3
       Appearance      =   0
@@ -701,7 +700,7 @@ Private Sub Toolbar_ButtonClick(ByVal Button As MSComctlLib.Button)
                 fcsh.info lastTarget
                 
         Case CUSTOM_BUTTON:
-                            If (fcsh.isRunning) Then
+                            If (fcsh.isRunning And Not fcsh.isExec) Then
                                 Dim command As String
                                 command = InputBox("Enter command", "Execute command", "help")
                                 Dim fake As New clsTarget
