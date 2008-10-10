@@ -204,13 +204,14 @@ Begin VB.Form MainForm
       Height          =   3615
       Left            =   0
       TabIndex        =   0
-      Top             =   360
+      Top             =   600
       Width           =   4335
       _ExtentX        =   7646
       _ExtentY        =   6376
       _Version        =   393217
       BackColor       =   -2147483633
       BorderStyle     =   0
+      Enabled         =   -1  'True
       ReadOnly        =   -1  'True
       ScrollBars      =   3
       Appearance      =   0
