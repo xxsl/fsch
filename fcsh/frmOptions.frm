@@ -94,26 +94,31 @@ Begin VB.Form frmOptions
       TabCaption(1)   =   " Appearance"
       TabPicture(1)   =   "frmOptions.frx":05C2
       Tab(1).ControlEnabled=   0   'False
-      Tab(1).Control(0)=   "Label12"
-      Tab(1).Control(1)=   "Label11"
-      Tab(1).Control(2)=   "Label10"
-      Tab(1).Control(3)=   "Label9"
-      Tab(1).Control(4)=   "Label5"
+      Tab(1).Control(0)=   "UpDown3"
+      Tab(1).Control(1)=   "txtFloatAlpha"
+      Tab(1).Control(2)=   "txtAlpha"
+      Tab(1).Control(3)=   "picBack"
+      Tab(1).Control(4)=   "picFore"
       Tab(1).Control(5)=   "UpDown2"
-      Tab(1).Control(6)=   "picFore"
-      Tab(1).Control(7)=   "picBack"
-      Tab(1).Control(8)=   "txtAlpha"
-      Tab(1).Control(9)=   "txtFloatAlpha"
-      Tab(1).Control(10)=   "UpDown3"
+      Tab(1).Control(6)=   "Label5"
+      Tab(1).Control(7)=   "Label9"
+      Tab(1).Control(8)=   "Label10"
+      Tab(1).Control(9)=   "Label11"
+      Tab(1).Control(10)=   "Label12"
       Tab(1).ControlCount=   11
       TabCaption(2)   =   " Build"
       TabPicture(2)   =   "frmOptions.frx":05DE
       Tab(2).ControlEnabled=   0   'False
-      Tab(2).Control(0)=   "cmdRemove"
-      Tab(2).Control(1)=   "cmdAdd"
+      Tab(2).Control(0)=   "toolbarIcons"
+      Tab(2).Control(0).Enabled=   0   'False
+      Tab(2).Control(1)=   "picAppFrame"
+      Tab(2).Control(1).Enabled=   0   'False
       Tab(2).Control(2)=   "lstApps"
-      Tab(2).Control(3)=   "picAppFrame"
-      Tab(2).Control(4)=   "toolbarIcons"
+      Tab(2).Control(2).Enabled=   0   'False
+      Tab(2).Control(3)=   "cmdAdd"
+      Tab(2).Control(3).Enabled=   0   'False
+      Tab(2).Control(4)=   "cmdRemove"
+      Tab(2).Control(4).Enabled=   0   'False
       Tab(2).ControlCount=   5
       Begin VB.CheckBox chkMin 
          Height          =   255
@@ -485,7 +490,7 @@ Begin VB.Form frmOptions
          End
          Begin VB.Label lblApp 
             Alignment       =   1  'Right Justify
-            Caption         =   "Include libraries"
+            Caption         =   "Library-paths"
             Height          =   255
             Index           =   7
             Left            =   120
