@@ -33,6 +33,7 @@ Begin VB.Form frmOptions
       _Version        =   393216
       TabOrientation  =   1
       Style           =   1
+      Tab             =   2
       TabsPerRow      =   4
       TabHeight       =   520
       ShowFocusRect   =   0   'False
@@ -49,7 +50,7 @@ Begin VB.Form frmOptions
       EndProperty
       TabCaption(0)   =   " Main"
       TabPicture(0)   =   "frmOptions.frx":05A6
-      Tab(0).ControlEnabled=   -1  'True
+      Tab(0).ControlEnabled=   0   'False
       Tab(0).Control(0)=   "Label6"
       Tab(0).Control(0).Enabled=   0   'False
       Tab(0).Control(1)=   "Label4"
@@ -94,21 +95,21 @@ Begin VB.Form frmOptions
       TabCaption(1)   =   " Appearance"
       TabPicture(1)   =   "frmOptions.frx":05C2
       Tab(1).ControlEnabled=   0   'False
-      Tab(1).Control(0)=   "Label12"
-      Tab(1).Control(1)=   "Label11"
-      Tab(1).Control(2)=   "Label10"
-      Tab(1).Control(3)=   "Label9"
-      Tab(1).Control(4)=   "Label5"
+      Tab(1).Control(0)=   "UpDown3"
+      Tab(1).Control(1)=   "txtFloatAlpha"
+      Tab(1).Control(2)=   "txtAlpha"
+      Tab(1).Control(3)=   "picBack"
+      Tab(1).Control(4)=   "picFore"
       Tab(1).Control(5)=   "UpDown2"
-      Tab(1).Control(6)=   "picFore"
-      Tab(1).Control(7)=   "picBack"
-      Tab(1).Control(8)=   "txtAlpha"
-      Tab(1).Control(9)=   "txtFloatAlpha"
-      Tab(1).Control(10)=   "UpDown3"
+      Tab(1).Control(6)=   "Label5"
+      Tab(1).Control(7)=   "Label9"
+      Tab(1).Control(8)=   "Label10"
+      Tab(1).Control(9)=   "Label11"
+      Tab(1).Control(10)=   "Label12"
       Tab(1).ControlCount=   11
       TabCaption(2)   =   " Build"
       TabPicture(2)   =   "frmOptions.frx":05DE
-      Tab(2).ControlEnabled=   0   'False
+      Tab(2).ControlEnabled=   -1  'True
       Tab(2).Control(0)=   "toolbarIcons"
       Tab(2).Control(0).Enabled=   0   'False
       Tab(2).Control(1)=   "picAppFrame"
@@ -122,28 +123,28 @@ Begin VB.Form frmOptions
       Tab(2).ControlCount=   5
       Begin VB.CheckBox chkMin 
          Height          =   255
-         Left            =   1920
+         Left            =   -73080
          TabIndex        =   70
          Top             =   2640
          Width           =   375
       End
       Begin VB.CheckBox chkFcsh 
          Height          =   255
-         Left            =   1920
+         Left            =   -73080
          TabIndex        =   68
          Top             =   2280
          Width           =   375
       End
       Begin VB.CheckBox chkHide 
          Height          =   255
-         Left            =   1920
+         Left            =   -73080
          TabIndex        =   66
          Top             =   1920
          Width           =   495
       End
       Begin VB.CheckBox chkUseKey 
          Height          =   255
-         Left            =   3600
+         Left            =   -71400
          TabIndex        =   63
          Top             =   1560
          Width           =   375
@@ -212,7 +213,7 @@ Begin VB.Form frmOptions
       Begin VB.CommandButton cmdRemove 
          Caption         =   "Remove"
          Height          =   375
-         Left            =   -73560
+         Left            =   1320
          TabIndex        =   50
          ToolTipText     =   "Remove application"
          Top             =   3360
@@ -221,7 +222,7 @@ Begin VB.Form frmOptions
       Begin VB.CommandButton cmdAdd 
          Caption         =   "Add"
          Height          =   375
-         Left            =   -74880
+         Left            =   120
          TabIndex        =   49
          ToolTipText     =   "Add application"
          Top             =   3360
@@ -229,10 +230,10 @@ Begin VB.Form frmOptions
       End
       Begin VB.ListBox lstApps 
          Height          =   3180
-         Left            =   -74880
+         Left            =   120
          TabIndex        =   48
          Top             =   120
-         Width           =   2295
+         Width           =   2175
       End
       Begin VB.PictureBox picAppFrame 
          Appearance      =   0  'Flat
@@ -241,13 +242,13 @@ Begin VB.Form frmOptions
          Enabled         =   0   'False
          ForeColor       =   &H80000010&
          Height          =   3735
-         Left            =   -73080
+         Left            =   2400
          ScaleHeight     =   249
          ScaleMode       =   3  'Pixel
-         ScaleWidth      =   545
+         ScaleWidth      =   513
          TabIndex        =   20
          Top             =   80
-         Width           =   8175
+         Width           =   7695
          Begin VB.CommandButton cmdRemoveOther 
             Caption         =   "-"
             Height          =   285
@@ -502,7 +503,7 @@ Begin VB.Form frmOptions
       Begin VB.CommandButton cmdFcsh 
          Caption         =   "..."
          Height          =   285
-         Left            =   7320
+         Left            =   -67680
          TabIndex        =   13
          Top             =   1230
          Width           =   495
@@ -510,7 +511,7 @@ Begin VB.Form frmOptions
       Begin VB.TextBox txtPort 
          Alignment       =   1  'Right Justify
          Height          =   285
-         Left            =   1920
+         Left            =   -73080
          TabIndex        =   12
          Text            =   "44000"
          Top             =   150
@@ -518,28 +519,28 @@ Begin VB.Form frmOptions
       End
       Begin VB.CheckBox chkDebug 
          Height          =   255
-         Left            =   1920
+         Left            =   -73080
          TabIndex        =   11
          Top             =   510
          Width           =   255
       End
       Begin VB.CheckBox chkBaloon 
          Height          =   255
-         Left            =   1920
+         Left            =   -73080
          TabIndex        =   10
          Top             =   870
          Width           =   255
       End
       Begin VB.TextBox txtFcsh 
          Height          =   285
-         Left            =   1920
+         Left            =   -73080
          TabIndex        =   9
          Top             =   1230
          Width           =   5295
       End
       Begin ComCtl2.UpDown UpDown1 
          Height          =   285
-         Left            =   2746
+         Left            =   -72254
          TabIndex        =   14
          Top             =   150
          Width           =   255
@@ -560,7 +561,7 @@ Begin VB.Form frmOptions
          Enabled         =   -1  'True
       End
       Begin MSComctlLib.ImageList toolbarIcons 
-         Left            =   -74280
+         Left            =   720
          Top             =   1800
          _ExtentX        =   1005
          _ExtentY        =   1005
@@ -607,7 +608,7 @@ Begin VB.Form frmOptions
       End
       Begin HotKeyConfig.HotKey hkConfig 
          Height          =   285
-         Left            =   1920
+         Left            =   -73080
          TabIndex        =   62
          Top             =   1560
          Width           =   1575
@@ -628,7 +629,7 @@ Begin VB.Form frmOptions
          Alignment       =   1  'Right Justify
          Caption         =   "Start minimized"
          Height          =   255
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   69
          Top             =   2640
          Width           =   1695
@@ -637,7 +638,7 @@ Begin VB.Form frmOptions
          Alignment       =   1  'Right Justify
          Caption         =   "Run fcsh at startup"
          Height          =   255
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   67
          Top             =   2280
          Width           =   1695
@@ -646,7 +647,7 @@ Begin VB.Form frmOptions
          Alignment       =   1  'Right Justify
          Caption         =   "Send to tray on close"
          Height          =   255
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   65
          Top             =   1920
          Width           =   1650
@@ -655,7 +656,7 @@ Begin VB.Form frmOptions
          Alignment       =   1  'Right Justify
          Caption         =   "Recompile hotkey"
          Height          =   255
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   64
          Top             =   1590
          Width           =   1650
@@ -708,7 +709,7 @@ Begin VB.Form frmOptions
          Alignment       =   1  'Right Justify
          Caption         =   "Server port"
          Height          =   255
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   19
          Top             =   150
          Width           =   1650
@@ -718,7 +719,7 @@ Begin VB.Form frmOptions
          AutoSize        =   -1  'True
          Caption         =   "Show debug messages"
          Height          =   195
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   18
          Top             =   510
          Width           =   1650
@@ -728,7 +729,7 @@ Begin VB.Form frmOptions
          AutoSize        =   -1  'True
          Caption         =   "Show baloon tips"
          Height          =   195
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   17
          Top             =   870
          Width           =   1650
@@ -736,7 +737,7 @@ Begin VB.Form frmOptions
       Begin VB.Label Label4 
          Caption         =   "Restart required!"
          Height          =   255
-         Left            =   3240
+         Left            =   -71760
          TabIndex        =   16
          Top             =   150
          Width           =   1215
@@ -745,7 +746,7 @@ Begin VB.Form frmOptions
          Alignment       =   1  'Right Justify
          Caption         =   "Path to fcsh.exe"
          Height          =   255
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   15
          Top             =   1230
          Width           =   1650
@@ -1009,7 +1010,7 @@ Public Sub loadPrefs(ByRef cfg As clsConfiguration, ByRef logger As clsLog)
     
     chkUseKey.Value = config.RECOMPILE.ENABLED
     
-    hkConfig.HotKey = config.RECOMPILE.KEY
+    hkConfig.hotkey = config.RECOMPILE.KEY
     hkConfig.HotKeyModifier = config.RECOMPILE.MODIFYER
     
     Dim i As Long
@@ -1246,7 +1247,7 @@ Private Sub cmdSave_Click()
     config.ForeColor = picFore.BackColor
     
     config.RECOMPILE.ENABLED = chkUseKey.Value
-    config.RECOMPILE.KEY = hkConfig.HotKey
+    config.RECOMPILE.KEY = hkConfig.hotkey
     config.RECOMPILE.MODIFYER = hkConfig.HotKeyModifier
     
     
@@ -1261,7 +1262,7 @@ Private Sub cmdSave_Click()
     config.APPLICATIONS = i
     
     Dim hotkeySetup As New clsHotKeySetup
-    hotkeySetup.SetupKey config.RECOMPILE, MainForm.HotKey
+    hotkeySetup.SetupKey config.RECOMPILE, MainForm.hotkey
     
     MainForm.loadApps
     Me.Hide
