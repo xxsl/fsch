@@ -94,17 +94,17 @@ Begin VB.Form frmOptions
       TabCaption(1)   =   " Appearance"
       TabPicture(1)   =   "frmOptions.frx":05C2
       Tab(1).ControlEnabled=   0   'False
-      Tab(1).Control(0)=   "UpDown3"
-      Tab(1).Control(1)=   "txtFloatAlpha"
-      Tab(1).Control(2)=   "txtAlpha"
-      Tab(1).Control(3)=   "picBack"
-      Tab(1).Control(4)=   "picFore"
+      Tab(1).Control(0)=   "Label12"
+      Tab(1).Control(1)=   "Label11"
+      Tab(1).Control(2)=   "Label10"
+      Tab(1).Control(3)=   "Label9"
+      Tab(1).Control(4)=   "Label5"
       Tab(1).Control(5)=   "UpDown2"
-      Tab(1).Control(6)=   "Label5"
-      Tab(1).Control(7)=   "Label9"
-      Tab(1).Control(8)=   "Label10"
-      Tab(1).Control(9)=   "Label11"
-      Tab(1).Control(10)=   "Label12"
+      Tab(1).Control(6)=   "picFore"
+      Tab(1).Control(7)=   "picBack"
+      Tab(1).Control(8)=   "txtAlpha"
+      Tab(1).Control(9)=   "txtFloatAlpha"
+      Tab(1).Control(10)=   "UpDown3"
       Tab(1).ControlCount=   11
       TabCaption(2)   =   " Build"
       TabPicture(2)   =   "frmOptions.frx":05DE
@@ -212,11 +212,11 @@ Begin VB.Form frmOptions
       Begin VB.CommandButton cmdRemove 
          Caption         =   "Remove"
          Height          =   375
-         Left            =   -73920
+         Left            =   -73560
          TabIndex        =   50
          ToolTipText     =   "Remove application"
          Top             =   3360
-         Width           =   735
+         Width           =   975
       End
       Begin VB.CommandButton cmdAdd 
          Caption         =   "Add"
@@ -225,14 +225,14 @@ Begin VB.Form frmOptions
          TabIndex        =   49
          ToolTipText     =   "Add application"
          Top             =   3360
-         Width           =   735
+         Width           =   975
       End
       Begin VB.ListBox lstApps 
          Height          =   3180
          Left            =   -74880
          TabIndex        =   48
          Top             =   120
-         Width           =   1695
+         Width           =   2295
       End
       Begin VB.PictureBox picAppFrame 
          Appearance      =   0  'Flat
@@ -440,7 +440,7 @@ Begin VB.Form frmOptions
          End
          Begin VB.Label lblApp 
             Alignment       =   1  'Right Justify
-            Caption         =   "Application path (*.mxml, *.css)"
+            Caption         =   "Source (*.mxml, *.css)"
             Height          =   255
             Index           =   2
             Left            =   120
