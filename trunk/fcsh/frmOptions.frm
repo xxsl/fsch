@@ -51,61 +51,61 @@ Begin VB.Form frmOptions
       TabCaption(0)   =   " Main"
       TabPicture(0)   =   "frmOptions.frx":05A6
       Tab(0).ControlEnabled=   0   'False
-      Tab(0).Control(0)=   "Label6"
+      Tab(0).Control(0)=   "chkMin"
       Tab(0).Control(0).Enabled=   0   'False
-      Tab(0).Control(1)=   "Label4"
+      Tab(0).Control(1)=   "chkFcsh"
       Tab(0).Control(1).Enabled=   0   'False
-      Tab(0).Control(2)=   "Label3"
+      Tab(0).Control(2)=   "chkHide"
       Tab(0).Control(2).Enabled=   0   'False
-      Tab(0).Control(3)=   "Label2"
+      Tab(0).Control(3)=   "chkUseKey"
       Tab(0).Control(3).Enabled=   0   'False
-      Tab(0).Control(4)=   "Label1"
+      Tab(0).Control(4)=   "cmdFcsh"
       Tab(0).Control(4).Enabled=   0   'False
-      Tab(0).Control(5)=   "Label7"
+      Tab(0).Control(5)=   "txtPort"
       Tab(0).Control(5).Enabled=   0   'False
-      Tab(0).Control(6)=   "Label13"
+      Tab(0).Control(6)=   "chkDebug"
       Tab(0).Control(6).Enabled=   0   'False
-      Tab(0).Control(7)=   "Label14"
+      Tab(0).Control(7)=   "chkBaloon"
       Tab(0).Control(7).Enabled=   0   'False
-      Tab(0).Control(8)=   "Label15"
+      Tab(0).Control(8)=   "txtFcsh"
       Tab(0).Control(8).Enabled=   0   'False
-      Tab(0).Control(9)=   "hkConfig"
+      Tab(0).Control(9)=   "UpDown1"
       Tab(0).Control(9).Enabled=   0   'False
-      Tab(0).Control(10)=   "UpDown1"
+      Tab(0).Control(10)=   "hkConfig"
       Tab(0).Control(10).Enabled=   0   'False
-      Tab(0).Control(11)=   "txtFcsh"
+      Tab(0).Control(11)=   "Label15"
       Tab(0).Control(11).Enabled=   0   'False
-      Tab(0).Control(12)=   "chkBaloon"
+      Tab(0).Control(12)=   "Label14"
       Tab(0).Control(12).Enabled=   0   'False
-      Tab(0).Control(13)=   "chkDebug"
+      Tab(0).Control(13)=   "Label13"
       Tab(0).Control(13).Enabled=   0   'False
-      Tab(0).Control(14)=   "txtPort"
+      Tab(0).Control(14)=   "Label7"
       Tab(0).Control(14).Enabled=   0   'False
-      Tab(0).Control(15)=   "cmdFcsh"
+      Tab(0).Control(15)=   "Label1"
       Tab(0).Control(15).Enabled=   0   'False
-      Tab(0).Control(16)=   "chkUseKey"
+      Tab(0).Control(16)=   "Label2"
       Tab(0).Control(16).Enabled=   0   'False
-      Tab(0).Control(17)=   "chkHide"
+      Tab(0).Control(17)=   "Label3"
       Tab(0).Control(17).Enabled=   0   'False
-      Tab(0).Control(18)=   "chkFcsh"
+      Tab(0).Control(18)=   "Label4"
       Tab(0).Control(18).Enabled=   0   'False
-      Tab(0).Control(19)=   "chkMin"
+      Tab(0).Control(19)=   "Label6"
       Tab(0).Control(19).Enabled=   0   'False
       Tab(0).ControlCount=   20
       TabCaption(1)   =   " Appearance"
       TabPicture(1)   =   "frmOptions.frx":05C2
       Tab(1).ControlEnabled=   0   'False
-      Tab(1).Control(0)=   "UpDown3"
-      Tab(1).Control(1)=   "txtFloatAlpha"
-      Tab(1).Control(2)=   "txtAlpha"
-      Tab(1).Control(3)=   "picBack"
-      Tab(1).Control(4)=   "picFore"
+      Tab(1).Control(0)=   "Label12"
+      Tab(1).Control(1)=   "Label11"
+      Tab(1).Control(2)=   "Label10"
+      Tab(1).Control(3)=   "Label9"
+      Tab(1).Control(4)=   "Label5"
       Tab(1).Control(5)=   "UpDown2"
-      Tab(1).Control(6)=   "Label5"
-      Tab(1).Control(7)=   "Label9"
-      Tab(1).Control(8)=   "Label10"
-      Tab(1).Control(9)=   "Label11"
-      Tab(1).Control(10)=   "Label12"
+      Tab(1).Control(6)=   "picFore"
+      Tab(1).Control(7)=   "picBack"
+      Tab(1).Control(8)=   "txtAlpha"
+      Tab(1).Control(9)=   "txtFloatAlpha"
+      Tab(1).Control(10)=   "UpDown3"
       Tab(1).ControlCount=   11
       TabCaption(2)   =   " Build"
       TabPicture(2)   =   "frmOptions.frx":05DE
@@ -245,14 +245,14 @@ Begin VB.Form frmOptions
          Left            =   2400
          ScaleHeight     =   249
          ScaleMode       =   3  'Pixel
-         ScaleWidth      =   513
+         ScaleWidth      =   521
          TabIndex        =   20
          Top             =   80
-         Width           =   7695
+         Width           =   7815
          Begin VB.CommandButton cmdRemoveOther 
             Caption         =   "-"
             Height          =   285
-            Left            =   7560
+            Left            =   7200
             TabIndex        =   38
             ToolTipText     =   "remove option"
             Top             =   3250
@@ -262,7 +262,7 @@ Begin VB.Form frmOptions
          Begin VB.CommandButton cmdOther 
             Caption         =   "+"
             Height          =   285
-            Left            =   7080
+            Left            =   6720
             TabIndex        =   37
             ToolTipText     =   "Add option"
             Top             =   3250
@@ -271,7 +271,7 @@ Begin VB.Form frmOptions
          End
          Begin VB.ComboBox cmbOptions 
             Height          =   315
-            Left            =   2520
+            Left            =   2160
             Style           =   2  'Dropdown List
             TabIndex        =   36
             Top             =   3250
@@ -281,7 +281,7 @@ Begin VB.Form frmOptions
          Begin VB.CommandButton cmdRemoveLib 
             Caption         =   "-"
             Height          =   285
-            Left            =   7560
+            Left            =   7200
             TabIndex        =   35
             ToolTipText     =   "Remove library"
             Top             =   1440
@@ -289,7 +289,7 @@ Begin VB.Form frmOptions
          End
          Begin VB.ComboBox cmbLibs 
             Height          =   315
-            Left            =   2520
+            Left            =   2160
             Style           =   2  'Dropdown List
             TabIndex        =   34
             Top             =   1440
@@ -298,7 +298,7 @@ Begin VB.Form frmOptions
          Begin VB.ComboBox cmbCommand 
             Height          =   315
             ItemData        =   "frmOptions.frx":05FA
-            Left            =   2520
+            Left            =   2160
             List            =   "frmOptions.frx":05FC
             Style           =   2  'Dropdown List
             TabIndex        =   33
@@ -308,7 +308,7 @@ Begin VB.Form frmOptions
          Begin VB.ComboBox cmbDebug 
             Height          =   315
             ItemData        =   "frmOptions.frx":05FE
-            Left            =   2520
+            Left            =   2160
             List            =   "frmOptions.frx":0600
             Style           =   2  'Dropdown List
             TabIndex        =   32
@@ -318,7 +318,7 @@ Begin VB.Form frmOptions
          Begin VB.CommandButton cmdLib 
             Caption         =   "+"
             Height          =   285
-            Left            =   7080
+            Left            =   6720
             TabIndex        =   31
             ToolTipText     =   "Add library"
             Top             =   1440
@@ -327,7 +327,7 @@ Begin VB.Form frmOptions
          Begin VB.CommandButton cmdOutput 
             Caption         =   "..."
             Height          =   285
-            Left            =   7560
+            Left            =   7200
             TabIndex        =   30
             ToolTipText     =   "Select folder"
             Top             =   1800
@@ -336,7 +336,7 @@ Begin VB.Form frmOptions
          Begin VB.CommandButton cmdServices 
             Caption         =   "..."
             Height          =   285
-            Left            =   7560
+            Left            =   7200
             TabIndex        =   29
             ToolTipText     =   "Select file"
             Top             =   2160
@@ -345,7 +345,7 @@ Begin VB.Form frmOptions
          Begin VB.CommandButton cmdMxml 
             Caption         =   "..."
             Height          =   285
-            Left            =   7560
+            Left            =   7200
             TabIndex        =   28
             ToolTipText     =   "Select Flex application"
             Top             =   1080
@@ -354,7 +354,7 @@ Begin VB.Form frmOptions
          Begin VB.TextBox txtTarget 
             Height          =   315
             Index           =   1
-            Left            =   2520
+            Left            =   2160
             TabIndex        =   27
             Top             =   705
             Width           =   5415
@@ -362,7 +362,7 @@ Begin VB.Form frmOptions
          Begin VB.TextBox txtTarget 
             Height          =   285
             Index           =   2
-            Left            =   2520
+            Left            =   2160
             TabIndex        =   26
             Top             =   1080
             Width           =   4935
@@ -370,7 +370,7 @@ Begin VB.Form frmOptions
          Begin VB.TextBox txtTarget 
             Height          =   285
             Index           =   4
-            Left            =   2520
+            Left            =   2160
             TabIndex        =   25
             Top             =   1820
             Width           =   4935
@@ -378,7 +378,7 @@ Begin VB.Form frmOptions
          Begin VB.TextBox txtTarget 
             Height          =   285
             Index           =   5
-            Left            =   2520
+            Left            =   2160
             TabIndex        =   24
             Top             =   2160
             Width           =   4935
@@ -386,7 +386,7 @@ Begin VB.Form frmOptions
          Begin VB.TextBox txtTarget 
             Height          =   285
             Index           =   6
-            Left            =   2520
+            Left            =   2160
             TabIndex        =   23
             Top             =   2520
             Width           =   4935
@@ -413,51 +413,51 @@ Begin VB.Form frmOptions
             Alignment       =   1  'Right Justify
             Caption         =   "Other options"
             Height          =   255
-            Left            =   240
+            Left            =   1080
             TabIndex        =   47
             Top             =   3240
             Visible         =   0   'False
-            Width           =   2175
+            Width           =   975
          End
          Begin VB.Label lblApp 
             Alignment       =   1  'Right Justify
             Caption         =   "Command"
             Height          =   255
             Index           =   0
-            Left            =   120
+            Left            =   1200
             TabIndex        =   46
             Top             =   360
-            Width           =   2295
+            Width           =   855
          End
          Begin VB.Label lblApp 
             Alignment       =   1  'Right Justify
             Caption         =   "Name"
             Height          =   255
             Index           =   1
-            Left            =   120
+            Left            =   1320
             TabIndex        =   45
             Top             =   720
-            Width           =   2295
+            Width           =   735
          End
          Begin VB.Label lblApp 
             Alignment       =   1  'Right Justify
             Caption         =   "Source (*.mxml, *.css)"
             Height          =   255
             Index           =   2
-            Left            =   120
+            Left            =   480
             TabIndex        =   44
             Top             =   1080
-            Width           =   2295
+            Width           =   1575
          End
          Begin VB.Label lblApp 
             Alignment       =   1  'Right Justify
             Caption         =   "Output path"
             Height          =   255
             Index           =   3
-            Left            =   120
+            Left            =   1080
             TabIndex        =   43
             Top             =   1800
-            Width           =   2295
+            Width           =   975
          End
          Begin VB.Label lblApp 
             Alignment       =   1  'Right Justify
@@ -467,37 +467,37 @@ Begin VB.Form frmOptions
             Left            =   120
             TabIndex        =   42
             Top             =   2160
-            Width           =   2295
+            Width           =   1935
          End
          Begin VB.Label lblApp 
             Alignment       =   1  'Right Justify
             Caption         =   "Context root"
             Height          =   255
             Index           =   5
-            Left            =   120
+            Left            =   1080
             TabIndex        =   41
             Top             =   2520
-            Width           =   2295
+            Width           =   975
          End
          Begin VB.Label lblApp 
             Alignment       =   1  'Right Justify
             Caption         =   "Debug"
             Height          =   255
             Index           =   6
-            Left            =   120
+            Left            =   1440
             TabIndex        =   40
             Top             =   2880
-            Width           =   2295
+            Width           =   615
          End
          Begin VB.Label lblApp 
             Alignment       =   1  'Right Justify
             Caption         =   "Library-paths"
             Height          =   255
             Index           =   7
-            Left            =   120
+            Left            =   960
             TabIndex        =   39
             Top             =   1440
-            Width           =   2295
+            Width           =   1095
          End
       End
       Begin VB.CommandButton cmdFcsh 
@@ -1010,7 +1010,7 @@ Public Sub loadPrefs(ByRef cfg As clsConfiguration, ByRef logger As clsLog)
     
     chkUseKey.Value = config.RECOMPILE.ENABLED
     
-    hkConfig.hotkey = config.RECOMPILE.KEY
+    hkConfig.HotKey = config.RECOMPILE.KEY
     hkConfig.HotKeyModifier = config.RECOMPILE.MODIFYER
     
     Dim i As Long
@@ -1247,7 +1247,7 @@ Private Sub cmdSave_Click()
     config.ForeColor = picFore.BackColor
     
     config.RECOMPILE.ENABLED = chkUseKey.Value
-    config.RECOMPILE.KEY = hkConfig.hotkey
+    config.RECOMPILE.KEY = hkConfig.HotKey
     config.RECOMPILE.MODIFYER = hkConfig.HotKeyModifier
     
     
@@ -1262,7 +1262,7 @@ Private Sub cmdSave_Click()
     config.APPLICATIONS = i
     
     Dim hotkeySetup As New clsHotKeySetup
-    hotkeySetup.SetupKey config.RECOMPILE, MainForm.hotkey
+    hotkeySetup.SetupKey config.RECOMPILE, MainForm.HotKey
     
     MainForm.loadApps
     Me.Hide
