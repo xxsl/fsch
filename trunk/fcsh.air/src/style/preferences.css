@@ -1,0 +1,29 @@
+/* CSS file */
+.chooser{
+	icon:Embed(source='icons/folder_explore.png');
+	disabled-icon:Embed(source='icons/folder_explore_disabled.png');
+}
+
+.add{
+	icon:Embed(source='icons/add.png');
+	disabled-icon:Embed(source='icons/add_disabled.png');
+}
+
+.remove{
+	icon:Embed(source='icons/delete.png');
+	disabled-icon:Embed(source='icons/delete_disabled.png');
+}
+
+.edit{
+	icon:Embed(source='icons/page_white_edit.png');
+	disabled-icon:Embed(source='icons/page_white_edit_disabled.png');
+}
+
+.cancel{
+	icon:Embed(source='icons/cancel.png');
+}
+
+.accept{
+	icon:Embed(source='icons/accept.png');
+}
+

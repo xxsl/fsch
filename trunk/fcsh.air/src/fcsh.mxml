@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:WindowedApplication xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" title="Flex Compiler SHell client"
+                        showStatusBar="false" showTitleBar="true" backgroundGradientAlphas="[1.0, 1.0]"
+                        applicationComplete="{initializeApplication()}" backgroundGradientColors="[#DEDEDE, #BCBCBC]"
+                        themeColor="#FF871D" cornerRadius="0" width="580" verticalScrollPolicy="off" horizontalScrollPolicy="off" xmlns:components="components.*">
+    <mx:Style source="style/fcsh.css"/>
+    <mx:Script>
+		<![CDATA[
+			import mx.collections.SortField;
+        import mx.collections.Sort;
+
+        import compiler.BuildEvent;
+        import compiler.BuildFacade;
+
+        import mx.controls.textClasses.TextRange;
+        import mx.events.FileEvent;
+
+        import prefs.PreferenceChangeEvent;
+
+        import compiler.Target;
+
+        import components.PreferenceWindow;
+
+        import amf.vo.BaloonVO;
+
+        import amf.network.VB6Socket;
+        import amf.vo.CommandVO;
+
+        import mx.collections.ArrayCollection;
+
+        import prefs.PreferencesFacade;
+
+        import processing.RemoteController;
+        import processing.RemoteEvent;
+
+        private static var _instance:fcsh;
+
+        private var preferenceWindow:PreferenceWindow = new PreferenceWindow();
+        public var socket:VB6Socket;
+        public var startTime:Date;
+
+        [Bindable]
+        public var isConnected:Boolean = false;
+
+        [Bindable]
+        public var isRunning:Boolean = false;
+
+        [Bindable]
+        public var isBuildEnabled:Boolean = false;
+
+
+        private function onFcshRunStop():void
+        {
+            var object:CommandVO = new CommandVO();
+            if (isRunning)
+            {
+                object.command = "empty";
+                object.target = "fcsh_stop";
+                socket.sendObject(object);
+            }
+            else
+            {
+                startTime = new Date();
+                object.command = getCmd();
+                object.target = "fcsh_start";
+                socket.sendObject(object);
+            }
+        }
+
+        private function getCmd():String
+        {
+            var flexSdkPath:String = PreferencesFacade.instance.getValue(PreferencesFacade.FLEX_SDK_PATH, "C:/Flex SDK 3");
+            var vm_opts:String = PreferencesFacade.instance.getValue(PreferencesFacade.VM_OPTS, "-Xmx384m -Xms125m -XX:MaxPermSize=512m -Dsun.io.useCanonCaches=false -Duser.language=en");
+
+            var result:String = "java.exe ";
+            result += vm_opts;
+            result += " -Duser.dir=" + flexSdkPath + "/frameworks/";
+            result += " -jar " + flexSdkPath + "/lib/fcsh.jar";
+            return result;
+        }
+
+        private function onBuildButtonClick():void
+        {
+            isBuildEnabled = false;
+            progressBar.showProgress("Building...");
+            var object:CommandVO = new CommandVO();
+            var target:Target = Target.fromObject(targetsCombo.selectedItem);
+            BuildFacade.instance.reset(target.name);
+            if (!BuildFacade.instance.targetIDs.hasOwnProperty(target.name))
+            {
+                object.command = target.command();
+            }
+            else
+            {
+                object.command = "compile " + BuildFacade.instance.targetIDs[target.name];
+            }
+            object.target = "fcsh";
+            logShell(object.command + "\n");
+            socket.sendObject(object);
+        }
+
+        private function initializeApplication():void
+        {
+            _instance = this;
+
+            //load prefs
+            PreferencesFacade.instance.load();
+
+            //populate targetsCombo
+            loadTargets();
+
+            //listent for prefs change and populate targetsComno
+            PreferencesFacade.instance.addEventListener(PreferenceChangeEvent.PREFERENCE_CHANGED_EVENT, onPrefs, false, 0, true);
+            PreferencesFacade.instance.addEventListener(PreferenceChangeEvent.ADD_EDIT_ACTION, onPrefs, false, 0, true);
+            PreferencesFacade.instance.addEventListener(PreferenceChangeEvent.DELETE_ACTION, onPrefs, false, 0, true);
+
+            //listen for remote messages
+            RemoteController.instance.addEventListener(RemoteEvent.COMMAND_EVENT, onCommand, false, 0, true);
+            RemoteController.instance.addEventListener(RemoteEvent.DATA_EVENT, onData, false, 0, true);
+            RemoteController.instance.addEventListener(RemoteEvent.ERROR_EVENT, onError, false, 0, true);
+
+            //listen for buildevents
+            BuildFacade.instance.addEventListener(BuildEvent.BUILD_ERROR, onBuildError, false, 0, true);
+            BuildFacade.instance.addEventListener(BuildEvent.BUILD_SUCCESSFULL, onBuildSuccessfull, false, 0, true);
+            BuildFacade.instance.addEventListener(BuildEvent.BUILD_WARNING, onBuildWarning, false, 0, true);
+
+            //show ToolBar shadow
+            var filter:DropShadowFilter = new DropShadowFilter();
+            filter.alpha = 0.5;
+            bar.filters = [filter];
+
+            //center window
+            var screenBounds:Rectangle = Screen.mainScreen.visibleBounds;
+            var w:int = width;
+            var h:int = height;
+
+            var x:int = screenBounds.x + ((screenBounds.width - w) / 2);
+            var y:int = screenBounds.y + ((screenBounds.height - h) / 2);
+            stage.nativeWindow.x = x;
+            stage.nativeWindow.y = y;
+
+            //create socket and try to connect
+            socket = new VB6Socket(PreferencesFacade.instance.getValue(PreferencesFacade.HOST, "localhost"), PreferencesFacade.instance.getValue(PreferencesFacade.PORT, 40000));
+            reconnect();
+        }
+
+        private function onPrefs(event:PreferenceChangeEvent):void
+        {
+            loadTargets();
+        }
+
+        private function loadTargets():void
+        {
+            targetsCombo.labelField = "name";
+
+            var targets:ArrayCollection = PreferencesFacade.instance.getValue(PreferencesFacade.TARGETS, new ArrayCollection());
+
+            //sort targets
+            var sort:Sort = new Sort();
+            var sortName:SortField = new SortField("name");
+            sort.fields = [sortName];
+            targets.sort = sort;
+            targets.refresh();
+            targetsCombo.dataProvider = targets;
+        }
+
+        private function onBuildError(event:BuildEvent):void
+        {
+            isBuildEnabled = true;
+            progressBar.showError("Falure");
+            if (event.errors)
+            {
+                if (event.errors.length == 1)
+                {
+                    showBaloonTip("Build", event.errors[0], BaloonVO.ERROR);
+                }
+                else
+                {
+                    showBaloonTip("Build", event.errors.length + " errors found", BaloonVO.ERROR);
+                }
+            }
+            highLight();
+        }
+
+        private function onBuildSuccessfull(event:BuildEvent):void
+        {
+            isBuildEnabled = true;
+            progressBar.showSuccess("Success");
+            if (event.info)
+            {
+                showBaloonTip("Build", "Build successfull. Assigned id is " + event.info[1], BaloonVO.INFO);
+            }
+            else
+            {
+                showBaloonTip("Build", "Build successfull", BaloonVO.INFO);
+            }
+            highLight();
+        }
+
+        private function onBuildWarning(event:BuildEvent):void
+        {
+            isBuildEnabled = true;
+            progressBar.showWarning("Warning");
+            if (event.warnings)
+            {
+                if (event.warnings.length == 1)
+                {
+                    showBaloonTip("Build", event.warnings[0], BaloonVO.WARNING);
+                }
+                else
+                {
+                    showBaloonTip("Build", event.warnings.length + " warnings found", BaloonVO.WARNING);
+                }
+            }
+            highLight();
+        }
+
+        public function log(msg:String):void
+        {
+            logWindow.text += msg + "\n";
+            logWindow.validateNow();
+            logWindow.verticalScrollPosition = logWindow.maxVerticalScrollPosition;
+        }
+
+        public function logShell(msg:String):void
+        {
+            compilerLog.text += msg;
+            compilerLog.validateNow();
+            compilerLog.verticalScrollPosition = compilerLog.maxVerticalScrollPosition;
+        }
+
+        private function highLight():void
+        {
+            colorize(/(.*Error:[^\r]+)/gim, 0xFF0000);
+            colorize(/(.*Warning:[^\r]+)/gim, 0xd77400);
+            colorize(/(fcsh: Assigned \d+ as the compile target id)/gim, 0x00AA00);
+        }
+
+        private function colorize(pattern:*, color:uint):void
+        {
+            var match:Array = compilerLog.text.match(pattern);
+            var start:int;
+            var myTARange:TextRange;
+            for each(var substr:String in match)
+            {
+                start = compilerLog.text.indexOf(substr, start  + substr.length);
+                myTARange = new TextRange(compilerLog, false, start, start + substr.length);
+                myTARange.color = color;
+            }
+        }
+
+        private function clearLogs():void
+        {
+            logWindow.text = "";
+            compilerLog.text = "";
+        }
+
+        public static function get instance():fcsh
+        {
+            return _instance;
+        }
+
+        public function setConnected(value:Boolean):void
+        {
+            isConnected = value;
+            connection.styleName = isConnected ? "connected" : "unconnected";
+            if (isConnected)
+            {
+                showBaloonTip("Info", "Client connected successfully", BaloonVO.INFO);
+
+                connection.toolTip = "Connected";
+                progressBar.showSuccess("Client connected");
+
+                var object:CommandVO = new CommandVO();
+                object.command = "empty";
+                object.target = "fcsh_getstate";
+                socket.sendObject(object);
+            }
+            else
+            {
+                setFcshRunning(false);
+                BuildFacade.instance.clear();
+                progressBar.showSuccess("Client disconnected", false);
+                connection.toolTip = "Disconnected. Click to establish connection.";
+            }
+        }
+
+        private function setFcshRunning(value:Boolean):void
+        {
+            isRunning = value;
+
+            isBuildEnabled = value;
+            fcshButton.styleName = isRunning ? "running" : "stopped";
+            fcshButton.toolTip = isRunning ? "Stop fcsh" : "Run fcsh";
+
+            if (isRunning)
+            {
+                progressBar.showSuccess("FCSH is running", false);
+            }
+            else
+            {
+                progressBar.showSuccess("FCSH is stopped", false);
+            }
+        }
+
+        private function reconnect():void
+        {
+            progressBar.showProgress("Connecting...");
+            socket.connect(PreferencesFacade.instance.getValue(PreferencesFacade.HOST, "localhost"), PreferencesFacade.instance.getValue(PreferencesFacade.PORT, 40000));
+        }
+
+        private function onData(event:RemoteEvent):void
+        {
+            if (event.data.target == "fcsh_getstate")
+            {
+                BuildFacade.instance.clear();
+                setFcshRunning(event.data.data == "true");
+            }
+            if (event.data.target == "fcsh_start")
+            {
+                BuildFacade.instance.clear();
+                setFcshRunning(true);
+                showBaloonTip("Info", "FCSH started", BaloonVO.INFO);
+            }
+            if (event.data.target == "fcsh_stop")
+            {
+                BuildFacade.instance.clear();
+                setFcshRunning(false);
+                showBaloonTip("Info", "FCSH stopped", BaloonVO.INFO);
+            }
+            if (event.data.target == "fcsh_data")
+            {
+                logShell(event.data.data);
+                BuildFacade.instance.process(event.data.data);
+            }
+        }
+
+        private function onCommand(event:RemoteEvent):void
+        {
+            if (event.command.target == "system_hotkey")
+            {
+                if (isBuildEnabled && isRunning && targetsCombo.selectedItem)
+                {
+                    onBuildButtonClick();
+                }
+                else
+                {
+                    showBaloonTip("Error", "Server is busy or stopped", BaloonVO.ERROR);
+                }
+            }
+            else
+            {
+                throw new Error("Unimplemented: private function onCommand(event:RemoteEvent):void");
+            }
+        }
+
+        private function onError(event:RemoteEvent):void
+        {
+            showBaloonTip("Server Error", event.error.description, BaloonVO.ERROR);
+        }
+
+        private function showBaloonTip(title:String, message:String, type:int):void
+        {
+            var baloon:BaloonVO = new BaloonVO();
+            baloon.title = title;
+            baloon.message = message;
+            baloon.type = type;
+            socket.sendObject(baloon);
+        }
+
+        private function onShowPreferences():void
+        {
+            preferenceWindow.open(true);
+            preferenceWindow.nativeWindow.orderInFrontOf(this.nativeWindow);
+            preferenceWindow.visible = true;
+        }
+
+        private function onSendCommand(event:KeyboardEvent):void
+        {
+            if (event.keyCode == 13 && commandInput.text.length > 0)
+            {
+                isBuildEnabled = false;
+                progressBar.showProgress("Running command...");
+                var command:CommandVO = new CommandVO();
+                command.target = "fcsh";
+                command.command = commandInput.text;
+                logShell(commandInput.text + "\n");
+                socket.sendObject(command);
+            }
+        }
+        
+		]]>
+	</mx:Script>
+
+    <mx:HBox id="bar" height="28" right="6" left="6" top="6" borderStyle="solid" verticalAlign="middle"
+             horizontalAlign="left" paddingLeft="4" paddingRight="2" backgroundColor="#F4F4F4" cornerRadius="4">
+        <mx:LinkButton id="fcshButton" click="onFcshRunStop()" toolTip="Run fcsh" height="20" width="20"
+                       styleName="stopped"
+                       useHandCursor="{isConnected}" enabled="{isConnected}"/>
+        <mx:VRule height="100%"/>
+        <mx:LinkButton toolTip="Clear logs" width="20" height="20" styleName="clearLogs" click="clearLogs()"/>
+        <mx:VRule height="100%"/>
+        <mx:ComboBox id="targetsCombo" cornerRadius="0" enabled="{targetsCombo.dataProvider.length > 0 ? isBuildEnabled:false}" toolTip="Select Target" width="196"/>
+        <mx:LinkButton toolTip="Build" width="20" height="20" enabled="{ targetsCombo.selectedItem ? isBuildEnabled:false}" styleName="build"
+                       id="buildTarget" click="onBuildButtonClick()"/>
+        <mx:VRule height="100%"/>
+        <mx:LinkButton toolTip="Options" width="20" height="20" styleName="options" click="onShowPreferences()"/>
+        <mx:Spacer width="100%"/>
+        <mx:HBox width="192" height="22" cornerRadius="4" borderStyle="none" horizontalAlign="right"
+                 verticalAlign="middle" paddingRight="1">
+            <components:CustomProgress width="156" height="16" labelPlacement="center" indeterminate="true" enabled="false"
+                            minimum="0" maximum="1" mode="event" label=" " id="progressBar" trackColors="[0xededed, 0xededed]"/>
+            <mx:LinkButton enabled="{!isConnected}" useHandCursor="{!isConnected}" styleName="unconnected" width="20" id="connection" click="{reconnect()}"/>
+        </mx:HBox>
+    </mx:HBox>
+    <mx:TabNavigator left="6" right="6" top="38" bottom="6" cornerRadius="4" creationPolicy="all">
+        <mx:Canvas label="Compiler" width="100%" height="100%" creationPolicy="all">
+            <mx:TextArea left="10" right="10" top="2" bottom="39" borderStyle="none" focusAlpha="0" id="compilerLog"
+                         wordWrap="false" editable="false" enabled="true" fontSize="11"/>
+            <mx:TextInput keyDown="{onSendCommand(event)}" bottom="10" right="10" left="10" height="22"
+                          toolTip="Type command and press Enter" borderStyle="solid" focusAlpha="0" id="commandInput"
+                          editable="true" enabled="{isBuildEnabled}"/>
+        </mx:Canvas>
+        <mx:Canvas label="Debug" width="100%" height="100%" creationPolicy="all">
+            <mx:TextArea id="logWindow" cornerRadius="0" focusEnabled="false" focusAlpha="0"
+                         borderStyle="none" top="10" bottom="10" left="10" right="10" wordWrap="false" editable="false"
+                         enabled="true"/>
+        </mx:Canvas>
+    </mx:TabNavigator>
+</mx:WindowedApplication>
