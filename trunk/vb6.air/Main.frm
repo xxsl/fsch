@@ -99,7 +99,7 @@ Private Sub Form_Load()
     hotConfig.SetupKey prefs.prefs, VBHotKey1
     
     Set fcsh = New clsFCSH
-    fcsh.initialize log
+    fcsh.initialize log, prefs
 End Sub
 
 Private Sub mnu_log_Click()
