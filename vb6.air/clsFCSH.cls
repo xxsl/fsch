@@ -46,12 +46,12 @@ Attribute fcsh.VB_VarHelpID = -1
 
 
 'set log and params
-Public Sub initialize(appLog As clsLog)
+Public Sub initialize(ByRef appLog As clsLog, ByRef prefs As clsPreferences)
     If (Not isInitialized) Then
         Set fcsh = New RedirectLib.Application
         Set log = appLog
-        fcsh.BufferSize = 4096
-        fcsh.Wait = 500
+        fcsh.BufferSize = prefs.CONSOLE_BUFFER
+        fcsh.Wait = prefs.CONSOLE_WAIT
         
         isRunning = False
         isInitialized = True

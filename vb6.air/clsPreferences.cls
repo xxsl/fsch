@@ -62,3 +62,18 @@ Public Property Let SERVER_HOST(ByVal vNewValue As String)
     prefs.WriteValue FCSHServer, "host", vNewValue
 End Property
 
+Public Property Get CONSOLE_BUFFER() As Long
+    CONSOLE_BUFFER = Val(prefs.GetValue(FCSHServer, "console.buffer", "8192"))
+End Property
+
+Public Property Let CONSOLE_BUFFER(ByVal vNewValue As Long)
+    prefs.WriteValue FCSHServer, "console.buffer", Trim(str(vNewValue))
+End Property
+
+Public Property Get CONSOLE_WAIT() As Long
+    CONSOLE_WAIT = Val(prefs.GetValue(FCSHServer, "console.wait", "8192"))
+End Property
+
+Public Property Let CONSOLE_WAIT(ByVal vNewValue As Long)
+    prefs.WriteValue FCSHServer, "console.wait", Trim(str(vNewValue))
+End Property
