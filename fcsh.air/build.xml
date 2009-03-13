@@ -11,8 +11,8 @@
             <arg line="-output src/fcsh.swf"/>
             <arg line="-- src/fcsh.mxml"/>
         </exec>
-        <copyfile src="src/fcsh.swf" dest="C:/Program Files/fcsh/fcsh.swf" forceoverwrite="true"/>
-        <copyfile src="src/fcsh-app.xml" dest="C:/Program Files/fcsh/META-INF/AIR/application.xml" forceoverwrite="true"/>
+        <copyfile src="src/fcsh.swf" dest="D:/Program Files/fcsh/fcsh.swf" forceoverwrite="true"/>
+        <copyfile src="src/fcsh-app.xml" dest="D:/Program Files/fcsh/META-INF/AIR/application.xml" forceoverwrite="true"/>
     </target>
 
     <target name="package" depends="build">
