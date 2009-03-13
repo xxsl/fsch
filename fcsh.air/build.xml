@@ -2,7 +2,6 @@
     <property file="local.build.properties"/>
     <property name="amxmlc" location="${flex.sdk.dir}/bin/amxmlc.bat"/>
     <property name="adt" location="${flex.sdk.dir}/bin/adt.bat"/>
-    <property name="output" value="${output}"/>
 
     <target name="build">
         <exec executable="${amxmlc}" failonerror="true">
