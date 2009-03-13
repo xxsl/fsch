@@ -1,0 +1,32 @@
+<project default="build" basedir=".">
+    <property file="local.build.properties"/>
+    <property name="amxmlc" location="${flex.sdk.dir}/bin/amxmlc.bat"/>
+    <property name="adt" location="${flex.sdk.dir}/bin/adt.bat"/>
+    <property name="output" value="${output}"/>
+
+    <target name="build">
+        <exec executable="${amxmlc}" failonerror="true">
+            <arg line="-locale en_US"/>
+            <arg line="-keep-as3-metadata Serializable"/>
+            <arg line="-incremental"/>
+            <arg line="-output src/fcsh.swf"/>
+            <arg line="-- src/fcsh.mxml"/>
+        </exec>
+        <copyfile src="src/fcsh.swf" dest="C:/Program Files/fcsh/fcsh.swf" forceoverwrite="true"/>
+        <copyfile src="src/fcsh-app.xml" dest="C:/Program Files/fcsh/META-INF/AIR/application.xml" forceoverwrite="true"/>
+    </target>
+
+    <target name="package" depends="build">
+        <exec executable="${adt}" failonerror="true">
+            <arg line="-package"/>
+            <arg line="-storetype pkcs12"/>
+            <arg line="-keystore fcsh.pfx"/>
+            <arg line="-storepass password"/>
+            <arg line="fcsh.air"/>
+            <arg line="src/fcsh-app.xml"/>
+            <arg line="-C src/"/>
+            <arg line="style/app fcsh.swf"/>
+        </exec>
+    </target>
+
+</project>

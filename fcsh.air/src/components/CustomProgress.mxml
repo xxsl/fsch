@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:ProgressBar xmlns:mx="http://www.adobe.com/2006/mxml">
+    <mx:Script>
+		<![CDATA[
+        import mx.formatters.DateFormatter;
+        import mx.utils.ColorUtil;
+
+        private static const BRIGHTNESS:uint = 90;
+        private static const NORMAL:uint = 0x008870;
+        private static const PROGRESS:uint = 0xFF0000;
+        private static const ERROR:uint = 0xd30000;
+        private static const WARNING:uint = 0xFBBD00;
+
+        private var timeFormatter:DateFormatter = new DateFormatter();
+
+        public function showSuccess(message:String, showTime:Boolean = true):void
+        {
+            this.label = message + (showTime ? getElapsedTime() : "");
+            this.indeterminate = false;
+            this.setStyle("trackColors", [NORMAL, ColorUtil.adjustBrightness2(NORMAL, BRIGHTNESS)]);
+        }
+
+        public function showProgress(message:String):void
+        {
+            fcsh.instance.startTime = new Date();
+            this.label = message;
+            this.indeterminate = true;
+            this.setStyle("trackColors", [PROGRESS, ColorUtil.adjustBrightness2(PROGRESS, BRIGHTNESS)]);
+        }
+
+        public function showError(message:String, showTime:Boolean = true):void
+        {
+            this.label = message + (showTime ? getElapsedTime() : "");
+            this.indeterminate = false;
+            this.setStyle("trackColors", [ERROR, ColorUtil.adjustBrightness2(ERROR, BRIGHTNESS)]);
+        }
+
+        public function showWarning(message:String, showTime:Boolean = true):void
+        {
+            this.label = message + (showTime ? getElapsedTime() : "");
+            this.indeterminate = false;
+            this.setStyle("trackColors", [WARNING, ColorUtil.adjustBrightness2(WARNING, BRIGHTNESS)]);
+        }
+
+        private function getElapsedTime():String
+        {
+            var result:Number = new Date().getTime() - fcsh.instance.startTime.getTime();
+            timeFormatter.formatString = "NN:SS";
+            var time:Date = new Date(result);
+            return " (" + timeFormatter.format(time) + ")";
+        }
+        
+		]]>
+	</mx:Script>
+</mx:ProgressBar>
