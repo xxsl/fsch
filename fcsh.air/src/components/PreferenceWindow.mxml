@@ -203,7 +203,7 @@
             <mx:VBox height="100%" verticalAlign="top" width="30%" borderStyle="solid" cornerRadius="4" paddingTop="2" paddingLeft="2" paddingRight="2" paddingBottom="2">
                 <mx:List labelField="name" height="100%" borderStyle="none" cornerRadius="4" id="targetList"
                          minHeight="0" width="100%"
-                         minWidth="0"></mx:List>
+                         minWidth="0"/>
                 <mx:HBox width="100%" horizontalAlign="right" minHeight="0" minWidth="0" verticalAlign="middle">
                     <mx:LinkButton id="addTarget" width="20" height="20" styleName="add" click="createNewTarget()"
                                    toolTip="Add Target"/>
