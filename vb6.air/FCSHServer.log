@@ -1,0 +1,164 @@
+
+
+--------------------------------------------------------------------------
+[INFO] 13.03.2009 10:14:59 Application started
+[INFO] 13.03.2009 10:14:59 initialize preferences
+[INFO] 13.03.2009 10:14:59 Server is listening on port 40000
+[INFO] 13.03.2009 10:15:05 Accepted connection request 400
+[INFO] 13.03.2009 10:15:05 Object length: 114
+[INFO] 13.03.2009 10:15:05 Object type: amf.vo::BaloonVO
+[INFO] 13.03.2009 10:15:05 Class=amf.vo::BaloonVO; baloon_type=1; title=Info; message=Client connected successfully;
+[INFO] 13.03.2009 10:15:05 Object length: 82
+[INFO] 13.03.2009 10:15:05 Object type: amf.vo::CommandVO
+[INFO] 13.03.2009 10:15:05 Class=amf.vo::CommandVO; target=fcsh_getstate; command=empty;
+[INFO] 13.03.2009 10:15:05 Command: target=fcsh_getstate command=empty
+[INFO] 13.03.2009 10:15:05 Callback: target=fcsh_getstate data=false
+[INFO] 13.03.2009 10:15:05 Sending 76 bytes
+[INFO] 13.03.2009 10:15:05 [send complete]
+[INFO] 13.03.2009 10:15:44 Object length: 368
+[INFO] 13.03.2009 10:15:44 Object type: amf.vo::CommandVO
+[INFO] 13.03.2009 10:15:44 Class=amf.vo::CommandVO; target=fcsh_start; command=java.exe -Xmx384m -Xms125m -XX:MaxPermSize=512m -Dsun.io.useCanonCaches=false -Duser.language=en -Duser.dir=D:\3.2/frameworks/ -jar D:\3.2/lib/fcsh.jar;
+[INFO] 13.03.2009 10:15:44 Command: target=fcsh_start command=java.exe -Xmx384m -Xms125m -XX:MaxPermSize=512m -Dsun.io.useCanonCaches=false -Duser.language=en -Duser.dir=D:\3.2/frameworks/ -jar D:\3.2/lib/fcsh.jar
+[INFO] 13.03.2009 10:15:44 fcsh started
+[INFO] 13.03.2009 10:15:44 Sending 114 bytes
+[INFO] 13.03.2009 10:15:44 [send complete]
+[INFO] 13.03.2009 10:15:44 Object length: 80
+[INFO] 13.03.2009 10:15:44 Object type: amf.vo::BaloonVO
+[INFO] 13.03.2009 10:15:44 Class=amf.vo::BaloonVO; baloon_type=1; title=Info; message=FCSH started;
+[DEBUG] 13.03.2009 10:15:45 Adobe Flex Compiler SHell (fcsh)
+Version 3.2.0 build 3958
+Copyright (c) 2004-2007 Adobe Systems, Inc. All rights reserved.
+
+[INFO] 13.03.2009 10:15:45 Sending 304 bytes
+[INFO] 13.03.2009 10:15:45 [send complete]
+[INFO] 13.03.2009 10:15:45 Object length: 92
+[INFO] 13.03.2009 10:15:45 Object type: amf.vo::BaloonVO
+[INFO] 13.03.2009 10:15:45 Class=amf.vo::BaloonVO; baloon_type=1; title=Build; message=Build successfull;
+[DEBUG] 13.03.2009 10:15:45 
+(fcsh) 
+[INFO] 13.03.2009 10:15:45 Sending 76 bytes
+[INFO] 13.03.2009 10:15:45 [send complete]
+[INFO] 13.03.2009 10:15:45 Object length: 92
+[INFO] 13.03.2009 10:15:45 Object type: amf.vo::BaloonVO
+[INFO] 13.03.2009 10:15:45 Class=amf.vo::BaloonVO; baloon_type=1; title=Build; message=Build successfull;
+[INFO] 13.03.2009 10:15:58 Object length: 408
+[INFO] 13.03.2009 10:15:58 Object type: amf.vo::CommandVO
+[INFO] 13.03.2009 10:15:58 Class=amf.vo::CommandVO; target=fcsh; command=mxmlc -output=D:\Projects\ISY3Suite\Dist\I3Suite\catalinabase\webapps\ROOT\plugins\Workflow_frontend.swf -load-config+=D:\Projects\ISY3Suite\ISY3Workflow\FLX\src\flex-config.xml;
+[INFO] 13.03.2009 10:15:58 Command: target=fcsh command=mxmlc -output=D:\Projects\ISY3Suite\Dist\I3Suite\catalinabase\webapps\ROOT\plugins\Workflow_frontend.swf -load-config+=D:\Projects\ISY3Suite\ISY3Workflow\FLX\src\flex-config.xml
+[INFO] 13.03.2009 10:15:58 fcsh execute: mxmlc -output=D:\Projects\ISY3Suite\Dist\I3Suite\catalinabase\webapps\ROOT\plugins\Workflow_frontend.swf -load-config+=D:\Projects\ISY3Suite\ISY3Workflow\FLX\src\flex-config.xml
+[DEBUG] 13.03.2009 10:15:58 fcsh: Assigned 1 as the compile target id
+[INFO] 13.03.2009 10:15:58 Sending 140 bytes
+[INFO] 13.03.2009 10:15:58 [send complete]
+[DEBUG] 13.03.2009 10:15:59 
+Loading configuration file D:\3.2\frameworks\flex-config.xml
+
+[INFO] 13.03.2009 10:15:59 Sending 186 bytes
+[INFO] 13.03.2009 10:15:59 [send complete]
+[DEBUG] 13.03.2009 10:15:59 Loading configuration file D:\Projects\ISY3Suite\ISY3Workflow\FLX\src\flex-config.xml
+
+[INFO] 13.03.2009 10:15:59 Sending 232 bytes
+[INFO] 13.03.2009 10:15:59 [send complete]
+[DEBUG] 13.03.2009 10:16:35 D:\Projects\ISY3Suite\Dist\I3Suite\catalinabase\webapps\ROOT\plugins\Workflow_frontend.swf (528580 bytes)
+[INFO] 13.03.2009 10:16:35 Sending 268 bytes
+[INFO] 13.03.2009 10:16:35 [send complete]
+[DEBUG] 13.03.2009 10:16:35 
+(fcsh) 
+[INFO] 13.03.2009 10:16:35 Sending 76 bytes
+[INFO] 13.03.2009 10:16:35 [send complete]
+[INFO] 13.03.2009 10:16:36 Object length: 128
+[INFO] 13.03.2009 10:16:36 Object type: amf.vo::BaloonVO
+[INFO] 13.03.2009 10:16:36 Class=amf.vo::BaloonVO; baloon_type=1; title=Build; message=Build successfull. Assigned id is 1;
+[INFO] 13.03.2009 10:25:58 Object length: 72
+[INFO] 13.03.2009 10:25:58 Object type: amf.vo::CommandVO
+[INFO] 13.03.2009 10:25:58 Class=amf.vo::CommandVO; target=fcsh; command=compile 1;
+[INFO] 13.03.2009 10:25:58 Command: target=fcsh command=compile 1
+[INFO] 13.03.2009 10:25:58 fcsh execute: compile 1
+[DEBUG] 13.03.2009 10:25:58 Loading configuration file D:\3.2\frameworks\flex-config.xml
+[INFO] 13.03.2009 10:25:58 Sending 178 bytes
+[INFO] 13.03.2009 10:25:58 [send complete]
+[DEBUG] 13.03.2009 10:25:59 
+Loading configuration file D:\Projects\ISY3Suite\ISY3Workflow\FLX\src\flex-config.xml
+
+[INFO] 13.03.2009 10:25:59 Sending 236 bytes
+[INFO] 13.03.2009 10:25:59 [send complete]
+[DEBUG] 13.03.2009 10:25:59 Nothing has changed since the last compile. Skip...
+[INFO] 13.03.2009 10:25:59 Sending 160 bytes
+[INFO] 13.03.2009 10:25:59 [send complete]
+[DEBUG] 13.03.2009 10:26:00 
+
+[INFO] 13.03.2009 10:26:00 Sending 62 bytes
+[INFO] 13.03.2009 10:26:00 [send complete]
+[DEBUG] 13.03.2009 10:26:01 D:\Projects\ISY3Suite\Dist\I3Suite\catalinabase\webapps\ROOT\plugins\Workflow_frontend.swf (528579 bytes)
+[INFO] 13.03.2009 10:26:01 Sending 268 bytes
+[INFO] 13.03.2009 10:26:01 [send complete]
+[DEBUG] 13.03.2009 10:26:01 
+(fcsh) 
+[INFO] 13.03.2009 10:26:01 Sending 76 bytes
+[INFO] 13.03.2009 10:26:01 [send complete]
+[INFO] 13.03.2009 10:26:01 Object length: 92
+[INFO] 13.03.2009 10:26:01 Object type: amf.vo::BaloonVO
+[INFO] 13.03.2009 10:26:01 Class=amf.vo::BaloonVO; baloon_type=1; title=Build; message=Build successfull;
+[INFO] 13.03.2009 10:26:09 Object length: 72
+[INFO] 13.03.2009 10:26:09 Object type: amf.vo::CommandVO
+[INFO] 13.03.2009 10:26:09 Class=amf.vo::CommandVO; target=fcsh; command=compile 1;
+[INFO] 13.03.2009 10:26:09 Command: target=fcsh command=compile 1
+[INFO] 13.03.2009 10:26:09 fcsh execute: compile 1
+[DEBUG] 13.03.2009 10:26:09 Loading configuration file D:\3.2\frameworks\flex-config.xml
+[INFO] 13.03.2009 10:26:09 Sending 178 bytes
+[INFO] 13.03.2009 10:26:09 [send complete]
+[DEBUG] 13.03.2009 10:26:10 
+Loading configuration file D:\Projects\ISY3Suite\ISY3Workflow\FLX\src\flex-config.xml
+
+[INFO] 13.03.2009 10:26:10 Sending 236 bytes
+[INFO] 13.03.2009 10:26:10 [send complete]
+[DEBUG] 13.03.2009 10:26:10 Nothing has changed since the last compile. Skip...
+
+[INFO] 13.03.2009 10:26:10 Sending 164 bytes
+[INFO] 13.03.2009 10:26:10 [send complete]
+[DEBUG] 13.03.2009 10:26:11 D:\Projects\ISY3Suite\Dist\I3Suite\catalinabase\webapps\ROOT\plugins\Workflow_frontend.swf (528578 bytes)
+[INFO] 13.03.2009 10:26:11 Sending 268 bytes
+[INFO] 13.03.2009 10:26:11 [send complete]
+[DEBUG] 13.03.2009 10:26:12 
+(fcsh) 
+[INFO] 13.03.2009 10:26:12 Sending 76 bytes
+[INFO] 13.03.2009 10:26:12 [send complete]
+[INFO] 13.03.2009 10:26:12 Object length: 92
+[INFO] 13.03.2009 10:26:12 Object type: amf.vo::BaloonVO
+[INFO] 13.03.2009 10:26:12 Class=amf.vo::BaloonVO; baloon_type=1; title=Build; message=Build successfull;
+[INFO] 13.03.2009 10:44:05 Object length: 72
+[INFO] 13.03.2009 10:44:05 Object type: amf.vo::CommandVO
+[INFO] 13.03.2009 10:44:05 Class=amf.vo::CommandVO; target=fcsh; command=compile 1;
+[INFO] 13.03.2009 10:44:05 Command: target=fcsh command=compile 1
+[INFO] 13.03.2009 10:44:05 fcsh execute: compile 1
+[DEBUG] 13.03.2009 10:44:05 Loading configuration file D:\3.2\frameworks\flex-config.xml
+[INFO] 13.03.2009 10:44:05 Sending 178 bytes
+[INFO] 13.03.2009 10:44:05 [send complete]
+[DEBUG] 13.03.2009 10:44:06 
+command line: Error: unable to open 'D:\Projects\ISY3Suite\ISY3Workflow\FLX\src\flex-config.xml'
+
+Use 'mxmlc -help' for information about using the command line.
+(fcsh) 
+[INFO] 13.03.2009 10:44:06 Sending 406 bytes
+[INFO] 13.03.2009 10:44:06 [send complete]
+[INFO] 13.03.2009 10:44:14 Object length: 250
+[INFO] 13.03.2009 10:44:14 Object type: amf.vo::BaloonVO
+[INFO] 13.03.2009 10:44:14 Class=amf.vo::BaloonVO; baloon_type=3; title=Build; message=command line: Error: unable to open 'D:\Projects\ISY3Suite\ISY3Workflow\FLX\src\flex-config.xml';
+[INFO] 13.03.2009 10:44:22 Object length: 72
+[INFO] 13.03.2009 10:44:22 Object type: amf.vo::CommandVO
+[INFO] 13.03.2009 10:44:22 Class=amf.vo::CommandVO; target=fcsh; command=compile 1;
+[INFO] 13.03.2009 10:44:22 Command: target=fcsh command=compile 1
+[INFO] 13.03.2009 10:44:22 fcsh execute: compile 1
+[DEBUG] 13.03.2009 10:44:22 Loading configuration file D:\3.2\frameworks\flex-config.xml
+[INFO] 13.03.2009 10:44:22 Sending 178 bytes
+[INFO] 13.03.2009 10:44:22 [send complete]
+[DEBUG] 13.03.2009 10:44:22 
+command line: Error: unable to open 'D:\Projects\ISY3Suite\ISY3Workflow\FLX\src\flex-config.xml'
+
+Use 'mxmlc -help' for information about using the command line.
+(fcsh) 
+[INFO] 13.03.2009 10:44:22 Sending 406 bytes
+[INFO] 13.03.2009 10:44:22 [send complete]
+[INFO] 13.03.2009 10:44:23 Object length: 250
+[INFO] 13.03.2009 10:44:23 Object type: amf.vo::BaloonVO
+[INFO] 13.03.2009 10:44:23 Class=amf.vo::BaloonVO; baloon_type=3; title=Build; message=command line: Error: unable to open 'D:\Projects\ISY3Suite\ISY3Workflow\FLX\src\flex-config.xml';
+[INFO] 13.03.2009 11:00:24 Application stopped
