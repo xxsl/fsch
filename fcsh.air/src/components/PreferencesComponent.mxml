@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%" label="Preferences"
+         creationComplete="{load()}" paddingLeft="6" paddingRight="6">
+    <mx:Script>
+		<![CDATA[
+        import amf.vo.CommandVO;
+
+        import compiler.Target;
+
+        import flash.filesystem.File;
+
+        import mx.collections.ArrayCollection;
+        import mx.collections.Sort;
+        import mx.collections.SortField;
+
+        import prefs.PreferencesFacade;
+
+        private var file:File;
+
+        public function load():void
+        {
+            pFlexSdkPath.text = PreferencesFacade.instance.getValue(PreferencesFacade.FLEX_SDK_PATH, "C:/Flex SDK 3");
+            pPort.text = PreferencesFacade.instance.getValue(PreferencesFacade.PORT, 40000);
+            pHost.text = PreferencesFacade.instance.getValue(PreferencesFacade.HOST, "localhost");
+            pVMOpt.text = PreferencesFacade.instance.getValue(PreferencesFacade.VM_OPTS, "-Xmx384m -Xms125m -XX:MaxPermSize=512m -Dsun.io.useCanonCaches=false -Duser.language=en");
+            targetList.dataProvider = converToTarget(PreferencesFacade.instance.getValue(PreferencesFacade.TARGETS, new ArrayCollection()));
+
+            var sort:Sort = new Sort();
+            var sortName:SortField = new SortField("name");
+            sort.fields = [sortName];
+            ArrayCollection(targetList.dataProvider).sort = sort;
+            ArrayCollection(targetList.dataProvider).refresh();
+        }
+
+        private function converToTarget(val:ArrayCollection):ArrayCollection
+        {
+            var result:ArrayCollection = new ArrayCollection();
+            for each(var obj:Object in val)
+            {
+                result.addItem(Target.fromObject(obj));
+            }
+            return result;
+        }
+
+        private function save():void
+        {
+            PreferencesFacade.instance.setValue(PreferencesFacade.FLEX_SDK_PATH, pFlexSdkPath.text);
+            PreferencesFacade.instance.setValue(PreferencesFacade.PORT, parseInt(pPort.text));
+            PreferencesFacade.instance.setValue(PreferencesFacade.HOST, pHost.text);
+            PreferencesFacade.instance.setValue(PreferencesFacade.VM_OPTS, pVMOpt.text);
+            PreferencesFacade.instance.setValue(PreferencesFacade.TARGETS, targetList.dataProvider);
+            PreferencesFacade.instance.save();
+            onCancel();
+        }
+
+        private function onSelectFcshExe():void
+        {
+            file = new File();
+            file.addEventListener(Event.SELECT, onFlexSDKSelect, false, 0, true);
+            file.browseForDirectory("Select Flex SDK directory)");
+        }
+
+        private function onFlexSDKSelect(event:Event):void
+        {
+            if (file.exists)
+            {
+                pFlexSdkPath.text = file.nativePath;
+            }
+        }
+
+        private function onSelectConfig():void
+        {
+            file = new File();
+            var fcshFilter:FileFilter = new FileFilter("*.xml", "*.xml");
+            file.addEventListener(Event.SELECT, onConfigFileSelect, false, 0, true);
+            file.browseForOpen("Select project flex-config.xml", [fcshFilter]);
+        }
+
+        private function onConfigFileSelect(event:Event):void
+        {
+            if (file.exists)
+            {
+                pConfig.text = file.nativePath;
+                onChange();
+            }
+        }
+
+        private function onSelectPath():void
+        {
+            file = new File();
+            file.addEventListener(Event.SELECT, onOutputPathSelect, false, 0, true);
+            file.browseForDirectory("Select output path");
+        }
+
+        private function onOutputPathSelect(event:Event):void
+        {
+            if (file.exists)
+            {
+                pOutput.text = file.nativePath;
+                onChange();
+            }
+        }
+
+
+        private function onCancel():void
+        {
+            this.parent.removeChild(this);
+        }
+
+        private function createNewTarget():void
+        {
+            var newTarget:Target = new Target();
+            newTarget.name = "new target " + Math.round(Math.random() * 1000);
+            newTarget.flexConfig = "flex-config.xml";
+            newTarget.outputPath = "C:\\";
+            newTarget.fileName = newTarget.name + ".swf";
+            ArrayCollection(targetList.dataProvider).addItem(newTarget);
+            targetList.selectedItem = newTarget;
+        }
+
+        private function deleteCurrentTarget():void
+        {
+            var arrayCollection:ArrayCollection = ArrayCollection(targetList.dataProvider);
+            arrayCollection.removeItemAt(arrayCollection.getItemIndex(targetList.selectedItem));
+        }
+
+        private function onChange():void
+        {
+            if (targetList.selectedItem)
+            {
+                var target:Target = Target(targetList.selectedItem);
+                target.name = pName.text;
+                target.flexConfig = pConfig.text;
+                target.outputPath = pOutput.text;
+                target.fileName = pFile.text;
+            }
+        }
+
+        private function shellOpen():void
+        {
+            if (targetList.selectedItem && fcsh.instance.socket.connected)
+            {
+                var target:Target = Target(targetList.selectedItem);
+                var command:CommandVO = new CommandVO();
+                command.target = "system_open";
+                command.command = "notepad.exe " + target.flexConfig;
+                fcsh.instance.socket.sendObject(command);
+            }
+        }
+
+		]]>
+	</mx:Script>
+    <mx:TabNavigator right="6" left="6" top="6" bottom="41" creationPolicy="all" width="100%" height="100%"
+                     cornerRadius="4">
+        <mx:Canvas label="Common" width="100%" height="100%">
+            <mx:Form right="0" left="0" top="0" bottom="0" labelWidth="100"
+                     creationPolicy="all">
+                <mx:FormItem label="Server Host" width="100%">
+                    <mx:TextInput width="100%" id="pHost" cornerRadius="4" borderStyle="solid"/>
+                </mx:FormItem>
+                <mx:FormItem label="Server Port" width="100%">
+                    <mx:TextInput width="100%" id="pPort" restrict="[0-9]" borderStyle="solid" cornerRadius="4"/>
+                </mx:FormItem>
+                <mx:FormItem label="Flex SDK Path" width="100%">
+                    <mx:HBox width="100%" verticalAlign="middle">
+                        <mx:TextInput width="100%" id="pFlexSdkPath" borderStyle="solid" cornerRadius="4"/>
+                        <mx:LinkButton width="20" styleName="chooser" click="onSelectFcshExe()" toolTip="Browse.."/>
+                    </mx:HBox>
+                </mx:FormItem>
+                <mx:FormItem label="VM Options" width="100%">
+                    <mx:TextInput width="100%" id="pVMOpt" borderStyle="solid" cornerRadius="4"/>
+                </mx:FormItem>
+            </mx:Form>
+        </mx:Canvas>
+        <mx:HDividedBox label="Targets" width="100%" height="100%" liveDragging="true" paddingBottom="4" paddingLeft="4"
+                        paddingRight="4" creationPolicy="all">
+            <mx:VBox height="100%" verticalAlign="top" width="30%" borderStyle="solid" cornerRadius="4" paddingTop="2"
+                     paddingLeft="2" paddingRight="2" paddingBottom="2">
+                <mx:List labelField="name" height="100%" borderStyle="none" cornerRadius="4" id="targetList"
+                         minHeight="0" width="100%"
+                         minWidth="0"/>
+                <mx:HBox width="100%" horizontalAlign="right" minHeight="0" minWidth="0" verticalAlign="middle">
+                    <mx:LinkButton id="addTarget" width="20" height="20" styleName="add" click="createNewTarget()"
+                                   toolTip="Add Target"/>
+                    <mx:LinkButton width="20" height="20" id="deleteTarget" styleName="remove"
+                                   enabled="{targetList.selectedItem}" click="deleteCurrentTarget()"
+                                   toolTip="Delete Target"/>
+                </mx:HBox>
+            </mx:VBox>
+            <mx:Form height="100%" creationPolicy="all" width="70%" minHeight="0"
+                     minWidth="0" labelWidth="80" borderStyle="solid" cornerRadius="4">
+                <mx:FormItem label="Name" width="100%">
+                    <mx:TextInput width="100%" enabled="{targetList.selectedItem}" text="{targetList.selectedItem.name}"
+                                  change="onChange()" id="pName" borderStyle="solid" cornerRadius="4"
+                                  backgroundDisabledColor="#F3F3F3" toolTip="{pName.text ? pName.text:&quot;&quot;}"/>
+                </mx:FormItem>
+                <mx:FormItem label="Flex config" width="100%">
+                    <mx:HBox width="100%" verticalAlign="middle" horizontalGap="4">
+                        <mx:TextInput enabled="{targetList.selectedItem}" text="{targetList.selectedItem.flexConfig}"
+                                      width="100%" change="onChange()" id="pConfig"
+                                      toolTip="{pConfig.text ? pConfig.text:''}" borderStyle="solid" cornerRadius="4"
+                                      backgroundDisabledColor="#F3F3F3"/>
+                        <mx:LinkButton toolTip="Edit" width="20" height="20" styleName="edit"
+                                       enabled="{targetList.selectedItem}" useHandCursor="{targetList.selectedItem}"
+                                       click="shellOpen()"/>
+                        <mx:LinkButton height="20" width="20" styleName="chooser" click="onSelectConfig()"
+                                       toolTip="Browse.." enabled="{targetList.selectedItem}"
+                                       useHandCursor="{targetList.selectedItem}"/>
+                    </mx:HBox>
+                </mx:FormItem>
+                <mx:FormItem label="Output path" width="100%">
+                    <mx:HBox width="100%" verticalAlign="middle" horizontalGap="4">
+                        <mx:TextInput enabled="{targetList.selectedItem}" text="{targetList.selectedItem.outputPath}"
+                                      width="100%" change="onChange()" id="pOutput"
+                                      toolTip="{pOutput.text ? pOutput.text:''}" borderStyle="solid" cornerRadius="4"
+                                      backgroundDisabledColor="#F3F3F3"/>
+                        <mx:LinkButton height="20" width="20" styleName="chooser" click="onSelectPath()"
+                                       toolTip="Browse.." enabled="{targetList.selectedItem}"
+                                       useHandCursor="{targetList.selectedItem}"/>
+                    </mx:HBox>
+                </mx:FormItem>
+                <mx:FormItem label="File name" width="100%">
+                    <mx:TextInput width="100%" enabled="{targetList.selectedItem}"
+                                  text="{targetList.selectedItem.fileName}" id="pFile"
+                                  toolTip="{pFile.text ? pFile.text:''}" change="onChange()" borderStyle="solid"
+                                  cornerRadius="4" backgroundDisabledColor="#F3F3F3"/>
+                </mx:FormItem>
+            </mx:Form>
+        </mx:HDividedBox>
+    </mx:TabNavigator>
+    <mx:HBox height="28" bottom="6" right="6" left="6" horizontalAlign="right" verticalAlign="middle" paddingLeft="4"
+             paddingRight="4" width="100%">
+        <mx:LinkButton label="Save" width="80" id="buttonSave" cornerRadius="4" click="save()" styleName="accept"/>
+        <mx:LinkButton label="Cancel" width="80" id="buttonCancel" cornerRadius="4" click="onCancel()"
+                       styleName="cancel"/>
+    </mx:HBox>
+</mx:VBox>

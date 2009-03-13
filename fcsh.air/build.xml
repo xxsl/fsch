@@ -5,14 +5,16 @@
 
     <target name="build">
         <exec executable="${amxmlc}" failonerror="true">
-            <arg line="-locale en_US"/>
+            <arg line="-locale en_US -target-player=10.0.0.0"/>
             <arg line="-keep-as3-metadata Serializable"/>
             <arg line="-incremental"/>
+            <arg line="-library-path+=lib"/>
             <arg line="-output src/fcsh.swf"/>
             <arg line="-- src/fcsh.mxml"/>
         </exec>
         <copyfile src="src/fcsh.swf" dest="D:/Program Files/fcsh/fcsh.swf" forceoverwrite="true"/>
-        <copyfile src="src/fcsh-app.xml" dest="D:/Program Files/fcsh/META-INF/AIR/application.xml" forceoverwrite="true"/>
+        <copyfile src="src/fcsh-app.xml" dest="D:/Program Files/fcsh/META-INF/AIR/application.xml"
+                  forceoverwrite="true"/>
     </target>
 
     <target name="package" depends="build">
