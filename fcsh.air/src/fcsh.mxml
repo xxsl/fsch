@@ -3,6 +3,7 @@
           xmlns:mx="http://www.adobe.com/2006/mxml"
           xmlns:local="components.logs.*"
           xmlns:components="components.*"
+          xmlns:toolbars="components.toolbars.*"
           xmlns:code="http://code.google.com/p/flexlib/"
           title="Flex Compiler SHell client">
     <mx:Style source="style/fcsh.css"/>
@@ -15,6 +16,7 @@
 
         import compiler.BuildEvent;
         import compiler.BuildFacade;
+        import compiler.JavaLauncher;
         import compiler.Target;
 
         import components.PreferencesComponent;
@@ -39,7 +41,6 @@
         private static var _instance:fcsh;
 
         private var preferencesTab:PreferencesComponent;
-        public var socket:VB6Socket;
         public var startTime:Date;
 
         [Bindable]
@@ -51,7 +52,6 @@
         [Bindable]
         public var isBuildEnabled:Boolean = false;
 
-
         private function onFcshRunStop():void
         {
             var object:CommandVO = new CommandVO();
@@ -59,27 +59,15 @@
             {
                 object.command = "empty";
                 object.target = FcshTargets.STOP;
-                socket.sendObject(object);
+                VB6Socket.instance.sendObject(object);
             }
             else
             {
                 startTime = new Date();
-                object.command = getCmd();
+                object.command = JavaLauncher.getCommand();
                 object.target = FcshTargets.START;
-                socket.sendObject(object);
+                VB6Socket.instance.sendObject(object);
             }
-        }
-
-        private function getCmd():String
-        {
-            var flexSdkPath:String = PreferencesFacade.instance.getValue(PreferencesFacade.FLEX_SDK_PATH, "C:/Flex SDK 3");
-            var vm_opts:String = PreferencesFacade.instance.getValue(PreferencesFacade.VM_OPTS, "-Xmx384m -Xms125m -XX:MaxPermSize=512m -Dsun.io.useCanonCaches=false -Duser.language=en");
-
-            var result:String = "java.exe ";
-            result += vm_opts;
-            result += " -Dapplication.home=" + flexSdkPath;
-            result += " -jar " + flexSdkPath + "/lib/fcsh.jar";
-            return result;
         }
 
         private function onBuildButtonClick():void
@@ -99,10 +87,10 @@
             }
             object.target = FcshTargets.EXEC;
             logShell(object.command + "\n");
-            socket.sendObject(object);
+            VB6Socket.instance.sendObject(object);
         }
 
-        override public function initializeApplication():void
+        override protected function initializeApplication():void
         {
             super.initializeApplication();
             var target:ILoggingTarget = new ConsoleTarget(logWindow);
@@ -136,23 +124,15 @@
             BuildFacade.instance.addEventListener(BuildEvent.BUILD_SUCCESSFULL, onBuildSuccessfull, false, 0, true);
             BuildFacade.instance.addEventListener(BuildEvent.BUILD_WARNING, onBuildWarning, false, 0, true);
 
-            //show ToolBar shadow
-            var filter:DropShadowFilter = new DropShadowFilter();
-            filter.alpha = 0.5;
-            bar.filters = [filter];
-
-            //center window
-            /*            var screenBounds:Rectangle = Screen.mainScreen.visibleBounds;
-             var w:int = width;
-             var h:int = height;
-
-             var x:int = screenBounds.x + ((screenBounds.width - w) / 2);
-             var y:int = screenBounds.y + ((screenBounds.height - h) / 2);
-             stage.nativeWindow.x = x;
-             stage.nativeWindow.y = y;*/
+            //socket listeners
+            VB6Socket.instance.addEventListener(Event.CLOSE, function (event:Event):void {
+                setConnected(false);
+            }, false, 0, true);
+            VB6Socket.instance.addEventListener(Event.CONNECT, function (event:Event):void {
+                setConnected(true);
+            }, false, 0, true);
 
             //create socket and try to connect
-            socket = new VB6Socket(PreferencesFacade.instance.getValue(PreferencesFacade.HOST, "localhost"), PreferencesFacade.instance.getValue(PreferencesFacade.PORT, 40000));
             reconnect();
         }
 
@@ -265,7 +245,7 @@
             return _instance;
         }
 
-        public function setConnected(value:Boolean):void
+        private function setConnected(value:Boolean):void
         {
             isConnected = value;
             connection.styleName = isConnected ? "connected" : "unconnected";
@@ -279,7 +259,7 @@
                 var object:CommandVO = new CommandVO();
                 object.command = "empty";
                 object.target = FcshTargets.STATUS;
-                socket.sendObject(object);
+                VB6Socket.instance.sendObject(object);
             }
             else
             {
@@ -311,7 +291,7 @@
         private function reconnect():void
         {
             progressBar.showProgress("Connecting...");
-            socket.connect(PreferencesFacade.instance.getValue(PreferencesFacade.HOST, "localhost"), PreferencesFacade.instance.getValue(PreferencesFacade.PORT, 40000));
+            VB6Socket.instance.connect(PreferencesFacade.instance.getValue(PreferencesFacade.HOST, "localhost"), PreferencesFacade.instance.getValue(PreferencesFacade.PORT, 40000));
         }
 
         private function onData(event:RemoteEvent):void
@@ -370,7 +350,7 @@
             baloon.title = title;
             baloon.message = message;
             baloon.type = type;
-            socket.sendObject(baloon);
+            VB6Socket.instance.sendObject(baloon);
         }
 
         private function onShowPreferences():void
@@ -402,15 +382,14 @@
                 command.target = "fcsh";
                 command.command = commandInput.text;
                 logShell(commandInput.text + "\n");
-                socket.sendObject(command);
+                VB6Socket.instance.sendObject(command);
             }
         }
         
 		]]>
 	</mx:Script>
 
-    <mx:HBox id="bar" height="28" right="6" left="6" top="6" borderStyle="solid" verticalAlign="middle"
-             horizontalAlign="left" paddingLeft="4" paddingRight="2" backgroundColor="#F4F4F4" cornerRadius="4">
+    <toolbars:MainToolbar id="bar">
         <mx:LinkButton id="fcshButton" click="onFcshRunStop()" toolTip="Run fcsh" height="20" width="20"
                        styleName="stopped"
                        useHandCursor="{isConnected}" enabled="{isConnected}"/>
@@ -435,7 +414,7 @@
             <mx:LinkButton enabled="{!isConnected}" useHandCursor="{!isConnected}" styleName="unconnected" width="20"
                            id="connection" click="{reconnect()}"/>
         </mx:HBox>
-    </mx:HBox>
+    </toolbars:MainToolbar>
     <code:SuperTabNavigator closePolicy="{SuperTab.CLOSE_ALWAYS}" left="6" right="6" top="38" bottom="6"
                             cornerRadius="4" creationPolicy="all" dragEnabled="false" dropEnabled="false"
                             editableTabLabels="false" id="superTab">
