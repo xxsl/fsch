@@ -1,10 +1,9 @@
 package amf
 {
-    import flash.utils.describeType;
-
     import mx.collections.ArrayCollection;
     import mx.collections.Sort;
     import mx.collections.SortField;
+    import mx.utils.DescribeTypeCache;
 
     public class FlexTypeDescriber
     {
@@ -19,7 +18,7 @@ package amf
 
         protected static function getProperties(object:Object):ArrayCollection
         {
-            var classInfo:XML = describeType(object);
+            var classInfo:XML = DescribeTypeCache.describeType(object).typeDescription;
             var serializable:XMLList = classInfo.variable.@name;
             var result:ArrayCollection = new ArrayCollection();
             for each (var item:* in serializable)
@@ -42,7 +41,7 @@ package amf
 
         protected static function isSerializable(object:Object, property:String):Boolean
         {
-            var classInfo:XML = describeType(object);
+            var classInfo:XML = DescribeTypeCache.describeType(object).typeDescription;
             var serializable:String = classInfo.variable.(@name == property).metadata.(@name == "Serializable").@name;
             return serializable != "";
         }

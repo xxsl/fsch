@@ -4,42 +4,48 @@ package amf
     import flash.utils.IDataOutput;
     import flash.utils.getQualifiedClassName;
 
+    import mx.logging.ILogger;
+    import mx.logging.Log;
+
     public class VB6Serializer extends FlexTypeDescriber
     {
+        private static var log:ILogger = Log.getLogger("VB6Serializer");
+
+
         public static function serialize(object:Object, output:IDataOutput):void
         {
-            trace("Begin serialization");
+            log.debug("Begin serialization");
             var className:String = getQualifiedClassName(object);
-            trace(" Class name is " + className);
+            log.debug(" Class name is " + className);
             writeUnicodeString(className, output);
             for each(var property:ProperyObject in getProperties(object))
             {
-                trace("     Process property: " + property);
+                log.debug("     Process property: " + property);
                 if (isSerializable(object, property.name))
                 {
-                    trace("         Property: " + property.toString() + " is serializable");
+                    log.debug("         Property: " + property.toString() + " is serializable");
                     if (property.type == INT)
                     {
                         var integer:int = object[property.name];
-                        trace("         Property " + property.name + " has value " + integer);
+                        log.debug("         Property " + property.name + " has value " + integer);
                         writeInt(integer, output);
                     }
                     else if (property.type == NUMBER)
                     {
                         var number:Number = object[property.name];
-                        trace("         Property " + property.name + " has value " + number);
+                        log.debug("         Property " + property.name + " has value " + number);
                         writeNumber(number, output);
                     }
                     else if (property.type == STRING)
                         {
                             var string:String = object[property.name];
-                            trace("         Property " + property.name + " has value " + string);
+                            log.debug("         Property " + property.name + " has value " + string);
                             writeUnicodeString(string, output);
                         }
                         else if (property.type == BOOLEAN)
                             {
                                 var boolean:Boolean = object[property.name];
-                                trace("         Property " + property.name + " has value " + boolean);
+                                log.debug("         Property " + property.name + " has value " + boolean);
                                 writeBoolean(boolean, output);
                             }
                             else
@@ -49,10 +55,10 @@ package amf
                 }
                 else
                 {
-                    trace("         Property: " + property + " is not serializable. skip");
+                    log.debug("         Property: " + property + " is not serializable. skip");
                 }
             }
-            trace("Serialization finished");
+            log.debug("Serialization finished");
         }
 
         private static function writeBoolean(boolean:Boolean, output:IDataOutput):void
@@ -75,7 +81,7 @@ package amf
             var byteArr:ByteArray = new ByteArray();
             byteArr.writeMultiByte(str, "utf-16");
             var len:int = byteArr.length;
-            output.writeInt(len)
+            output.writeInt(len);
             output.writeMultiByte(str, "unicode");
         }
     }
