@@ -12,6 +12,7 @@
         import amf.network.VB6Socket;
         import amf.vo.BaloonVO;
         import amf.vo.CommandVO;
+        import amf.vo.FcshTargets;
 
         import compiler.BuildEvent;
         import compiler.BuildFacade;
@@ -58,14 +59,14 @@
             if (isRunning)
             {
                 object.command = "empty";
-                object.target = "fcsh_stop";
+                object.target = FcshTargets.STOP;
                 socket.sendObject(object);
             }
             else
             {
                 startTime = new Date();
                 object.command = getCmd();
-                object.target = "fcsh_start";
+                object.target = FcshTargets.START;
                 socket.sendObject(object);
             }
         }
@@ -97,7 +98,7 @@
             {
                 object.command = "compile " + BuildFacade.instance.targetIDs[target.name];
             }
-            object.target = "fcsh";
+            object.target = FcshTargets.EXEC;
             logShell(object.command + "\n");
             socket.sendObject(object);
         }
@@ -277,7 +278,7 @@
 
                 var object:CommandVO = new CommandVO();
                 object.command = "empty";
-                object.target = "fcsh_getstate";
+                object.target = FcshTargets.STATUS;
                 socket.sendObject(object);
             }
             else
@@ -315,24 +316,24 @@
 
         private function onData(event:RemoteEvent):void
         {
-            if (event.data.target == "fcsh_getstate")
+            if (event.data.target == FcshTargets.STATUS)
             {
                 BuildFacade.instance.clear();
                 setFcshRunning(event.data.data == "true");
             }
-            if (event.data.target == "fcsh_start")
+            if (event.data.target == FcshTargets.START)
             {
                 BuildFacade.instance.clear();
                 setFcshRunning(true);
                 showBaloonTip("Info", "FCSH started", BaloonVO.INFO);
             }
-            if (event.data.target == "fcsh_stop")
+            if (event.data.target == FcshTargets.STOP)
             {
                 BuildFacade.instance.clear();
                 setFcshRunning(false);
                 showBaloonTip("Info", "FCSH stopped", BaloonVO.INFO);
             }
-            if (event.data.target == "fcsh_data")
+            if (event.data.target == FcshTargets.DATA)
             {
                 logShell(event.data.data);
                 BuildFacade.instance.process(event.data.data);
