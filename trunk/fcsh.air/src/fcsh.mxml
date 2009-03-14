@@ -143,8 +143,6 @@
 
         private function loadTargets():void
         {
-            targetsCombo.labelField = "name";
-
             var targets:ArrayCollection = PreferencesFacade.instance.getValue(PreferencesFacade.TARGETS, new ArrayCollection());
 
             //sort targets
@@ -398,7 +396,7 @@
         <mx:VRule height="100%"/>
         <mx:ComboBox id="targetsCombo" cornerRadius="0"
                      enabled="{targetsCombo.dataProvider.length > 0 ? isBuildEnabled:false}" toolTip="Select Target"
-                     width="196"/>
+                     width="196" labelField="name"/>
         <mx:LinkButton toolTip="Build" width="20" height="20"
                        enabled="{ targetsCombo.selectedItem ? isBuildEnabled:false}" styleName="build"
                        id="buildTarget" click="onBuildButtonClick()"/>
