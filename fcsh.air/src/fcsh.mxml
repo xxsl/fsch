@@ -106,7 +106,7 @@
         {
             var target:ILoggingTarget = new ConsoleTarget(logWindow);
             //target.filters = ["amf.*"];
-            target.level = LogEventLevel.INFO;
+            target.level = LogEventLevel.DEBUG;
             Log.addTarget(target);
 
             _instance = this;
