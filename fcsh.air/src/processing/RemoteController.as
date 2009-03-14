@@ -10,7 +10,7 @@ package processing {
 
     public class RemoteController extends EventDispatcher
     {
-        private static var log:ILogger = Log.getLogger("RemoteController");
+        private static var log:ILogger = Log.getLogger("processing.RemoteController");
         private static var _instance:RemoteController;
 
 
