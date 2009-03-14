@@ -17,16 +17,30 @@ package amf.network {
 
     public class VB6Socket extends Socket
     {
+        private static var _instance:VB6Socket;
+
         private var size:int = -1;
         private var buffer:SocketBuffer = new SocketBuffer();
+        private var _isConnected:Boolean;
 
         private static var log:ILogger = Log.getLogger("amf.network.VB6Socket");
+
+
+        public static function get instance():VB6Socket
+        {
+            if (!_instance)
+            {
+                _instance = new VB6Socket();
+            }
+            return _instance;
+        }
 
         public function VB6Socket(host:String = null, port:uint = 0)
         {
             super(host, port);
             configureListeners();
         }
+
 
         private function configureListeners():void
         {
@@ -40,25 +54,23 @@ package amf.network {
         private function closeHandler(event:Event):void
         {
             log.info("Socket closed");
-            fcsh.instance.setConnected(false);
         }
 
         private function connectHandler(event:Event):void
         {
             log.info("Socket connected");
-            fcsh.instance.setConnected(true);
         }
 
         private function ioErrorHandler(event:IOErrorEvent):void
         {
             log.error("IOError: " + event.text);
-            fcsh.instance.setConnected(false);
+            dispatchEvent(new Event(Event.CLOSE));
         }
 
         private function securityErrorHandler(event:SecurityErrorEvent):void
         {
             log.error("Security Error: " + event.text);
-            fcsh.instance.setConnected(false);
+            dispatchEvent(new Event(Event.CLOSE));
         }
 
         private function socketDataHandler(event:ProgressEvent):void

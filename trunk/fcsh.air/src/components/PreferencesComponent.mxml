@@ -3,6 +3,7 @@
          creationComplete="{load()}" paddingLeft="6" paddingRight="6">
     <mx:Script>
 		<![CDATA[
+			import amf.network.VB6Socket;
         import amf.vo.CommandVO;
 
         import compiler.Target;
@@ -138,13 +139,13 @@
 
         private function shellOpen():void
         {
-            if (targetList.selectedItem && fcsh.instance.socket.connected)
+            if (targetList.selectedItem && VB6Socket.instance.connected)
             {
                 var target:Target = Target(targetList.selectedItem);
                 var command:CommandVO = new CommandVO();
                 command.target = "system_open";
                 command.command = "notepad.exe " + target.flexConfig;
-                fcsh.instance.socket.sendObject(command);
+                VB6Socket.instance.sendObject(command);
             }
         }
 

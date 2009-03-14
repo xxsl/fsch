@@ -14,7 +14,7 @@
                         height="400">
     <mx:Script>
             <![CDATA[
-        public function initializeApplication():void
+        protected function initializeApplication():void
         {
             //center window
             var screenBounds:Rectangle = Screen.mainScreen.visibleBounds;
