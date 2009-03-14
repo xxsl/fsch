@@ -26,7 +26,9 @@
         import mx.collections.Sort;
         import mx.collections.SortField;
         import mx.controls.textClasses.TextRange;
+        import mx.logging.ILoggingTarget;
         import mx.logging.Log;
+        import mx.logging.LogEventLevel;
 
         import prefs.PreferenceChangeEvent;
         import prefs.PreferencesFacade;
@@ -102,7 +104,10 @@
 
         private function initializeApplication():void
         {
-            Log.addTarget(new ConsoleTarget(logWindow));
+            var target:ILoggingTarget = new ConsoleTarget(logWindow);
+            //target.filters = ["amf.*"];
+            target.level = LogEventLevel.INFO;
+            Log.addTarget(target);
 
             _instance = this;
 
@@ -434,8 +439,8 @@
                             cornerRadius="4" creationPolicy="all" dragEnabled="false" dropEnabled="false"
                             editableTabLabels="false" id="superTab">
         <mx:Canvas label="Compiler" width="100%" height="100%" creationPolicy="all">
-            <mx:TextArea left="10" right="10" top="2" bottom="39" borderStyle="none" focusAlpha="0" id="compilerLog"
-                         wordWrap="false" editable="false" enabled="true" fontSize="11"/>
+            <local:LogArea left="10" right="10" top="2" bottom="39" borderStyle="none" focusAlpha="0" id="compilerLog"
+                           wordWrap="false" editable="false" enabled="true" fontSize="11"/>
             <mx:TextInput keyDown="{onSendCommand(event)}" bottom="10" right="10" left="10" height="22"
                           toolTip="Type command and press Enter" borderStyle="solid" focusAlpha="0" id="commandInput"
                           editable="true" enabled="{isBuildEnabled}"/>

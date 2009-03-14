@@ -7,7 +7,7 @@ package amf {
 
     public class VB6Deserializer  extends FlexTypeDescriber
     {
-        private static var log:ILogger = Log.getLogger("VB6Deserializer");
+        private static var log:ILogger = Log.getLogger("amf.VB6Deserializer");
 
         public static function deserialize(input:IDataInput):*
         {

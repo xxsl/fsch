@@ -20,7 +20,7 @@ package amf.network {
         private var size:int = -1;
         private var buffer:SocketBuffer = new SocketBuffer();
 
-        private static var log:ILogger = Log.getLogger("VB6Socket");
+        private static var log:ILogger = Log.getLogger("amf.network.VB6Socket");
 
         public function VB6Socket(host:String = null, port:uint = 0)
         {

@@ -12,6 +12,7 @@ package components.logs {
     {
         private var formatter:DateFormatter = new DateFormatter();
         private var window:TextArea;
+        private var _traceEnabled:Boolean;
 
         public function ConsoleTarget(window:TextArea)
         {
@@ -19,6 +20,17 @@ package components.logs {
             Assert.assertTrue(window != null);
             this.window = window;
             formatter.formatString = "JJ:NN:SS";
+        }
+
+
+        public function get traceEnabled():Boolean
+        {
+            return _traceEnabled;
+        }
+
+        public function set traceEnabled(val:Boolean):void
+        {
+            _traceEnabled = val;
         }
 
         override public function logEvent(event:LogEvent):void
@@ -60,10 +72,11 @@ package components.logs {
         private function output(prefix:String, category:String, msg:String, color:String):void
         {
             var result:String = "[" + prefix + "] " + formatter.format(new Date()) + " [" + category + "] " + msg;
-            trace(result);
-            var html:String = "<FONT COLOR='" + color + "'>" + result + "</FONT>" + "<br>";
-            window.htmlText += html;
-            window.validateNow();
+            if (traceEnabled)
+            {
+                trace(result);
+            }
+            window.htmlText += "<FONT COLOR='" + color + "'>" + result + "</FONT>" + "<br>";
         }
     }
 }

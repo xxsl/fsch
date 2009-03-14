@@ -9,7 +9,7 @@ package amf
 
     public class VB6Serializer extends FlexTypeDescriber
     {
-        private static var log:ILogger = Log.getLogger("VB6Serializer");
+        private static var log:ILogger = Log.getLogger("amf.VB6Serializer");
 
 
         public static function serialize(object:Object, output:IDataOutput):void
