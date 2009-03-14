@@ -2,61 +2,65 @@ package amf {
     import flash.utils.IDataInput;
     import flash.utils.getDefinitionByName;
 
+    import mx.logging.ILogger;
+    import mx.logging.Log;
+
     public class VB6Deserializer  extends FlexTypeDescriber
     {
+        private static var log:ILogger = Log.getLogger("VB6Deserializer");
+
         public static function deserialize(input:IDataInput):*
         {
-            trace("Begin deserialization");
+            log.debug("Begin deserialization");
             var className:String = readUnicodeString(input);
-            trace(" Class name is " + className);
+            log.debug(" Class name is " + className);
             try
             {
-            	var classObject:Class = getDefinitionByName(className) as Class;
+                var classObject:Class = getDefinitionByName(className) as Class;
             }
             catch(e:Error)
             {
-            	trace("		[ERROR]Object definition was not found: " + className);
-            	return null;
+                throw new Error("Object definition was not found: " + className);
             }
             var result:Object = new classObject();
 
             if (result)
             {
-                trace("     Class instantiated successfully");
+                log.debug("     Class instantiated successfully");
             }
             else
             {
-                trace("     Class instantiation failed");
+                log.debug("     Class instantiation failed");
             }
 
             for each(var property:ProperyObject in getProperties(result))
             {
-                trace("         Process property: " + property);
+                log.debug("         Process property: " + property);
                 if (isSerializable(result, property.name))
                 {
-                    trace("         Property: " + property.toString() + " is serializable");
+                    log.debug("         Property: " + property.toString() + " is serializable");
                     if (property.type == "int")
                     {
                         var integer:int = readInt(input);
-                        trace("             Property " + property.name + " has value " + integer);
+                        log.debug("             Property " + property.name + " has value " + integer);
                         result[property.name] = integer;
                     }
                     else if (property.type == "Number")
                     {
                         var number:Number = readNumber(input);
-                        trace("             Property " + property.name + " has value " + number);
+                        log.debug("             Property " + property.name + " has value " + number);
                         result[property.name] = number;
                     }
                     else if (property.type == "String")
                         {
                             var string:String = readUnicodeString(input);
-                            trace("             Property " + property.name + " has value " + string);
+                            log.debug("             Property " + property.name + " has value " + string);
                             result[property.name] = string;
                         }
                         else if (property.type == "Boolean")
                             {
                                 var boolean:Boolean = readBoolean(input);
-                                trace("             Property " + property.name + " has value " + boolean);
+                                log.debug("             Property " + property.name + " has value " + boolean);
                                 result[property.name] = boolean;
                             }
                             else
@@ -66,10 +70,10 @@ package amf {
                 }
                 else
                 {
-                    trace("		Property: " + property + " is not serializable. skip");
+                    log.debug("		Property: " + property + " is not serializable. skip");
                 }
             }
-            trace("Deserialization finished");
+            log.debug("Deserialization finished");
             return result;
         }
 

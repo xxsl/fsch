@@ -1,9 +1,6 @@
 package amf.network {
     import amf.VB6Deserializer;
     import amf.VB6Serializer;
-    import amf.vo.BaloonVO;
-    import amf.vo.DataVO;
-    import amf.vo.ErrorVO;
 
     import flash.events.Event;
     import flash.events.IOErrorEvent;
@@ -13,6 +10,9 @@ package amf.network {
     import flash.utils.ByteArray;
     import flash.utils.getQualifiedClassName;
 
+    import mx.logging.ILogger;
+    import mx.logging.Log;
+
     import processing.RemoteController;
 
     public class VB6Socket extends Socket
@@ -20,12 +20,16 @@ package amf.network {
         private var size:int = -1;
         private var buffer:SocketBuffer = new SocketBuffer();
 
-        public function VB6Socket(host:String = null, port:uint = 0) {
+        private static var log:ILogger = Log.getLogger("VB6Socket");
+
+        public function VB6Socket(host:String = null, port:uint = 0)
+        {
             super(host, port);
             configureListeners();
         }
 
-        private function configureListeners():void {
+        private function configureListeners():void
+        {
             addEventListener(Event.CLOSE, closeHandler);
             addEventListener(Event.CONNECT, connectHandler);
             addEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler);
@@ -33,28 +37,33 @@ package amf.network {
             addEventListener(ProgressEvent.SOCKET_DATA, socketDataHandler);
         }
 
-        private function closeHandler(event:Event):void {
-            fcsh.instance.log("Socket closed");
+        private function closeHandler(event:Event):void
+        {
+            log.info("Socket closed");
             fcsh.instance.setConnected(false);
         }
 
-        private function connectHandler(event:Event):void {
-            fcsh.instance.log("Socket connected");
+        private function connectHandler(event:Event):void
+        {
+            log.info("Socket connected");
             fcsh.instance.setConnected(true);
         }
 
-        private function ioErrorHandler(event:IOErrorEvent):void {
-            fcsh.instance.log(event.text);
+        private function ioErrorHandler(event:IOErrorEvent):void
+        {
+            log.error("IOError: " + event.text);
             fcsh.instance.setConnected(false);
         }
 
-        private function securityErrorHandler(event:SecurityErrorEvent):void {
-            fcsh.instance.log(event.text);
+        private function securityErrorHandler(event:SecurityErrorEvent):void
+        {
+            log.error("Security Error: " + event.text);
             fcsh.instance.setConnected(false);
         }
 
-        private function socketDataHandler(event:ProgressEvent):void {
-            fcsh.instance.log("Socket data arrival, bytes loaded: " + event.bytesLoaded);
+        private function socketDataHandler(event:ProgressEvent):void
+        {
+            log.debug("Socket data arrival, bytes loaded: " + event.bytesLoaded);
             var _buffer:ByteArray = new ByteArray();
             readBytes(_buffer, 0, event.bytesLoaded);
             buffer.writeBytes(_buffer, 0, _buffer.length);
@@ -62,25 +71,26 @@ package amf.network {
             if (size == -1 && buffer.length >= 4)
             {
                 size = buffer.readInt();
-                fcsh.instance.log("Object size: " + size);
+                log.debug("Object size: " + size);
             }
 
             while (buffer.length >= size && (size != -1))
             {
-                fcsh.instance.log("Read object: " + size + " bytes");
+                log.debug("Read object: " + size + " bytes");
                 var object:Object = VB6Deserializer.deserialize(buffer);
-                fcsh.instance.log("Object is: " + getQualifiedClassName(object));
+                log.info("Object is: " + getQualifiedClassName(object));
                 RemoteController.instance.process(object);
-                fcsh.instance.log("Read complete");
+                log.debug("Read complete");
                 size = -1;
                 if (buffer.length >= 4)
                 {
                     size = buffer.readInt();
-                    fcsh.instance.log("Object size: " + size);
+                    log.debug("Object size: " + size);
                 }
             }
-            fcsh.instance.log("Socket data processed. size " + size + " bytes , buffer.length " + buffer.length + "\n");
+            log.debug("Socket data processed. size " + size + " bytes , buffer.length " + buffer.length);
         }
+
         public function sendObject(object:Object):void
         {
             var byteArray:ByteArray = new ByteArray();

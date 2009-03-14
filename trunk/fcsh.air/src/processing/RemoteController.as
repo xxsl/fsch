@@ -5,8 +5,12 @@ package processing {
 
     import flash.events.EventDispatcher;
 
+    import mx.logging.ILogger;
+    import mx.logging.Log;
+
     public class RemoteController extends EventDispatcher
     {
+        private static var log:ILogger = Log.getLogger("RemoteController");
         private static var _instance:RemoteController;
 
 
@@ -28,22 +32,22 @@ package processing {
         {
             if (object is ErrorVO)
             {
-                fcsh.instance.log(ErrorVO(object).description);
+                log.info(ErrorVO(object).toString());
                 dispatchEvent(new RemoteEvent(RemoteEvent.ERROR_EVENT, null, null, ErrorVO(object)));
             }
             else if (object is DataVO)
             {
-                fcsh.instance.log(DataVO(object).toString());
+                log.info(DataVO(object).toString());
                 dispatchEvent(new RemoteEvent(RemoteEvent.DATA_EVENT, DataVO(object), null, null));
             }
             else if (object is CommandVO)
                 {
-                    fcsh.instance.log(CommandVO(object).toString());
+                    log.info(CommandVO(object).toString());
                     dispatchEvent(new RemoteEvent(RemoteEvent.COMMAND_EVENT, null, CommandVO(object), null));
                 }
                 else
                 {
-                    fcsh.instance.log("Object can not be parsed");
+                    log.error("Object can not be parsed");
                 }
         }
 
