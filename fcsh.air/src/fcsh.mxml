@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:WindowedApplication xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:local="components.logs.*" layout="absolute"
-                        title="Flex Compiler SHell client"
-                        showStatusBar="false" showTitleBar="true" backgroundGradientAlphas="[1.0, 1.0]"
-                        applicationComplete="{initializeApplication()}" backgroundGradientColors="[#DEDEDE, #BCBCBC]"
-                        themeColor="#FF871D" cornerRadius="0" width="580" verticalScrollPolicy="off"
-                        horizontalScrollPolicy="off" xmlns:components="components.*"
-                        xmlns:code="http://code.google.com/p/flexlib/" height="400">
+<app:Main xmlns:app="components.main.*"
+          xmlns:mx="http://www.adobe.com/2006/mxml"
+          xmlns:local="components.logs.*"
+          xmlns:components="components.*"
+          xmlns:code="http://code.google.com/p/flexlib/"
+          title="Flex Compiler SHell client">
     <mx:Style source="style/fcsh.css"/>
     <mx:Script>
 		<![CDATA[
@@ -103,8 +102,9 @@
             socket.sendObject(object);
         }
 
-        private function initializeApplication():void
+        override public function initializeApplication():void
         {
+            super.initializeApplication();
             var target:ILoggingTarget = new ConsoleTarget(logWindow);
             //target.filters = ["amf.*"];
             target.level = LogEventLevel.DEBUG;
@@ -142,14 +142,14 @@
             bar.filters = [filter];
 
             //center window
-            var screenBounds:Rectangle = Screen.mainScreen.visibleBounds;
-            var w:int = width;
-            var h:int = height;
+            /*            var screenBounds:Rectangle = Screen.mainScreen.visibleBounds;
+             var w:int = width;
+             var h:int = height;
 
-            var x:int = screenBounds.x + ((screenBounds.width - w) / 2);
-            var y:int = screenBounds.y + ((screenBounds.height - h) / 2);
-            stage.nativeWindow.x = x;
-            stage.nativeWindow.y = y;
+             var x:int = screenBounds.x + ((screenBounds.width - w) / 2);
+             var y:int = screenBounds.y + ((screenBounds.height - h) / 2);
+             stage.nativeWindow.x = x;
+             stage.nativeWindow.y = y;*/
 
             //create socket and try to connect
             socket = new VB6Socket(PreferencesFacade.instance.getValue(PreferencesFacade.HOST, "localhost"), PreferencesFacade.instance.getValue(PreferencesFacade.PORT, 40000));
@@ -453,4 +453,4 @@
                            enabled="true" fontFamily="Courier New" fontSize="12"/>
         </mx:Canvas>
     </code:SuperTabNavigator>
-</mx:WindowedApplication>
+</app:Main>
