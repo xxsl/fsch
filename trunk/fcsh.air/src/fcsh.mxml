@@ -4,7 +4,7 @@
                         applicationComplete="{initializeApplication()}" backgroundGradientColors="[#DEDEDE, #BCBCBC]"
                         themeColor="#FF871D" cornerRadius="0" width="580" verticalScrollPolicy="off"
                         horizontalScrollPolicy="off" xmlns:components="components.*"
-                        xmlns:code="http://code.google.com/p/flexlib/">
+                        xmlns:code="http://code.google.com/p/flexlib/" height="400">
     <mx:Style source="style/fcsh.css"/>
     <mx:Script>
 		<![CDATA[
@@ -72,7 +72,7 @@
 
             var result:String = "java.exe ";
             result += vm_opts;
-            result += " -Duser.dir=" + flexSdkPath + "/frameworks/";
+            result += " -Dapplication.home=" + flexSdkPath;
             result += " -jar " + flexSdkPath + "/lib/fcsh.jar";
             return result;
         }
@@ -232,8 +232,8 @@
 
         private function highLight():void
         {
-            colorize(/(.*Error:[^\r]+)/gim, 0xFF0000);
-            colorize(/(.*Warning:[^\r]+)/gim, 0xd77400);
+            colorize(/(.* Error:[^\r]+)/gim, 0xFF0000);
+            colorize(/(.* Warning:[^\r]+)/gim, 0xd77400);
             colorize(/(fcsh: Assigned \d+ as the compile target id)/gim, 0x00AA00);
         }
 
