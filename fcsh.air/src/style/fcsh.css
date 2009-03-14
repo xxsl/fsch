@@ -48,8 +48,8 @@
 }
 
 .edit {
-    icon: Embed(source = 'icons/page_white_edit.png');
-    disabled-icon: Embed(source = 'icons/page_white_edit_disabled.png');
+    icon: Embed(source = 'icons/notepad.png');
+    disabled-icon: Embed(source = 'icons/notepad_disabled.png');
 }
 
 .cancel {
