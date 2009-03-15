@@ -284,7 +284,7 @@
             o.dumpConfig = "C:/work/google.code/fcsh.air/src/com/bananas/generated/config.xml";
             var fileSpecs:FileSpecs = new FileSpecs();
             o.fileSpecs = fileSpecs;
-            fileSpecs.pathElement = "c:/work/realworld/FLX/src/realworld.mxml ";
+            fileSpecs.pathElement = ["c:/work/realworld/FLX/src/realworld.mxml"];
 
 
             var compiler:Compiler = new Compiler();
@@ -293,7 +293,7 @@
             compiler.incremental = true;
             var includeLibraries:IncludeLibraries = new IncludeLibraries();
             compiler.includeLibraries = includeLibraries;
-            includeLibraries.library = "../3rdParty/flexlib/flexlib.swc";
+            includeLibraries.library = ["../3rdParty/flexlib/flexlib.swc"];
 
             var conv:ClassConverter = new ClassConverter(o);
 
