@@ -6,7 +6,7 @@
     <target name="build">
         <exec executable="${amxmlc}" failonerror="true">
             <arg line="-locale en_US -target-player=10.0.0.0"/>
-            <arg line="-keep-as3-metadata Serializable"/>
+            <arg line="-keep-as3-metadata Serializable -keep-as3-metadata Node"/>
             <arg line="-incremental"/>
             <arg line="-library-path+=lib"/>
             <arg line="-output src/fcsh.swf"/>
