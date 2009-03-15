@@ -14,6 +14,8 @@
         import amf.vo.CommandVO;
         import amf.vo.FcshTargets;
 
+        import com.bananas.xml.ClassGenerator;
+
         import compiler.BuildEvent;
         import compiler.BuildFacade;
         import compiler.JavaLauncher;
@@ -144,7 +146,7 @@
             }, false, 0, true);
 
             //create socket and try to connect
-            reconnect();
+            //reconnect();
         }
 
         private function onPrefs(event:PreferenceChangeEvent):void
@@ -247,6 +249,8 @@
         {
             logWindow.text = "";
             compilerLog.text = "";
+            var gen:ClassGenerator = new ClassGenerator();
+            gen.generate();
             return;
             var schemaTypeRegistry:SchemaTypeRegistry;
             schemaTypeRegistry = SchemaTypeRegistry.getInstance();
@@ -271,20 +275,26 @@
 
             o = new Object();
 
-            o.compiler = new Object();
-            o.compiler["include-libraries"] = new Object();
-            o.compiler["include-libraries"]["library"] = ["../3rdParty/flexlib/flexlib.swc"];
-            o.compiler["show-unused-type-selector-warnings"] = true;
-            o.compiler.as3 = true;
-            o.compiler.optimize = true;
-            o.compiler.debug = true;
-            o.compiler.incremental = true;
+            o["compiler"] = new Object();
+            o["compiler"]["include-libraries"] = new Object();
+            o["compiler"]["include-libraries"]["library"] = ["../3rdParty/flexlib/flexlib.swc"];
+            o["compiler"]["show-unused-type-selector-warnings"] = true;
+            o["compiler"].as3 = true;
+            o["compiler"].optimize = true;
+            o["compiler"].debug = true;
+            o["compiler"].incremental = true;
 
             o["file-specs"] = new Object();
             o["file-specs"]["path-element"] = ["c:/work/realworld/FLX/src/realworld.mxml"];
 
             o.benchmark = true;
 
+
+            /*o["load-config"] = new LoadConfig();
+             o["load-config"].append = true;
+             o["load-config"].loadConfig = "gogogo";*/
+
+            xmlEncoder.strictNillability = false;
             xmlList = xmlEncoder.encode(o, qName);
 
 
@@ -464,7 +474,7 @@
                  verticalAlign="middle" paddingRight="1">
             <components:CustomProgress width="156" height="16" labelPlacement="center" indeterminate="true"
                                        enabled="false"
-                                       minimum="0" maximum="1" mode="event" label=" " id="progressBar"
+                                       minimum="0" maximum="1" mode="manual" label=" " id="progressBar"
                                        trackColors="[0xededed, 0xededed]"/>
             <mx:LinkButton enabled="{!isConnected}" useHandCursor="{!isConnected}" styleName="unconnected" width="20"
                            id="connection" click="{reconnect()}"/>
