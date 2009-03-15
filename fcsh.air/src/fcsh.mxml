@@ -14,8 +14,6 @@
         import amf.vo.CommandVO;
         import amf.vo.FcshTargets;
 
-        import com.bananas.xml.ClassGenerator;
-
         import compiler.BuildEvent;
         import compiler.BuildFacade;
         import compiler.JavaLauncher;
@@ -34,10 +32,6 @@
         import mx.logging.Log;
         import mx.logging.LogEventLevel;
         import mx.rpc.xml.Schema;
-        import mx.rpc.xml.SchemaManager;
-        import mx.rpc.xml.SchemaTypeRegistry;
-        import mx.rpc.xml.XMLEncoder;
-        import mx.utils.ObjectUtil;
 
         import prefs.PreferenceChangeEvent;
         import prefs.PreferencesFacade;
@@ -249,60 +243,57 @@
         {
             logWindow.text = "";
             compilerLog.text = "";
-            var gen:ClassGenerator = new ClassGenerator();
-            gen.generate();
-            return;
-            var schemaTypeRegistry:SchemaTypeRegistry;
-            schemaTypeRegistry = SchemaTypeRegistry.getInstance();
-            //schemaTypeRegistry.registerClass(new QName(xsd.namespaces["xs"], "boolean"), Boolean);
+            //var gen:ClassGenerator = new ClassGenerator();
+            //gen.generate();
 
-            schemaTypeRegistry.registerClass(new QName(xsd.targetNamespace.uri, "flex-config"), Object);
-            log.debug("encodeToXML()");
-            var qName:QName;
-            var xmlEncoder:XMLEncoder;
-            var xmlList:XMLList;
-            var o:Object;
+            /*var schemaTypeRegistry:SchemaTypeRegistry;
+             schemaTypeRegistry = SchemaTypeRegistry.getInstance();
+             //schemaTypeRegistry.registerClass(new QName(xsd.namespaces["xs"], "boolean"), Boolean);
 
-            xmlEncoder = new XMLEncoder();
-            var schemaManager:SchemaManager = new SchemaManager();
-            schemaManager.addSchema(xsd);
+             schemaTypeRegistry.registerClass(new QName(xsd.targetNamespace.uri, "flex-config"), Object);
+             log.debug("encodeToXML()");
+             var qName:QName;
+             var xmlEncoder:XMLEncoder;
+             var xmlList:XMLList;
+             var o:Object;
 
-            xmlEncoder.schemaManager = schemaManager;
+             xmlEncoder = new XMLEncoder();
+             var schemaManager:SchemaManager = new SchemaManager();
+             schemaManager.addSchema(xsd);
 
-            qName = new QName(xsd.targetNamespace.uri, "flex-config");
+             xmlEncoder.schemaManager = schemaManager;
 
-            log.debug("QName: " + qName);
+             qName = new QName(xsd.targetNamespace.uri, "flex-config");
 
-            o = new Object();
+             log.debug("QName: " + qName);
 
-            o["compiler"] = new Object();
-            o["compiler"]["include-libraries"] = new Object();
-            o["compiler"]["include-libraries"]["library"] = ["../3rdParty/flexlib/flexlib.swc"];
-            o["compiler"]["show-unused-type-selector-warnings"] = true;
-            o["compiler"].as3 = true;
-            o["compiler"].optimize = true;
-            o["compiler"].debug = true;
-            o["compiler"].incremental = true;
+             o = new Object();
 
-            o["file-specs"] = new Object();
-            o["file-specs"]["path-element"] = ["c:/work/realworld/FLX/src/realworld.mxml"];
+             o["compiler"] = new Object();
+             o["compiler"]["include-libraries"] = new Object();
+             o["compiler"]["include-libraries"]["library"] = ["../3rdParty/flexlib/flexlib.swc"];
+             o["compiler"]["show-unused-type-selector-warnings"] = true;
+             o["compiler"].as3 = true;
+             o["compiler"].optimize = true;
+             o["compiler"].debug = true;
+             o["compiler"].incremental = true;
 
-            o.benchmark = true;
+             o["file-specs"] = new Object();
+             o["file-specs"]["path-element"] = ["c:/work/realworld/FLX/src/realworld.mxml"];
 
-
-            /*o["load-config"] = new LoadConfig();
-             o["load-config"].append = true;
-             o["load-config"].loadConfig = "gogogo";*/
-
-            xmlEncoder.strictNillability = false;
-            xmlList = xmlEncoder.encode(o, qName);
+             o.benchmark = true;
 
 
-            var string:String = xmlList.toXMLString();
-            log.debug(string);
 
-            log.debug("\n\nEncoding object to XML:\n" + ObjectUtil.toString(o));
-            log.debug("\n\nResult:\n" + string);
+             xmlEncoder.strictNillability = false;
+             xmlList = xmlEncoder.encode(o, qName);
+
+
+             var string:String = xmlList.toXMLString();
+             log.debug(string);
+
+             log.debug("\n\nEncoding object to XML:\n" + ObjectUtil.toString(o));
+             log.debug("\n\nResult:\n" + string);*/
         }
 
         public static function get instance():fcsh
