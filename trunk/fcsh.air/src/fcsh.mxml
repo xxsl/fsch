@@ -255,51 +255,41 @@
             compilerLog.text = "";
             //var gen:ClassGenerator = new ClassGenerator();
             //gen.generate();
+            var list:XMLList = encode();
+        }
 
-            //return;
-            var schemaTypeRegistry:SchemaTypeRegistry;
-            schemaTypeRegistry = SchemaTypeRegistry.getInstance();
-            //schemaTypeRegistry.registerClass(new QName(xsd.namespaces["xs"], "boolean"), Boolean);
+        private function encode():XMLList
+        {
+            var xmlEncoder:XMLEncoder = new XMLEncoder();
+            var resultXML:XMLList;
 
-            //schemaTypeRegistry.registerClass(new QName(xsd.targetNamespace.uri, "flex-config"), Config);
+            var configuration:FlexConfig;
 
-            var qName:QName;
-            var xmlEncoder:XMLEncoder;
-            var xmlList:XMLList;
-            var o:FlexConfig;
-
-            xmlEncoder = new XMLEncoder();
             var schemaManager:SchemaManager = new SchemaManager();
             schemaManager.addSchema(xsd);
-
             xmlEncoder.schemaManager = schemaManager;
 
-            qName = new QName(xsd.targetNamespace.uri, "flex-config");
-
-            o = new FlexConfig();
-            o.benchmark = true;
-            o.dumpConfig = "C:/work/google.code/fcsh.air/src/com/bananas/generated/config.xml";
+            configuration = new FlexConfig();
+            configuration.benchmark = true;
+            configuration.dumpConfig = "C:/work/google.code/fcsh.air/src/com/bananas/generated/config.xml";
             var fileSpecs:FileSpecs = new FileSpecs();
-            o.fileSpecs = fileSpecs;
+            configuration.fileSpecs = fileSpecs;
             fileSpecs.pathElement = ["c:/work/realworld/FLX/src/realworld.mxml"];
             var compiler:Compiler = new Compiler();
-            o.compiler = compiler;
+            configuration.compiler = compiler;
             compiler.debug = true;
             compiler.incremental = true;
             var includeLibraries:IncludeLibraries = new IncludeLibraries();
             compiler.includeLibraries = includeLibraries;
             includeLibraries.library = ["../3rdParty/flexlib/flexlib.swc"];
 
-            var conv:ClassConverter = new ClassConverter(o);
+            var classConverter:ClassConverter = new ClassConverter(configuration);
 
+            var object:Object = classConverter.convert();
+            resultXML = xmlEncoder.encode(object, new QName(xsd.targetNamespace.uri, "flex-config"));
 
-            xmlEncoder.strictNillability = false;
-            var object:Object = conv.convert();
-            xmlList = xmlEncoder.encode(object, qName);
-
-            var string:String = xmlList.toXMLString();
-            trace(string);
-            logShell(string);
+            logShell(resultXML.toXMLString());
+            return resultXML;
         }
 
         public static function get instance():fcsh
