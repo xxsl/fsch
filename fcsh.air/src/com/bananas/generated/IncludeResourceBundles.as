@@ -4,7 +4,7 @@ package com.bananas.generated {
     {
         [Node (name="append", object="Boolean", array="false")]
         public var append:Boolean;
-        [Node (name="bundle", object="String", array="false")]
-        public var bundle:String;
+        [Node (name="bundle", object="String", array="true")]
+        public var bundle:Array;
     }
 }

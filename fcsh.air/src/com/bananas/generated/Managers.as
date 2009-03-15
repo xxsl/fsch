@@ -2,7 +2,7 @@ package com.bananas.generated {
 
     public class Managers
     {
-        [Node (name="manager-class", object="String", array="false")]
-        public var managerClass:String;
+        [Node (name="manager-class", object="String", array="true")]
+        public var managerClass:Array;
     }
 }

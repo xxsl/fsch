@@ -13,6 +13,8 @@ package com.bananas.xml {
 
         private static var log:ILogger = Log.getLogger("com.bananas.xml.ClassGenerator");
 
+        private static var reserved:Object = {"class":"class_r"};
+
         private var ns:Namespace;
         private var packageString:String;
         private var path:String = "file:///C:/work/google.code/fcsh.air/src/com/bananas/generated/";
@@ -83,6 +85,7 @@ package com.bananas.xml {
 
             for each(item in choice.ns::element)
             {
+                seq = item.@maxOccurs == "unbounded";
                 if (isComplexType(item))
                 {
                     log.debug(space + "    Class " + name + " has complex property " + item.@name);
@@ -101,7 +104,7 @@ package com.bananas.xml {
                 {
                     log.debug(space + "    Class " + name + " has simple property " + item.@name + " of type " + item.@type);
                     fileStream.writeMultiByte("       [Node (name=\"" + item.@name + "\", object=\"" + getAStype(item.@type) + "\", array=\"" + seq + "\")]\n", "utf-8");
-                    if (seq)
+                    if (item.@maxOccurs == "unbounded")
                     {
                         fileStream.writeMultiByte("       public var " + getName(item.@name) + ":Array;\n", "utf-8");
                     }
@@ -129,7 +132,12 @@ package com.bananas.xml {
 
         private function getName(name:String):String
         {
-            return name.replace(/-([a-z])/g, repl);
+            var propertyName:String = name.replace(/-([a-z])/g, repl);
+            if (reserved.hasOwnProperty(propertyName))
+            {
+                return reserved[propertyName];
+            }
+            return propertyName;
         }
 
         private function repl():String
