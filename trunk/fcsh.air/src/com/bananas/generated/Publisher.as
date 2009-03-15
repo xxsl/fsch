@@ -1,6 +1,7 @@
 package com.bananas.generated {
 
-    public class Publisher
-    {
-    }
+   [Bindable]
+   public class Publisher
+   {
+   }
 }

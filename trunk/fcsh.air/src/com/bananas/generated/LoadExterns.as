@@ -1,6 +1,7 @@
 package com.bananas.generated {
 
-    public class LoadExterns
-    {
-    }
+   [Bindable]
+   public class LoadExterns
+   {
+   }
 }

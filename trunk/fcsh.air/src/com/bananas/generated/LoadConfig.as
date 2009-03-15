@@ -1,6 +1,7 @@
 package com.bananas.generated {
 
-    public class LoadConfig
-    {
-    }
+   [Bindable]
+   public class LoadConfig
+   {
+   }
 }
