@@ -300,6 +300,7 @@
 
             var string:String = xmlList.toXMLString();
             trace(string);
+            logShell(string);
         }
 
         public static function get instance():fcsh
