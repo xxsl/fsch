@@ -41,7 +41,7 @@ package com.bananas.xml {
             }
         }
 
-        private function createClass(xml:XML, level:int = 0, parentComplex:Boolean = false):void
+        private function createClass(xml:XML, level:int = 0):void
         {
             var name:String = xml.@name;
             var space:String = getSpace(level);
@@ -82,7 +82,7 @@ package com.bananas.xml {
                     log.debug(space + "    Class " + name + " has complex property " + item.@name);
                     fileStream.writeMultiByte("       [Node (name=\"" + item.@name + "\", object=\"" + packageString + "." + getClassName(item.@name) + "\")]\n", "utf-8");
                     fileStream.writeMultiByte("       public var " + getName(item.@name) + ":Array" + " = [];\n", "utf-8");
-                    createClass(item, level + 1, seq);
+                    createClass(item, level + 1);
                 }
                 else
                 {
