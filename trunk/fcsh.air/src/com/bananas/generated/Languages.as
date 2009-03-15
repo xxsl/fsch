@@ -4,7 +4,7 @@ package com.bananas.generated {
     {
         [Node (name="append", object="Boolean", array="false")]
         public var append:Boolean;
-        [Node (name="language-range", object="com.bananas.generated.LanguageRange", array="true")]
-        public var languageRange:Array;
+        [Node (name="language-range", object="com.bananas.generated.LanguageRange", array="false")]
+        public var languageRange:LanguageRange;
     }
 }

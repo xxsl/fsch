@@ -253,7 +253,7 @@
         {
             logWindow.text = "";
             compilerLog.text = "";
-            // var gen:ClassGenerator = new ClassGenerator();
+            //var gen:ClassGenerator = new ClassGenerator();
             //gen.generate();
 
             //return;
