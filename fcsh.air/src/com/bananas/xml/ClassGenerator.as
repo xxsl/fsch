@@ -45,7 +45,7 @@ package com.bananas.xml {
 
         private function createClass(xml:XML, level:int = 0):void
         {
-            var name:String = xml.@name;
+            var name:String = String(xml.@name);
             var space:String = getSpace(level);
             log.debug(space + "Create Class: " + packageString + "." + name);
 
@@ -66,7 +66,7 @@ package com.bananas.xml {
             {
                 log.debug(space + "    Class " + name + " has attribute " + item.@name);
                 fileStream.writeMultiByte("       [Node (name=\"" + item.@name + "\", object=\"" + getAStype(item.@type) + "\", array=\"" + false + "\")]\n", "utf-8");
-                fileStream.writeMultiByte("       public var " + getName(item.@name) + ":" + getAStype(item.@type) + ";\n", "utf-8");
+                fileStream.writeMultiByte("       public var " + getName(String(item.@name)) + ":" + getAStype(item.@type) + ";\n", "utf-8");
             }
 
             var choice:XMLList = xml.ns::complexType.ns::choice;
@@ -85,18 +85,18 @@ package com.bananas.xml {
 
             for each(item in choice.ns::element)
             {
-                seq = item.@maxOccurs == "unbounded";
+                seq = (String(item.@maxOccurs) == "unbounded");
                 if (isComplexType(item))
                 {
                     log.debug(space + "    Class " + name + " has complex property " + item.@name);
-                    fileStream.writeMultiByte("       [Node (name=\"" + item.@name + "\", object=\"" + packageString + "." + getClassName(item.@name) + "\", array=\"" + seq + "\")]\n", "utf-8");
+                    fileStream.writeMultiByte("       [Node (name=\"" + item.@name + "\", object=\"" + packageString + "." + getClassName(String(item.@name)) + "\", array=\"" + seq + "\")]\n", "utf-8");
                     if (seq)
                     {
-                        fileStream.writeMultiByte("       public var " + getName(item.@name) + ":Array;\n", "utf-8");
+                        fileStream.writeMultiByte("       public var " + getName(String(item.@name)) + ":Array;\n", "utf-8");
                     }
                     else
                     {
-                        fileStream.writeMultiByte("       public var " + getName(item.@name) + ":" + getClassName(item.@name) + ";\n", "utf-8");
+                        fileStream.writeMultiByte("       public var " + getName(String(item.@name)) + ":" + getClassName(String(item.@name)) + ";\n", "utf-8");
                     }
                     createClass(item, level + 1);
                 }
@@ -106,11 +106,11 @@ package com.bananas.xml {
                     fileStream.writeMultiByte("       [Node (name=\"" + item.@name + "\", object=\"" + getAStype(item.@type) + "\", array=\"" + seq + "\")]\n", "utf-8");
                     if (item.@maxOccurs == "unbounded")
                     {
-                        fileStream.writeMultiByte("       public var " + getName(item.@name) + ":Array;\n", "utf-8");
+                        fileStream.writeMultiByte("       public var " + getName(String(item.@name)) + ":Array;\n", "utf-8");
                     }
                     else
                     {
-                        fileStream.writeMultiByte("       public var " + getName(item.@name) + ":" + getAStype(item.@type) + ";\n", "utf-8");
+                        fileStream.writeMultiByte("       public var " + getName(String(item.@name)) + ":" + getAStype(item.@type) + ";\n", "utf-8");
                     }
                 }
             }
@@ -167,7 +167,7 @@ package com.bananas.xml {
 
         private function isComplexType(xml:XML):Boolean
         {
-            return (xml.@type.length() == 0);
+            return (XMLList(xml.@type).length() == 0);
         }
 
         private function getSpace(level:int):String
