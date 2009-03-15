@@ -263,7 +263,6 @@
 
             //schemaTypeRegistry.registerClass(new QName(xsd.targetNamespace.uri, "flex-config"), Config);
 
-            log.debug("encodeToXML()");
             var qName:QName;
             var xmlEncoder:XMLEncoder;
             var xmlList:XMLList;
@@ -277,16 +276,12 @@
 
             qName = new QName(xsd.targetNamespace.uri, "flex-config");
 
-            log.debug("QName: " + qName);
-
             o = new FlexConfig();
             o.benchmark = true;
             o.dumpConfig = "C:/work/google.code/fcsh.air/src/com/bananas/generated/config.xml";
             var fileSpecs:FileSpecs = new FileSpecs();
             o.fileSpecs = fileSpecs;
             fileSpecs.pathElement = ["c:/work/realworld/FLX/src/realworld.mxml"];
-
-
             var compiler:Compiler = new Compiler();
             o.compiler = compiler;
             compiler.debug = true;
@@ -304,10 +299,7 @@
 
 
             var string:String = xmlList.toXMLString();
-            //log.debug(string);
-
-            log.debug("\n\nEncoding object to XML:\n" + ObjectUtil.toString(object));
-            log.debug("\n\nResult:\n" + string);
+            trace(string);
         }
 
         public static function get instance():fcsh
