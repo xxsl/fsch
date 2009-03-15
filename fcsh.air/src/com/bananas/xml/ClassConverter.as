@@ -19,7 +19,8 @@ package com.bananas.xml {
         {
             var result:Object = new Object;
             var classInfo:XML = DescribeTypeCache.describeType(config).typeDescription;
-            var elements:XMLList = classInfo.variable;
+            trace(classInfo.toXMLString());
+            var elements:XMLList = classInfo.variable.length() > 0 ? classInfo.variable:classInfo.accessor;
             var prpertyName:String;
             var nodeName:String;
             for each(var element:XML in elements)

@@ -9,6 +9,7 @@
     <mx:Style source="style/fcsh.css"/>
     <mx:Script>
 		<![CDATA[
+			import com.bananas.xml.ClassGenerator;
         import amf.network.VB6Socket;
         import amf.vo.BaloonVO;
         import amf.vo.CommandVO;

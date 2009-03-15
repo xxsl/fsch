@@ -1,6 +1,7 @@
 package com.bananas.generated {
 
-    public class Creator
-    {
-    }
+   [Bindable]
+   public class Creator
+   {
+   }
 }

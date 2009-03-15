@@ -1,6 +1,7 @@
 package com.bananas.generated {
 
-    public class Language
-    {
-    }
+   [Bindable]
+   public class Language
+   {
+   }
 }

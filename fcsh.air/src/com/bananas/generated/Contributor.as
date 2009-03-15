@@ -1,6 +1,7 @@
 package com.bananas.generated {
 
-    public class Contributor
-    {
-    }
+   [Bindable]
+   public class Contributor
+   {
+   }
 }

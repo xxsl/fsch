@@ -57,6 +57,7 @@ package com.bananas.xml {
             fileStream.writeMultiByte("package " + packageString + " {\n", "utf-8");
             fileStream.writeMultiByte("\n", "utf-8");
 
+			fileStream.writeMultiByte("   [Bindable]\n", "utf-8");
             fileStream.writeMultiByte("   public class " + getClassName(name) + "\n", "utf-8");
             fileStream.writeMultiByte("   {\n", "utf-8");
 
