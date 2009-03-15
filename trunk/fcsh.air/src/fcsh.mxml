@@ -41,9 +41,11 @@
         import mx.rpc.xml.Schema;
         import mx.rpc.xml.SchemaManager;
         import mx.rpc.xml.SchemaTypeRegistry;
-        import mx.rpc.xml.XMLEncoder;
+            import mx.rpc.xml.XMLDecoder;
+import mx.rpc.xml.XMLEncoder;
 
-        import prefs.PreferenceChangeEvent;
+            import mx.utils.ObjectUtil;
+import prefs.PreferenceChangeEvent;
         import prefs.PreferencesFacade;
 
         import processing.RemoteController;
@@ -256,7 +258,33 @@
             //var gen:ClassGenerator = new ClassGenerator();
             //gen.generate();
             var list:XMLList = encode();
+            decodeXML(list);
         }
+
+            private function decodeXML(xml:XMLList):void
+            {
+                trace("decodeXML()");
+                var qName:QName;
+                var xmlDecoder:XMLDecoder;
+                var result:*;
+
+                qName = new QName(xsd.targetNamespace.uri, "flex-config");
+
+				var schemaTypeRegistry:SchemaTypeRegistry;
+				schemaTypeRegistry = SchemaTypeRegistry.getInstance();
+				schemaTypeRegistry.registerClass(qName, FlexConfig);
+				
+
+                xmlDecoder = new XMLDecoder();
+                var schemaManager:SchemaManager = new SchemaManager();
+                schemaManager.addSchema(xsd);
+                xmlDecoder.schemaManager = schemaManager;
+                result = xmlDecoder.decode(xml, qName);
+
+                trace(ObjectUtil.toString(result));
+
+                trace(xml.toXMLString());
+            }
 
         private function encode():XMLList
         {
