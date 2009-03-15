@@ -2,9 +2,9 @@ package com.bananas.generated {
 
     public class DefaultScriptLimits
     {
-        [Node (name="max-recursion-depth", object="Number")]
-        public var maxRecursionDepth:Number;
-        [Node (name="max-execution-time", object="Number")]
-        public var maxExecutionTime:Number;
+        [Node (name="max-recursion-depth", object="uint", array="false")]
+        public var maxRecursionDepth:uint;
+        [Node (name="max-execution-time", object="uint", array="false")]
+        public var maxExecutionTime:uint;
     }
 }

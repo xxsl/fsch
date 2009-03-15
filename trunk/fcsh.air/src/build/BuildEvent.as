@@ -1,4 +1,4 @@
-package compiler {
+package build {
     import flash.events.Event;
 
     public class BuildEvent extends Event
