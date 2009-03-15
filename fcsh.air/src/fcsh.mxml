@@ -41,7 +41,6 @@
         import mx.rpc.xml.SchemaManager;
         import mx.rpc.xml.SchemaTypeRegistry;
         import mx.rpc.xml.XMLEncoder;
-        import mx.utils.ObjectUtil;
 
         import prefs.PreferenceChangeEvent;
         import prefs.PreferencesFacade;
@@ -296,7 +295,6 @@
             xmlEncoder.strictNillability = false;
             var object:Object = conv.convert();
             xmlList = xmlEncoder.encode(object, qName);
-
 
             var string:String = xmlList.toXMLString();
             trace(string);
