@@ -6,7 +6,7 @@
 			import amf.network.VB6Socket;
         import amf.vo.CommandVO;
 
-        import compiler.Target;
+        import build.Target;
 
         import flash.filesystem.File;
 

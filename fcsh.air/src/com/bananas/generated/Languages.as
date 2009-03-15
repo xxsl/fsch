@@ -2,9 +2,9 @@ package com.bananas.generated {
 
     public class Languages
     {
-        [Node (name="append", object="Boolean")]
+        [Node (name="append", object="Boolean", array="false")]
         public var append:Boolean;
-        [Node (name="language-range", object="com.bananas.generated.LanguageRange")]
-        public var languageRange:Array = [];
+        [Node (name="language-range", object="com.bananas.generated.LanguageRange", array="true")]
+        public var languageRange:Array;
     }
 }

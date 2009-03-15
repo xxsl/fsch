@@ -1,4 +1,4 @@
-package compiler {
+package build {
 
     import flash.events.EventDispatcher;
 
@@ -92,14 +92,14 @@ package compiler {
         {
             var match:Array = _output.match(/(.*Error:[^\r]+)/gim);
             var result:Boolean = match != null && match.length > 0;
-            return result ? match: null;
+            return result ? match : null;
         }
 
         private function hasWarnings():Array
         {
             var match:Array = _output.match(/(.*Warning:[^\r]+)/gim);
             var result:Boolean = match != null && match.length > 0;
-            return result ? match: null;
+            return result ? match : null;
         }
 
     }

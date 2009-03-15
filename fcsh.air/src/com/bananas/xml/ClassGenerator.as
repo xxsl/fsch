@@ -9,7 +9,7 @@ package com.bananas.xml {
 
     public class ClassGenerator
     {
-        include "../../../compiler/schema.as";
+        include "../../../build/schema.as";
 
         private static var log:ILogger = Log.getLogger("com.bananas.xml.ClassGenerator");
 
@@ -63,7 +63,7 @@ package com.bananas.xml {
             for each(item in xml.ns::complexType.ns::attribute)
             {
                 log.debug(space + "    Class " + name + " has attribute " + item.@name);
-                fileStream.writeMultiByte("       [Node (name=\"" + item.@name + "\", object=\"" + getAStype(item.@type) + "\")]\n", "utf-8");
+                fileStream.writeMultiByte("       [Node (name=\"" + item.@name + "\", object=\"" + getAStype(item.@type) + "\", array=\"" + false + "\")]\n", "utf-8");
                 fileStream.writeMultiByte("       public var " + getName(item.@name) + ":" + getAStype(item.@type) + ";\n", "utf-8");
             }
 
@@ -74,29 +74,40 @@ package com.bananas.xml {
                 choice = xml.ns::complexType.ns::sequence;
                 seq = xml.ns::complexType.ns::sequence.@maxOccurs == "unbounded";
             }
+            else
+            {
+                seq = false;
+            }
+
+            log.info(space + " is Array " + seq);
 
             for each(item in choice.ns::element)
             {
                 if (isComplexType(item))
                 {
                     log.debug(space + "    Class " + name + " has complex property " + item.@name);
-                    fileStream.writeMultiByte("       [Node (name=\"" + item.@name + "\", object=\"" + packageString + "." + getClassName(item.@name) + "\")]\n", "utf-8");
-                    fileStream.writeMultiByte("       public var " + getName(item.@name) + ":Array" + " = [];\n", "utf-8");
+                    fileStream.writeMultiByte("       [Node (name=\"" + item.@name + "\", object=\"" + packageString + "." + getClassName(item.@name) + "\", array=\"" + seq + "\")]\n", "utf-8");
+                    if (seq)
+                    {
+                        fileStream.writeMultiByte("       public var " + getName(item.@name) + ":Array;\n", "utf-8");
+                    }
+                    else
+                    {
+                        fileStream.writeMultiByte("       public var " + getName(item.@name) + ":" + getClassName(item.@name) + ";\n", "utf-8");
+                    }
                     createClass(item, level + 1);
                 }
                 else
                 {
                     log.debug(space + "    Class " + name + " has simple property " + item.@name + " of type " + item.@type);
-
-                    if (!seq)
+                    fileStream.writeMultiByte("       [Node (name=\"" + item.@name + "\", object=\"" + getAStype(item.@type) + "\", array=\"" + seq + "\")]\n", "utf-8");
+                    if (seq)
                     {
-                        fileStream.writeMultiByte("       [Node (name=\"" + item.@name + "\", object=\"" + getAStype(item.@type) + "\")]\n", "utf-8");
-                        fileStream.writeMultiByte("       public var " + getName(item.@name) + ":" + getAStype(item.@type) + ";\n", "utf-8");
+                        fileStream.writeMultiByte("       public var " + getName(item.@name) + ":Array;\n", "utf-8");
                     }
                     else
                     {
-                        fileStream.writeMultiByte("       [Node (name=\"" + item.@name + "\", object=\"" + getAStype(item.@type) + "\")]\n", "utf-8");
-                        fileStream.writeMultiByte("       public var " + getName(item.@name) + ":Array = []" + ";\n", "utf-8");
+                        fileStream.writeMultiByte("       public var " + getName(item.@name) + ":" + getAStype(item.@type) + ";\n", "utf-8");
                     }
                 }
             }
@@ -141,7 +152,7 @@ package com.bananas.xml {
                 case "xs:string":
                     return "String";
                 case "xs:unsignedInt":
-                    return "Number";
+                    return "uint";
             }
             throw new Error("Unknown type " + xsType);
         }

@@ -1,4 +1,4 @@
-package compiler {
+package build {
     import prefs.PreferencesFacade;
 
     public class JavaLauncher
