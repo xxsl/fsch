@@ -28,9 +28,14 @@
         import mx.collections.Sort;
         import mx.collections.SortField;
         import mx.controls.textClasses.TextRange;
-        import mx.logging.ILoggingTarget;
+        import mx.logging.ILogger;
         import mx.logging.Log;
         import mx.logging.LogEventLevel;
+        import mx.rpc.xml.Schema;
+        import mx.rpc.xml.SchemaManager;
+        import mx.rpc.xml.SchemaTypeRegistry;
+        import mx.rpc.xml.XMLEncoder;
+        import mx.utils.ObjectUtil;
 
         import prefs.PreferenceChangeEvent;
         import prefs.PreferencesFacade;
@@ -38,6 +43,11 @@
         import processing.RemoteController;
         import processing.RemoteEvent;
 
+        include "compiler/schema.as";
+
+        private var xsd:Schema = new Schema(flex_config_xsd_xml);
+
+        private static var log:ILogger = Log.getLogger("fcsh");
         private static var _instance:fcsh;
 
         private var preferencesTab:PreferencesComponent;
@@ -93,9 +103,10 @@
         override protected function initializeApplication():void
         {
             super.initializeApplication();
-            var target:ILoggingTarget = new ConsoleTarget(logWindow);
+            var target:ConsoleTarget = new ConsoleTarget(logWindow);
             //target.filters = ["amf.*"];
             target.level = LogEventLevel.DEBUG;
+            target.traceEnabled = true;
             Log.addTarget(target);
 
             _instance = this;
@@ -236,6 +247,52 @@
         {
             logWindow.text = "";
             compilerLog.text = "";
+            return;
+            var schemaTypeRegistry:SchemaTypeRegistry;
+            schemaTypeRegistry = SchemaTypeRegistry.getInstance();
+            //schemaTypeRegistry.registerClass(new QName(xsd.namespaces["xs"], "boolean"), Boolean);
+
+            schemaTypeRegistry.registerClass(new QName(xsd.targetNamespace.uri, "flex-config"), Object);
+            log.debug("encodeToXML()");
+            var qName:QName;
+            var xmlEncoder:XMLEncoder;
+            var xmlList:XMLList;
+            var o:Object;
+
+            xmlEncoder = new XMLEncoder();
+            var schemaManager:SchemaManager = new SchemaManager();
+            schemaManager.addSchema(xsd);
+
+            xmlEncoder.schemaManager = schemaManager;
+
+            qName = new QName(xsd.targetNamespace.uri, "flex-config");
+
+            log.debug("QName: " + qName);
+
+            o = new Object();
+
+            o.compiler = new Object();
+            o.compiler["include-libraries"] = new Object();
+            o.compiler["include-libraries"]["library"] = ["../3rdParty/flexlib/flexlib.swc"];
+            o.compiler["show-unused-type-selector-warnings"] = true;
+            o.compiler.as3 = true;
+            o.compiler.optimize = true;
+            o.compiler.debug = true;
+            o.compiler.incremental = true;
+
+            o["file-specs"] = new Object();
+            o["file-specs"]["path-element"] = ["c:/work/realworld/FLX/src/realworld.mxml"];
+
+            o.benchmark = true;
+
+            xmlList = xmlEncoder.encode(o, qName);
+
+
+            var string:String = xmlList.toXMLString();
+            log.debug(string);
+
+            log.debug("\n\nEncoding object to XML:\n" + ObjectUtil.toString(o));
+            log.debug("\n\nResult:\n" + string);
         }
 
         public static function get instance():fcsh
