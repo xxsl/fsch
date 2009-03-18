@@ -238,49 +238,30 @@ Private Function convertInt(ByRef byteArray() As Byte) As Long
     CopyMemory convertInt, buffer(0), 4
 End Function
 
-Private Sub fcsh_onStop()
-    log.xInfo "fcsh stopped"
+Private Sub fcsh_onComplete(value As DataVO)
+    sendDataVO value
+End Sub
+
+Private Sub fcsh_onStop(value As DataVO)
+    sendDataVO value
+End Sub
+
+Private Sub fcsh_onStart(value As DataVO)
+    sendDataVO value
+End Sub
+
+Private Sub fcsh_onError(value As ErrorVO)
+    sendDataVO value
+End Sub
+
+Private Sub sendDataVO(data As DataVO)
+    log.xError data.toString
     Dim byteArray() As Byte
     ReDim byteArray(0)
-    Dim data As New DataVO
-    data.target = "fcsh_stop"
-    data.data = "Flex Compiler SHell stopped"
     data.serialize byteArray
     sendByteArray byteArray
 End Sub
 
-Private Sub fcsh_onStart()
-    log.xInfo "fcsh started"
-    Dim byteArray() As Byte
-    ReDim byteArray(0)
-    Dim dataObject As New DataVO
-    dataObject.target = "fcsh_start"
-    dataObject.data = "Flex Compiler SHell started"
-    dataObject.serialize byteArray
-    sendByteArray byteArray
-End Sub
-
-Private Sub fcsh_onError(msg As String)
-    log.xError msg
-    Dim byteArray() As Byte
-    ReDim byteArray(0)
-    Dim error As New ErrorVO
-    error.id = 1&
-    error.description = msg
-    error.serialize byteArray
-    sendByteArray byteArray
-End Sub
-
-Private Sub fcsh_onDataArrival(data As String)
-    log.xDebug data
-    Dim byteArray() As Byte
-    ReDim byteArray(0)
-    Dim dataObject As New DataVO
-    dataObject.target = "fcsh_data"
-    dataObject.data = data
-    dataObject.serialize byteArray
-    sendByteArray byteArray
-End Sub
 
 Private Sub fcsh_calllback(data As String, target As String)
     log.xInfo "Callback: target=" + target + " data=" + data
@@ -292,18 +273,6 @@ Private Sub fcsh_calllback(data As String, target As String)
     dataObject.serialize byteArray
     sendByteArray byteArray
 End Sub
-
-Private Sub sendCommand(data As String, target As String)
-    log.xInfo "Send command: target=" + target + " data=" + data
-    Dim byteArray() As Byte
-    ReDim byteArray(0)
-    Dim dataObject As New CommandVO
-    dataObject.target = target
-    dataObject.command = data
-    dataObject.serialize byteArray
-    sendByteArray byteArray
-End Sub
-
 
 
 Private Sub fakeTray_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
@@ -338,19 +307,19 @@ End Sub
 
 
 Private Sub mnu_about_Click()
-    Dim result As String
-    result = "Flex Compiler SHell Server. Version " & App.Major & "." & App.Minor & "." & App.Revision & vbCrLf & vbCrLf
+    Dim Result As String
+    Result = "Flex Compiler SHell Server. Version " & App.Major & "." & App.Minor & "." & App.Revision & vbCrLf & vbCrLf
     If (Server.State = sckListening) Then
-        result = result + "Server is listening on port " & Server.LocalPort & vbCrLf & vbCrLf
+        Result = Result + "Server is listening on port " & Server.LocalPort & vbCrLf & vbCrLf
     Else
-        result = result + "Warning: Server socket state " & Server.State & vbCrLf & vbCrLf
+        Result = Result + "Warning: Server socket state " & Server.State & vbCrLf & vbCrLf
     End If
     
-    result = result + "Is client connected: " & (Service.State = sckConnected) & vbCrLf & vbCrLf
+    Result = Result + "Is client connected: " & (Service.State = sckConnected) & vbCrLf & vbCrLf
 
-    result = result + "Is fcsh running: " & (fcsh.isRunning)
+    Result = Result + "Is fcsh running: " & (fcsh.isRunning)
     
-    MsgBox result, vbOKOnly, "About"
+    MsgBox Result, vbOKOnly, "About"
 End Sub
 
 Private Sub mnu_exit_Click()
@@ -374,4 +343,15 @@ End Sub
 Private Sub VBHotKey1_HotkeyPressed()
     log.xInfo "HotKey pressed"
     sendCommand "empty", "system_hotkey"
+End Sub
+
+Private Sub sendCommand(data As String, target As String)
+    log.xInfo "Send command: target=" + target + " data=" + data
+    Dim byteArray() As Byte
+    ReDim byteArray(0)
+    Dim dataObject As New CommandVO
+    dataObject.target = target
+    dataObject.command = data
+    dataObject.serialize byteArray
+    sendByteArray byteArray
 End Sub

@@ -16,6 +16,7 @@ Private Sub Class_Initialize()
     Open App.path + "/" + "FCSHServer.log" For Append As #1
     Print #1, vbCrLf
     Print #1, "--------------------------------------------------------------------------"
+    Close #1
 End Sub
 
 Public Sub xDebug(msg As String)
@@ -36,10 +37,9 @@ End Sub
 
 Private Sub output(msg As String, prefix As String)
     Debug.Print prefix + " " & Now & " " + msg
+    Open App.path + "/" + "FCSHServer.log" For Append As #1
     Print #1, prefix + " " & Now & " " + msg
-End Sub
-
-
-Private Sub Class_Terminate()
     Close #1
 End Sub
+
+
