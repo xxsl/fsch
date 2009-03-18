@@ -137,7 +137,7 @@ Private Sub Service_DataArrival(ByVal bytesTotal As Long)
            Dim objectLength As Long, i As Long, buffer() As Byte
            Service.PeekData buffer, , 4
            objectLength = convertInt(buffer)
-           log.xInfo "Object length: " & objectLength
+           log.xInfo "Object length: " & objectLength & " bytesTotal: " & bytesTotal
             
            'if structure arrived completely then deserialize
            If ((bytesTotal - 4) = objectLength) Then
@@ -251,11 +251,15 @@ Private Sub fcsh_onStart(value As DataVO)
 End Sub
 
 Private Sub fcsh_onError(value As ErrorVO)
-    sendDataVO value
+    log.xError value.toString
+    Dim byteArray() As Byte
+    ReDim byteArray(0)
+    value.serialize byteArray
+    sendByteArray byteArray
 End Sub
 
 Private Sub sendDataVO(data As DataVO)
-    log.xError data.toString
+    log.xDebug data.toString
     Dim byteArray() As Byte
     ReDim byteArray(0)
     data.serialize byteArray

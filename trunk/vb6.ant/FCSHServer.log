@@ -312,3 +312,514 @@ C:\\realworld.swf (1072743 bytes)
 [INFO] 18.03.2009 22:43:55 [send complete]
 [INFO] 18.03.2009 22:43:58 Service connection closed
 [INFO] 18.03.2009 22:44:03 Application stopped
+
+
+--------------------------------------------------------------------------
+[INFO] 18.03.2009 23:26:42 Application started
+[INFO] 18.03.2009 23:26:42 initialize preferences
+[INFO] 18.03.2009 23:26:42 Server is listening on port 40000
+[INFO] 18.03.2009 23:26:45 Accepted connection request 964
+[INFO] 18.03.2009 23:26:45 Object length: 604262148
+[INFO] 18.03.2009 23:26:45 Object length: 604262148
+[INFO] 18.03.2009 23:26:45 Object length: 604262148
+[INFO] 18.03.2009 23:26:45 Object length: 604262148
+[INFO] 18.03.2009 23:26:45 Service connection closed
+[INFO] 18.03.2009 23:27:47 Accepted connection request 956
+[INFO] 18.03.2009 23:27:47 Object length: 114
+[INFO] 18.03.2009 23:27:47 Object type: amf.vo::BaloonVO
+[INFO] 18.03.2009 23:27:47 Class=amf.vo::BaloonVO; baloon_type=1; title=Info; message=Client connected successfully;
+[INFO] 18.03.2009 23:27:47 Object length: 82
+[INFO] 18.03.2009 23:27:47 Object type: amf.vo::CommandVO
+[INFO] 18.03.2009 23:27:47 Class=amf.vo::CommandVO; target=fcsh_getstate; command=empty;
+[INFO] 18.03.2009 23:27:47 Command: target=fcsh_getstate command=empty
+[INFO] 18.03.2009 23:27:47 Callback: target=fcsh_getstate data=false
+[INFO] 18.03.2009 23:27:47 Sending 76 bytes
+[INFO] 18.03.2009 23:27:47 [send complete]
+[INFO] 18.03.2009 23:27:53 Service connection closed
+[INFO] 18.03.2009 23:32:51 Accepted connection request 964
+[INFO] 18.03.2009 23:32:51 Object length: 36
+[INFO] 18.03.2009 23:32:51 Service connection closed
+[INFO] 18.03.2009 23:33:41 Accepted connection request 956
+[INFO] 18.03.2009 23:33:41 Object length: 36
+[INFO] 18.03.2009 23:33:41 Service connection closed
+[INFO] 18.03.2009 23:33:49 Accepted connection request 964
+[INFO] 18.03.2009 23:33:49 Object length: 36
+[INFO] 18.03.2009 23:33:49 Service connection closed
+[INFO] 18.03.2009 23:33:57 Accepted connection request 956
+[INFO] 18.03.2009 23:33:57 Object length: 36
+[INFO] 18.03.2009 23:33:57 Service connection closed
+[INFO] 18.03.2009 23:33:59 Accepted connection request 964
+[INFO] 18.03.2009 23:33:59 Object length: 36
+[INFO] 18.03.2009 23:33:59 Service connection closed
+[INFO] 18.03.2009 23:34:20 Application stopped
+
+
+--------------------------------------------------------------------------
+[INFO] 18.03.2009 23:34:41 Application started
+[INFO] 18.03.2009 23:34:41 initialize preferences
+[INFO] 18.03.2009 23:34:41 Server is listening on port 40000
+[INFO] 18.03.2009 23:34:46 Accepted connection request 940
+[INFO] 18.03.2009 23:34:46 Object length: 36 bytesTotal: 8192
+[INFO] 18.03.2009 23:34:46 Service connection closed
+[INFO] 18.03.2009 23:37:45 Accepted connection request 972
+[INFO] 18.03.2009 23:37:45 Object length: 36 bytesTotal: 82
+[INFO] 18.03.2009 23:37:45 Service connection closed
+[INFO] 18.03.2009 23:40:29 Accepted connection request 996
+[INFO] 18.03.2009 23:40:29 Object length: 0 bytesTotal: 86
+[INFO] 18.03.2009 23:40:29 Service connection closed
+[INFO] 18.03.2009 23:43:10 Accepted connection request 972
+[INFO] 18.03.2009 23:43:10 Object length: 82 bytesTotal: 8114
+[INFO] 18.03.2009 23:43:10 Service connection closed
+[INFO] 18.03.2009 23:43:26 Accepted connection request 996
+[INFO] 18.03.2009 23:43:26 Object length: 82 bytesTotal: 86
+[INFO] 18.03.2009 23:43:26 Object type: ?amf.vo::CommandVO
+[INFO] 18.03.2009 23:43:26 Service connection closed
+[INFO] 18.03.2009 23:44:57 Accepted connection request 972
+[INFO] 18.03.2009 23:44:57 Object length: 82 bytesTotal: 86
+[INFO] 18.03.2009 23:44:57 Object type: ?????????????????  ,?????  6?????????? g ?l	????????Л?????????????? $??   ?  ?	  ??? ??   ??( ??@ ?P ?	  ???X ?£` ?£x ?? ?	  ???Ш ?£† ?£∞ ?£A ?? ?	  ???O ?£HBa ?I ??*$e?
+   ?  ?  ?	  ???  ?? 0 ??8 ??P ?` ?	  ???h ?£p ?£? ?£† ?? ?	  ???A ?£E ?£O ?£e ?£o ?C ?	  ???D ?јh^E ?b ?	  ???	$*t?   ?  ?	  ??? ??   ??( ??@ ?P ?	  ???X ?£` ?£x ?? ?	  ???Ш ?£† ?£∞ ?£A ?? ?	  ???O ?£FBa ?I L?A$N??????????????? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ?!?!?!?!?!?!?!?!?!?!?!?!?!?!?!?!?!?!?!?!?!?!?!?!?!?!?!?!?!?!?!?!?!?!?"?#?#?$?$????                                                                                                          A?Procedure   ??!?!?!?!A???? ??? ?ђ ?`   ]?I  ? ?$?'?    ? ?'?i?( ??   ? ?$?'?    ? ?$?'? ??o?h ??   ? ???  ? ???  ? ??? o?( ??  ґ??? ?ґ	????= ?ґ???= ?ґ;'? i?? ??E Y?                                                                            	?  ??            Al???        I???????? ??  ??C?????x??? ?!$8\    B  A?a?? ? ? b  ?        ?      E?  ?????? ??  ??C?????x??? ?!$8\    B  A?a?A ??? ??        ??     C?!??????????????????????????????в??y?????y?? ??!,X,       A??    ??u?  ???????????|?|????????x?????|???x???|???hy? ? ?!4`,       A??    ?|s???????????????? ???????????????? ?!$L$             ??????o?????????????8H? в??y???????  ????????????? A?? 3??!d$             ????????????????????????? ?! 0,        ??    ??o???????????????  ?!$$             ??????????????????? ??? ?!4$             ??????????????????????????????F  ?y? ?! H,        ??    ??)j?#  ????????? ??????? ?  ? ??????  ?= =+ncalrpc:[OLEAA46A8F545534301A70C41A33F1F]  
+?BANANAS\Dookie       D D ?? ????????   ?????????? ????    ??I ?  A)???$???????????????????????????$?? √????+?0&????+?8&??????????????????????e?????(?? Ў???(????????8H? ?y°??(???????*??√???|??0,???|??8,????????????????????????????.?? Ў???.????????8H? ?y°x?.?? ? ?!$O< P  $    ?x?|??    ??u?AAD?#??!?#??!?!?!?#??? ?#?#? ?#? ? ? ?!? ?? ? ? ?#???$???$?$?$?$?$?$? ?$?$?!?$??!?!??!?!??!?!??!?!?$?$?$?$?$????$?$?$?$?$?!? ? ? ?!? ? ? ? ? ?#???????? ??????!                                                                                      ?#??????!???!???!???#??? ??? ???#???#??? ???#??? ??? ??? ???!??? ?????? ??? ??? ???#???????$???$???$???$???$???$???$???$??? ???$???$???!???$??????!???!??????!???!??????!???!??????!???!???$???$???$???$???$????????????$???$???$???$???$???!??? ??? ??? ???!??? ??? ??? ??? ??? ???#???????????????#?????? ??????????????????!???????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????
+AA????????Л??????????????????????????ђ
+
+L??  ?????    ??     ?   ??$??    
+?  amf.vo::DataVO ?? i   ?  I   ?  i??  ?????    ??        ????? ??     E????????Л???????????Ы??ђe????????Л?????????????????  	c????????Л???????????????????? ??	A   ?  c   ?  z????????Л???????????Ы??iZ????????Л???????????????????w   ?  U   ?$  u   ?  T	????????Л?????????????? t????????Л?????????????????? s   ?  OMicrosoft Sans Serif    ?ncalrpc 	O????????Л?????????????????????  	N @  ????? ?   ?  ? ??l  l???l 6  **?$?!A??0   ?!?ґ/ґ???????ђЂIђO ?O ђOґJ?????????????????????????????????????OђV\o?H ?p   ?ґ???]?G?o?  ??   ?ґ????G  o?o ?I   ?ґ????G% o?? ??   ?ґ???]?G?o?? ?j  [U ?ґ  ?ґ  ?O  ?!?ґ/ґ???????ђЂIђO ?ґ  ?ґ  ?O? ђV ?o?  AA???tbarWndClass 2 ?     ?       ?o            ?  ?   ?   Ш ? ??g% ??            ??                                     ????     ??       ???  ????        ???  ??  ????      ??    ?????     ? ?   ?  0     r       ???C?  ??b  ?? Ѓ'?!AJ(Declarations)  Ѓ?'?a??????   Ѓ?'?a??????????   Ѓ?'?a??????????n  Ѓ?'?a???????????? Ѓ?'?a???????p Ѓ?'?a????????nЃ?'?!e-????     ?  ???????   ?a        ???      ?    ?  ??      ??????a????????  ??  ?????????      ??n   Dy     ? ? ????       ??!      ??    ?     ??????L?    ??????L?  ЖЖ??????L?  ЖЖ??????L?  @ ??????L?   ??????L?   ???????L?  o ??????L?    ??????L?    ??????L?    ??????L?    ??????L?    ??????L?    ??????L?    ??????L?    ??????L?    ??????L?    ??????C?    ????DDt ? ??? ? : Warning: Server s
+[INFO] 18.03.2009 23:44:57 Service connection closed
+[INFO] 18.03.2009 23:45:15 Accepted connection request 996
+[INFO] 18.03.2009 23:45:15 Object length: 82 bytesTotal: 4
+[ERROR] 18.03.2009 23:45:15 Service socket error: Connection is aborted due to timeout or other failure
+[INFO] 18.03.2009 23:45:29 Accepted connection request 996
+[INFO] 18.03.2009 23:45:29 Object length: 82 bytesTotal: 85
+[INFO] 18.03.2009 23:45:29 Service connection closed
+[INFO] 18.03.2009 23:45:37 Accepted connection request 972
+[INFO] 18.03.2009 23:45:37 Object length: 82 bytesTotal: 85
+[INFO] 18.03.2009 23:45:37 Service connection closed
+[INFO] 18.03.2009 23:45:56 Accepted connection request 940
+[INFO] 18.03.2009 23:45:56 Object length: 82 bytesTotal: 86
+[INFO] 18.03.2009 23:45:56 Object type: ?amf.vo::CommandVO
+[INFO] 18.03.2009 23:45:56 Service connection closed
+[INFO] 18.03.2009 23:46:23 Accepted connection request 868
+[INFO] 18.03.2009 23:46:23 Object length: 82 bytesTotal: 86
+[INFO] 18.03.2009 23:46:23 Object type: ?amf.vo::CommandVO
+[INFO] 18.03.2009 23:46:23 Service connection closed
+[INFO] 18.03.2009 23:47:28 Accepted connection request 940
+[INFO] 18.03.2009 23:47:28 Object length: 82 bytesTotal: 86
+[INFO] 18.03.2009 23:47:28 Object type: ??????????????????
+[INFO] 18.03.2009 23:47:28 Service connection closed
+[INFO] 18.03.2009 23:47:42 Accepted connection request 868
+[INFO] 18.03.2009 23:47:42 Object length: 82 bytesTotal: 4
+[INFO] 18.03.2009 23:47:42 Object length: 82 bytesTotal: 86
+[INFO] 18.03.2009 23:47:42 Object type: ??????????????????
+[INFO] 18.03.2009 23:47:42 Service connection closed
+[INFO] 18.03.2009 23:47:48 Accepted connection request 996
+[INFO] 18.03.2009 23:47:48 Object length: 82 bytesTotal: 86
+[INFO] 18.03.2009 23:47:48 Object type: ??????????????????
+[INFO] 18.03.2009 23:47:48 Service connection closed
+[INFO] 18.03.2009 23:47:50 Accepted connection request 868
+[INFO] 18.03.2009 23:47:50 Object length: 82 bytesTotal: 86
+[INFO] 18.03.2009 23:47:50 Object type: ??????????????????
+[INFO] 18.03.2009 23:47:50 Service connection closed
+[INFO] 18.03.2009 23:47:58 Accepted connection request 996
+[INFO] 18.03.2009 23:47:58 Object length: 44 bytesTotal: 48
+[INFO] 18.03.2009 23:47:58 Object type: ????????
+[INFO] 18.03.2009 23:47:58 Service connection closed
+[INFO] 18.03.2009 23:48:11 Accepted connection request 868
+[INFO] 18.03.2009 23:48:11 Object length: 82 bytesTotal: 86
+[INFO] 18.03.2009 23:48:11 Object type: ?amf.vo::CommandVO
+[INFO] 18.03.2009 23:48:11 Service connection closed
+[INFO] 18.03.2009 23:48:46 Accepted connection request 996
+[INFO] 18.03.2009 23:48:46 Object length: 81 bytesTotal: 86
+[INFO] 18.03.2009 23:48:46 Service connection closed
+[INFO] 18.03.2009 23:48:59 Accepted connection request 868
+[INFO] 18.03.2009 23:48:59 Object length: 83 bytesTotal: 86
+[INFO] 18.03.2009 23:48:59 Service connection closed
+[INFO] 18.03.2009 23:49:13 Accepted connection request 996
+[INFO] 18.03.2009 23:49:13 Object length: 84 bytesTotal: 86
+[INFO] 18.03.2009 23:49:13 Service connection closed
+[INFO] 18.03.2009 23:49:20 Accepted connection request 972
+[INFO] 18.03.2009 23:49:20 Object length: 86 bytesTotal: 86
+[INFO] 18.03.2009 23:49:20 Service connection closed
+[INFO] 18.03.2009 23:49:33 Accepted connection request 940
+[INFO] 18.03.2009 23:49:33 Object length: 114 bytesTotal: 118
+[INFO] 18.03.2009 23:49:33 Object type: amf.vo::BaloonVO
+[INFO] 18.03.2009 23:49:33 Class=amf.vo::BaloonVO; baloon_type=1; title=Info; message=Client connected successfully;
+[INFO] 18.03.2009 23:49:33 Object length: 82 bytesTotal: 86
+[INFO] 18.03.2009 23:49:33 Object type: amf.vo::CommandVO
+[INFO] 18.03.2009 23:49:33 Class=amf.vo::CommandVO; target=fcsh_getstate; command=empty;
+[INFO] 18.03.2009 23:49:33 Command: target=fcsh_getstate command=empty
+[INFO] 18.03.2009 23:49:33 Callback: target=fcsh_getstate data=false
+[INFO] 18.03.2009 23:49:33 Sending 76 bytes
+[INFO] 18.03.2009 23:49:33 [send complete]
+[INFO] 18.03.2009 23:49:37 Service connection closed
+[INFO] 18.03.2009 23:51:40 Accepted connection request 972
+[INFO] 18.03.2009 23:52:10 Object length: 82 bytesTotal: 86
+[INFO] 18.03.2009 23:52:10 Object type: ?amf.vo::CommandVO
+[INFO] 18.03.2009 23:52:10 Service connection closed
+[INFO] 18.03.2009 23:52:15 Accepted connection request 940
+[INFO] 18.03.2009 23:53:31 Object length: 82 bytesTotal: 4
+[ERROR] 18.03.2009 23:54:02 Service socket error: Connection is aborted due to timeout or other failure
+[INFO] 18.03.2009 23:54:39 Accepted connection request 940
+[INFO] 18.03.2009 23:54:39 Object length: 0 bytesTotal: 86
+[INFO] 18.03.2009 23:54:39 Service connection closed
+[INFO] 18.03.2009 23:55:54 Accepted connection request 944
+[INFO] 18.03.2009 23:55:54 Object length: 82 bytesTotal: 4
+[INFO] 18.03.2009 23:55:54 Object length: 82 bytesTotal: 86
+[INFO] 18.03.2009 23:55:54 Object type: ?amf.vo::CommandVO
+[INFO] 18.03.2009 23:55:54 Service connection closed
+[INFO] 19.03.2009 0:01:26 Accepted connection request 868
+[INFO] 19.03.2009 0:01:26 Object length: 76 bytesTotal: 80
+[INFO] 19.03.2009 0:01:26 Object type: ?????????????????
+[INFO] 19.03.2009 0:01:26 Service connection closed
+[INFO] 19.03.2009 0:01:44 Accepted connection request 944
+[INFO] 19.03.2009 0:01:44 Object length: 76 bytesTotal: 80
+[INFO] 19.03.2009 0:01:44 Object type: amf.vo::CommandVO
+[INFO] 19.03.2009 0:01:44 Class=amf.vo::CommandVO; target=fcsh_start; command=empty;
+[INFO] 19.03.2009 0:01:44 Command: target=fcsh_start command=empty
+[ERROR] 19.03.2009 0:01:45 Class=amf.vo::DataVO; target=fcsh_start; data=empty;
+[INFO] 19.03.2009 0:01:45 Sending 70 bytes
+[INFO] 19.03.2009 0:01:45 Service connection closed
+[INFO] 19.03.2009 0:01:45 [send complete]
+[INFO] 19.03.2009 0:02:11 Accepted connection request 940
+[INFO] 19.03.2009 0:02:11 Object length: 76 bytesTotal: 80
+[INFO] 19.03.2009 0:02:11 Object type: amf.vo::CommandVO
+[INFO] 19.03.2009 0:02:11 Class=amf.vo::CommandVO; target=fcsh_start; command=empty;
+[INFO] 19.03.2009 0:02:11 Command: target=fcsh_start command=empty
+
+
+--------------------------------------------------------------------------
+[INFO] 19.03.2009 0:03:32 Application started
+[INFO] 19.03.2009 0:03:32 initialize preferences
+[INFO] 19.03.2009 0:03:32 Server is listening on port 40000
+[INFO] 19.03.2009 0:03:35 Accepted connection request 944
+[INFO] 19.03.2009 0:03:35 Object length: 76 bytesTotal: 80
+[INFO] 19.03.2009 0:03:35 Object type: amf.vo::CommandVO
+[INFO] 19.03.2009 0:03:35 Class=amf.vo::CommandVO; target=fcsh_start; command=empty;
+[INFO] 19.03.2009 0:03:35 Command: target=fcsh_start command=empty
+[DEBUG] 19.03.2009 0:03:36 Class=amf.vo::DataVO; target=fcsh_start; data=empty;
+[INFO] 19.03.2009 0:03:36 Sending 70 bytes
+[INFO] 19.03.2009 0:03:36 Service connection closed
+[INFO] 19.03.2009 0:03:36 [send complete]
+[INFO] 19.03.2009 0:03:43 Accepted connection request 1016
+[INFO] 19.03.2009 0:03:43 Object length: 76 bytesTotal: 80
+[INFO] 19.03.2009 0:03:43 Object type: amf.vo::CommandVO
+[INFO] 19.03.2009 0:03:43 Class=amf.vo::CommandVO; target=fcsh_start; command=empty;
+[INFO] 19.03.2009 0:03:43 Command: target=fcsh_start command=empty
+[ERROR] 19.03.2009 0:03:43 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 19.03.2009 0:03:43 Sending 88 bytes
+[INFO] 19.03.2009 0:03:43 Service connection closed
+[INFO] 19.03.2009 0:03:43 [send complete]
+[INFO] 19.03.2009 0:03:50 Accepted connection request 944
+[INFO] 19.03.2009 0:03:50 Object length: 76 bytesTotal: 80
+[INFO] 19.03.2009 0:03:50 Object type: amf.vo::CommandVO
+[INFO] 19.03.2009 0:03:50 Class=amf.vo::CommandVO; target=fcsh_start; command=empty;
+[INFO] 19.03.2009 0:03:50 Command: target=fcsh_start command=empty
+[ERROR] 19.03.2009 0:03:50 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 19.03.2009 0:03:50 Sending 88 bytes
+[INFO] 19.03.2009 0:03:50 Service connection closed
+[INFO] 19.03.2009 0:03:50 [send complete]
+[INFO] 19.03.2009 0:05:29 Accepted connection request 992
+[INFO] 19.03.2009 0:05:29 Object length: 76 bytesTotal: 80
+[INFO] 19.03.2009 0:05:29 Object type: amf.vo::CommandVO
+[INFO] 19.03.2009 0:05:29 Class=amf.vo::CommandVO; target=fcsh_start; command=empty;
+[INFO] 19.03.2009 0:05:29 Command: target=fcsh_start command=empty
+[ERROR] 19.03.2009 0:05:29 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 19.03.2009 0:05:29 Sending 88 bytes
+[INFO] 19.03.2009 0:05:29 [send complete]
+[INFO] 19.03.2009 0:05:29 Service connection closed
+[INFO] 19.03.2009 0:06:03 Accepted connection request 1016
+[INFO] 19.03.2009 0:06:03 Object length: 76 bytesTotal: 80
+[INFO] 19.03.2009 0:06:03 Object type: amf.vo::CommandVO
+[INFO] 19.03.2009 0:06:03 Class=amf.vo::CommandVO; target=fcsh_start; command=empty;
+[INFO] 19.03.2009 0:06:03 Command: target=fcsh_start command=empty
+[ERROR] 19.03.2009 0:06:03 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 19.03.2009 0:06:03 Sending 88 bytes
+[INFO] 19.03.2009 0:06:03 [send complete]
+[INFO] 19.03.2009 0:06:03 Service connection closed
+[INFO] 19.03.2009 0:11:13 Accepted connection request 1036
+[INFO] 19.03.2009 0:11:13 Object length: 76 bytesTotal: 4
+[INFO] 19.03.2009 0:11:13 Object length: 76 bytesTotal: 80
+[INFO] 19.03.2009 0:11:13 Object type: amf.vo::CommandVO
+[INFO] 19.03.2009 0:11:13 Class=amf.vo::CommandVO; target=fcsh_start; command=empty;
+[INFO] 19.03.2009 0:11:13 Command: target=fcsh_start command=empty
+[ERROR] 19.03.2009 0:11:13 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 19.03.2009 0:11:13 Sending 88 bytes
+[INFO] 19.03.2009 0:11:13 [send complete]
+[INFO] 19.03.2009 0:11:13 Service connection closed
+[INFO] 19.03.2009 0:22:01 Accepted connection request 928
+[INFO] 19.03.2009 0:22:01 Object length: 1275068416 bytesTotal: 77
+[ERROR] 19.03.2009 0:22:17 Service socket error: Connection is aborted due to timeout or other failure
+[INFO] 19.03.2009 0:24:41 Accepted connection request 928
+[INFO] 19.03.2009 0:24:41 Object length: 76 bytesTotal: 80
+[INFO] 19.03.2009 0:24:41 Object type: amf.vo::CommandVO
+[INFO] 19.03.2009 0:24:41 Class=amf.vo::CommandVO; target=fcsh_start; command=empty;
+[INFO] 19.03.2009 0:24:41 Command: target=fcsh_start command=empty
+[ERROR] 19.03.2009 0:24:41 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 19.03.2009 0:24:41 Sending 88 bytes
+[INFO] 19.03.2009 0:24:41 [send complete]
+[INFO] 19.03.2009 0:24:41 Service connection closed
+[INFO] 19.03.2009 0:50:09 Accepted connection request 992
+[INFO] 19.03.2009 0:50:09 Object length: 76 bytesTotal: 80
+[INFO] 19.03.2009 0:50:09 Object type: amf.vo::CommandVO
+[INFO] 19.03.2009 0:50:09 Class=amf.vo::CommandVO; target=fcsh_start; command=empty;
+[INFO] 19.03.2009 0:50:09 Command: target=fcsh_start command=empty
+[ERROR] 19.03.2009 0:50:09 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 19.03.2009 0:50:09 Sending 88 bytes
+[INFO] 19.03.2009 0:50:09 [send complete]
+[ERROR] 19.03.2009 0:50:09 Service socket error: Connection is aborted due to timeout or other failure
+[INFO] 19.03.2009 0:51:00 Accepted connection request 928
+[INFO] 19.03.2009 0:51:00 Object length: 76 bytesTotal: 4
+[INFO] 19.03.2009 0:51:00 Object length: 76 bytesTotal: 80
+[INFO] 19.03.2009 0:51:00 Object type: amf.vo::CommandVO
+[INFO] 19.03.2009 0:51:00 Class=amf.vo::CommandVO; target=fcsh_start; command=empty;
+[INFO] 19.03.2009 0:51:00 Command: target=fcsh_start command=empty
+[ERROR] 19.03.2009 0:51:00 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 19.03.2009 0:51:00 Sending 88 bytes
+[INFO] 19.03.2009 0:51:00 [send complete]
+[ERROR] 19.03.2009 0:51:20 Service socket error: Connection is aborted due to timeout or other failure
+[INFO] 19.03.2009 0:52:40 Accepted connection request 996
+[INFO] 19.03.2009 0:52:40 Object length: 76 bytesTotal: 80
+[INFO] 19.03.2009 0:52:40 Object type: amf.vo::CommandVO
+[INFO] 19.03.2009 0:52:40 Class=amf.vo::CommandVO; target=fcsh_start; command=empty;
+[INFO] 19.03.2009 0:52:40 Command: target=fcsh_start command=empty
+[ERROR] 19.03.2009 0:52:40 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 19.03.2009 0:52:40 Sending 88 bytes
+[INFO] 19.03.2009 0:52:40 [send complete]
+[INFO] 19.03.2009 0:52:40 Service connection closed
+[INFO] 19.03.2009 0:55:40 Accepted connection request 944
+[INFO] 19.03.2009 0:55:40 Object length: 76 bytesTotal: 4
+[INFO] 19.03.2009 0:55:40 Object length: 76 bytesTotal: 80
+[INFO] 19.03.2009 0:55:40 Object type: amf.vo::CommandVO
+[INFO] 19.03.2009 0:55:40 Class=amf.vo::CommandVO; target=fcsh_start; command=empty;
+[INFO] 19.03.2009 0:55:40 Command: target=fcsh_start command=empty
+[ERROR] 19.03.2009 0:55:40 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 19.03.2009 0:55:40 Sending 88 bytes
+[INFO] 19.03.2009 0:55:40 [send complete]
+[INFO] 19.03.2009 0:55:40 Service connection closed
+[INFO] 19.03.2009 1:01:36 Accepted connection request 928
+[INFO] 19.03.2009 1:01:36 Object length: 114 bytesTotal: 118
+[INFO] 19.03.2009 1:01:36 Object type: amf.vo::BaloonVO
+[INFO] 19.03.2009 1:01:36 Class=amf.vo::BaloonVO; baloon_type=1; title=Info; message=Client connected successfully;
+[INFO] 19.03.2009 1:01:36 Object length: 82 bytesTotal: 86
+[INFO] 19.03.2009 1:01:36 Object type: amf.vo::CommandVO
+[INFO] 19.03.2009 1:01:36 Class=amf.vo::CommandVO; target=fcsh_getstate; command=empty;
+[INFO] 19.03.2009 1:01:36 Command: target=fcsh_getstate command=empty
+[INFO] 19.03.2009 1:01:36 Callback: target=fcsh_getstate data=true
+[INFO] 19.03.2009 1:01:36 Sending 74 bytes
+[INFO] 19.03.2009 1:01:36 [send complete]
+[INFO] 19.03.2009 1:01:38 Object length: 228 bytesTotal: 232
+[INFO] 19.03.2009 1:01:38 Object type: amf.vo::CommandVO
+[INFO] 19.03.2009 1:01:38 Class=amf.vo::CommandVO; target=fcsh; command=mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml;
+[INFO] 19.03.2009 1:01:38 Command: target=fcsh command=mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml
+[INFO] 19.03.2009 1:01:38 fcsh execute: mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml
+[INFO] 19.03.2009 1:01:38 Compile target: mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml
+[WARN] 19.03.2009 1:01:45 [FCSH] Build warnings
+[INFO] 19.03.2009 1:01:45 [FCSH] Target id assigned 1
+[DEBUG] 19.03.2009 1:01:45 Class=amf.vo::DataVO; target=fcsh_build_warn; data=fcsh: Assigned 1 as the compile target id
+Loading configuration file C:\work\3.3\frameworks\flex-config.xml
+Loading configuration file C:\work\realworld\FLX\src\flex-config.xml
+C:\work\realworld\FLX\src\realworld.mxml(33): Warning: ќбъект var 'test' добавитс€ в область внутреннего пространства имен по умолчанию: realworld:. ќн не будет виден за пределами этого пакета.
+
+	   var test:String ;
+
+C:\\realworld.swf (1072744 bytes)
+(fcsh) ;
+[INFO] 19.03.2009 1:01:45 Sending 958 bytes
+[INFO] 19.03.2009 1:01:45 [send complete]
+[INFO] 19.03.2009 1:01:53 Application stopped
+
+
+--------------------------------------------------------------------------
+[INFO] 19.03.2009 1:02:01 Application started
+[INFO] 19.03.2009 1:02:01 initialize preferences
+[INFO] 19.03.2009 1:02:01 Server is listening on port 40000
+[INFO] 19.03.2009 1:10:01 Accepted connection request 964
+[INFO] 19.03.2009 1:10:01 Object length: 76 bytesTotal: 80
+[INFO] 19.03.2009 1:10:01 Object type: amf.vo::CommandVO
+[INFO] 19.03.2009 1:10:01 Class=amf.vo::CommandVO; target=fcsh_start; command=empty;
+[INFO] 19.03.2009 1:10:01 Command: target=fcsh_start command=empty
+[DEBUG] 19.03.2009 1:10:02 Class=amf.vo::DataVO; target=fcsh_start; data=empty;
+[INFO] 19.03.2009 1:10:02 Sending 70 bytes
+[INFO] 19.03.2009 1:10:02 [send complete]
+[INFO] 19.03.2009 1:10:02 Object length: 228 bytesTotal: 232
+[INFO] 19.03.2009 1:10:02 Object type: amf.vo::CommandVO
+[INFO] 19.03.2009 1:10:02 Class=amf.vo::CommandVO; target=fcsh; command=mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml;
+[INFO] 19.03.2009 1:10:02 Command: target=fcsh command=mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml
+[INFO] 19.03.2009 1:10:02 fcsh execute: mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml
+[INFO] 19.03.2009 1:10:02 Compile target: mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml
+[INFO] 19.03.2009 1:10:02 Service connection closed
+[WARN] 19.03.2009 1:10:09 [FCSH] Build warnings
+[INFO] 19.03.2009 1:10:09 [FCSH] Target id assigned 1
+[DEBUG] 19.03.2009 1:10:09 Class=amf.vo::DataVO; target=fcsh_build_warn; data=fcsh: Assigned 1 as the compile target id
+Loading configuration file C:\work\3.3\frameworks\flex-config.xml
+Loading configuration file C:\work\realworld\FLX\src\flex-config.xml
+C:\work\realworld\FLX\src\realworld.mxml(33): Warning: ќбъект var 'test' добавитс€ в область внутреннего пространства имен по умолчанию: realworld:. ќн не будет виден за пределами этого пакета.
+
+	   var test:String ;
+
+C:\\realworld.swf (1072743 bytes)
+(fcsh) ;
+[WARN] 19.03.2009 1:10:09 Network falure. There are no clients connected to the server
+[INFO] 19.03.2009 1:10:34 Accepted connection request 544
+[INFO] 19.03.2009 1:10:34 Object length: 74 bytesTotal: 4
+[INFO] 19.03.2009 1:10:34 Object length: 74 bytesTotal: 78
+[INFO] 19.03.2009 1:10:34 Object type: amf.vo::CommandVO
+[INFO] 19.03.2009 1:10:34 Class=amf.vo::CommandVO; target=fcsh_stop; command=empty;
+[INFO] 19.03.2009 1:10:34 Command: target=fcsh_stop command=empty
+[DEBUG] 19.03.2009 1:10:34 Class=amf.vo::DataVO; target=fcsh_stop; data=empty;
+[INFO] 19.03.2009 1:10:34 Sending 68 bytes
+[INFO] 19.03.2009 1:10:34 [send complete]
+[ERROR] 19.03.2009 1:10:34 Service socket error: Connection is aborted due to timeout or other failure
+[INFO] 19.03.2009 1:15:06 Accepted connection request 1036
+[INFO] 19.03.2009 1:15:06 Object length: 76 bytesTotal: 80
+[INFO] 19.03.2009 1:15:06 Object type: amf.vo::CommandVO
+[INFO] 19.03.2009 1:15:06 Class=amf.vo::CommandVO; target=fcsh_start; command=empty;
+[INFO] 19.03.2009 1:15:06 Command: target=fcsh_start command=empty
+[DEBUG] 19.03.2009 1:15:07 Class=amf.vo::DataVO; target=fcsh_start; data=empty;
+[INFO] 19.03.2009 1:15:07 Sending 70 bytes
+[INFO] 19.03.2009 1:15:07 [send complete]
+[INFO] 19.03.2009 1:15:07 Object length: 228 bytesTotal: 232
+[INFO] 19.03.2009 1:15:07 Object type: amf.vo::CommandVO
+[INFO] 19.03.2009 1:15:07 Class=amf.vo::CommandVO; target=fcsh; command=mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml;
+[INFO] 19.03.2009 1:15:07 Command: target=fcsh command=mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml
+[INFO] 19.03.2009 1:15:07 fcsh execute: mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml
+[INFO] 19.03.2009 1:15:07 Compile target: mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml
+[WARN] 19.03.2009 1:15:14 [FCSH] Build warnings
+[INFO] 19.03.2009 1:15:14 [FCSH] Target id assigned 1
+[DEBUG] 19.03.2009 1:15:14 Class=amf.vo::DataVO; target=fcsh_build_warn; data=fcsh: Assigned 1 as the compile target id
+Loading configuration file C:\work\3.3\frameworks\flex-config.xml
+Loading configuration file C:\work\realworld\FLX\src\flex-config.xml
+C:\work\realworld\FLX\src\realworld.mxml(33): Warning: ќбъект var 'test' добавитс€ в область внутреннего пространства имен по умолчанию: realworld:. ќн не будет виден за пределами этого пакета.
+
+	   var test:String ;
+
+C:\\realworld.swf (1072745 bytes)
+(fcsh) ;
+[INFO] 19.03.2009 1:15:14 Sending 958 bytes
+[INFO] 19.03.2009 1:15:14 [send complete]
+[INFO] 19.03.2009 1:15:14 Object length: 228 bytesTotal: 232
+[INFO] 19.03.2009 1:15:14 Object type: amf.vo::CommandVO
+[INFO] 19.03.2009 1:15:14 Class=amf.vo::CommandVO; target=fcsh; command=mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml;
+[INFO] 19.03.2009 1:15:14 Command: target=fcsh command=mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml
+[INFO] 19.03.2009 1:15:14 fcsh execute: mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml
+[INFO] 19.03.2009 1:15:14 Recompile target: mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml
+[INFO] 19.03.2009 1:15:15 [FCSH] Build successfull
+[DEBUG] 19.03.2009 1:15:15 Class=amf.vo::DataVO; target=fcsh_build_success; data=Loading configuration file C:\work\3.3\frameworks\flex-config.xml
+Loading configuration file C:\work\realworld\FLX\src\flex-config.xml
+Nothing has changed since the last compile. Skip...
+C:\\realworld.swf (1072744 bytes)
+(fcsh) ;
+[INFO] 19.03.2009 1:15:15 Sending 540 bytes
+[INFO] 19.03.2009 1:15:15 [send complete]
+[INFO] 19.03.2009 1:15:15 Service connection closed
+[INFO] 19.03.2009 1:15:20 Accepted connection request 1044
+[INFO] 19.03.2009 1:15:20 Object length: 76 bytesTotal: 80
+[INFO] 19.03.2009 1:15:20 Object type: amf.vo::CommandVO
+[INFO] 19.03.2009 1:15:20 Class=amf.vo::CommandVO; target=fcsh_start; command=empty;
+[INFO] 19.03.2009 1:15:20 Command: target=fcsh_start command=empty
+[ERROR] 19.03.2009 1:15:20 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 19.03.2009 1:15:20 Sending 88 bytes
+[INFO] 19.03.2009 1:15:20 [send complete]
+[INFO] 19.03.2009 1:15:20 Object length: 228 bytesTotal: 232
+[INFO] 19.03.2009 1:15:20 Object type: amf.vo::CommandVO
+[INFO] 19.03.2009 1:15:20 Class=amf.vo::CommandVO; target=fcsh; command=mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml;
+[INFO] 19.03.2009 1:15:20 Command: target=fcsh command=mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml
+[INFO] 19.03.2009 1:15:20 fcsh execute: mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml
+[INFO] 19.03.2009 1:15:20 Recompile target: mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml
+[INFO] 19.03.2009 1:15:21 [FCSH] Build successfull
+[DEBUG] 19.03.2009 1:15:21 Class=amf.vo::DataVO; target=fcsh_build_success; data=Loading configuration file C:\work\3.3\frameworks\flex-config.xml
+Loading configuration file C:\work\realworld\FLX\src\flex-config.xml
+Nothing has changed since the last compile. Skip...
+C:\\realworld.swf (1072745 bytes)
+(fcsh) ;
+[INFO] 19.03.2009 1:15:21 Sending 540 bytes
+[INFO] 19.03.2009 1:15:21 [send complete]
+[INFO] 19.03.2009 1:15:21 Object length: 228 bytesTotal: 232
+[INFO] 19.03.2009 1:15:21 Object type: amf.vo::CommandVO
+[INFO] 19.03.2009 1:15:21 Class=amf.vo::CommandVO; target=fcsh; command=mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml;
+[INFO] 19.03.2009 1:15:21 Command: target=fcsh command=mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml
+[INFO] 19.03.2009 1:15:21 fcsh execute: mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml
+[INFO] 19.03.2009 1:15:21 Recompile target: mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml
+[INFO] 19.03.2009 1:15:22 [FCSH] Build successfull
+[DEBUG] 19.03.2009 1:15:22 Class=amf.vo::DataVO; target=fcsh_build_success; data=Loading configuration file C:\work\3.3\frameworks\flex-config.xml
+Loading configuration file C:\work\realworld\FLX\src\flex-config.xml
+Nothing has changed since the last compile. Skip...
+C:\\realworld.swf (1072741 bytes)
+(fcsh) ;
+[INFO] 19.03.2009 1:15:22 Sending 540 bytes
+[INFO] 19.03.2009 1:15:22 [send complete]
+[INFO] 19.03.2009 1:15:22 Service connection closed
+[INFO] 19.03.2009 1:15:33 Accepted connection request 996
+[INFO] 19.03.2009 1:15:34 Object length: 76 bytesTotal: 80
+[INFO] 19.03.2009 1:15:34 Object type: amf.vo::CommandVO
+[INFO] 19.03.2009 1:15:34 Class=amf.vo::CommandVO; target=fcsh_start; command=empty;
+[INFO] 19.03.2009 1:15:34 Command: target=fcsh_start command=empty
+[ERROR] 19.03.2009 1:15:34 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 19.03.2009 1:15:34 Sending 88 bytes
+[INFO] 19.03.2009 1:15:34 [send complete]
+[INFO] 19.03.2009 1:15:34 Object length: 228 bytesTotal: 232
+[INFO] 19.03.2009 1:15:34 Object type: amf.vo::CommandVO
+[INFO] 19.03.2009 1:15:34 Class=amf.vo::CommandVO; target=fcsh; command=mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml;
+[INFO] 19.03.2009 1:15:34 Command: target=fcsh command=mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml
+[INFO] 19.03.2009 1:15:34 fcsh execute: mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml
+[INFO] 19.03.2009 1:15:34 Recompile target: mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml
+[INFO] 19.03.2009 1:15:34 [FCSH] Build successfull
+[DEBUG] 19.03.2009 1:15:34 Class=amf.vo::DataVO; target=fcsh_build_success; data=Loading configuration file C:\work\3.3\frameworks\flex-config.xml
+Loading configuration file C:\work\realworld\FLX\src\flex-config.xml
+Nothing has changed since the last compile. Skip...
+C:\\realworld.swf (1072746 bytes)
+(fcsh) ;
+[INFO] 19.03.2009 1:15:34 Sending 540 bytes
+[INFO] 19.03.2009 1:15:34 [send complete]
+[INFO] 19.03.2009 1:15:34 Object length: 228 bytesTotal: 232
+[INFO] 19.03.2009 1:15:34 Object type: amf.vo::CommandVO
+[INFO] 19.03.2009 1:15:34 Class=amf.vo::CommandVO; target=fcsh; command=mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml;
+[INFO] 19.03.2009 1:15:34 Command: target=fcsh command=mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml
+[INFO] 19.03.2009 1:15:34 fcsh execute: mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml
+[INFO] 19.03.2009 1:15:34 Recompile target: mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml
+[INFO] 19.03.2009 1:15:35 [FCSH] Build successfull
+[DEBUG] 19.03.2009 1:15:35 Class=amf.vo::DataVO; target=fcsh_build_success; data=Loading configuration file C:\work\3.3\frameworks\flex-config.xml
+Loading configuration file C:\work\realworld\FLX\src\flex-config.xml
+Nothing has changed since the last compile. Skip...
+C:\\realworld.swf (1072745 bytes)
+(fcsh) ;
+[INFO] 19.03.2009 1:15:35 Sending 540 bytes
+[INFO] 19.03.2009 1:15:35 [send complete]
+[INFO] 19.03.2009 1:15:35 Service connection closed
+[INFO] 19.03.2009 1:17:30 Accepted connection request 960
+[INFO] 19.03.2009 1:17:30 Object length: 76 bytesTotal: 80
+[INFO] 19.03.2009 1:17:30 Object type: amf.vo::CommandVO
+[INFO] 19.03.2009 1:17:30 Class=amf.vo::CommandVO; target=fcsh_start; command=empty;
+[INFO] 19.03.2009 1:17:30 Command: target=fcsh_start command=empty
+[ERROR] 19.03.2009 1:17:30 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 19.03.2009 1:17:30 Sending 88 bytes
+[INFO] 19.03.2009 1:17:30 [send complete]
+[INFO] 19.03.2009 1:17:30 Object length: 228 bytesTotal: 232
+[INFO] 19.03.2009 1:17:30 Object type: amf.vo::CommandVO
+[INFO] 19.03.2009 1:17:30 Class=amf.vo::CommandVO; target=fcsh; command=mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml;
+[INFO] 19.03.2009 1:17:30 Command: target=fcsh command=mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml
+[INFO] 19.03.2009 1:17:30 fcsh execute: mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml
+[INFO] 19.03.2009 1:17:30 Recompile target: mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml
+[INFO] 19.03.2009 1:17:31 [FCSH] Build successfull
+[DEBUG] 19.03.2009 1:17:31 Class=amf.vo::DataVO; target=fcsh_build_success; data=Loading configuration file C:\work\3.3\frameworks\flex-config.xml
+Loading configuration file C:\work\realworld\FLX\src\flex-config.xml
+Nothing has changed since the last compile. Skip...
+C:\\realworld.swf (1072747 bytes)
+(fcsh) ;
+[INFO] 19.03.2009 1:17:31 Sending 540 bytes
+[INFO] 19.03.2009 1:17:31 [send complete]
+[INFO] 19.03.2009 1:17:31 Object length: 228 bytesTotal: 232
+[INFO] 19.03.2009 1:17:31 Object type: amf.vo::CommandVO
+[INFO] 19.03.2009 1:17:31 Class=amf.vo::CommandVO; target=fcsh; command=mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml;
+[INFO] 19.03.2009 1:17:31 Command: target=fcsh command=mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml
+[INFO] 19.03.2009 1:17:31 fcsh execute: mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml
+[INFO] 19.03.2009 1:17:31 Recompile target: mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml
+[INFO] 19.03.2009 1:17:32 [FCSH] Build successfull
+[DEBUG] 19.03.2009 1:17:32 Class=amf.vo::DataVO; target=fcsh_build_success; data=Loading configuration file C:\work\3.3\frameworks\flex-config.xml
+Loading configuration file C:\work\realworld\FLX\src\flex-config.xml
+Nothing has changed since the last compile. Skip...
+C:\\realworld.swf (1072742 bytes)
+(fcsh) ;
+[INFO] 19.03.2009 1:17:32 Sending 540 bytes
+[INFO] 19.03.2009 1:17:32 [send complete]
+[INFO] 19.03.2009 1:17:32 Service connection closed
+[INFO] 19.03.2009 1:18:53 Service connection closed
+[INFO] 19.03.2009 1:19:21 Application stopped
