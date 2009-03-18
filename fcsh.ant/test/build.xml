@@ -1,0 +1,11 @@
+<project name="project.main" basedir="." default="build">
+    <taskdef name="CompileFlex" classname="CompileFlex">
+        <classpath>
+            <pathelement location="./fcsh.jar"/>
+        </classpath>
+    </taskdef>
+
+    <target name="build">
+        <CompileFlex/>
+    </target>
+</project>
