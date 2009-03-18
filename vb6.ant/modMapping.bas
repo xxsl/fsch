@@ -1,0 +1,5 @@
+Attribute VB_Name = "modMapping"
+Public Const AIR_COMMANDVO As String = "amf.vo::CommandVO"
+Public Const AIR_BALOONVO As String = "amf.vo::BaloonVO"
+Public Const AIR_ERRORVO As String = "amf.vo::ErrorVO"
+Public Const AIR_DATAVO As String = "amf.vo::DataVO"
