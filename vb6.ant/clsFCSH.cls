@@ -20,6 +20,9 @@ Attribute VB_Exposed = False
 
 Option Explicit
 
+Private Declare Sub Sleep Lib "kernel32" (ByVal dwMilliseconds As Long)
+
+
 Private isInitialized As Boolean
 Private log As clsLog
 Private targets As New Dictionary
@@ -81,6 +84,7 @@ Public Sub Start(path As String)
                 RaiseError FCSH_START_FAILURE, "Windows error: " & CStr(fcsh.LastErrorNumber) & ". Make sure you have configured fcsh.exe path."
            Case laOk
                 isRunning = True
+                Sleep 1000
                 Dim message As New DataVO
                 message.target = FCSH_STARTED
                 message.data = "empty"
