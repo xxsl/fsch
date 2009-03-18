@@ -5,3 +5,108 @@
 [INFO] 13.03.2009 19:58:41 initialize preferences
 [INFO] 13.03.2009 19:58:41 Server is listening on port 40000
 [INFO] 13.03.2009 19:58:44 Application stopped
+
+
+--------------------------------------------------------------------------
+[INFO] 18.03.2009 22:14:17 Application started
+[INFO] 18.03.2009 22:14:17 initialize preferences
+[INFO] 18.03.2009 22:14:17 Server is listening on port 40000
+[INFO] 18.03.2009 22:14:34 Application stopped
+
+
+--------------------------------------------------------------------------
+[INFO] 18.03.2009 22:14:38 Application started
+[INFO] 18.03.2009 22:14:38 initialize preferences
+[INFO] 18.03.2009 22:14:38 Server is listening on port 40000
+[INFO] 18.03.2009 22:14:48 Accepted connection request 440
+[INFO] 18.03.2009 22:14:48 Object length: 114
+[INFO] 18.03.2009 22:14:48 Object type: amf.vo::BaloonVO
+[INFO] 18.03.2009 22:14:48 Class=amf.vo::BaloonVO; baloon_type=1; title=Info; message=Client connected successfully;
+[INFO] 18.03.2009 22:14:48 Object length: 82
+[INFO] 18.03.2009 22:14:48 Object type: amf.vo::CommandVO
+[INFO] 18.03.2009 22:14:48 Class=amf.vo::CommandVO; target=fcsh_getstate; command=empty;
+[INFO] 18.03.2009 22:14:48 Command: target=fcsh_getstate command=empty
+[INFO] 18.03.2009 22:14:48 Callback: target=fcsh_getstate data=false
+[INFO] 18.03.2009 22:14:48 Sending 76 bytes
+[INFO] 18.03.2009 22:14:48 [send complete]
+[INFO] 18.03.2009 22:14:49 Object length: 380
+[INFO] 18.03.2009 22:14:49 Object type: amf.vo::CommandVO
+[INFO] 18.03.2009 22:14:49 Class=amf.vo::CommandVO; target=fcsh_start; command=java.exe -Xmx384m -Xms125m -XX:MaxPermSize=512m -Dsun.io.useCanonCaches=false -Duser.language=en -Dapplication.home=C:\work\3.3 -jar C:\work\3.3/lib/fcsh.jar;
+[INFO] 18.03.2009 22:14:49 Command: target=fcsh_start command=java.exe -Xmx384m -Xms125m -XX:MaxPermSize=512m -Dsun.io.useCanonCaches=false -Duser.language=en -Dapplication.home=C:\work\3.3 -jar C:\work\3.3/lib/fcsh.jar
+[ERROR] 18.03.2009 22:14:49 Class=amf.vo::DataVO; target=fcsh_start; data=empty;
+[INFO] 18.03.2009 22:14:49 Sending 70 bytes
+[INFO] 18.03.2009 22:14:49 [send complete]
+[INFO] 18.03.2009 22:14:49 Object length: 80
+[INFO] 18.03.2009 22:14:49 Object type: amf.vo::BaloonVO
+[INFO] 18.03.2009 22:14:49 Class=amf.vo::BaloonVO; baloon_type=1; title=Info; message=FCSH started;
+[INFO] 18.03.2009 22:14:52 Object length: 228
+[INFO] 18.03.2009 22:14:52 Object type: amf.vo::CommandVO
+[INFO] 18.03.2009 22:14:52 Class=amf.vo::CommandVO; target=fcsh; command=mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml;
+[INFO] 18.03.2009 22:14:52 Command: target=fcsh command=mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml
+[INFO] 18.03.2009 22:14:52 fcsh execute: mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml
+[INFO] 18.03.2009 22:14:52 Compile target: mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml
+[INFO] 18.03.2009 22:14:59 [FCSH] Build successfull
+[INFO] 18.03.2009 22:14:59 [FCSH] Target id assigned 1
+[ERROR] 18.03.2009 22:14:59 Class=amf.vo::DataVO; target=fcsh_build_success; data=fcsh: Assigned 1 as the compile target id
+Loading configuration file C:\work\3.3\frameworks\flex-config.xml
+Loading configuration file C:\work\realworld\FLX\src\flex-config.xml
+C:\\realworld.swf (1072747 bytes)
+(fcsh) ;
+[INFO] 18.03.2009 22:14:59 Sending 520 bytes
+[INFO] 18.03.2009 22:14:59 [send complete]
+[INFO] 18.03.2009 22:16:24 Service connection closed
+[INFO] 18.03.2009 22:16:25 Accepted connection request 504
+[INFO] 18.03.2009 22:16:25 Object length: 114
+[INFO] 18.03.2009 22:16:25 Object type: amf.vo::BaloonVO
+[INFO] 18.03.2009 22:16:25 Class=amf.vo::BaloonVO; baloon_type=1; title=Info; message=Client connected successfully;
+[INFO] 18.03.2009 22:16:25 Object length: 82
+[INFO] 18.03.2009 22:16:25 Object type: amf.vo::CommandVO
+[INFO] 18.03.2009 22:16:25 Class=amf.vo::CommandVO; target=fcsh_getstate; command=empty;
+[INFO] 18.03.2009 22:16:25 Command: target=fcsh_getstate command=empty
+[INFO] 18.03.2009 22:16:25 Callback: target=fcsh_getstate data=true
+[INFO] 18.03.2009 22:16:25 Sending 74 bytes
+[INFO] 18.03.2009 22:16:25 [send complete]
+[INFO] 18.03.2009 22:16:28 Object length: 228
+[INFO] 18.03.2009 22:16:28 Object type: amf.vo::CommandVO
+[INFO] 18.03.2009 22:16:28 Class=amf.vo::CommandVO; target=fcsh; command=mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml;
+[INFO] 18.03.2009 22:16:28 Command: target=fcsh command=mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml
+[INFO] 18.03.2009 22:16:28 fcsh execute: mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml
+[INFO] 18.03.2009 22:16:28 Recompile target: mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml
+[INFO] 18.03.2009 22:16:29 [FCSH] Build successfull
+[ERROR] 18.03.2009 22:16:29 Class=amf.vo::DataVO; target=fcsh_build_success; data=Loading configuration file C:\work\3.3\frameworks\flex-config.xml
+Loading configuration file C:\work\realworld\FLX\src\flex-config.xml
+Nothing has changed since the last compile. Skip...
+C:\\realworld.swf (1072747 bytes)
+(fcsh) ;
+[INFO] 18.03.2009 22:16:29 Sending 540 bytes
+[INFO] 18.03.2009 22:16:29 [send complete]
+[INFO] 18.03.2009 22:16:31 Service connection closed
+[INFO] 18.03.2009 22:17:15 Application stopped
+
+
+--------------------------------------------------------------------------
+[INFO] 18.03.2009 22:25:43 Application started
+[INFO] 18.03.2009 22:25:43 initialize preferences
+[INFO] 18.03.2009 22:25:43 Server is listening on port 40000
+[INFO] 18.03.2009 22:25:47 Accepted connection request 432
+[INFO] 18.03.2009 22:25:47 Object length: 114
+[INFO] 18.03.2009 22:25:47 Object type: amf.vo::BaloonVO
+[INFO] 18.03.2009 22:25:47 Class=amf.vo::BaloonVO; baloon_type=1; title=Info; message=Client connected successfully;
+[INFO] 18.03.2009 22:25:47 Object length: 82
+[INFO] 18.03.2009 22:25:47 Object type: amf.vo::CommandVO
+[INFO] 18.03.2009 22:25:47 Class=amf.vo::CommandVO; target=fcsh_getstate; command=empty;
+[INFO] 18.03.2009 22:25:47 Command: target=fcsh_getstate command=empty
+[INFO] 18.03.2009 22:25:47 Callback: target=fcsh_getstate data=false
+[INFO] 18.03.2009 22:25:47 Sending 76 bytes
+[INFO] 18.03.2009 22:25:47 [send complete]
+[INFO] 18.03.2009 22:25:48 Object length: 380
+[INFO] 18.03.2009 22:25:48 Object type: amf.vo::CommandVO
+[INFO] 18.03.2009 22:25:48 Class=amf.vo::CommandVO; target=fcsh_start; command=java.exe -Xmx384m -Xms125m -XX:MaxPermSize=512m -Dsun.io.useCanonCaches=false -Duser.language=en -Dapplication.home=C:\work\3.3 -jar C:\work\3.3/lib/fcsh.jar;
+[INFO] 18.03.2009 22:25:48 Command: target=fcsh_start command=java.exe -Xmx384m -Xms125m -XX:MaxPermSize=512m -Dsun.io.useCanonCaches=false -Duser.language=en -Dapplication.home=C:\work\3.3 -jar C:\work\3.3/lib/fcsh.jar
+[ERROR] 18.03.2009 22:25:48 Class=amf.vo::DataVO; target=fcsh_start; data=empty;
+[INFO] 18.03.2009 22:25:48 Sending 70 bytes
+[INFO] 18.03.2009 22:25:48 [send complete]
+[INFO] 18.03.2009 22:25:48 Object length: 80
+[INFO] 18.03.2009 22:25:48 Object type: amf.vo::BaloonVO
+[INFO] 18.03.2009 22:25:48 Class=amf.vo::BaloonVO; baloon_type=1; title=Info; message=FCSH started;
+[INFO] 18.03.2009 22:26:26 Application stopped

@@ -62,6 +62,15 @@ Public Property Let SERVER_HOST(ByVal vNewValue As String)
     prefs.WriteValue FCSHServer, "host", vNewValue
 End Property
 
+'exec command
+Public Property Get CMD() As String
+    CMD = prefs.GetValue(FCSHServer, "command", "fcsh.exe")
+End Property
+
+Public Property Let CMD(ByVal vNewValue As String)
+    prefs.WriteValue FCSHServer, "command", vNewValue
+End Property
+
 Public Property Get CONSOLE_BUFFER() As Long
     CONSOLE_BUFFER = Val(prefs.GetValue(FCSHServer, "console.buffer", "8192"))
 End Property
