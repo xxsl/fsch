@@ -8,6 +8,7 @@
     <target name="build">
         <fcsh>
             <arg value="mxmlc"/>
+            <arg value="-locale en_US"/>
             <arg value="-output=C:\realworld.swf"/>
             <arg value="-load-config+=C:\work\realworld\FLX\src\flex-config.xml"/>
         </fcsh>
