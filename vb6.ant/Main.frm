@@ -40,8 +40,18 @@ Begin VB.Form MainForm
       Width           =   1095
    End
    Begin VB.ListBox lstTargets 
-      Height          =   2985
+      BeginProperty Font 
+         Name            =   "MS Sans Serif"
+         Size            =   9.75
+         Charset         =   204
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   2700
       Left            =   120
+      Sorted          =   -1  'True
       TabIndex        =   1
       Top             =   360
       Width           =   7455
