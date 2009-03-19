@@ -2,17 +2,11 @@
 <project relativePaths="false" version="4">
   <component name="ChangeListManager">
     <list default="true" readonly="true" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/arg.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fcsh.ant.iml" afterPath="$PROJECT_DIR$/fcsh.ant.iml" />
-      <change type="MOVED" beforePath="C:\work\google.code\fcsh.ant\src\CompileFlex.java" afterPath="$PROJECT_DIR$/src/fcsh.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/vo/ErrorVO.java" afterPath="$PROJECT_DIR$/src/vo/ErrorVO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/fcsh.java" afterPath="$PROJECT_DIR$/src/fcsh.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fcsh.ant.iws" afterPath="$PROJECT_DIR$/fcsh.ant.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/fcsh.jar" afterPath="$PROJECT_DIR$/test/fcsh.jar" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/constants/BUILD.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/vo/CommandVO.java" afterPath="$PROJECT_DIR$/src/vo/CommandVO.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/vo/Encodings.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/vo/DataVO.java" afterPath="$PROJECT_DIR$/src/vo/DataVO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fcsh.ant.ipr" afterPath="$PROJECT_DIR$/fcsh.ant.ipr" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/build.xml" afterPath="$PROJECT_DIR$/test/build.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/constants" />
     </list>
     <ignored path=".idea/workspace.xml" />
     <ignored path="fcsh.ant.iws" />
@@ -74,7 +68,7 @@
       <file leaf-file-name="fcsh.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/fcsh.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="94" column="0" selection-start="2789" selection-end="2789" vertical-scroll-proportion="0.59600616">
+            <state line="39" column="0" selection-start="787" selection-end="787" vertical-scroll-proportion="-1.9569893">
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="docComment;class#fcsh#0" expanded="true" />
@@ -86,7 +80,7 @@
       <file leaf-file-name="DataVO.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/vo/DataVO.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="35" column="48" selection-start="1067" selection-end="1067" vertical-scroll-proportion="0.0">
+            <state line="36" column="48" selection-start="1068" selection-end="1068" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="docComment;class#DataVO#0" expanded="true" />
@@ -99,27 +93,6 @@
         <entry file="file://$PROJECT_DIR$/src/vo/ErrorVO.java">
           <provider selected="true" editor-type-id="text-editor">
             <state line="14" column="0" selection-start="301" selection-end="301" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CommandVO.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/vo/CommandVO.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="31" column="40" selection-start="794" selection-end="807" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="docComment;class#CommandVO#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Encodings.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/vo/Encodings.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="22" selection-start="182" selection-end="191" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -238,7 +211,7 @@
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
         </PATH_ELEMENT>
         <PATH_ELEMENT>
-          <option name="myItemId" value="vo" />
+          <option name="myItemId" value="constants" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
         </PATH_ELEMENT>
       </PATH>
@@ -437,7 +410,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
-    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="PERFORM_UPDATE_IN_BACKGROUND" value="true" />
     <option name="PERFORM_COMMIT_IN_BACKGROUND" value="true" />
     <option name="PERFORM_EDIT_IN_BACKGROUND" value="true" />
@@ -446,7 +419,7 @@
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="LAST_COMMIT_MESSAGE" value="initial" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
-    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_FILE_COMMIT" value="false" />
     <option name="FILE_HISTORY_DIALOG_COMMENTS_SPLITTER_PROPORTION" value="0.8" />
     <option name="FILE_HISTORY_DIALOG_SPLITTER_PROPORTION" value="0.5" />
@@ -535,30 +508,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/vo/ErrorVO.java">
+    <entry file="file://$PROJECT_DIR$/test/build.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="0" selection-start="301" selection-end="301" vertical-scroll-proportion="0.0">
+        <state line="9" column="29" selection-start="277" selection-end="277" vertical-scroll-proportion="-6.375">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/vo/DataVO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="48" selection-start="1067" selection-end="1067" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="docComment;class#DataVO#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/vo/CommandVO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="40" selection-start="794" selection-end="807" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="docComment;class#CommandVO#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -569,16 +522,45 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/build.xml">
+    <entry file="file://$PROJECT_DIR$/src/vo/DataVO.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="29" selection-start="277" selection-end="277" vertical-scroll-proportion="-6.375">
+        <state line="36" column="48" selection-start="1068" selection-end="1068" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="docComment;class#DataVO#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/constants/BUILD.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="22" selection-start="99" selection-end="104" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="docComment;class#BUILD#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/vo/CommandVO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="31" selection-start="280" selection-end="280" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="docComment;class#CommandVO#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/vo/ErrorVO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="0" selection-start="301" selection-end="301" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/fcsh.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="94" column="0" selection-start="2789" selection-end="2789" vertical-scroll-proportion="0.59600616">
+        <state line="39" column="0" selection-start="787" selection-end="787" vertical-scroll-proportion="-1.9569893">
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="docComment;class#fcsh#0" expanded="true" />
