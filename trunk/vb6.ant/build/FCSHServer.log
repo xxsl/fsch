@@ -1171,3 +1171,493 @@ C:\work\realworld\FLX\src\realworld.mxml(33):  Error: Тип не найден или не являе
 [INFO] 19.03.2009 20:59:18 Compile target: clear 1
 [INFO] 19.03.2009 20:59:18 [FCSH] Build successfull
 [INFO] 19.03.2009 20:59:22 Application stopped
+
+
+--------------------------------------------------------------------------
+[INFO] 19.03.2009 23:22:29 Application started
+[INFO] 19.03.2009 23:22:29 initialize preferences
+[INFO] 19.03.2009 23:22:29 Server is listening on port 40000
+[INFO] 19.03.2009 23:22:29 java.exe -Xmx384m -Xms125m -XX:MaxPermSize=512m -Dsun.io.useCanonCaches=false -Duser.language=en -Dapplication.home=C:\work\3.3 -jar C:\work\3.3\lib\fcsh.jar
+[INFO] 19.03.2009 23:22:46 Application stopped
+
+
+--------------------------------------------------------------------------
+[INFO] 19.03.2009 23:24:07 Application started
+[INFO] 19.03.2009 23:24:07 initialize preferences
+[INFO] 19.03.2009 23:24:07 Server is listening on port 40000
+[INFO] 19.03.2009 23:24:07 java.exe -Xmx384m -Xms125m -XX:MaxPermSize=512m -Dsun.io.useCanonCaches=false -Duser.language=en -Dapplication.home=C:\work\3.3 -jar C:\work\3.3\lib\fcsh.jar
+[INFO] 19.03.2009 23:24:16 Application stopped
+
+
+--------------------------------------------------------------------------
+[INFO] 19.03.2009 23:25:34 Application started
+[INFO] 19.03.2009 23:25:34 initialize preferences
+[INFO] 19.03.2009 23:25:34 Server is listening on port 40000
+[INFO] 19.03.2009 23:25:34 java.exe -Xmx384m -Xms125m -XX:MaxPermSize=512m -Dsun.io.useCanonCaches=false -Duser.language=en -Dapplication.home=C:\work\3.3 -jar C:\work\3.3\lib\fcsh.jar
+[INFO] 19.03.2009 23:25:44 Application stopped
+
+
+--------------------------------------------------------------------------
+[INFO] 19.03.2009 23:27:29 Application started
+[INFO] 19.03.2009 23:27:29 initialize preferences
+[INFO] 19.03.2009 23:27:29 Server is listening on port 40000
+[INFO] 19.03.2009 23:27:29 java.exe -Xmx384m -Xms125m -XX:MaxPermSize=512m -Dsun.io.useCanonCaches=false -Duser.language=en -Dapplication.home=C:\work\3.3 -jar C:\work\3.3\lib\fcsh.jar
+[INFO] 19.03.2009 23:27:47 Application stopped
+
+
+--------------------------------------------------------------------------
+[INFO] 19.03.2009 23:28:46 Application started
+[INFO] 19.03.2009 23:28:46 initialize preferences
+[INFO] 19.03.2009 23:28:46 Server is listening on port 40000
+[INFO] 19.03.2009 23:28:46 java.exe -Xmx384m -Xms125m -XX:MaxPermSize=512m -Dsun.io.useCanonCaches=false -Duser.language=en -Dapplication.home=C:\work\3.3 -jar C:\work\3.3\lib\fcsh.jar
+[INFO] 19.03.2009 23:29:22 Application stopped
+
+
+--------------------------------------------------------------------------
+[INFO] 19.03.2009 23:29:25 Application started
+[INFO] 19.03.2009 23:29:25 initialize preferences
+[INFO] 19.03.2009 23:29:25 Server is listening on port 40000
+[INFO] 19.03.2009 23:29:25 java.exe -Xmx384m -Xms125m -XX:MaxPermSize=512m -Dsun.io.useCanonCaches=false -Duser.language=en -Dapplication.home=C:\work\3.3 -jar C:\work\3.3\lib\fcsh.jar
+[INFO] 19.03.2009 23:29:56 Accepted connection request 1616
+[ERROR] 19.03.2009 23:29:56 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 19.03.2009 23:29:56 Compile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml 
+[INFO] 19.03.2009 23:29:59 Application stopped
+
+
+--------------------------------------------------------------------------
+[INFO] 19.03.2009 23:30:02 Application started
+[INFO] 19.03.2009 23:30:02 initialize preferences
+[INFO] 19.03.2009 23:30:02 Server is listening on port 40000
+[INFO] 19.03.2009 23:30:02 java.exe -Xmx384m -Xms125m -XX:MaxPermSize=512m -Dsun.io.useCanonCaches=false -Duser.language=en -Dapplication.home=C:\work\3.3 -jar C:\work\3.3\lib\fcsh.jar
+[INFO] 19.03.2009 23:30:41 Application stopped
+
+
+--------------------------------------------------------------------------
+[INFO] 19.03.2009 23:30:43 Application started
+[INFO] 19.03.2009 23:30:43 initialize preferences
+[INFO] 19.03.2009 23:30:43 Server is listening on port 40000
+[INFO] 19.03.2009 23:30:43 java.exe -Xmx384m -Xms125m -XX:MaxPermSize=512m -Dsun.io.useCanonCaches=false -Duser.language=en -Dapplication.home=C:\work\3.3 -jar C:\work\3.3\lib\fcsh.jar
+[INFO] 19.03.2009 23:31:20 Accepted connection request 1616
+[ERROR] 19.03.2009 23:31:20 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 19.03.2009 23:31:20 Compile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml 
+[WARN] 19.03.2009 23:31:27 [FCSH] Build warnings
+[INFO] 19.03.2009 23:31:27 [FCSH] Target id assigned 1
+[INFO] 19.03.2009 23:31:27 Service connection closed
+[INFO] 19.03.2009 23:31:30 Application stopped
+
+
+--------------------------------------------------------------------------
+[INFO] 19.03.2009 23:31:35 Application started
+[INFO] 19.03.2009 23:31:35 initialize preferences
+[INFO] 19.03.2009 23:31:35 Server is listening on port 40000
+[INFO] 19.03.2009 23:31:35 java.exe -Xmx384m -Xms125m -XX:MaxPermSize=512m -Dsun.io.useCanonCaches=false -Duser.language=en -Dapplication.home=C:\work\3.3 -jar C:\work\3.3\lib\fcsh.jar
+[INFO] 19.03.2009 23:31:36 Accepted connection request 1616
+[ERROR] 19.03.2009 23:31:36 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 19.03.2009 23:31:36 Compile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml 
+[WARN] 19.03.2009 23:31:43 [FCSH] Build warnings
+[INFO] 19.03.2009 23:31:43 [FCSH] Target id assigned 1
+[INFO] 19.03.2009 23:31:43 Service connection closed
+[INFO] 19.03.2009 23:32:12 Application stopped
+
+
+--------------------------------------------------------------------------
+[INFO] 19.03.2009 23:32:15 Application started
+[INFO] 19.03.2009 23:32:15 initialize preferences
+[INFO] 19.03.2009 23:32:15 Server is listening on port 40000
+[INFO] 19.03.2009 23:32:15 java.exe -Xmx384m -Xms125m -XX:MaxPermSize=512m -Dsun.io.useCanonCaches=false -Duser.language=en -Dapplication.home=C:\work\3.3 -jar C:\work\3.3\lib\fcsh.jar
+[INFO] 19.03.2009 23:32:15 Accepted connection request 1616
+[ERROR] 19.03.2009 23:32:15 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 19.03.2009 23:32:15 Compile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml 
+[WARN] 19.03.2009 23:32:22 [FCSH] Build warnings
+[INFO] 19.03.2009 23:32:22 [FCSH] Target id assigned 1
+[INFO] 19.03.2009 23:32:22 Service connection closed
+[INFO] 19.03.2009 23:32:24 Application stopped
+
+
+--------------------------------------------------------------------------
+[INFO] 19.03.2009 23:33:35 Application started
+[INFO] 19.03.2009 23:33:35 initialize preferences
+[INFO] 19.03.2009 23:33:35 Server is listening on port 40000
+[INFO] 19.03.2009 23:33:35 java.exe -Xmx384m -Xms125m -XX:MaxPermSize=512m -Dsun.io.useCanonCaches=false -Duser.language=en -Dapplication.home=C:\work\3.3 -jar C:\work\3.3\lib\fcsh.jar
+[INFO] 19.03.2009 23:33:36 Accepted connection request 1616
+[ERROR] 19.03.2009 23:33:36 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 19.03.2009 23:33:36 Compile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml 
+[ERROR] 19.03.2009 23:33:38 Service socket error: Connection is aborted due to timeout or other failure
+[INFO] 19.03.2009 23:33:40 Application stopped
+
+
+--------------------------------------------------------------------------
+[INFO] 19.03.2009 23:33:49 Application started
+[INFO] 19.03.2009 23:33:49 initialize preferences
+[INFO] 19.03.2009 23:33:49 Server is listening on port 40000
+[INFO] 19.03.2009 23:33:49 java.exe -Xmx384m -Xms125m -XX:MaxPermSize=512m -Dsun.io.useCanonCaches=false -Duser.language=en -Dapplication.home=C:\work\3.3 -jar C:\work\3.3\lib\fcsh.jar
+[INFO] 19.03.2009 23:33:50 Accepted connection request 1616
+[ERROR] 19.03.2009 23:33:50 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 19.03.2009 23:33:50 Compile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml 
+[WARN] 19.03.2009 23:33:57 [FCSH] Build warnings
+[INFO] 19.03.2009 23:33:57 [FCSH] Target id assigned 1
+[INFO] 19.03.2009 23:33:57 Service connection closed
+[INFO] 19.03.2009 23:37:33 Application stopped
+
+
+--------------------------------------------------------------------------
+[INFO] 19.03.2009 23:37:36 Application started
+[INFO] 19.03.2009 23:37:36 initialize preferences
+[INFO] 19.03.2009 23:37:36 Server is listening on port 40000
+[INFO] 19.03.2009 23:37:36 java.exe -Xmx384m -Xms125m -XX:MaxPermSize=512m -Dsun.io.useCanonCaches=false -Duser.language=en -Dapplication.home=C:\work\3.3 -jar C:\work\3.3\lib\fcsh.jar
+[INFO] 19.03.2009 23:37:36 Accepted connection request 1616
+[ERROR] 19.03.2009 23:37:36 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 19.03.2009 23:37:36 Compile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml 
+[WARN] 19.03.2009 23:37:43 [FCSH] Build warnings
+[INFO] 19.03.2009 23:37:43 [FCSH] Target id assigned 1
+[INFO] 19.03.2009 23:37:43 Service connection closed
+[INFO] 19.03.2009 23:37:48 Compile target: compile 1
+[INFO] 19.03.2009 23:37:49 [FCSH] Build successfull
+[INFO] 19.03.2009 23:37:50 Compile target: clear 1
+[INFO] 19.03.2009 23:37:50 [FCSH] Build successfull
+[INFO] 19.03.2009 23:37:53 Application stopped
+
+
+--------------------------------------------------------------------------
+[INFO] 19.03.2009 23:39:03 Application started
+[INFO] 19.03.2009 23:39:03 initialize preferences
+[INFO] 19.03.2009 23:39:03 Server is listening on port 40000
+[INFO] 19.03.2009 23:39:03 java.exe -Xmx384m -Xms125m -XX:MaxPermSize=512m -Dsun.io.useCanonCaches=false -Duser.language=en -Dapplication.home=C:\work\3.3 -jar C:\work\3.3\lib\fcsh.jar
+[INFO] 19.03.2009 23:39:04 Accepted connection request 1616
+[ERROR] 19.03.2009 23:39:04 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 19.03.2009 23:39:04 Compile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml 
+[WARN] 19.03.2009 23:39:10 [FCSH] Build warnings
+[INFO] 19.03.2009 23:39:10 [FCSH] Target id assigned 1
+[INFO] 19.03.2009 23:39:10 Service connection closed
+[INFO] 19.03.2009 23:39:11 Application stopped
+
+
+--------------------------------------------------------------------------
+[INFO] 19.03.2009 23:51:23 Application started
+[INFO] 19.03.2009 23:51:23 initialize preferences
+[INFO] 19.03.2009 23:51:23 Server is listening on port 40000
+[INFO] 19.03.2009 23:51:23 java.exe -Xmx384m -Xms125m -XX:MaxPermSize=512m -Dsun.io.useCanonCaches=false -Duser.language=en -Dapplication.home=C:\work\3.3 -jar C:\work\3.3\lib\fcsh.jar
+[INFO] 19.03.2009 23:51:23 Accepted connection request 1616
+[ERROR] 19.03.2009 23:51:23 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 19.03.2009 23:51:23 Compile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml 
+[WARN] 19.03.2009 23:51:30 [FCSH] Build warnings
+[INFO] 19.03.2009 23:51:30 [FCSH] Target id assigned 1
+[INFO] 19.03.2009 23:51:30 Service connection closed
+[INFO] 19.03.2009 23:52:17 Application stopped
+
+
+--------------------------------------------------------------------------
+[INFO] 19.03.2009 23:52:20 Application started
+[INFO] 19.03.2009 23:52:20 initialize preferences
+[INFO] 19.03.2009 23:52:20 Server is listening on port 40000
+[INFO] 19.03.2009 23:52:20 java.exe -Xmx384m -Xms125m -XX:MaxPermSize=512m -Dsun.io.useCanonCaches=false -Duser.language=en -Dapplication.home=C:\work\3.3 -jar C:\work\3.3\lib\fcsh.jar
+[INFO] 19.03.2009 23:52:21 Accepted connection request 1616
+[ERROR] 19.03.2009 23:52:21 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 19.03.2009 23:52:21 Compile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml 
+[WARN] 19.03.2009 23:52:27 [FCSH] Build warnings
+[INFO] 19.03.2009 23:52:27 [FCSH] Target id assigned 1
+[INFO] 19.03.2009 23:52:27 Service connection closed
+[INFO] 19.03.2009 23:53:00 Accepted connection request 1604
+[ERROR] 19.03.2009 23:53:00 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 19.03.2009 23:53:00 Recompile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml 
+[INFO] 19.03.2009 23:53:01 [FCSH] Build successfull
+[INFO] 19.03.2009 23:53:01 Service connection closed
+[INFO] 19.03.2009 23:53:11 Application stopped
+
+
+--------------------------------------------------------------------------
+[INFO] 19.03.2009 23:53:15 Application started
+[INFO] 19.03.2009 23:53:15 initialize preferences
+[INFO] 19.03.2009 23:53:15 Server is listening on port 40000
+[INFO] 19.03.2009 23:53:15 java.exe -Xmx384m -Xms125m -XX:MaxPermSize=512m -Dsun.io.useCanonCaches=false -Duser.language=en -Dapplication.home=C:\work\3.3 -jar C:\work\3.3\lib\fcsh.jar
+[INFO] 19.03.2009 23:53:16 Accepted connection request 1616
+[ERROR] 19.03.2009 23:53:16 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 19.03.2009 23:53:16 Compile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml 
+[WARN] 19.03.2009 23:53:22 [FCSH] Build warnings
+[INFO] 19.03.2009 23:53:22 [FCSH] Target id assigned 1
+[INFO] 19.03.2009 23:53:22 Service connection closed
+[INFO] 19.03.2009 23:53:47 Accepted connection request 1588
+[ERROR] 19.03.2009 23:53:47 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 19.03.2009 23:53:47 Recompile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml 
+[ERROR] 19.03.2009 23:53:47 [FCSH] Build error
+[INFO] 19.03.2009 23:53:47 Service connection closed
+[INFO] 19.03.2009 23:54:05 Accepted connection request 1612
+[ERROR] 19.03.2009 23:54:05 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 19.03.2009 23:54:05 Recompile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml 
+[ERROR] 19.03.2009 23:54:05 [FCSH] Build error
+[INFO] 19.03.2009 23:54:05 Service connection closed
+[INFO] 19.03.2009 23:54:13 Accepted connection request 1576
+[ERROR] 19.03.2009 23:54:13 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 19.03.2009 23:54:13 Recompile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml 
+[WARN] 19.03.2009 23:54:14 [FCSH] Build warnings
+[INFO] 19.03.2009 23:54:14 Service connection closed
+[INFO] 19.03.2009 23:54:36 Accepted connection request 1564
+[ERROR] 19.03.2009 23:54:36 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 19.03.2009 23:54:36 Compile target: mxmlc9 -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml 
+[ERROR] 19.03.2009 23:54:36 [FCSH] Build error
+[ERROR] 19.03.2009 23:54:36 Service socket error: Connection is aborted due to timeout or other failure
+[INFO] 19.03.2009 23:54:47 Accepted connection request 1612
+[ERROR] 19.03.2009 23:54:47 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 19.03.2009 23:54:47 Recompile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml 
+[INFO] 19.03.2009 23:54:48 [FCSH] Build successfull
+[INFO] 19.03.2009 23:54:48 Service connection closed
+[INFO] 19.03.2009 23:55:15 Accepted connection request 1572
+[ERROR] 19.03.2009 23:55:15 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 19.03.2009 23:55:15 Recompile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml 
+[INFO] 19.03.2009 23:55:16 [FCSH] Build successfull
+[INFO] 19.03.2009 23:55:16 Service connection closed
+[INFO] 19.03.2009 23:55:26 Accepted connection request 1564
+[ERROR] 19.03.2009 23:55:26 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 19.03.2009 23:55:26 Recompile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml 
+[INFO] 19.03.2009 23:55:27 [FCSH] Build successfull
+[INFO] 19.03.2009 23:55:27 Service connection closed
+[INFO] 19.03.2009 23:55:31 Accepted connection request 1616
+[ERROR] 19.03.2009 23:55:31 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 19.03.2009 23:55:31 Recompile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml 
+[INFO] 19.03.2009 23:55:32 [FCSH] Build successfull
+[INFO] 19.03.2009 23:55:32 Service connection closed
+[INFO] 19.03.2009 23:55:32 Accepted connection request 1612
+[ERROR] 19.03.2009 23:55:32 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 19.03.2009 23:55:32 Recompile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml 
+[INFO] 19.03.2009 23:55:33 [FCSH] Build successfull
+[INFO] 19.03.2009 23:55:33 Service connection closed
+[INFO] 19.03.2009 23:55:33 Accepted connection request 1592
+[ERROR] 19.03.2009 23:55:33 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 19.03.2009 23:55:33 Recompile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml 
+[INFO] 19.03.2009 23:55:34 [FCSH] Build successfull
+[INFO] 19.03.2009 23:55:34 Service connection closed
+[INFO] 19.03.2009 23:55:34 Accepted connection request 1588
+[ERROR] 19.03.2009 23:55:34 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 19.03.2009 23:55:34 Recompile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml 
+[INFO] 19.03.2009 23:55:35 [FCSH] Build successfull
+[INFO] 19.03.2009 23:55:35 Service connection closed
+[INFO] 19.03.2009 23:55:53 Accepted connection request 1616
+[ERROR] 19.03.2009 23:55:54 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 19.03.2009 23:55:54 Recompile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml 
+[INFO] 19.03.2009 23:55:54 [FCSH] Build successfull
+[INFO] 19.03.2009 23:55:54 Service connection closed
+[INFO] 19.03.2009 23:56:18 Accepted connection request 1588
+[ERROR] 19.03.2009 23:56:18 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 19.03.2009 23:56:18 Recompile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml 
+[INFO] 19.03.2009 23:56:19 [FCSH] Build successfull
+[INFO] 19.03.2009 23:56:19 Service connection closed
+[INFO] 19.03.2009 23:56:24 Compile target: compile 1
+[INFO] 19.03.2009 23:56:25 [FCSH] Build successfull
+[INFO] 19.03.2009 23:56:25 Compile target: clear 1
+[INFO] 19.03.2009 23:56:25 [FCSH] Build successfull
+[INFO] 19.03.2009 23:56:35 Accepted connection request 1564
+[ERROR] 19.03.2009 23:56:35 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 19.03.2009 23:56:35 Compile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml 
+[WARN] 19.03.2009 23:56:39 [FCSH] Build warnings
+[INFO] 19.03.2009 23:56:39 [FCSH] Target id assigned 3
+[INFO] 19.03.2009 23:56:39 Service connection closed
+[INFO] 19.03.2009 23:56:57 Compile target: compile 3
+[INFO] 19.03.2009 23:56:59 [FCSH] Build successfull
+[INFO] 19.03.2009 23:57:12 Accepted connection request 1560
+[ERROR] 19.03.2009 23:57:12 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 19.03.2009 23:57:12 Recompile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml 
+[INFO] 19.03.2009 23:57:13 [FCSH] Build successfull
+[INFO] 19.03.2009 23:57:13 Service connection closed
+[INFO] 19.03.2009 23:57:18 Accepted connection request 1556
+[ERROR] 19.03.2009 23:57:18 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 19.03.2009 23:57:18 Recompile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml 
+[INFO] 19.03.2009 23:57:19 [FCSH] Build successfull
+[INFO] 19.03.2009 23:57:19 Service connection closed
+[INFO] 20.03.2009 0:07:52 Application stopped
+
+
+--------------------------------------------------------------------------
+[INFO] 20.03.2009 0:08:55 Application started
+[INFO] 20.03.2009 0:08:55 initialize preferences
+[INFO] 20.03.2009 0:08:55 Server is listening on port 40000
+[INFO] 20.03.2009 0:08:55 java.exe -Xmx384m -Xms125m -XX:MaxPermSize=512m -Dsun.io.useCanonCaches=false -Duser.language=en -Dapplication.home=C:\work\3.3 -jar C:\work\3.3\lib\fcsh.jar
+[INFO] 20.03.2009 0:08:55 Accepted connection request 1616
+[ERROR] 20.03.2009 0:08:55 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 20.03.2009 0:08:55 Compile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml 
+[WARN] 20.03.2009 0:09:02 [FCSH] Build warnings
+[INFO] 20.03.2009 0:09:02 [FCSH] Target id assigned 1
+[INFO] 20.03.2009 0:09:02 Service connection closed
+[INFO] 20.03.2009 0:09:04 Application stopped
+
+
+--------------------------------------------------------------------------
+[INFO] 20.03.2009 0:10:27 Application started
+[INFO] 20.03.2009 0:10:27 initialize preferences
+[INFO] 20.03.2009 0:10:27 Server is listening on port 40000
+[INFO] 20.03.2009 0:10:27 java.exe -Xmx384m -Xms125m -XX:MaxPermSize=512m -Dsun.io.useCanonCaches=false -Duser.language=en -Dapplication.home=C:\work\3.3 -jar C:\work\3.3\lib\fcsh.jar
+[INFO] 20.03.2009 0:10:28 Accepted connection request 1616
+[ERROR] 20.03.2009 0:10:28 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 20.03.2009 0:10:28 Compile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml 
+[WARN] 20.03.2009 0:10:34 [FCSH] Build warnings
+[INFO] 20.03.2009 0:10:34 [FCSH] Target id assigned 1
+[INFO] 20.03.2009 0:10:34 Service connection closed
+[INFO] 20.03.2009 0:10:37 Application stopped
+
+
+--------------------------------------------------------------------------
+[INFO] 20.03.2009 0:11:53 Application started
+[INFO] 20.03.2009 0:11:53 initialize preferences
+[INFO] 20.03.2009 0:11:53 Server is listening on port 40000
+[INFO] 20.03.2009 0:11:53 java.exe -Xmx384m -Xms125m -XX:MaxPermSize=512m -Dsun.io.useCanonCaches=false -Duser.language=en -Dapplication.home=C:\work\3.3 -jar C:\work\3.3\lib\fcsh.jar
+[INFO] 20.03.2009 0:11:54 Accepted connection request 1616
+[ERROR] 20.03.2009 0:11:54 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 20.03.2009 0:11:54 Compile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml 
+[WARN] 20.03.2009 0:12:01 [FCSH] Build warnings
+[INFO] 20.03.2009 0:12:01 [FCSH] Target id assigned 1
+[INFO] 20.03.2009 0:12:01 Service connection closed
+[INFO] 20.03.2009 0:14:40 Application stopped
+
+
+--------------------------------------------------------------------------
+[INFO] 20.03.2009 0:14:57 Application started
+[INFO] 20.03.2009 0:14:57 initialize preferences
+[INFO] 20.03.2009 0:14:57 Server is listening on port 40000
+[INFO] 20.03.2009 0:14:57 java.exe -Xmx384m -Xms125m -XX:MaxPermSize=512m -Dsun.io.useCanonCaches=false -Duser.language=en -Dapplication.home=C:\work\3.3 -jar C:\work\3.3\lib\fcsh.jar
+[INFO] 20.03.2009 0:14:57 Accepted connection request 1616
+[ERROR] 20.03.2009 0:14:57 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 20.03.2009 0:14:57 Compile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml 
+[WARN] 20.03.2009 0:15:04 [FCSH] Build warnings
+[INFO] 20.03.2009 0:15:04 [FCSH] Target id assigned 1
+[INFO] 20.03.2009 0:15:04 Service connection closed
+[INFO] 20.03.2009 0:15:04 Accepted connection request 1588
+[ERROR] 20.03.2009 0:15:04 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 20.03.2009 0:15:04 Compile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml -debug=true 
+[WARN] 20.03.2009 0:15:09 [FCSH] Build warnings
+[INFO] 20.03.2009 0:15:09 [FCSH] Target id assigned 2
+[INFO] 20.03.2009 0:15:09 Service connection closed
+[INFO] 20.03.2009 0:15:09 Accepted connection request 1568
+[ERROR] 20.03.2009 0:15:09 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 20.03.2009 0:15:09 Compile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml -debug=false 
+[WARN] 20.03.2009 0:15:13 [FCSH] Build warnings
+[INFO] 20.03.2009 0:15:13 [FCSH] Target id assigned 3
+[INFO] 20.03.2009 0:15:13 Service connection closed
+[INFO] 20.03.2009 0:15:13 Accepted connection request 1616
+[ERROR] 20.03.2009 0:15:13 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 20.03.2009 0:15:13 Compile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml -optimize=false 
+[WARN] 20.03.2009 0:15:17 [FCSH] Build warnings
+[INFO] 20.03.2009 0:15:17 [FCSH] Target id assigned 4
+[INFO] 20.03.2009 0:15:17 Service connection closed
+[INFO] 20.03.2009 0:15:24 Accepted connection request 1612
+[ERROR] 20.03.2009 0:15:24 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 20.03.2009 0:15:24 Recompile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml 
+[INFO] 20.03.2009 0:15:25 [FCSH] Build successfull
+[INFO] 20.03.2009 0:15:25 Service connection closed
+[INFO] 20.03.2009 0:15:25 Accepted connection request 1564
+[ERROR] 20.03.2009 0:15:25 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 20.03.2009 0:15:25 Recompile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml -debug=true 
+[INFO] 20.03.2009 0:15:26 [FCSH] Build successfull
+[INFO] 20.03.2009 0:15:26 Service connection closed
+[INFO] 20.03.2009 0:15:26 Accepted connection request 1604
+[ERROR] 20.03.2009 0:15:26 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 20.03.2009 0:15:26 Recompile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml -debug=false 
+[INFO] 20.03.2009 0:15:26 [FCSH] Build successfull
+[INFO] 20.03.2009 0:15:26 Service connection closed
+[INFO] 20.03.2009 0:15:26 Accepted connection request 1592
+[ERROR] 20.03.2009 0:15:26 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 20.03.2009 0:15:26 Recompile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml -optimize=false 
+[INFO] 20.03.2009 0:15:27 [FCSH] Build successfull
+[INFO] 20.03.2009 0:15:27 Service connection closed
+[INFO] 20.03.2009 0:15:34 Accepted connection request 1608
+[ERROR] 20.03.2009 0:15:34 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 20.03.2009 0:15:34 Recompile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml 
+[INFO] 20.03.2009 0:15:35 [FCSH] Build successfull
+[INFO] 20.03.2009 0:15:35 Service connection closed
+[INFO] 20.03.2009 0:15:35 Accepted connection request 1612
+[ERROR] 20.03.2009 0:15:35 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 20.03.2009 0:15:35 Recompile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml -debug=true 
+[INFO] 20.03.2009 0:15:36 [FCSH] Build successfull
+[INFO] 20.03.2009 0:15:36 Service connection closed
+[INFO] 20.03.2009 0:15:36 Accepted connection request 1568
+[ERROR] 20.03.2009 0:15:36 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 20.03.2009 0:15:36 Recompile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml -debug=false 
+[INFO] 20.03.2009 0:15:37 [FCSH] Build successfull
+[INFO] 20.03.2009 0:15:37 Service connection closed
+[INFO] 20.03.2009 0:15:37 Accepted connection request 1592
+[ERROR] 20.03.2009 0:15:37 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 20.03.2009 0:15:37 Recompile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml -optimize=false 
+[INFO] 20.03.2009 0:15:38 [FCSH] Build successfull
+[INFO] 20.03.2009 0:15:38 Service connection closed
+[INFO] 20.03.2009 0:15:42 Accepted connection request 1612
+[ERROR] 20.03.2009 0:15:42 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 20.03.2009 0:15:42 Recompile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml 
+[INFO] 20.03.2009 0:15:43 [FCSH] Build successfull
+[INFO] 20.03.2009 0:15:43 Service connection closed
+[INFO] 20.03.2009 0:15:43 Accepted connection request 1564
+[ERROR] 20.03.2009 0:15:43 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 20.03.2009 0:15:43 Recompile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml -debug=true 
+[INFO] 20.03.2009 0:15:43 [FCSH] Build successfull
+[INFO] 20.03.2009 0:15:43 Service connection closed
+[INFO] 20.03.2009 0:15:43 Accepted connection request 1568
+[ERROR] 20.03.2009 0:15:43 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 20.03.2009 0:15:43 Recompile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml -debug=false 
+[INFO] 20.03.2009 0:15:44 [FCSH] Build successfull
+[INFO] 20.03.2009 0:15:44 Service connection closed
+[INFO] 20.03.2009 0:15:44 Accepted connection request 1592
+[ERROR] 20.03.2009 0:15:44 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 20.03.2009 0:15:44 Recompile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml -optimize=false 
+[INFO] 20.03.2009 0:15:45 [FCSH] Build successfull
+[INFO] 20.03.2009 0:15:45 Service connection closed
+[INFO] 20.03.2009 0:15:46 Accepted connection request 1560
+[ERROR] 20.03.2009 0:15:46 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 20.03.2009 0:15:46 Recompile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml 
+[INFO] 20.03.2009 0:15:47 [FCSH] Build successfull
+[INFO] 20.03.2009 0:15:47 Service connection closed
+[INFO] 20.03.2009 0:15:47 Accepted connection request 1572
+[ERROR] 20.03.2009 0:15:47 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 20.03.2009 0:15:47 Recompile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml -debug=true 
+[INFO] 20.03.2009 0:15:48 [FCSH] Build successfull
+[INFO] 20.03.2009 0:15:48 Service connection closed
+[INFO] 20.03.2009 0:15:48 Accepted connection request 1568
+[ERROR] 20.03.2009 0:15:48 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 20.03.2009 0:15:48 Recompile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml -debug=false 
+[INFO] 20.03.2009 0:15:49 [FCSH] Build successfull
+[INFO] 20.03.2009 0:15:49 Service connection closed
+[INFO] 20.03.2009 0:15:49 Accepted connection request 1612
+[ERROR] 20.03.2009 0:15:49 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 20.03.2009 0:15:49 Recompile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml -optimize=false 
+[INFO] 20.03.2009 0:15:49 [FCSH] Build successfull
+[INFO] 20.03.2009 0:15:49 Service connection closed
+[INFO] 20.03.2009 0:16:17 Accepted connection request 1560
+[ERROR] 20.03.2009 0:16:17 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 20.03.2009 0:16:17 Recompile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml 
+[INFO] 20.03.2009 0:16:17 [FCSH] Build successfull
+[INFO] 20.03.2009 0:16:17 Service connection closed
+[INFO] 20.03.2009 0:16:17 Accepted connection request 1572
+[ERROR] 20.03.2009 0:16:17 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 20.03.2009 0:16:17 Recompile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml -debug=true 
+[INFO] 20.03.2009 0:16:18 [FCSH] Build successfull
+[INFO] 20.03.2009 0:16:18 Service connection closed
+[INFO] 20.03.2009 0:16:18 Accepted connection request 1568
+[ERROR] 20.03.2009 0:16:18 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 20.03.2009 0:16:18 Compile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml -debug=false -optimize=true 
+[WARN] 20.03.2009 0:16:23 [FCSH] Build warnings
+[INFO] 20.03.2009 0:16:23 [FCSH] Target id assigned 5
+[INFO] 20.03.2009 0:16:23 Service connection closed
+[INFO] 20.03.2009 0:16:23 Accepted connection request 1612
+[ERROR] 20.03.2009 0:16:23 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 20.03.2009 0:16:23 Recompile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml -optimize=false 
+[INFO] 20.03.2009 0:16:23 [FCSH] Build successfull
+[INFO] 20.03.2009 0:16:23 Service connection closed
+[INFO] 20.03.2009 0:16:42 Compile target: clear 3
+[INFO] 20.03.2009 0:16:42 [FCSH] Build successfull
+[INFO] 20.03.2009 0:16:46 Accepted connection request 1560
+[ERROR] 20.03.2009 0:16:46 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 20.03.2009 0:16:46 Recompile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml 
+[INFO] 20.03.2009 0:16:47 [FCSH] Build successfull
+[INFO] 20.03.2009 0:16:47 Service connection closed
+[INFO] 20.03.2009 0:16:47 Accepted connection request 1608
+[ERROR] 20.03.2009 0:16:47 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 20.03.2009 0:16:47 Recompile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml -debug=true 
+[INFO] 20.03.2009 0:16:48 [FCSH] Build successfull
+[INFO] 20.03.2009 0:16:48 Service connection closed
+[INFO] 20.03.2009 0:16:48 Accepted connection request 1592
+[ERROR] 20.03.2009 0:16:48 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 20.03.2009 0:16:48 Recompile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml -debug=false -optimize=true 
+[INFO] 20.03.2009 0:16:48 [FCSH] Build successfull
+[INFO] 20.03.2009 0:16:48 Service connection closed
+[INFO] 20.03.2009 0:16:48 Accepted connection request 1564
+[ERROR] 20.03.2009 0:16:48 Class=amf.vo::ErrorVO; id=4; description=fcsh is already running;
+[INFO] 20.03.2009 0:16:48 Recompile target: mxmlc -output=C:\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml -optimize=false 
+[INFO] 20.03.2009 0:16:49 [FCSH] Build successfull
+[INFO] 20.03.2009 0:16:49 Service connection closed
+[INFO] 20.03.2009 0:17:42 Application stopped
