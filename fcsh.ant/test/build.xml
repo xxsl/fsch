@@ -12,4 +12,11 @@
             <Arg name="-load-config+=test2"/>
         </CompileFlex>
     </target>
+
+    <target name="test">
+        <antcall target="build"/>
+        <antcall target="build"/>
+        <antcall target="build"/>
+        <antcall target="build"/>
+    </target>
 </project>
