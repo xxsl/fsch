@@ -12,7 +12,6 @@ import java.nio.ByteBuffer;
  */
 public class ErrorVO implements IExternalizable {
     public static String AMF_TYPE = "amf.vo::ErrorVO";
-    public static String charset = "UTF-16LE";
     public String description;
     public int id;
 
@@ -24,16 +23,16 @@ public class ErrorVO implements IExternalizable {
         this.id = id;
     }
 
-    public  static boolean isClass(String qualifiedName){
+    public static boolean isClass(String qualifiedName) {
         return AMF_TYPE.equals(qualifiedName);
     }
 
     public void serialize(DataOutputStream output) throws IOException {
         ByteBuffer buffer = ByteBuffer.allocate(8192);
-        buffer.putInt(AMF_TYPE.getBytes(charset).length);
-        buffer.put(AMF_TYPE.getBytes(charset));
-        buffer.putInt(description.getBytes(charset).length);
-        buffer.put(description.getBytes(charset));
+        buffer.putInt(AMF_TYPE.getBytes(Encodings.out).length);
+        buffer.put(AMF_TYPE.getBytes(Encodings.out));
+        buffer.putInt(description.getBytes(Encodings.out).length);
+        buffer.put(description.getBytes(Encodings.out));
         buffer.putInt(id);
         int size = buffer.limit() - buffer.remaining();
         output.writeInt(size);
@@ -46,7 +45,7 @@ public class ErrorVO implements IExternalizable {
         int commandSize = output.readInt();
         byte[] commandBuffer = new byte[commandSize];
         output.readFully(commandBuffer);
-        description = new String(commandBuffer, charset);
+        description = new String(commandBuffer, Encodings.in);
 
         id = output.readInt();
     }

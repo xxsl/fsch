@@ -12,7 +12,6 @@ import java.nio.ByteBuffer;
  */
 public class CommandVO implements IExternalizable {
     public static String AMF_TYPE = "amf.vo::CommandVO";
-    public static String charset = "UTF-16LE";
     public String target;
     public String command;
 
@@ -30,12 +29,12 @@ public class CommandVO implements IExternalizable {
 
     public void serialize(DataOutputStream output) throws IOException {
         ByteBuffer buffer = ByteBuffer.allocate(8192);
-        buffer.putInt(AMF_TYPE.getBytes(charset).length);
-        buffer.put(AMF_TYPE.getBytes(charset));
-        buffer.putInt(command.getBytes(charset).length);
-        buffer.put(command.getBytes(charset));
-        buffer.putInt(target.getBytes(charset).length);
-        buffer.put(target.getBytes(charset));
+        buffer.putInt(AMF_TYPE.getBytes(Encodings.out).length);
+        buffer.put(AMF_TYPE.getBytes(Encodings.out));
+        buffer.putInt(command.getBytes(Encodings.out).length);
+        buffer.put(command.getBytes(Encodings.out));
+        buffer.putInt(target.getBytes(Encodings.out).length);
+        buffer.put(target.getBytes(Encodings.out));
         int size = buffer.limit() - buffer.remaining();
         output.writeInt(size);
         output.flush();
@@ -47,12 +46,12 @@ public class CommandVO implements IExternalizable {
         int commandSize = output.readInt();
         byte[] commandBuffer = new byte[commandSize];
         output.readFully(commandBuffer);
-        command = new String(commandBuffer, charset);
+        command = new String(commandBuffer, Encodings.in);
 
         int targetSize = output.readInt();
         byte[] targetBuffer = new byte[targetSize];
         output.readFully(targetBuffer);
-        target = new String(targetBuffer, charset);
+        target = new String(targetBuffer, Encodings.in);
     }
 
     @Override
