@@ -98,7 +98,7 @@ Private Sub Controller_DataArrival(ByVal bytesTotal As Long)
     On Error Resume Next
     Controller.GetData s, vbString, bytesTotal
     responce = responce + s
-    WriteStdOut s
+    WriteStdOut ToOEM(s)
     If (InStr(1, responce, BUILD_SUCESSFULL) > 0) Then
         WriteStdOut vbCrLf
         WriteStdOut "Build time: " & (GetTickCount - ms) & " ms" & vbCrLf
