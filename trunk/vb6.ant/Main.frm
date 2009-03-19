@@ -122,7 +122,7 @@ End Sub
 
 Private Sub Service_Close()
     log.xInfo "Service connection closed"
-    DisplayBalloon "Info", "Client disconnected", NIIF_INFO
+    'DisplayBalloon "Info", "Client disconnected", NIIF_INFO
 End Sub
 
 Private Sub Service_Error(ByVal Number As Integer, description As String, ByVal Scode As Long, ByVal Source As String, ByVal HelpFile As String, ByVal HelpContext As Long, CancelDisplay As Boolean)

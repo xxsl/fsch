@@ -157,3 +157,52 @@ C:\\realworld.swf (1072743 bytes)
 [INFO] 18.03.2009 22:40:21 Sending 958 bytes
 [INFO] 18.03.2009 22:40:21 [send complete]
 [INFO] 18.03.2009 22:40:25 Application stopped
+
+
+--------------------------------------------------------------------------
+[INFO] 19.03.2009 1:20:15 Application started
+[INFO] 19.03.2009 1:20:15 initialize preferences
+[INFO] 19.03.2009 1:20:15 Server is listening on port 40000
+[INFO] 19.03.2009 1:20:53 Accepted connection request 428
+[INFO] 19.03.2009 1:20:53 Object length: 76 bytesTotal: 80
+[INFO] 19.03.2009 1:20:53 Object type: amf.vo::CommandVO
+[INFO] 19.03.2009 1:20:53 Class=amf.vo::CommandVO; target=fcsh_start; command=empty;
+[INFO] 19.03.2009 1:20:53 Command: target=fcsh_start command=empty
+[DEBUG] 19.03.2009 1:20:54 Class=amf.vo::DataVO; target=fcsh_start; data=empty;
+[INFO] 19.03.2009 1:20:54 Sending 70 bytes
+[INFO] 19.03.2009 1:20:54 [send complete]
+[INFO] 19.03.2009 1:20:54 Object length: 228 bytesTotal: 232
+[INFO] 19.03.2009 1:20:54 Object type: amf.vo::CommandVO
+[INFO] 19.03.2009 1:20:54 Class=amf.vo::CommandVO; target=fcsh; command=mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml;
+[INFO] 19.03.2009 1:20:54 Command: target=fcsh command=mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml
+[INFO] 19.03.2009 1:20:54 fcsh execute: mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml
+[INFO] 19.03.2009 1:20:54 Compile target: mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml
+[WARN] 19.03.2009 1:21:00 [FCSH] Build warnings
+[INFO] 19.03.2009 1:21:00 [FCSH] Target id assigned 1
+[DEBUG] 19.03.2009 1:21:00 Class=amf.vo::DataVO; target=fcsh_build_warn; data=fcsh: Assigned 1 as the compile target id
+Loading configuration file C:\work\3.3\frameworks\flex-config.xml
+Loading configuration file C:\work\realworld\FLX\src\flex-config.xml
+C:\work\realworld\FLX\src\realworld.mxml(33): Warning: Объект var 'test' добавится в область внутреннего пространства имен по умолчанию: realworld:. Он не будет виден за пределами этого пакета.
+
+	   var test:String ;
+
+C:\\realworld.swf (1072744 bytes)
+(fcsh) ;
+[INFO] 19.03.2009 1:21:00 Sending 958 bytes
+[INFO] 19.03.2009 1:21:00 [send complete]
+[INFO] 19.03.2009 1:21:00 Object length: 228 bytesTotal: 232
+[INFO] 19.03.2009 1:21:00 Object type: amf.vo::CommandVO
+[INFO] 19.03.2009 1:21:00 Class=amf.vo::CommandVO; target=fcsh; command=mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml;
+[INFO] 19.03.2009 1:21:00 Command: target=fcsh command=mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml
+[INFO] 19.03.2009 1:21:00 fcsh execute: mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml
+[INFO] 19.03.2009 1:21:00 Recompile target: mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml
+[INFO] 19.03.2009 1:21:01 [FCSH] Build successfull
+[DEBUG] 19.03.2009 1:21:01 Class=amf.vo::DataVO; target=fcsh_build_success; data=Loading configuration file C:\work\3.3\frameworks\flex-config.xml
+Loading configuration file C:\work\realworld\FLX\src\flex-config.xml
+Nothing has changed since the last compile. Skip...
+C:\\realworld.swf (1072746 bytes)
+(fcsh) ;
+[INFO] 19.03.2009 1:21:01 Sending 540 bytes
+[INFO] 19.03.2009 1:21:01 [send complete]
+[INFO] 19.03.2009 1:21:01 Service connection closed
+[INFO] 19.03.2009 1:21:04 Application stopped
