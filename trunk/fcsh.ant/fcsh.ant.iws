@@ -4,9 +4,7 @@
     <list default="true" readonly="true" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/fcsh.java" afterPath="$PROJECT_DIR$/src/fcsh.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fcsh.ant.iws" afterPath="$PROJECT_DIR$/fcsh.ant.iws" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/constants/BUILD.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/vo/CommandVO.java" afterPath="$PROJECT_DIR$/src/vo/CommandVO.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/constants" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/fcsh.jar" afterPath="$PROJECT_DIR$/test/fcsh.jar" />
     </list>
     <ignored path=".idea/workspace.xml" />
     <ignored path="fcsh.ant.iws" />
@@ -65,10 +63,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="fcsh.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="fcsh.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/fcsh.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="39" column="0" selection-start="787" selection-end="787" vertical-scroll-proportion="-1.9569893">
+            <state line="141" column="47" selection-start="4673" selection-end="4673" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="docComment;class#fcsh#0" expanded="true" />
@@ -77,31 +75,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DataVO.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/vo/DataVO.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="36" column="48" selection-start="1068" selection-end="1068" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="docComment;class#DataVO#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ErrorVO.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/vo/ErrorVO.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="0" selection-start="301" selection-end="301" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="build.xml" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="build.xml" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test/build.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="29" selection-start="277" selection-end="277" vertical-scroll-proportion="-6.375">
+            <state line="9" column="29" selection-start="277" selection-end="277" vertical-scroll-proportion="0.23831776">
               <folding />
             </state>
           </provider>
@@ -508,13 +485,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/build.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="29" selection-start="277" selection-end="277" vertical-scroll-proportion="-6.375">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/vo/Encodings.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="9" column="22" selection-start="182" selection-end="191" vertical-scroll-proportion="0.0">
@@ -560,11 +530,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/fcsh.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="0" selection-start="787" selection-end="787" vertical-scroll-proportion="-1.9569893">
+        <state line="141" column="47" selection-start="4673" selection-end="4673" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="docComment;class#fcsh#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/build.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="29" selection-start="277" selection-end="277" vertical-scroll-proportion="0.23831776">
+          <folding />
         </state>
       </provider>
     </entry>
