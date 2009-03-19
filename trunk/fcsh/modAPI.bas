@@ -104,6 +104,18 @@ Public Function ToOEM(sourcestring As String)
     ToOEM = deststring
 End Function
 
+Public Function WriteStdOutA(ByVal Text As String) As Long
+    Dim StdOut As Long
+    Dim result As Long
+    Dim BytesWritten As Long
+    StdOut = GetStdHandle(STD_OUTPUT_HANDLE)
+    result = WriteFile(StdOut, ByVal Text, Len(Text), BytesWritten, ByVal 0&)
+    If result = 0 Then
+        WriteStdOut = 1001 ', , "Unable to write to standard output"
+    ElseIf BytesWritten < Len(Text) Then
+        WriteStdOut = 1002 ', , "Incomplete write operation"
+    End If
+End Function
 
 
 Public Function WriteStdOut(ByVal Text As String) As Long
