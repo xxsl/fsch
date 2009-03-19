@@ -23,6 +23,16 @@ import constants.BUILD;
 public class fcsh extends Task {
     private List<arg> args = new ArrayList<arg>();
 
+    private String consoleEncoding = "cp866";
+
+    public String getConsoleEncoding() {
+        return consoleEncoding;
+    }
+
+    public void setConsoleEncoding(String consoleEncoding) {
+        this.consoleEncoding = consoleEncoding;
+    }
+
     public void addArg(arg argument) {
         args.add(argument);
     }
@@ -193,7 +203,7 @@ public class fcsh extends Task {
             // output to the console
             Writer w =
                     new BufferedWriter
-                            (new OutputStreamWriter(System.out, "Cp866"));
+                            (new OutputStreamWriter(System.out, getConsoleEncoding()));
             w.write(javaString);
             w.flush();
             //w.close();
