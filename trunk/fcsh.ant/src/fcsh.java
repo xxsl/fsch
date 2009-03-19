@@ -14,6 +14,7 @@ import vo.CommandVO;
 import vo.ErrorVO;
 import vo.DataVO;
 import vo.Encodings;
+import constants.BUILD;
 
 /**
  * User: Dookie
@@ -22,10 +23,6 @@ import vo.Encodings;
  */
 
 public class fcsh extends Task {
-    public static String FCSH_BUILD_SUCCESSFULL = "fcsh_build_success";
-    public static String FCSH_BUILD_WARNING = "fcsh_build_warn";
-    public static String FCSH_BUILD_ERROR = "fcsh_build_error";
-
     private List<arg> args = new ArrayList<arg>();
 
     public void addArg(arg argument) {
@@ -40,7 +37,6 @@ public class fcsh extends Task {
         new fcsh().execute();
     }
 
-    // The method executing the task
     public void execute() throws BuildException {
         SocketAddress socketAddress = new InetSocketAddress(40000);
         DataOutputStream os;
@@ -65,7 +61,7 @@ public class fcsh extends Task {
         }
 
         try {
-            CommandVO startFcshCommand = new CommandVO("fcsh_start", "empty");
+            CommandVO startFcshCommand = new CommandVO("fcsh_start", CommandVO.DEFAULT_COMMAND);
 
             startFcshCommand.serialize(os);
 
@@ -94,12 +90,14 @@ public class fcsh extends Task {
                 DataVO dataVO = (DataVO) responce;
                 System.out.println(dataVO.data);
                 System.out.println("");
-                if (FCSH_BUILD_ERROR.equals(dataVO.target)) {
+                if (BUILD.FCSH_BUILD_ERROR.equals(dataVO.target)) {
                     throw new BuildException("Fix bugs and try again...");
-                } else if (FCSH_BUILD_WARNING.equals(dataVO.target)) {
+                } else if (BUILD.FCSH_BUILD_WARNING.equals(dataVO.target)) {
                     System.out.println("Fix this warnings... Dude!");
-                } else {
+                } else if (BUILD.FCSH_BUILD_SUCCESSFULL.equals(dataVO.target)) {
                     System.out.println("Awesome!");
+                } else {
+                    System.out.println("wtf?!");
                 }
                 //any other is error
             } else {

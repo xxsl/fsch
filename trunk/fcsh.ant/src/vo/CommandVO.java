@@ -11,6 +11,7 @@ import java.nio.ByteBuffer;
  * Time: 23:14:15
  */
 public class CommandVO implements IExternalizable {
+    public static final String DEFAULT_COMMAND = "empty";
     public static String AMF_TYPE = "amf.vo::CommandVO";
     public String target;
     public String command;
