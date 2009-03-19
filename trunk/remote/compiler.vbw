@@ -1,6 +1,6 @@
 MainForm = 44, 58, 673, 581, Z, 22, 29, 651, 552, C
 clsConfiguration = 88, 116, 717, 639, 
-modApi = 66, 87, 695, 610, C
+modApi = 66, 87, 695, 610, 
 clsLog = 110, 145, 739, 668, C
 clsTarget = 132, 174, 761, 697, C
 modMXMLC = 132, 174, 761, 697, C
