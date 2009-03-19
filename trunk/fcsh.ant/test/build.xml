@@ -6,6 +6,10 @@
     </taskdef>
 
     <target name="build">
-        <CompileFlex/>
+        <CompileFlex>
+            <Arg name="-load-config+=test"/>
+            <Arg name="-load-config+=test1"/>
+            <Arg name="-load-config+=test2"/>
+        </CompileFlex>
     </target>
 </project>
