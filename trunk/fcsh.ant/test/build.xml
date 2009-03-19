@@ -13,10 +13,38 @@
         </fcsh>
     </target>
 
+    <target name="build1">
+        <fcsh>
+            <arg value="mxmlc"/>
+            <arg value="-output=C:\realworld.swf"/>
+            <arg value="-load-config+=C:\work\realworld\FLX\src\flex-config.xml"/>
+            <arg value="-debug=true"/>
+        </fcsh>
+    </target>
+
+    <target name="build2">
+        <fcsh>
+            <arg value="mxmlc"/>
+            <arg value="-output=C:\realworld.swf"/>
+            <arg value="-load-config+=C:\work\realworld\FLX\src\flex-config.xml"/>
+            <arg value="-debug=false"/>
+            <arg value="-optimize=true"/>
+        </fcsh>
+    </target>
+
+    <target name="build3">
+        <fcsh>
+            <arg value="mxmlc"/>
+            <arg value="-output=C:\realworld.swf"/>
+            <arg value="-load-config+=C:\work\realworld\FLX\src\flex-config.xml"/>
+            <arg value="-optimize=false"/>
+        </fcsh>
+    </target>
+
     <target name="test">
         <antcall target="build"/>
-        <antcall target="build"/>
-        <antcall target="build"/>
-        <antcall target="build"/>
+        <antcall target="build1"/>
+        <antcall target="build2"/>
+        <antcall target="build3"/>
     </target>
 </project>
