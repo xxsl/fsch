@@ -164,7 +164,8 @@ End Sub
 'on fcsh output event handler
 Private Sub fcsh_DataReceived(ByVal sData As String)
     Dim output As String
-    output = OemToCharS(sData)
+    'output = OemToCharS(sData)
+    output = sData
     Debug.Print output
     If (outputParser.Add(output)) Then
         log.xDebug "outputParser detected finish"
