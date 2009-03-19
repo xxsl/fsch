@@ -20,7 +20,7 @@ Private Sub Class_Initialize()
 End Sub
 
 Public Sub xDebug(msg As String)
-    output msg, "[DEBUG]"
+    'output msg, "[DEBUG]"
 End Sub
 
 Public Sub xInfo(msg As String)

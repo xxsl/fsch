@@ -64,11 +64,17 @@ End Property
 
 'exec command
 Public Property Get CMD() As String
-    CMD = prefs.GetValue(FCSHServer, "command", "fcsh.exe")
+    Dim result As String, sdk As String
+    sdk = prefs.GetValue(FCSHServer, "sdk", "C:\flex")
+    result = prefs.GetValue(FCSHServer, "vmoptions", "fcsh.exe")
+    result = "java.exe " + result
+    result = result + " -Dapplication.home=" + sdk + " -jar " + sdk + "\lib\fcsh.jar"
+    log.xInfo result
+    CMD = result
 End Property
 
 Public Property Let CMD(ByVal vNewValue As String)
-    prefs.WriteValue FCSHServer, "command", vNewValue
+    prefs.WriteValue FCSHServer, "vmoptions", vNewValue
 End Property
 
 Public Property Get CONSOLE_BUFFER() As Long

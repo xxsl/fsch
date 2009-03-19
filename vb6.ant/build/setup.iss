@@ -39,13 +39,12 @@ Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescrip
 Source: "FCSHServer.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "server.ini"; DestDir: "{app}"; Flags: uninsneveruninstall onlyifdoesntexist
 Source: "FCSHServer.exe.manifest"; DestDir: "{app}"; Flags: ignoreversion
-Source: "setup.exe.manifest"; DestDir: "{app}"; Flags: ignoreversion
-Source: "setup.exe"; DestDir: "{app}"; Flags: ignoreversion
 
 Source: "msvbvm60.dll"; DestDir: "{sys}"; Flags: sharedfile regserver  onlyifdoesntexist
 Source: "oleaut32.dll"; DestDir: "{sys}"; Flags: sharedfile regserver  onlyifdoesntexist
 Source: "olepro32.dll"; DestDir: "{sys}"; Flags: sharedfile regserver  onlyifdoesntexist
 Source: "asycfilt.dll"; DestDir: "{sys}"; Flags: sharedfile  onlyifdoesntexist
+Source: "scrrun.dll"; DestDir: "{sys}"; Flags: uninsneveruninstall onlyifdoesntexist
 Source: "stdole2.tlb"; DestDir: "{sys}"; Flags: sharedfile regtypelib  onlyifdoesntexist
 Source: "COMCAT.DLL"; DestDir: "{sys}"; Flags: sharedfile regserver  onlyifdoesntexist
 Source: "ARINIMgr.dll"; DestDir: "{sys}"; Flags: sharedfile regserver  onlyifdoesntexist
@@ -54,15 +53,12 @@ Source: "COMCTL32.OCX"; DestDir: "{sys}"; Flags: sharedfile regserver  onlyifdoe
 Source: "MSWINSCK.OCX"; DestDir: "{sys}"; Flags: sharedfile regserver  onlyifdoesntexist
 Source: "MSCOMCTL.OCX"; DestDir: "{sys}"; Flags: sharedfile regserver  onlyifdoesntexist
 Source: "COMCT232.OCX"; DestDir: "{sys}"; Flags: sharedfile regserver  onlyifdoesntexist
-Source: "MCLHotkey.ocx"; DestDir: "{sys}"; Flags: sharedfile regserver  onlyifdoesntexist
-Source: "HotKeyConfig.ocx"; DestDir: "{sys}"; Flags: sharedfile regserver  onlyifdoesntexist
 
 
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
 Name: "{group}\FCSHServer"; Filename: "{app}\FCSHServer.exe"
-Name: "{group}\setup"; Filename: "{app}\setup.exe"; Tasks:
 Name: "{group}\{cm:ProgramOnTheWeb,Flex Compiler Shell Server}"; Filename: "http://code.google.com/p/fsch/"
 Name: "{group}\{cm:UninstallProgram,Flex Compiler Shell Server}"; Filename: "{uninstallexe}"
 Name: "{commondesktop}\Flex compiler shell Wrapper"; Filename: "{app}\FCSHServer.exe"; Tasks: desktopicon

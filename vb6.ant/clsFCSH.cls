@@ -25,14 +25,15 @@ Private Declare Sub Sleep Lib "kernel32" (ByVal dwMilliseconds As Long)
 
 Private isInitialized As Boolean
 Private log As clsLog
-Private targets As New Dictionary
+Public targets As New Dictionary
 Private commandLine As String
 
 
 Public isRunning As Boolean
-Public isExec As Boolean
+
 
 Private output As String
+Private isExec_prop As Boolean
 
 '***************************************************************************************
 'fcsh.exe stop
@@ -43,6 +44,8 @@ Public Event onStart(message As DataVO)
 Public Event onComplete(data As DataVO)
 'error event
 Public Event onError(message As ErrorVO)
+
+Public Event CommandsEnabled(enable As Boolean)
 '***************************************************************************************
 
 'console stdOut capture
@@ -52,6 +55,9 @@ Attribute fcsh.VB_VarHelpID = -1
 'parsing
 Dim WithEvents parser As clsController
 Attribute parser.VB_VarHelpID = -1
+
+
+
 
 
 
@@ -73,9 +79,8 @@ Public Sub initialize(ByRef appLog As clsLog, ByRef prefs As clsPreferences)
 End Sub
 
 
-Public Sub Start(path As String)
+Public Sub Start()
     If (Not isRunning) Then
-        'fcsh.name = path
         Select Case fcsh.Start
            Case laAlreadyRunning
                 RaiseError FCSH_ALREADY_STATRED, "fcsh is already running"
@@ -84,7 +89,7 @@ Public Sub Start(path As String)
                 RaiseError FCSH_START_FAILURE, "Windows error: " & CStr(fcsh.LastErrorNumber) & ". Make sure you have configured fcsh.exe path."
            Case laOk
                 isRunning = True
-                Sleep 2000
+                'Sleep 2000
                 Dim message As New DataVO
                 message.target = FCSH_STARTED
                 message.data = "empty"
@@ -104,6 +109,7 @@ End Sub
 
 
 Private Sub fcsh_ProcessEnded()
+    MainForm.fillView
     targets.RemoveAll
     parser.reset
     isExec = False
@@ -120,7 +126,7 @@ Public Sub exec(command As String)
         If (Not isExec) Then
             isExec = True
             commandLine = command
-            log.xInfo "fcsh execute: " + command
+            log.xDebug "fcsh execute: " + command
             If (targets.Exists(commandLine)) Then
                 log.xInfo "Recompile target: " + command
                 fcsh.Write ToOEM("compile " & targets.Item(command)) + vbCrLf
@@ -157,7 +163,7 @@ Private Sub Class_Terminate()
 End Sub
 
 Private Sub parser_Result(id As Build, assigned As Long)
-    log.xInfo "parser_Result id=" & id & ", assigned=" & assigned
+    log.xDebug "parser_Result id=" & id & ", assigned=" & assigned
     
     Dim data As New DataVO
     data.data = parser.output
@@ -168,6 +174,7 @@ Private Sub parser_Result(id As Build, assigned As Long)
     If (assigned > 0 And Not targets.Exists(commandLine)) Then
         targets.Add commandLine, assigned
         isAssigned = True
+        MainForm.fillView
     End If
     
 
@@ -195,3 +202,12 @@ Private Sub parser_Result(id As Build, assigned As Long)
     
     RaiseEvent onComplete(data)
 End Sub
+
+Public Property Get isExec() As Boolean
+    isExec = isExec_prop
+End Property
+
+Public Property Let isExec(ByVal vNewValue As Boolean)
+    isExec_prop = vNewValue
+    RaiseEvent CommandsEnabled((Not isExec_prop) And isRunning)
+End Property
