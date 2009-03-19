@@ -14,13 +14,14 @@ Attribute VB_Exposed = False
 
 Public output As String
 Private log As clsLog
+Private fcsh As clsFCSH
+
+Public Event result(id As Build, assigned As Long)
 
 
-Public Event Result(id As Build, assigned As Long)
-
-
-Public Sub initialize(ByRef logger As clsLog)
+Public Sub initialize(ByRef logger As clsLog, ByRef fcshShell As clsFCSH)
     Set log = logger
+    Set fcsh = fcshShell
 End Sub
 
 
@@ -28,22 +29,24 @@ Public Sub addStdout(out As String)
     output = output + out
     'log.xDebug "[FCSH] " + out
     If (isFinished()) Then
+        fcsh.isExec = False
         If (isError) Then
             log.xError "[FCSH] Build error"
-            RaiseEvent Result(BUILD_ERROR, -1)
+            RaiseEvent result(BUILD_ERROR, -1)
         Else
             If (isWarn()) Then
                 log.xWarning "[FCSH] Build warnings"
-                RaiseEvent Result(BUILD_WARNING, isAssigned())
+                RaiseEvent result(BUILD_WARNING, isAssigned())
             Else
                 log.xInfo "[FCSH] Build successfull"
-                RaiseEvent Result(BUILD_SUCCESSFULL, isAssigned())
+                RaiseEvent result(BUILD_SUCCESSFULL, isAssigned())
             End If
         End If
     End If
+    
 End Sub
 
-Private Function isAssigned() As Long
+Public Function isAssigned() As Long
     Dim regExp As regExp
     Dim matches As MatchCollection
     Dim match As match
@@ -61,7 +64,7 @@ Private Function isAssigned() As Long
     End If
 End Function
 
-Private Function isWarn() As Boolean
+Public Function isWarn() As Boolean
     Dim regExp As regExp
     Dim matches As MatchCollection
     Dim match As match
@@ -74,7 +77,7 @@ Private Function isWarn() As Boolean
 End Function
 
 
-Private Function isError() As Boolean
+Public Function isError() As Boolean
     Dim regExp As regExp
     Dim matches As MatchCollection
     Dim match As match
@@ -87,7 +90,7 @@ Private Function isError() As Boolean
 End Function
 
 
-Private Function isFinished() As Boolean
+Public Function isFinished() As Boolean
     Dim regExp As regExp
     Dim matches As MatchCollection
     Dim match As match

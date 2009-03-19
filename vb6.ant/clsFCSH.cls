@@ -58,7 +58,7 @@ Attribute parser.VB_VarHelpID = -1
 Public Sub initialize(ByRef appLog As clsLog, ByRef prefs As clsPreferences)
     If (Not isInitialized) Then
         Set parser = New clsController
-        parser.initialize appLog
+        parser.initialize appLog, Me
         Set fcsh = New RedirectLib.Application
         Set log = appLog
         fcsh.BufferSize = prefs.CONSOLE_BUFFER
@@ -84,7 +84,7 @@ Public Sub Start(path As String)
                 RaiseError FCSH_START_FAILURE, "Windows error: " & CStr(fcsh.LastErrorNumber) & ". Make sure you have configured fcsh.exe path."
            Case laOk
                 isRunning = True
-                Sleep 1000
+                Sleep 2000
                 Dim message As New DataVO
                 message.target = FCSH_STARTED
                 message.data = "empty"
@@ -139,7 +139,7 @@ End Sub
 
 Private Sub fcsh_DataReceived(ByVal sData As String)
     If (isExec) Then
-        parser.addStdout sData
+        parser.addStdout (sData)
     End If
 End Sub
 
@@ -157,14 +157,20 @@ Private Sub Class_Terminate()
 End Sub
 
 Private Sub parser_Result(id As Build, assigned As Long)
+    log.xInfo "parser_Result id=" & id & ", assigned=" & assigned
+    
+    Dim data As New DataVO
+    data.data = parser.output
+    isExec = False
+    parser.reset
+    
     Dim isAssigned As Boolean
     If (assigned > 0 And Not targets.Exists(commandLine)) Then
         targets.Add commandLine, assigned
         isAssigned = True
     End If
     
-    Dim data As New DataVO
-    data.data = parser.output
+
     Select Case id
     Case Build.BUILD_SUCCESSFULL:
          data.target = FCSH_BUILD_SUCCESSFULL
@@ -187,7 +193,5 @@ Private Sub parser_Result(id As Build, assigned As Long)
          DisplayBalloon "Build", "Build failed", NIIF_ERROR
     End Select
     
-    isExec = False
-    parser.reset
     RaiseEvent onComplete(data)
 End Sub
