@@ -184,7 +184,7 @@ Private Sub parser_Result(id As Build, assigned As Long)
          If (isAssigned) Then
             DisplayBalloon "Build", "Build successfull. Assigned target id " & assigned & ".", NIIF_INFO
          Else
-            DisplayBalloon "Build", "Build successfull", NIIF_INFO
+            DisplayBalloon "Build", "Build successfull. Id is " & targets.Item(commandLine), NIIF_INFO
          End If
     Case Build.BUILD_WARNING:
          data.target = FCSH_BUILD_WARNING
@@ -193,11 +193,15 @@ Private Sub parser_Result(id As Build, assigned As Long)
             msg = "Build successfull, but there were warnings." + vbCrLf + "Assigned target id " & assigned & "."
             DisplayBalloon "Build", msg, NIIF_WARNING
          Else
-            DisplayBalloon "Build", "Build successfull, but there were warnings.", NIIF_WARNING
+            DisplayBalloon "Build", "Build successfull, but there were warnings. Id is " & targets.Item(commandLine), NIIF_WARNING
          End If
     Case Build.BUILD_ERROR:
          data.target = FCSH_BUILD_ERROR
-         DisplayBalloon "Build", "Build failed", NIIF_ERROR
+         If (targets.Exists(commandLine)) Then
+            DisplayBalloon "Build", "Build failed. Id is " & targets.Item(commandLine), NIIF_ERROR
+         Else
+            DisplayBalloon "Build", "Build failed", NIIF_ERROR
+         End If
     End Select
     
     RaiseEvent onComplete(data)
