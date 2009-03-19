@@ -46,6 +46,7 @@ public class fcsh extends Task {
         try {
             socket.connect(socketAddress, 60000);
         } catch (IOException e) {
+            System.out.println("Server is not responding. Probably it is stopped. Trying to launch...");
             tryToLaunchServer(e);
         }
 
@@ -91,7 +92,7 @@ public class fcsh extends Task {
                 System.out.println(dataVO.data);
                 System.out.println("");
                 if (BUILD.FCSH_BUILD_ERROR.equals(dataVO.target)) {
-                    throw new BuildException("Fix bugs and try again...");
+                    throw new BuildException("Total crap...");
                 } else if (BUILD.FCSH_BUILD_WARNING.equals(dataVO.target)) {
                     System.out.println("Fix this warnings... Dude!");
                 } else if (BUILD.FCSH_BUILD_SUCCESSFULL.equals(dataVO.target)) {
@@ -144,11 +145,11 @@ public class fcsh extends Task {
             try {
                 rt.exec(executable);
             } catch (IOException e1) {
-                throw new BuildException("Cant start FCSHServer", e1);
+                throw new BuildException("Cant start Server", e1);
             }
             System.out.println("Server started");
         } else {
-            throw new BuildException("Cant start FCSHServer, environment variable {FCSHServer} is not set.", e);
+            throw new BuildException("Cant start Server, environment variable {FCSHServer} is not set.", e);
         }
     }
 
