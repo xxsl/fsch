@@ -1,8 +1,8 @@
 package vo;
 
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.DataInputStream;
 import java.nio.ByteBuffer;
 
 /**
@@ -12,7 +12,6 @@ import java.nio.ByteBuffer;
  */
 public class DataVO implements IExternalizable {
     public static String AMF_TYPE = "amf.vo::DataVO";
-    public static String charset = "UTF-16LE";
     public String target;
     public String data;
 
@@ -30,12 +29,12 @@ public class DataVO implements IExternalizable {
 
     public void serialize(DataOutputStream output) throws IOException {
         ByteBuffer buffer = ByteBuffer.allocate(8192);
-        buffer.putInt(AMF_TYPE.getBytes(charset).length);
-        buffer.put(AMF_TYPE.getBytes(charset));
-        buffer.putInt(data.getBytes(charset).length);
-        buffer.put(data.getBytes(charset));
-        buffer.putInt(target.getBytes(charset).length);
-        buffer.put(target.getBytes(charset));
+        buffer.putInt(AMF_TYPE.getBytes(Encodings.out).length);
+        buffer.put(AMF_TYPE.getBytes(Encodings.out));
+        buffer.putInt(data.getBytes(Encodings.out).length);
+        buffer.put(data.getBytes(Encodings.out));
+        buffer.putInt(target.getBytes(Encodings.out).length);
+        buffer.put(target.getBytes(Encodings.out));
         int size = buffer.limit() - buffer.remaining();
         output.writeInt(size);
         output.flush();
@@ -47,12 +46,12 @@ public class DataVO implements IExternalizable {
         int commandSize = output.readInt();
         byte[] commandBuffer = new byte[commandSize];
         output.readFully(commandBuffer);
-        data = new String(commandBuffer, charset);
+        data = new String(commandBuffer, Encodings.in);
 
         int targetSize = output.readInt();
         byte[] targetBuffer = new byte[targetSize];
         output.readFully(targetBuffer);
-        target = new String(targetBuffer, charset);
+        target = new String(targetBuffer, Encodings.in);
     }
 
     @Override

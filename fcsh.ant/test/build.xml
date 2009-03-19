@@ -1,16 +1,16 @@
 <project name="project.main" basedir="." default="build">
-    <taskdef name="CompileFlex" classname="CompileFlex">
+    <taskdef name="fcsh" classname="fcsh">
         <classpath>
             <pathelement location="./fcsh.jar"/>
         </classpath>
     </taskdef>
 
     <target name="build">
-        <CompileFlex>
-            <Arg name="-load-config+=test"/>
-            <Arg name="-load-config+=test1"/>
-            <Arg name="-load-config+=test2"/>
-        </CompileFlex>
+        <fcsh>
+            <arg value="mxmlc"/>
+            <arg value="-output=C:\realworld.swf"/>
+            <arg value="-load-config+=C:\work\realworld\FLX\src\flex-config.xml"/>
+        </fcsh>
     </target>
 
     <target name="test">
