@@ -7,6 +7,8 @@ import java.net.InetSocketAddress;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import vo.CommandVO;
 import vo.ErrorVO;
@@ -19,6 +21,15 @@ import vo.DataVO;
  */
 
 public class CompileFlex extends Task {
+    private List<Arg> args = new ArrayList<Arg>();
+
+    public void addARG(Arg arg) {
+        args.add(arg);
+    }
+
+    public Object createARG(){
+        return new Arg();
+    }
 
     public static void main(String args[]) {
         new CompileFlex().execute();
@@ -26,6 +37,8 @@ public class CompileFlex extends Task {
 
     // The method executing the task
     public void execute() throws BuildException {
+
+        System.out.println(((Arg)args.get(2)).getName());
         DataOutputStream os;
         DataInputStream is;
 
@@ -51,7 +64,7 @@ public class CompileFlex extends Task {
                 throw new BuildException("Build failed: " + responce.toString());
             }
 
-            responce = readResponce(is);
+            /*responce = readResponce(is);
 
             if (responce instanceof ErrorVO) {
                 throw new BuildException(responce.toString());
@@ -60,7 +73,7 @@ public class CompileFlex extends Task {
                 CommandVO compileCommand = new CommandVO("fcsh", "mxmlc -output=C:\\\\realworld.swf -load-config+=C:\\work\\realworld\\FLX\\src\\flex-config.xml");
                 compileCommand.serialize(os);
                 os.flush();
-            }
+            }*/
 
             responce = readResponce(is);
 
@@ -68,11 +81,10 @@ public class CompileFlex extends Task {
                 throw new BuildException(responce.toString());
             } else if (responce instanceof DataVO) {
                 DataVO dataVO = (DataVO) responce;
-                System.out.println("Build finished: " + dataVO.toString());
+                System.out.println(dataVO.data);
             } else {
                 throw new BuildException("Build failed: " + responce.toString());
             }
-
 
 
             socket.close();
@@ -83,7 +95,7 @@ public class CompileFlex extends Task {
     }
 
     private void compile(DataOutputStream os) throws IOException {
-        //mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml
+        System.out.println("mxmlc -output=C:\\\\realworld.swf -load-config+=C:\\work\\realworld\\FLX\\src\\flex-config.xml");
         CommandVO compileCommand = new CommandVO("fcsh", "mxmlc -output=C:\\\\realworld.swf -load-config+=C:\\work\\realworld\\FLX\\src\\flex-config.xml");
         compileCommand.serialize(os);
         os.flush();
@@ -91,7 +103,7 @@ public class CompileFlex extends Task {
 
     private Object readResponce(DataInputStream is) throws IOException {
         int size = is.readInt();
-        System.out.println("Object size " + size);
+        //System.out.println("Object size " + size);
 
 
         int classSize = is.readInt();
@@ -99,22 +111,22 @@ public class CompileFlex extends Task {
         is.readFully(name);
         String className = new String(name, "UTF-16LE");
 
-        System.out.println("Object is " + className);
+        //System.out.println("Object is " + className);
 
         if (CommandVO.isClass(className)) {
             CommandVO commandVO = new CommandVO();
             commandVO.deSerialize(is);
-            System.out.println("Command: " + commandVO.toString());
+            //System.out.println("Command: " + commandVO.toString());
             return commandVO;
         } else if (ErrorVO.isClass(className)) {
             ErrorVO errorVO = new ErrorVO();
             errorVO.deSerialize(is);
-            System.out.println("Error: " + errorVO.toString());
+            //System.out.println("Error: " + errorVO.toString());
             return errorVO;
         } else if (DataVO.isClass(className)) {
             DataVO dataVO = new DataVO();
             dataVO.deSerialize(is);
-            System.out.println("Data: " + dataVO.toString());
+            //System.out.println("Data: " + dataVO.toString());
             return dataVO;
         } else {
             throw new BuildException("Unknown object: " + className);
@@ -122,3 +134,4 @@ public class CompileFlex extends Task {
 
     }
 }
+
