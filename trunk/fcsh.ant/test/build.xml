@@ -15,7 +15,7 @@
     </target>
 
     <target name="build1">
-        <fcsh>
+        <fcsh consoleencoding="cp866">
             <arg value="mxmlc"/>
             <arg value="-output=C:\realworld.swf"/>
             <arg value="-load-config+=C:\work\realworld\FLX\src\flex-config.xml"/>
