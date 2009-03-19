@@ -12,6 +12,7 @@ Begin VB.Form MainForm
    ScaleWidth      =   7695
    StartUpPosition =   2  'CenterScreen
    Begin VB.CommandButton cmdHide 
+      Cancel          =   -1  'True
       Caption         =   "Hide"
       Height          =   375
       Left            =   6360
@@ -21,6 +22,7 @@ Begin VB.Form MainForm
    End
    Begin VB.CommandButton cmdRecompile 
       Caption         =   "Recompile"
+      Default         =   -1  'True
       Enabled         =   0   'False
       Height          =   375
       Left            =   120
@@ -115,12 +117,12 @@ Private log As New clsLog
 
 
 Private Sub cmdClear_Click()
-    Dim key As String
+    Dim KEY As String
     If (lstTargets.ListIndex <> -1) Then
-        key = lstTargets.List(lstTargets.ListIndex)
+        KEY = lstTargets.List(lstTargets.ListIndex)
         If (fcsh.isRunning And Not fcsh.isExec) Then
-            fcsh.exec "clear " + CStr(fcsh.targets.Item(key))
-            fcsh.targets.Remove key
+            fcsh.exec "clear " + CStr(fcsh.targets.Item(KEY))
+            fcsh.targets.Remove KEY
         End If
     End If
     fillView
@@ -131,11 +133,11 @@ Private Sub cmdHide_Click()
 End Sub
 
 Private Sub cmdRecompile_Click()
-    Dim key As String
+    Dim KEY As String
     If (lstTargets.ListIndex <> -1) Then
-        key = lstTargets.List(lstTargets.ListIndex)
+        KEY = lstTargets.List(lstTargets.ListIndex)
         If (fcsh.isRunning And Not fcsh.isExec) Then
-            fcsh.exec "compile " + CStr(fcsh.targets.Item(key))
+            fcsh.exec "compile " + CStr(fcsh.targets.Item(KEY))
         End If
     End If
 End Sub
@@ -145,6 +147,8 @@ Private Sub fcsh_CommandsEnabled(enable As Boolean)
     cmdClear.ENABLED = enable
     cmdRecompile.ENABLED = enable
 End Sub
+
+
 
 Private Sub Form_Load()
     log.xInfo "Application started"
@@ -174,11 +178,11 @@ Private Sub Form_Load()
 End Sub
 
 Public Sub fillView()
-    Dim key As Variant
+    Dim KEY As Variant
     
     lstTargets.Clear
-    For Each key In fcsh.targets
-        lstTargets.AddItem CStr(key)
+    For Each KEY In fcsh.targets
+        lstTargets.AddItem CStr(KEY)
     Next
 End Sub
 

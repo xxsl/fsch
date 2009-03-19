@@ -1146,3 +1146,28 @@ C:\work\realworld\FLX\src\realworld.mxml(33):  Error: Тип не найден или не являе
 [INFO] 19.03.2009 20:52:07 Compile target: clear 1
 [INFO] 19.03.2009 20:52:07 [FCSH] Build successfull
 [INFO] 19.03.2009 20:52:11 Application stopped
+
+
+--------------------------------------------------------------------------
+[INFO] 19.03.2009 20:57:37 Application started
+[INFO] 19.03.2009 20:57:37 initialize preferences
+[INFO] 19.03.2009 20:57:37 Server is listening on port 40000
+[INFO] 19.03.2009 20:57:37 java.exe -Xmx384m -Xms125m -XX:MaxPermSize=512m -Dsun.io.useCanonCaches=false -Duser.language=en -Dapplication.home=C:\work\3.3 -jar C:\work\3.3\lib\fcsh.jar
+[INFO] 19.03.2009 20:57:55 Accepted connection request 448
+[INFO] 19.03.2009 20:57:57 Compile target: mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml
+[WARN] 19.03.2009 20:58:03 [FCSH] Build warnings
+[INFO] 19.03.2009 20:58:03 [FCSH] Target id assigned 1
+[INFO] 19.03.2009 20:58:30 Service connection closed
+[INFO] 19.03.2009 20:58:45 Accepted connection request 456
+[INFO] 19.03.2009 20:58:46 Recompile target: mxmlc -output=C:\\realworld.swf -load-config+=C:\work\realworld\FLX\src\flex-config.xml
+[INFO] 19.03.2009 20:58:47 [FCSH] Build successfull
+[INFO] 19.03.2009 20:59:08 Service connection closed
+[INFO] 19.03.2009 20:59:11 Compile target: compile 1
+[INFO] 19.03.2009 20:59:12 [FCSH] Build successfull
+[INFO] 19.03.2009 20:59:13 Compile target: compile 1
+[INFO] 19.03.2009 20:59:14 [FCSH] Build successfull
+[INFO] 19.03.2009 20:59:15 Compile target: compile 1
+[INFO] 19.03.2009 20:59:15 [FCSH] Build successfull
+[INFO] 19.03.2009 20:59:18 Compile target: clear 1
+[INFO] 19.03.2009 20:59:18 [FCSH] Build successfull
+[INFO] 19.03.2009 20:59:22 Application stopped
