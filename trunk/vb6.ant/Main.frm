@@ -1,52 +1,91 @@
 VERSION 5.00
 Object = "{248DD890-BB45-11CF-9ABC-0080C7E7B78D}#1.0#0"; "MSWINSCK.OCX"
-Object = "{95D85F43-414D-432F-909E-2ED57BBC389C}#1.2#0"; "MCLHotkey.ocx"
 Begin VB.Form MainForm 
-   Caption         =   "Form1"
-   ClientHeight    =   1590
+   Caption         =   "Flex Compiler SHell Server"
+   ClientHeight    =   3960
    ClientLeft      =   4290
    ClientTop       =   3600
-   ClientWidth     =   3000
+   ClientWidth     =   7695
    Icon            =   "Main.frx":0000
    LinkTopic       =   "Form1"
-   ScaleHeight     =   1590
-   ScaleWidth      =   3000
-   Visible         =   0   'False
-   Begin MCLHotkey.VBHotKey VBHotKey1 
-      Left            =   1920
-      Top             =   1080
-      _ExtentX        =   794
-      _ExtentY        =   794
-      WinKey          =   0   'False
+   ScaleHeight     =   3960
+   ScaleWidth      =   7695
+   StartUpPosition =   2  'CenterScreen
+   Begin VB.CommandButton cmdHide 
+      Caption         =   "Hide"
+      Height          =   375
+      Left            =   6360
+      TabIndex        =   5
+      Top             =   3480
+      Width           =   1215
+   End
+   Begin VB.CommandButton cmdRecompile 
+      Caption         =   "Recompile"
       Enabled         =   0   'False
+      Height          =   375
+      Left            =   120
+      TabIndex        =   4
+      Top             =   3480
+      Width           =   1095
+   End
+   Begin VB.CommandButton cmdClear 
+      Caption         =   "Clear"
+      Enabled         =   0   'False
+      Height          =   375
+      Left            =   1320
+      TabIndex        =   3
+      Top             =   3480
+      Width           =   1095
+   End
+   Begin VB.ListBox lstTargets 
+      Height          =   2985
+      Left            =   120
+      TabIndex        =   1
+      Top             =   360
+      Width           =   7455
    End
    Begin VB.CommandButton fakeTray 
       Caption         =   "fakeTray"
       Height          =   615
       Left            =   120
       TabIndex        =   0
-      Top             =   120
+      Top             =   5640
+      Visible         =   0   'False
       Width           =   1695
    End
    Begin MSWinsockLib.Winsock Service 
       Left            =   1920
-      Top             =   600
+      Top             =   6120
       _ExtentX        =   741
       _ExtentY        =   741
       _Version        =   393216
    End
    Begin MSWinsockLib.Winsock Server 
       Left            =   1920
-      Top             =   120
+      Top             =   5640
       _ExtentX        =   741
       _ExtentY        =   741
       _Version        =   393216
+   End
+   Begin VB.Label Label1 
+      Caption         =   "Compiler cache:"
+      Height          =   255
+      Left            =   120
+      TabIndex        =   2
+      Top             =   120
+      Width           =   1335
    End
    Begin VB.Menu mnu_shell 
       Caption         =   "SHell"
       Visible         =   0   'False
       Begin VB.Menu mnu_about 
          Caption         =   "About"
+      End
+      Begin VB.Menu mnu_space3 
+         Caption         =   "-"
+      End
+      Begin VB.Menu mnu_show_window 
+         Caption         =   "Compiler cache"
       End
       Begin VB.Menu mnu_space1 
          Caption         =   "-"
@@ -75,6 +114,38 @@ Private prefs As New clsPreferences
 Private log As New clsLog
 
 
+Private Sub cmdClear_Click()
+    Dim key As String
+    If (lstTargets.ListIndex <> -1) Then
+        key = lstTargets.List(lstTargets.ListIndex)
+        If (fcsh.isRunning And Not fcsh.isExec) Then
+            fcsh.exec "clear " + CStr(fcsh.targets.Item(key))
+            fcsh.targets.Remove key
+        End If
+    End If
+    fillView
+End Sub
+
+Private Sub cmdHide_Click()
+    Me.Hide
+End Sub
+
+Private Sub cmdRecompile_Click()
+    Dim key As String
+    If (lstTargets.ListIndex <> -1) Then
+        key = lstTargets.List(lstTargets.ListIndex)
+        If (fcsh.isRunning And Not fcsh.isExec) Then
+            fcsh.exec "compile " + CStr(fcsh.targets.Item(key))
+        End If
+    End If
+End Sub
+
+
+Private Sub fcsh_CommandsEnabled(enable As Boolean)
+    cmdClear.ENABLED = enable
+    cmdRecompile.ENABLED = enable
+End Sub
+
 Private Sub Form_Load()
     log.xInfo "Application started"
     prefs.initialize log
@@ -95,15 +166,45 @@ Private Sub Form_Load()
     
     TrayAdd fakeTray.hwnd, Me.Icon, "Flex Compiler SHell Server", MouseMove
     
-    Dim hotConfig As New clsHotKeySetup
-    hotConfig.SetupKey prefs.prefs, VBHotKey1
-    
+   
     Set fcsh = New clsFCSH
     fcsh.initialize log, prefs
+    
+    fcsh.Start
+End Sub
+
+Public Sub fillView()
+    Dim key As Variant
+    
+    lstTargets.Clear
+    For Each key In fcsh.targets
+        lstTargets.AddItem CStr(key)
+    Next
+End Sub
+
+
+Private Sub Form_Resize()
+    lstTargets.Width = Me.Width - lstTargets.Left * 2 - 150
+    
+    Dim listHeight As Long
+    listHeight = Me.Height - lstTargets.Top - 1000
+    If (listHeight > 0) Then
+        lstTargets.Height = listHeight
+    End If
+    
+    listHeight = lstTargets.Top + lstTargets.Height + 100
+    cmdClear.Top = listHeight
+    cmdHide.Top = listHeight
+    cmdRecompile.Top = listHeight
+    cmdHide.Left = lstTargets.Left + lstTargets.Width - cmdHide.Width
 End Sub
 
 Private Sub mnu_log_Click()
     Shell "notepad.exe " + App.path + "\FCSHServer.log", vbNormalFocus
+End Sub
+
+Private Sub mnu_show_window_Click()
+    Me.Show
 End Sub
 
 Private Sub Server_ConnectionRequest(ByVal requestID As Long)
@@ -137,7 +238,7 @@ Private Sub Service_DataArrival(ByVal bytesTotal As Long)
            Dim objectLength As Long, i As Long, buffer() As Byte
            Service.PeekData buffer, , 4
            objectLength = convertInt(buffer)
-           log.xInfo "Object length: " & objectLength & " bytesTotal: " & bytesTotal
+           log.xDebug "Object length: " & objectLength & " bytesTotal: " & bytesTotal
             
            'if structure arrived completely then deserialize
            If ((bytesTotal - 4) = objectLength) Then
@@ -155,28 +256,28 @@ Private Sub deSerialize(ByRef byteArray() As Byte)
     Dim pos As Long
     objectType = readString(byteArray, pos)
     
-    log.xInfo "Object type: " & objectType
+    log.xDebug "Object type: " & objectType
     
     Select Case objectType
         Case AIR_COMMANDVO:
                             Dim command As New CommandVO
                             command.deSerialize byteArray, pos
-                            log.xInfo command.toString
+                            log.xDebug command.toString
                             executeCommand command
         Case AIR_ERRORVO:
                             Dim error As New ErrorVO
                             error.deSerialize byteArray, pos
-                            log.xInfo error.toString
+                            log.xDebug error.toString
                             processError error
         Case AIR_DATAVO:
                             Dim data As New DataVO
                             data.deSerialize byteArray, pos
-                            log.xInfo data.toString
+                            log.xDebug data.toString
                             processData data
         Case AIR_BALOONVO:
                             Dim baloon As New baloonVO
                             baloon.deSerialize byteArray, pos
-                            log.xInfo baloon.toString
+                            log.xDebug baloon.toString
                             showBaloon baloon
     End Select
 End Sub
@@ -191,12 +292,12 @@ Private Sub processError(error As ErrorVO)
 End Sub
 
 Private Sub executeCommand(command As CommandVO)
-    log.xInfo "Command: target=" + command.target + " command=" + command.command
+    log.xDebug "Command: target=" + command.target + " command=" + command.command
     Select Case command.target
         Case "fcsh":
                     fcsh.exec command.command
         Case "fcsh_start":
-                    fcsh.Start command.command
+                    fcsh.Start
         Case "fcsh_stop":
                     fcsh.Quit
         Case "fcsh_getstate":
@@ -217,15 +318,15 @@ End Sub
 
 Private Sub sendByteArray(ByRef byteArray() As Byte)
     If (Service.State = sckConnected) Then
-        log.xInfo "Sending " & (UBound(byteArray) + 1) & " bytes"
+        log.xDebug "Sending " & (UBound(byteArray) + 1) & " bytes"
         Dim size() As Byte
         ReDim size(0)
         writeLong size, UBound(byteArray) + 1
         Service.SendData size
         Service.SendData byteArray
     Else
-        log.xWarning "Network falure. There are no clients connected to the server"
-        DisplayBalloon "Network falure", "There are no clients connected to the server", NIIF_ERROR
+        log.xDebug "Network falure. There are no clients connected to the server"
+        'DisplayBalloon "Network falure", "There are no clients connected to the server", NIIF_ERROR
     End If
 End Sub
 
@@ -268,7 +369,7 @@ End Sub
 
 
 Private Sub fcsh_calllback(data As String, target As String)
-    log.xInfo "Callback: target=" + target + " data=" + data
+    log.xDebug "Callback: target=" + target + " data=" + data
     Dim byteArray() As Byte
     ReDim byteArray(0)
     Dim dataObject As New DataVO
@@ -311,19 +412,19 @@ End Sub
 
 
 Private Sub mnu_about_Click()
-    Dim Result As String
-    Result = "Flex Compiler SHell Server. Version " & App.Major & "." & App.Minor & "." & App.Revision & vbCrLf & vbCrLf
+    Dim result As String
+    result = "Flex Compiler SHell Server. Version " & App.Major & "." & App.Minor & "." & App.Revision & vbCrLf & vbCrLf
     If (Server.State = sckListening) Then
-        Result = Result + "Server is listening on port " & Server.LocalPort & vbCrLf & vbCrLf
+        result = result + "Server is listening on port " & Server.LocalPort & vbCrLf & vbCrLf
     Else
-        Result = Result + "Warning: Server socket state " & Server.State & vbCrLf & vbCrLf
+        result = result + "Warning: Server socket state " & Server.State & vbCrLf & vbCrLf
     End If
     
-    Result = Result + "Is client connected: " & (Service.State = sckConnected) & vbCrLf & vbCrLf
+    result = result + "Is client connected: " & (Service.State = sckConnected) & vbCrLf & vbCrLf
 
-    Result = Result + "Is fcsh running: " & (fcsh.isRunning)
+    result = result + "Is fcsh running: " & (fcsh.isRunning)
     
-    MsgBox Result, vbOKOnly, "About"
+    MsgBox result, vbOKOnly, "About"
 End Sub
 
 Private Sub mnu_exit_Click()
@@ -341,16 +442,11 @@ End Sub
 
 
 Private Sub Service_SendComplete()
-    log.xInfo "[send complete]"
-End Sub
-
-Private Sub VBHotKey1_HotkeyPressed()
-    log.xInfo "HotKey pressed"
-    sendCommand "empty", "system_hotkey"
+    log.xDebug "[send complete]"
 End Sub
 
 Private Sub sendCommand(data As String, target As String)
-    log.xInfo "Send command: target=" + target + " data=" + data
+    log.xDebug "Send command: target=" + target + " data=" + data
     Dim byteArray() As Byte
     ReDim byteArray(0)
     Dim dataObject As New CommandVO
