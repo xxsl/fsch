@@ -4,9 +4,7 @@ import org.apache.tools.ant.BuildException;
 import java.net.Socket;
 import java.net.SocketAddress;
 import java.net.InetSocketAddress;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -89,7 +87,7 @@ public class fcsh extends Task {
                 //check build result
             } else if (responce instanceof DataVO) {
                 DataVO dataVO = (DataVO) responce;
-                System.out.println(dataVO.data);
+                printRU(dataVO.data);
                 System.out.println("");
                 if (BUILD.FCSH_BUILD_ERROR.equals(dataVO.target)) {
                     throw new BuildException("Total crap...");
@@ -188,7 +186,21 @@ public class fcsh extends Task {
         } else {
             throw new BuildException("Unknown object: " + className);
         }
+    }
 
+    private void printRU(String javaString) {
+        try {
+            // output to the console
+            Writer w =
+                    new BufferedWriter
+                            (new OutputStreamWriter(System.out, "Cp866"));
+            w.write(javaString);
+            w.flush();
+            //w.close();
+        }
+        catch (Exception e) {
+            throw new BuildException(e);
+        }
     }
 }
 
