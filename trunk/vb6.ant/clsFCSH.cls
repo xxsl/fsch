@@ -89,7 +89,7 @@ Public Sub Start()
                 RaiseError FCSH_START_FAILURE, "Windows error: " & CStr(fcsh.LastErrorNumber) & ". Make sure you have configured fcsh.exe path."
            Case laOk
                 isRunning = True
-                'Sleep 2000
+                Sleep 1000
                 Dim message As New DataVO
                 message.target = FCSH_STARTED
                 message.data = "empty"
@@ -139,6 +139,16 @@ Public Sub exec(command As String)
         End If
     Else
         RaiseError FCSH_NOT_STATRED, "Cant exec: fcsh stopped"
+    End If
+End Sub
+
+
+Public Sub clear(command As String)
+    If (isRunning) Then
+        If (Not isExec) Then
+              commandLine = command
+              fcsh.Write ToOEM(command) + vbCrLf
+        End If
     End If
 End Sub
 
