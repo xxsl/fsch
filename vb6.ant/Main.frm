@@ -131,7 +131,7 @@ Private Sub cmdClear_Click()
     If (lstTargets.ListIndex <> -1) Then
         KEY = lstTargets.List(lstTargets.ListIndex)
         If (fcsh.isRunning And Not fcsh.isExec) Then
-            fcsh.exec "clear " + CStr(fcsh.targets.Item(KEY))
+            fcsh.clear "clear " + CStr(fcsh.targets.Item(KEY))
             fcsh.targets.Remove KEY
         End If
     End If
@@ -144,10 +144,11 @@ End Sub
 
 Private Sub cmdRecompile_Click()
     Dim KEY As String
+    
     If (lstTargets.ListIndex <> -1) Then
         KEY = lstTargets.List(lstTargets.ListIndex)
         If (fcsh.isRunning And Not fcsh.isExec) Then
-            fcsh.exec "compile " + CStr(fcsh.targets.Item(KEY))
+            fcsh.exec KEY
         End If
     End If
 End Sub
@@ -175,7 +176,7 @@ Private Sub Form_Load()
     Server.Listen
     If Err.Number <> 0 Then
         log.xError "Cant start server: " + Err.description
-        Err.Clear
+        Err.clear
     End If
     
     TrayAdd fakeTray.hwnd, Me.Icon, "Flex Compiler SHell Server", MouseMove
@@ -190,7 +191,7 @@ End Sub
 Public Sub fillView()
     Dim KEY As Variant
     
-    lstTargets.Clear
+    lstTargets.clear
     For Each KEY In fcsh.targets
         lstTargets.AddItem CStr(KEY)
     Next
