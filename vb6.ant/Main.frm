@@ -6,6 +6,15 @@ Begin VB.Form MainForm
    ClientLeft      =   4290
    ClientTop       =   3600
    ClientWidth     =   7695
+   BeginProperty Font 
+      Name            =   "MS Sans Serif"
+      Size            =   9.75
+      Charset         =   204
+      Weight          =   400
+      Underline       =   0   'False
+      Italic          =   0   'False
+      Strikethrough   =   0   'False
+   EndProperty
    Icon            =   "Main.frx":0000
    LinkTopic       =   "Form1"
    ScaleHeight     =   3960
@@ -14,6 +23,15 @@ Begin VB.Form MainForm
    Begin VB.CommandButton cmdHide 
       Cancel          =   -1  'True
       Caption         =   "Hide"
+      BeginProperty Font 
+         Name            =   "MS Sans Serif"
+         Size            =   8.25
+         Charset         =   204
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
       Height          =   375
       Left            =   6360
       TabIndex        =   5
@@ -24,6 +42,15 @@ Begin VB.Form MainForm
       Caption         =   "Recompile"
       Default         =   -1  'True
       Enabled         =   0   'False
+      BeginProperty Font 
+         Name            =   "MS Sans Serif"
+         Size            =   8.25
+         Charset         =   204
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
       Height          =   375
       Left            =   120
       TabIndex        =   4
@@ -33,6 +60,15 @@ Begin VB.Form MainForm
    Begin VB.CommandButton cmdClear 
       Caption         =   "Clear"
       Enabled         =   0   'False
+      BeginProperty Font 
+         Name            =   "MS Sans Serif"
+         Size            =   8.25
+         Charset         =   204
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
       Height          =   375
       Left            =   1320
       TabIndex        =   3
@@ -50,7 +86,9 @@ Begin VB.Form MainForm
          Strikethrough   =   0   'False
       EndProperty
       Height          =   2700
+      ItemData        =   "Main.frx":058A
       Left            =   120
+      List            =   "Main.frx":058C
       Sorted          =   -1  'True
       TabIndex        =   1
       Top             =   360
@@ -58,6 +96,15 @@ Begin VB.Form MainForm
    End
    Begin VB.CommandButton fakeTray 
       Caption         =   "fakeTray"
+      BeginProperty Font 
+         Name            =   "MS Sans Serif"
+         Size            =   8.25
+         Charset         =   204
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
       Height          =   615
       Left            =   120
       TabIndex        =   0
@@ -81,6 +128,15 @@ Begin VB.Form MainForm
    End
    Begin VB.Label Label1 
       Caption         =   "Compiler cache:"
+      BeginProperty Font 
+         Name            =   "MS Sans Serif"
+         Size            =   8.25
+         Charset         =   204
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
       Height          =   255
       Left            =   120
       TabIndex        =   2
@@ -120,6 +176,15 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 
+Private Declare Function SendMessage Lib "user32" Alias "SendMessageA" (ByVal _
+    hwnd As Long, ByVal wMsg As Long, ByVal wParam As Long, _
+    lParam As Any) As Long
+Const LB_SETHORIZONTALEXTENT = &H194
+Const LB_GETHORIZONTALEXTENT = &H193
+
+
+
+
 Private WithEvents fcsh As clsFCSH
 Attribute fcsh.VB_VarHelpID = -1
 Private prefs As New clsPreferences
@@ -131,7 +196,7 @@ Private Sub cmdClear_Click()
     If (lstTargets.ListIndex <> -1) Then
         KEY = lstTargets.List(lstTargets.ListIndex)
         If (fcsh.isRunning And Not fcsh.isExec) Then
-            fcsh.clear "clear " + CStr(fcsh.targets.Item(KEY))
+            fcsh.clear "clear " + CStr(fcsh.targets.item(KEY))
             fcsh.targets.Remove KEY
         End If
     End If
@@ -186,7 +251,27 @@ Private Sub Form_Load()
     fcsh.initialize log, prefs
     
     fcsh.Start
+    
+    SetHorizontalExtent
 End Sub
+
+Sub SetHorizontalExtent()
+    Dim maxWidth As Long
+    Dim item As Long
+    maxWidth = 0
+    If (lstTargets.ListCount > 0) Then
+        For item = 0 To lstTargets.ListCount - 1
+            If (maxWidth < TextWidth(CStr(lstTargets.List(item)))) Then
+                maxWidth = TextWidth(CStr(lstTargets.List(item)))
+            End If
+        Next
+    End If
+
+    maxWidth = maxWidth / Screen.TwipsPerPixelX
+    SendMessage lstTargets.hwnd, LB_SETHORIZONTALEXTENT, maxWidth, ByVal 0&
+End Sub
+
+
 
 Public Sub fillView()
     Dim KEY As Variant
@@ -195,6 +280,7 @@ Public Sub fillView()
     For Each KEY In fcsh.targets
         lstTargets.AddItem CStr(KEY)
     Next
+    SetHorizontalExtent
 End Sub
 
 
