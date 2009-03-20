@@ -1,5 +1,6 @@
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.taskdefs.Echo;
 
 import java.net.Socket;
 import java.net.SocketAddress;
@@ -21,7 +22,7 @@ import constants.BUILD;
  */
 
 public class fcsh extends Task {
-    private List<arg> args = new ArrayList<arg>();
+    private List<Arg> args = new ArrayList<Arg>();
 
     private String consoleEncoding = "cp866";
 
@@ -33,12 +34,14 @@ public class fcsh extends Task {
         this.consoleEncoding = consoleEncoding;
     }
 
-    public void addArg(arg argument) {
-        args.add(argument);
-    }
+//    public void addArg(Arg argument) {
+//        args.add(argument);
+//    }
 
     public Object createArg() {
-        return new arg();
+        Arg aNewArg = new Arg();
+        args.add(aNewArg);
+        return aNewArg;
     }
 
     public static void main(String args[]) {
@@ -82,10 +85,12 @@ public class fcsh extends Task {
             if ((responce instanceof ErrorVO) && ((ErrorVO) responce).id != 4) {
                 throw new BuildException(responce.toString());
                 //fcsh is already running or started => compile
-            } else if ((responce instanceof ErrorVO) || ((responce instanceof DataVO) && ((DataVO) responce).target.equals("fcsh_start"))) {
+            }
+            else if ((responce instanceof ErrorVO) || ((responce instanceof DataVO) && ((DataVO) responce).target.equals("fcsh_start"))) {
                 compile(os);
                 //any other object is error
-            } else {
+            }
+            else {
                 throw new BuildException("Build failed: " + responce.toString());
             }
 
@@ -95,21 +100,29 @@ public class fcsh extends Task {
             if (responce instanceof ErrorVO) {
                 throw new BuildException(responce.toString());
                 //check build result
-            } else if (responce instanceof DataVO) {
+            }
+            else if (responce instanceof DataVO) {
                 DataVO dataVO = (DataVO) responce;
                 printRU(dataVO.data);
                 System.out.println("");
                 if (BUILD.FCSH_BUILD_ERROR.equals(dataVO.target)) {
                     throw new BuildException("Total crap...");
-                } else if (BUILD.FCSH_BUILD_WARNING.equals(dataVO.target)) {
+                }
+                else if (BUILD.FCSH_BUILD_WARNING.equals(dataVO.target)) {
                     System.out.println("Fix this warnings... Dude!");
-                } else if (BUILD.FCSH_BUILD_SUCCESSFULL.equals(dataVO.target)) {
+                }
+                else if (BUILD.FCSH_BUILD_SUCCESSFULL.equals(dataVO.target)) {
                     System.out.println("Awesome!");
-                } else {
-                    System.out.println("wtf?!");
+                }
+                else if ("fcsh_stop".equals(dataVO.target)) {
+                    System.out.println("Flex Compile SHell failed. Check your server.ini");
+                }
+                else {
+                    System.out.println("WTF?!");
                 }
                 //any other is error
-            } else {
+            }
+            else {
                 throw new BuildException("Build failed: " + responce.toString());
             }
 
@@ -151,19 +164,20 @@ public class fcsh extends Task {
         if (executable != null) {
             Runtime rt = Runtime.getRuntime();
             try {
-                rt.exec(executable);
+                rt.exec(executable + "\\FCSHServer.exe");
             } catch (IOException e1) {
                 throw new BuildException("Cant start Server", e1);
             }
             System.out.println("Server started");
-        } else {
+        }
+        else {
             throw new BuildException("Cant start Server, environment variable {FCSHServer} is not set.", e);
         }
     }
 
     private void compile(DataOutputStream os) throws IOException {
         String cmd = "";
-        for (arg argument : args) {
+        for (Arg argument : args) {
             cmd += argument.getValue() + " ";
         }
         System.out.println("Command: " + cmd);
@@ -185,15 +199,18 @@ public class fcsh extends Task {
             CommandVO commandVO = new CommandVO();
             commandVO.deSerialize(is);
             return commandVO;
-        } else if (ErrorVO.isClass(className)) {
+        }
+        else if (ErrorVO.isClass(className)) {
             ErrorVO errorVO = new ErrorVO();
             errorVO.deSerialize(is);
             return errorVO;
-        } else if (DataVO.isClass(className)) {
+        }
+        else if (DataVO.isClass(className)) {
             DataVO dataVO = new DataVO();
             dataVO.deSerialize(is);
             return dataVO;
-        } else {
+        }
+        else {
             throw new BuildException("Unknown object: " + className);
         }
     }
