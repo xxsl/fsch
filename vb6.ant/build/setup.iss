@@ -6,24 +6,24 @@
 ; Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{16B4B946-D6D2-4A3F-9F71-D85CFBEF6937}
-AppName=Flex Compiler Shell Server
-AppVerName=Flex Compiler Shell Server 1.0.34
+AppName=FCSHServer
+AppVerName=FCSHServer 1.0.18
 AppPublisher=nimrod97@gmail.com
 AppPublisherURL=http://code.google.com/p/fsch/
 AppSupportURL=http://code.google.com/p/fsch/
 AppUpdatesURL=http://code.google.com/p/fsch/
 DefaultDirName={pf}\Fcsh Server
-DefaultGroupName=Flex Compiler Shell Server
+DefaultGroupName=FCSHServer
 AllowNoIcons=yes
 LicenseFile=license.txt
 InfoBeforeFile=
 InfoAfterFile=
 OutputDir=/setup
-OutputBaseFilename=fcsh-server-setup-1.0.34
+OutputBaseFilename=fcsh-server-setup
 SetupIconFile=all.ico
 Compression=lzma/ultra
 SolidCompression=yes
-VersionInfoVersion=1.0.34
+VersionInfoVersion=1.0.18
 VersionInfoCopyright=nimrod97@gmail.com
 
 
@@ -39,6 +39,7 @@ Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescrip
 Source: "FCSHServer.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "server.ini"; DestDir: "{app}"; Flags: uninsneveruninstall onlyifdoesntexist
 Source: "FCSHServer.exe.manifest"; DestDir: "{app}"; Flags: ignoreversion
+Source: "fcsh.jar"; DestDir: "{app}"; Flags: ignoreversion
 
 Source: "msvbvm60.dll"; DestDir: "{sys}"; Flags: sharedfile regserver  onlyifdoesntexist
 Source: "oleaut32.dll"; DestDir: "{sys}"; Flags: sharedfile regserver  onlyifdoesntexist
