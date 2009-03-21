@@ -85,12 +85,10 @@ public class fcsh extends Task {
             if ((responce instanceof ErrorVO) && ((ErrorVO) responce).id != 4) {
                 throw new BuildException(responce.toString());
                 //fcsh is already running or started => compile
-            }
-            else if ((responce instanceof ErrorVO) || ((responce instanceof DataVO) && ((DataVO) responce).target.equals("fcsh_start"))) {
+            } else if ((responce instanceof ErrorVO) || ((responce instanceof DataVO) && ((DataVO) responce).target.equals("fcsh_start"))) {
                 compile(os);
                 //any other object is error
-            }
-            else {
+            } else {
                 throw new BuildException("Build failed: " + responce.toString());
             }
 
@@ -100,29 +98,27 @@ public class fcsh extends Task {
             if (responce instanceof ErrorVO) {
                 throw new BuildException(responce.toString());
                 //check build result
-            }
-            else if (responce instanceof DataVO) {
+            } else if (responce instanceof DataVO) {
                 DataVO dataVO = (DataVO) responce;
-                printRU(dataVO.data);
+                if (!"empty".equals(dataVO.data)) {
+                    printRU(dataVO.data);
+                }
                 System.out.println("");
                 if (BUILD.FCSH_BUILD_ERROR.equals(dataVO.target)) {
                     throw new BuildException("Total crap...");
-                }
-                else if (BUILD.FCSH_BUILD_WARNING.equals(dataVO.target)) {
+                } else if (BUILD.FCSH_BUILD_WARNING.equals(dataVO.target)) {
                     System.out.println("Fix this warnings... Dude!");
-                }
-                else if (BUILD.FCSH_BUILD_SUCCESSFULL.equals(dataVO.target)) {
+                } else if (BUILD.FCSH_BUILD_SUCCESSFULL.equals(dataVO.target)) {
                     System.out.println("Awesome!");
-                }
-                else if ("fcsh_stop".equals(dataVO.target)) {
-                    System.out.println("Flex Compile SHell failed. Check your server.ini");
-                }
-                else {
-                    System.out.println("WTF?!");
+                } else if ("fcsh_stop".equals(dataVO.target)) {
+                    System.out.println("Flex Compile SHell start failed. Check your server.ini");
+                    throw new BuildException("Flex Compile SHell start failed. Check your server.ini");
+                } else {
+                    System.out.println("WTF?!:" + responce.toString());
+                    throw new BuildException("Unknown responce:" + responce.toString());
                 }
                 //any other is error
-            }
-            else {
+            } else {
                 throw new BuildException("Build failed: " + responce.toString());
             }
 
@@ -163,14 +159,14 @@ public class fcsh extends Task {
         String executable = System.getenv("FCSHServer");
         if (executable != null) {
             Runtime rt = Runtime.getRuntime();
+            String command = executable + "\\FCSHServer.exe";
             try {
-                rt.exec(executable + "\\FCSHServer.exe");
+                rt.exec(command);
             } catch (IOException e1) {
-                throw new BuildException("Cant start Server", e1);
+                throw new BuildException("Cant start Server: " + command, e1);
             }
             System.out.println("Server started");
-        }
-        else {
+        } else {
             throw new BuildException("Cant start Server, environment variable {FCSHServer} is not set.", e);
         }
     }
@@ -199,18 +195,15 @@ public class fcsh extends Task {
             CommandVO commandVO = new CommandVO();
             commandVO.deSerialize(is);
             return commandVO;
-        }
-        else if (ErrorVO.isClass(className)) {
+        } else if (ErrorVO.isClass(className)) {
             ErrorVO errorVO = new ErrorVO();
             errorVO.deSerialize(is);
             return errorVO;
-        }
-        else if (DataVO.isClass(className)) {
+        } else if (DataVO.isClass(className)) {
             DataVO dataVO = new DataVO();
             dataVO.deSerialize(is);
             return dataVO;
-        }
-        else {
+        } else {
             throw new BuildException("Unknown object: " + className);
         }
     }

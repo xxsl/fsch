@@ -1,11 +1,15 @@
 <project name="project.main" basedir="." default="build">
+    <property environment="env"/>
+    <property name="classpath" value="${env.FCSHServer}"/>
+
     <taskdef name="fcsh" classname="fcsh">
         <classpath>
-            <pathelement location="./fcsh.jar"/>
+            <pathelement location="${env.FCSHServer}/fcsh.jar"/>
         </classpath>
     </taskdef>
 
     <target name="build">
+        <echo message="${classpath}\fcsh.jar"/>
         <fcsh>
             <arg value="mxmlc"/>
             <arg value="-locale en_US"/>
