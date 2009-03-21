@@ -7,7 +7,7 @@
         <attribute name="URI" value="/" />
       </containerElement>
     </containerInfo>
-    <setting name="jarUrl" value="file://$MODULE_DIR$/test/fcsh.jar" />
+    <setting name="jarUrl" value="file://$MODULE_DIR$/../vb6.ant/build/fcsh.jar" />
     <setting name="buildJar" value="true" />
     <setting name="mainClass" value="" />
   </component>
@@ -21,7 +21,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../ant/lib/ant-xslp.jar!/" />
+          <root url="jar://$MODULE_DIR$/3rdParty/ant1.6.2/lib/ant-netrexx.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -30,7 +30,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../ant/lib/ant-weblogic.jar!/" />
+          <root url="jar://$MODULE_DIR$/3rdParty/ant1.6.2/lib/ant-xalan1.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -39,7 +39,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../ant/lib/ant-xalan1.jar!/" />
+          <root url="jar://$MODULE_DIR$/3rdParty/ant1.6.2/lib/ant-trax.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -48,7 +48,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../ant/lib/ant-apache-log4j.jar!/" />
+          <root url="jar://$MODULE_DIR$/3rdParty/ant1.6.2/lib/ant-launcher.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -57,7 +57,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../ant/lib/ant-jai.jar!/" />
+          <root url="jar://$MODULE_DIR$/3rdParty/ant1.6.2/lib/ant-javamail.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -66,7 +66,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../ant/lib/ant-jmf.jar!/" />
+          <root url="jar://$MODULE_DIR$/3rdParty/ant1.6.2/lib/ant-swing.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -75,7 +75,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../ant/lib/ant-apache-bsf.jar!/" />
+          <root url="jar://$MODULE_DIR$/3rdParty/ant1.6.2/lib/ant-xslp.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -84,7 +84,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../ant/lib/ant-swing.jar!/" />
+          <root url="jar://$MODULE_DIR$/3rdParty/ant1.6.2/lib/ant-stylebook.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -93,7 +93,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../ant/lib/ant-starteam.jar!/" />
+          <root url="jar://$MODULE_DIR$/3rdParty/ant1.6.2/lib/xml-apis.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -102,7 +102,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../ant/lib/ant-javamail.jar!/" />
+          <root url="jar://$MODULE_DIR$/3rdParty/ant1.6.2/lib/ant-nodeps.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -111,7 +111,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../ant/lib/ant-commons-net.jar!/" />
+          <root url="jar://$MODULE_DIR$/3rdParty/ant1.6.2/lib/ant-commons-logging.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -120,7 +120,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../ant/lib/ant-apache-oro.jar!/" />
+          <root url="jar://$MODULE_DIR$/3rdParty/ant1.6.2/lib/ant-apache-regexp.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -129,7 +129,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../ant/lib/ant-trax.jar!/" />
+          <root url="jar://$MODULE_DIR$/3rdParty/ant1.6.2/lib/ant-commons-net.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -138,7 +138,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../ant/lib/xml-apis.jar!/" />
+          <root url="jar://$MODULE_DIR$/3rdParty/ant1.6.2/lib/ant-jmf.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -147,7 +147,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../ant/lib/ant-jsch.jar!/" />
+          <root url="jar://$MODULE_DIR$/3rdParty/ant1.6.2/lib/ant-starteam.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -156,7 +156,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../ant/lib/ant-stylebook.jar!/" />
+          <root url="jar://$MODULE_DIR$/3rdParty/ant1.6.2/lib/ant-apache-resolver.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -165,7 +165,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../ant/lib/ant.jar!/" />
+          <root url="jar://$MODULE_DIR$/3rdParty/ant1.6.2/lib/ant-apache-oro.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -174,7 +174,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../ant/lib/xercesImpl.jar!/" />
+          <root url="jar://$MODULE_DIR$/3rdParty/ant1.6.2/lib/xercesImpl.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -183,7 +183,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../ant/lib/ant-netrexx.jar!/" />
+          <root url="jar://$MODULE_DIR$/3rdParty/ant1.6.2/lib/ant-apache-log4j.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -192,7 +192,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../ant/lib/ant-apache-regexp.jar!/" />
+          <root url="jar://$MODULE_DIR$/3rdParty/ant1.6.2/lib/ant-jai.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -201,7 +201,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../ant/lib/ant-apache-resolver.jar!/" />
+          <root url="jar://$MODULE_DIR$/3rdParty/ant1.6.2/lib/ant.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -210,7 +210,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../ant/lib/ant-icontract.jar!/" />
+          <root url="jar://$MODULE_DIR$/3rdParty/ant1.6.2/lib/ant-junit.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -219,7 +219,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../ant/lib/ant-junit.jar!/" />
+          <root url="jar://$MODULE_DIR$/3rdParty/ant1.6.2/lib/ant-jsch.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -228,7 +228,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../ant/lib/ant-vaj.jar!/" />
+          <root url="jar://$MODULE_DIR$/3rdParty/ant1.6.2/lib/ant-jdepend.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -237,7 +237,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../ant/lib/ant-antlr.jar!/" />
+          <root url="jar://$MODULE_DIR$/3rdParty/ant1.6.2/lib/ant-apache-bcel.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -246,7 +246,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../ant/lib/ant-jdepend.jar!/" />
+          <root url="jar://$MODULE_DIR$/3rdParty/ant1.6.2/lib/ant-weblogic.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -255,7 +255,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../ant/lib/ant-launcher.jar!/" />
+          <root url="jar://$MODULE_DIR$/3rdParty/ant1.6.2/lib/ant-icontract.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -264,7 +264,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../ant/lib/ant-commons-logging.jar!/" />
+          <root url="jar://$MODULE_DIR$/3rdParty/ant1.6.2/lib/ant-apache-bsf.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -273,7 +273,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../ant/lib/ant-apache-bcel.jar!/" />
+          <root url="jar://$MODULE_DIR$/3rdParty/ant1.6.2/lib/ant-vaj.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -282,16 +282,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../ant/lib/ant-nodeps.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/chardet.jar!/" />
+          <root url="jar://$MODULE_DIR$/3rdParty/ant1.6.2/lib/ant-antlr.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
