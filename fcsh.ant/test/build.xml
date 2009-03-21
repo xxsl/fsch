@@ -9,7 +9,6 @@
     </taskdef>
 
     <target name="build">
-        <echo message="${classpath}\fcsh.jar"/>
         <fcsh>
             <arg value="mxmlc"/>
             <arg value="-locale en_US"/>
