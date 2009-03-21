@@ -2,7 +2,7 @@
 <project name="fcsh.build" default="buildall" basedir=".">
 
     <property name="output.dir" value="${basedir}\classes"/>
-    <property name="output.dir.jar" value="${basedir}\..\vb6.ant\build"/>
+    <property name="output.dir.jar" value="${basedir}/../vb6.ant/build"/>
 
     <path id="classpath">
         <pathelement location="${basedir}/ant/lib/ant-xslp.jar"/>
@@ -65,8 +65,13 @@
     </target>
 
     <target name="fcsh.jar">
-        <jar basedir="${output.dir}" jarfile="${basedir}/../vb6.ant/build/fcsh.jar">
+        <jar basedir="${output.dir}" jarfile="${output.dir.jar}/fcsh.jar">
         </jar>
+        <copy todir="${basedir}/test">
+            <fileset dir="${output.dir.jar}">
+                <filename name="fcsh.jar"/>
+            </fileset>
+        </copy>
     </target>
 
 
