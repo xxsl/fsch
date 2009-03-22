@@ -7,7 +7,7 @@
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{16B4B946-D6D2-4A3F-9F71-D85CFBEF6937}
 AppName=FCSHServer
-AppVerName=FCSHServer 1.0.56
+AppVerName=FCSHServer 1.0.58
 AppPublisher=nimrod97@gmail.com
 AppPublisherURL=http://code.google.com/p/fsch/
 AppSupportURL=http://code.google.com/p/fsch/
@@ -19,11 +19,11 @@ LicenseFile=license.txt
 InfoBeforeFile=
 InfoAfterFile=
 OutputDir=/setup
-OutputBaseFilename=fcsh-server-setup-1.0.56
+OutputBaseFilename=fcsh-server-setup-1.0.58
 SetupIconFile=all.ico
 Compression=lzma/ultra
 SolidCompression=yes
-VersionInfoVersion=1.0.56
+VersionInfoVersion=1.0.58
 VersionInfoCopyright=nimrod97@gmail.com
 ChangesEnvironment=yes
 
