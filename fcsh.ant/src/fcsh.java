@@ -61,7 +61,7 @@ public class fcsh extends Task {
         }
 
         try {
-            CommandVO startFcshCommand = new CommandVO("fcsh_start", CommandVO.DEFAULT_COMMAND);
+            CommandVO startFcshCommand = new CommandVO(Command.FCSH_START, CommandVO.DEFAULT_COMMAND);
 
             startFcshCommand.serialize(outputStream);
 
@@ -73,7 +73,7 @@ public class fcsh extends Task {
             if ((responce instanceof ErrorVO) && ((ErrorVO) responce).id != 4) {
                 throw new BuildException(responce.toString());
                 //fcsh is already running or started => compile
-            } else if ((responce instanceof ErrorVO) || ((responce instanceof DataVO) && ((DataVO) responce).target.equals("fcsh_start"))) {
+            } else if ((responce instanceof ErrorVO) || ((responce instanceof DataVO) && ((DataVO) responce).target.equals(Command.FCSH_START))) {
                 compile(outputStream);
                 //any other object is error
             } else {
@@ -98,9 +98,9 @@ public class fcsh extends Task {
                     System.out.println("Fix this warnings... Dude!");
                 } else if (Build.FCSH_BUILD_SUCCESSFULL.equals(dataVO.target)) {
                     System.out.println("Awesome!");
-                } else if ("fcsh_stop".equals(dataVO.target)) {
-                    System.out.println("Flex Compile SHell start failed. Check your server.ini");
-                    throw new BuildException("Flex Compile SHell start failed. Check your server.ini");
+                } else if (Command.FCSH_STOP.equals(dataVO.target)) {
+                    System.out.println("Flex Compile SHell failed to start. Check your server.ini");
+                    throw new BuildException("Flex Compile SHell failed to start. Check your server.ini");
                 } else {
                     System.out.println("WTF?!:" + responce.toString());
                     throw new BuildException("Unknown responce:" + responce.toString());
