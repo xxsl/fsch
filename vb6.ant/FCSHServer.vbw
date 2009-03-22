@@ -1,4 +1,4 @@
-MainForm = 44, 58, 741, 573, , 22, 29, 719, 544, C
+MainForm = 44, 58, 741, 573, Z, 22, 29, 719, 544, C
 modString = 88, 116, 940, 402, C
 modSerialization = 66, 87, 763, 602, C
 CommandVO = 132, 174, 846, 690, C
@@ -8,7 +8,7 @@ modTray = 44, 58, 706, 443, C
 clsFCSH = 88, 116, 778, 501, C
 ErrorVO = 110, 145, 795, 572, C
 DataVO = 88, 116, 751, 532, C
-modMain = 66, 87, 744, 460, Z
+modMain = 66, 87, 744, 460, 
 clsPreferences = 66, 87, 744, 460, C
 clsLog = 88, 116, 766, 489, C
 modConst = 132, 174, 752, 697, C
