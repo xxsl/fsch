@@ -76,10 +76,9 @@ public class fcsh extends Task {
             } else if ((responce instanceof ErrorVO) || ((responce instanceof DataVO) && ((DataVO) responce).target.equals(Command.FCSH_START))) {
                 compile(outputStream);
                 //any other object is error
-            } else if(((responce instanceof DataVO) && ((DataVO) responce).target.equals(Command.FCSH_STOP))){
+            } else if (((responce instanceof DataVO) && ((DataVO) responce).target.equals(Command.FCSH_STOP))) {
                 throw new BuildException("Flex Compile SHell failed to start. Check your server.ini");
-            }
-            else{
+            } else {
                 throw new BuildException("Build failed: " + responce.toString());
             }
 
@@ -147,10 +146,12 @@ public class fcsh extends Task {
                 if (socket.isConnected()) {
                     System.out.println("Connection established");
                     return socket;
+                } else if (i == attempts - 1) {
+                    throw new BuildException("Flex Compile SHell failed to start. Check your server.ini");
                 }
             }
         }
-        throw new BuildException("Flex Compile SHell failed to start. Check your server.ini");
+        return socket;
     }
 
     private void startServer() {
