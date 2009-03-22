@@ -76,7 +76,10 @@ public class fcsh extends Task {
             } else if ((responce instanceof ErrorVO) || ((responce instanceof DataVO) && ((DataVO) responce).target.equals(Command.FCSH_START))) {
                 compile(outputStream);
                 //any other object is error
-            } else {
+            } else if(((responce instanceof DataVO) && ((DataVO) responce).target.equals(Command.FCSH_STOP))){
+                throw new BuildException("Flex Compile SHell failed to start. Check your server.ini");
+            }
+            else{
                 throw new BuildException("Build failed: " + responce.toString());
             }
 
