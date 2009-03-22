@@ -146,11 +146,11 @@ public class fcsh extends Task {
                 }
                 if (socket.isConnected()) {
                     System.out.println("Connection established");
-                    break;
+                    return socket;
                 }
             }
         }
-        return socket;
+        throw new BuildException("Flex Compile SHell failed to start. Check your server.ini");
     }
 
     private void startServer() {
