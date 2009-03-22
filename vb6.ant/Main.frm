@@ -55,10 +55,10 @@ Begin VB.Form MainForm
       _ExtentX        =   13150
       _ExtentY        =   4260
       _Version        =   393217
-      Enabled         =   -1  'True
       ReadOnly        =   -1  'True
       ScrollBars      =   3
       Appearance      =   0
+      RightMargin     =   65000
       AutoVerbMenu    =   -1  'True
       TextRTF         =   $"Main.frx":058A
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
