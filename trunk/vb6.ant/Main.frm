@@ -55,6 +55,7 @@ Begin VB.Form MainForm
       _ExtentX        =   13150
       _ExtentY        =   4260
       _Version        =   393217
+      Enabled         =   -1  'True
       ReadOnly        =   -1  'True
       ScrollBars      =   3
       Appearance      =   0
@@ -217,7 +218,7 @@ Attribute VB_Exposed = False
 Option Explicit
 
 Private Declare Function SendMessage Lib "user32" Alias "SendMessageA" (ByVal _
-    hWnd As Long, ByVal wMsg As Long, ByVal wParam As Long, _
+    hwnd As Long, ByVal wMsg As Long, ByVal wParam As Long, _
     lParam As Any) As Long
 Const LB_SETHORIZONTALEXTENT = &H194
 Const LB_GETHORIZONTALEXTENT = &H193
@@ -233,9 +234,9 @@ Private log As New clsLog
 
 Private Sub chkOnTop_Click()
     If (chkOnTop.value = 1) Then
-        SetAlwaysOnTopMode Me.hWnd, True
+        SetAlwaysOnTopMode Me.hwnd, True
     Else
-        SetAlwaysOnTopMode Me.hWnd, False
+        SetAlwaysOnTopMode Me.hwnd, False
     End If
 End Sub
 
@@ -297,7 +298,7 @@ Private Sub Form_Load()
         Err.clear
     End If
     
-    TrayAdd fakeTray.hWnd, Me.Icon, "Flex Compiler SHell Server", MouseMove
+    TrayAdd fakeTray.hwnd, Me.Icon, "Flex Compiler SHell Server", MouseMove
     
    
     Set fcsh = New clsFCSH
@@ -321,7 +322,7 @@ Sub SetHorizontalExtent()
     End If
 
     maxWidth = maxWidth / Screen.TwipsPerPixelX
-    SendMessage lstTargets.hWnd, LB_SETHORIZONTALEXTENT, maxWidth, ByVal 0&
+    SendMessage lstTargets.hwnd, LB_SETHORIZONTALEXTENT, maxWidth, ByVal 0&
 End Sub
 
 
@@ -353,6 +354,7 @@ Private Sub Form_Resize()
     cmdHide.Top = listHeight
     cmdRecompile.Top = listHeight
     cmdClearLog.Left = lstTargets.Left + lstTargets.Width - cmdClearLog.Width
+    chkOnTop.Left = lstTargets.Left + lstTargets.Width - chkOnTop.Width
     cmdHide.Left = lstTargets.Left + lstTargets.Width - cmdHide.Width
 End Sub
 
