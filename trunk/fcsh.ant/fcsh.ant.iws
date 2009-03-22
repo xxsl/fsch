@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" readonly="true" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fcsh.ant.iws" afterPath="$PROJECT_DIR$/fcsh.ant.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/fcsh.jar" afterPath="$PROJECT_DIR$/test/fcsh.jar" />
     </list>
     <ignored path=".idea/workspace.xml" />
     <ignored path="fcsh.ant.iws" />
@@ -62,30 +61,15 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="fcsh.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="fcsh.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/fcsh.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="117" column="86" selection-start="3984" selection-end="3984" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="build.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/build.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="20" selection-start="378" selection-end="378" vertical-scroll-proportion="-5.3333335">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="build.xml" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/build.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="59" column="25" selection-start="2978" selection-end="2978" vertical-scroll-proportion="0.34423676">
+            <state line="84" column="0" selection-start="2670" selection-end="2670" vertical-scroll-proportion="0.39938557">
               <folding>
-                <element signature="tag#path#0;tag#project#0" expanded="false" />
+                <element signature="docComment;class#fcsh#0" expanded="true" />
+                <element signature="method#getSocket#0;class#fcsh#0" expanded="false" />
+                <element signature="method#startServer#0;class#fcsh#0" expanded="false" />
+                <element signature="method#printEcoded#0;class#fcsh#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -410,7 +394,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24977376" sideWeight="0.632948" order="0" side_tool="false" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24524887" sideWeight="0.632948" order="0" side_tool="false" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" />
       <window_info id="Web Preview" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" />
@@ -544,15 +528,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/constants/BUILD.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="22" selection-start="99" selection-end="104" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="docComment;class#BUILD#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/vo/CommandVO.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="13" column="31" selection-start="280" selection-end="280" vertical-scroll-proportion="0.0">
@@ -570,25 +545,48 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/fcsh.java">
+    <entry file="file://$PROJECT_DIR$/build.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="117" column="86" selection-start="3984" selection-end="3984" vertical-scroll-proportion="0.0">
-          <folding />
+        <state line="59" column="25" selection-start="2978" selection-end="2978" vertical-scroll-proportion="-8.541667">
+          <folding>
+            <element signature="tag#path#0;tag#project#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test/build.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="20" selection-start="378" selection-end="378" vertical-scroll-proportion="-5.3333335">
+        <state line="12" column="20" selection-start="378" selection-end="378" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/build.xml">
+    <entry file="file://$PROJECT_DIR$/src/constants/Build.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="59" column="25" selection-start="2978" selection-end="2978" vertical-scroll-proportion="0.34423676">
+        <state line="7" column="22" selection-start="99" selection-end="104" vertical-scroll-proportion="0.0">
           <folding>
-            <element signature="tag#path#0;tag#project#0" expanded="false" />
+            <element signature="docComment;class#Build#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/constants/Command.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="55" selection-start="164" selection-end="164" vertical-scroll-proportion="0.2042042">
+          <folding>
+            <element signature="docComment;class#Command#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/fcsh.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="84" column="0" selection-start="2670" selection-end="2670" vertical-scroll-proportion="0.39938557">
+          <folding>
+            <element signature="docComment;class#fcsh#0" expanded="true" />
+            <element signature="method#getSocket#0;class#fcsh#0" expanded="false" />
+            <element signature="method#startServer#0;class#fcsh#0" expanded="false" />
+            <element signature="method#printEcoded#0;class#fcsh#0" expanded="false" />
           </folding>
         </state>
       </provider>
