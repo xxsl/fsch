@@ -2,6 +2,12 @@ Attribute VB_Name = "modMain"
 Option Explicit
 
 Public Declare Sub Sleep Lib "kernel32" (ByVal dwMilliseconds As Long)
+Public Const HWND_NOTOPMOST = -2
+Public Const HWND_TOPMOST = -1
+Public Const SWP_NOSIZE = &H1
+Public Const SWP_NOMOVE = &H2
+Public Const SWP_SHOWWINDOW = &H40
+
 
 Private Type tagInitCommonControlsEx
    lngSize As Long
@@ -9,7 +15,7 @@ Private Type tagInitCommonControlsEx
 End Type
 Private Const ICC_USEREX_CLASSES = &H200
 Private Declare Function InitCommonControlsEx Lib "comctl32.dll" (iccex As tagInitCommonControlsEx) As Boolean
-
+Private Declare Function SetWindowPos Lib "user32" (ByVal hWnd As Long, ByVal hWndInsertAfter As Long, ByVal X As Long, ByVal Y As Long, ByVal cX As Long, ByVal cY As Long, ByVal wFlags As Long) As Long
 
 Private Function InitCommonControlsVB() As Boolean
    On Error Resume Next
@@ -23,6 +29,17 @@ Private Function InitCommonControlsVB() As Boolean
    InitCommonControlsVB = (Err.Number = 0)
    On Error GoTo 0
 End Function
+
+Public Sub SetAlwaysOnTopMode(hWndOrForm As Variant, Optional ByVal OnTop As Boolean = True)
+    Dim hWnd As Long
+    ' get the hWnd of the form to be move on top
+    If VarType(hWndOrForm) = vbLong Then
+        hWnd = hWndOrForm
+    Else
+        hWnd = hWndOrForm.hWnd
+    End If
+    SetWindowPos hWnd, IIf(OnTop, HWND_TOPMOST, HWND_NOTOPMOST), 0, 0, 0, 0, SWP_NOMOVE Or SWP_NOSIZE Or SWP_SHOWWINDOW
+End Sub
 
 Public Sub Main()
     InitCommonControlsVB
