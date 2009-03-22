@@ -45,29 +45,19 @@ public class fcsh extends Task {
 
 
     public void execute() throws BuildException {
-        SocketAddress socketAddress = new InetSocketAddress(PORT);
+        SocketAddress localhost = new InetSocketAddress(PORT);
 
         DataOutputStream outputStream;
         DataInputStream inputStream;
 
-        Socket socket = new Socket();
-
-        try {
-            //assume server is already started
-            socket.connect(socketAddress);
-        } catch (IOException e) {
-            System.out.println("Server is not responding. Probably it is stopped. Trying to launch...");
-            startServer();
-            socket = getSocket(socketAddress, 5);
-        }
-
+        Socket socket = getSocket(localhost, 5);
 
         try {
             outputStream = new DataOutputStream(socket.getOutputStream());
             inputStream = new DataInputStream(socket.getInputStream());
         }
         catch (IOException io) {
-            throw new BuildException(io);
+            throw new BuildException("Get input/output stream failed", io);
         }
 
         try {
@@ -99,7 +89,7 @@ public class fcsh extends Task {
             } else if (responce instanceof DataVO) {
                 DataVO dataVO = (DataVO) responce;
                 if (!CommandVO.DEFAULT_COMMAND.equals(dataVO.data)) {
-                    printRU(dataVO.data);
+                    printEcoded(dataVO.data);
                 }
                 System.out.println("");
                 if (Build.FCSH_BUILD_ERROR.equals(dataVO.target)) {
@@ -128,25 +118,33 @@ public class fcsh extends Task {
     }
 
     private Socket getSocket(SocketAddress socketAddress, int attempts) {
-        Socket socket = null;
-        for (int i = 0; i < attempts; i++) {
-            try {
-                System.out.println("Trying to connect... Attempt " + i + " of " + attempts);
-                socket = new Socket();
-                socket.connect(socketAddress, 60000);
-            } catch (IOException e) {
-                System.out.println("Pause 2 seconds...");
+        Socket socket = new Socket();
+        try {
+            socket.connect(socketAddress);
+        } catch (IOException e) {
+            System.out.println("Server is not responding. Probably it is stopped. Trying to launch...");
+            startServer();
+        }
+        if (!socket.isConnected()) {
+            for (int i = 0; i < attempts; i++) {
                 try {
-                    synchronized (this) {
-                        wait(2000);
+                    System.out.println("Trying to connect... Attempt " + (i + 1) + " of " + attempts);
+                    socket = new Socket();
+                    socket.connect(socketAddress);
+                } catch (IOException e) {
+                    System.out.println("Paused for 2 seconds...");
+                    try {
+                        synchronized (this) {
+                            wait(2000);
+                        }
+                    } catch (InterruptedException e1) {
+                        throw new BuildException(e1);
                     }
-                } catch (InterruptedException e1) {
-                    throw new BuildException(e1);
                 }
-            }
-            if (socket.isConnected()) {
-                System.out.println("Server is up!");
-                break;
+                if (socket.isConnected()) {
+                    System.out.println("Connection established");
+                    break;
+                }
             }
         }
         return socket;
@@ -165,16 +163,18 @@ public class fcsh extends Task {
             }
             System.out.println("Server started");
         } else {
-            throw new BuildException("Cant start Server, environment variable {" + ENVIRONMENT + "} is not set.");
+            throw new BuildException("Can not start server, environment variable {" + ENVIRONMENT + "} is not set.");
         }
     }
 
     private void compile(DataOutputStream outputStream) throws IOException {
         String commandLine = "";
+
         for (Arg argument : args) {
             commandLine += argument.getValue() + " ";
         }
-        System.out.println("Command: " + commandLine);
+        System.out.println("Send command: " + commandLine);
+
         CommandVO commandVO = new CommandVO(Command.FCSH_EXEC, commandLine);
         commandVO.serialize(outputStream);
         outputStream.flush();
@@ -206,18 +206,14 @@ public class fcsh extends Task {
         }
     }
 
-    private void printRU(String javaString) {
+    private void printEcoded(String javaString) {
         try {
-            // output to the console
-            Writer w =
-                    new BufferedWriter
-                            (new OutputStreamWriter(System.out, getConsoleEncoding()));
-            w.write(javaString);
-            w.flush();
-            //w.close();
+            Writer writer = new BufferedWriter(new OutputStreamWriter(System.out, getConsoleEncoding()));
+            writer.write(javaString);
+            writer.flush();
         }
         catch (Exception e) {
-            throw new BuildException(e);
+            throw new BuildException("Print to console failed", e);
         }
     }
 }
