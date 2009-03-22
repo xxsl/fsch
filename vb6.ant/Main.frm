@@ -55,6 +55,7 @@ Begin VB.Form MainForm
       _ExtentX        =   13150
       _ExtentY        =   4260
       _Version        =   393217
+      Enabled         =   -1  'True
       ReadOnly        =   -1  'True
       ScrollBars      =   3
       Appearance      =   0
@@ -291,13 +292,7 @@ Private Sub Form_Load()
     Server.Close
     Server.LocalPort = port
     
-    On Error Resume Next
-    Server.Listen
-    If Err.Number <> 0 Then
-        log.xError "Cant start server: " + Err.description
-        Err.clear
-    End If
-    
+   
     TrayAdd fakeTray.hwnd, Me.Icon, "Flex Compiler SHell Server", MouseMove
     
    
@@ -512,6 +507,12 @@ Private Sub fcsh_onStop(value As DataVO)
 End Sub
 
 Private Sub fcsh_onStart(value As DataVO)
+    On Error Resume Next
+    Server.Listen
+    If Err.Number <> 0 Then
+        log.xError "Cant start server: " + Err.description
+        Err.clear
+    End If
     sendDataVO value
 End Sub
 
