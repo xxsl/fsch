@@ -11,12 +11,17 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
+Private logWindow As RichTextBox
 
 Private Sub Class_Initialize()
     Open App.path + "/" + "FCSHServer.log" For Append As #1
     Print #1, vbCrLf
     Print #1, "--------------------------------------------------------------------------"
     Close #1
+End Sub
+
+Public Sub setWindow(ByRef textBox As RichTextBox)
+    Set logWindow = textBox
 End Sub
 
 Public Sub xDebug(msg As String)
@@ -33,6 +38,12 @@ End Sub
 
 Public Sub xError(msg As String)
     output msg, "[ERROR]"
+End Sub
+
+Public Sub xFcsh(msg As String)
+    logWindow.Text = logWindow.Text + msg
+    logWindow.SelStart = Len(logWindow.Text) - Len(msg)
+    logWindow.SelLength = Len(msg)
 End Sub
 
 Private Sub output(msg As String, prefix As String)
