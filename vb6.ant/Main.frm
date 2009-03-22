@@ -21,6 +21,14 @@ Begin VB.Form MainForm
    ScaleHeight     =   6450
    ScaleWidth      =   7695
    StartUpPosition =   2  'CenterScreen
+   Begin VB.CheckBox chkOnTop 
+      Caption         =   "Always on top"
+      Height          =   360
+      Left            =   5880
+      TabIndex        =   9
+      Top             =   0
+      Width           =   1695
+   End
    Begin VB.CommandButton cmdClearLog 
       Caption         =   "Clear log"
       BeginProperty Font 
@@ -47,7 +55,6 @@ Begin VB.Form MainForm
       _ExtentX        =   13150
       _ExtentY        =   4260
       _Version        =   393217
-      Enabled         =   -1  'True
       ReadOnly        =   -1  'True
       ScrollBars      =   3
       Appearance      =   0
@@ -170,15 +177,6 @@ Begin VB.Form MainForm
    End
    Begin VB.Label Label1 
       Caption         =   "Compiler cache:"
-      BeginProperty Font 
-         Name            =   "MS Sans Serif"
-         Size            =   9.75
-         Charset         =   204
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
       Height          =   255
       Left            =   120
       TabIndex        =   2
@@ -219,7 +217,7 @@ Attribute VB_Exposed = False
 Option Explicit
 
 Private Declare Function SendMessage Lib "user32" Alias "SendMessageA" (ByVal _
-    hwnd As Long, ByVal wMsg As Long, ByVal wParam As Long, _
+    hWnd As Long, ByVal wMsg As Long, ByVal wParam As Long, _
     lParam As Any) As Long
 Const LB_SETHORIZONTALEXTENT = &H194
 Const LB_GETHORIZONTALEXTENT = &H193
@@ -232,6 +230,14 @@ Attribute fcsh.VB_VarHelpID = -1
 Private prefs As New clsPreferences
 Private log As New clsLog
 
+
+Private Sub chkOnTop_Click()
+    If (chkOnTop.value = 1) Then
+        SetAlwaysOnTopMode Me.hWnd, True
+    Else
+        SetAlwaysOnTopMode Me.hWnd, False
+    End If
+End Sub
 
 Private Sub cmdClear_Click()
     Dim KEY As String
@@ -266,8 +272,8 @@ End Sub
 
 
 Private Sub fcsh_CommandsEnabled(enable As Boolean)
-    cmdClear.ENABLED = enable
-    cmdRecompile.ENABLED = enable
+    cmdClear.Enabled = enable
+    cmdRecompile.Enabled = enable
 End Sub
 
 
@@ -291,7 +297,7 @@ Private Sub Form_Load()
         Err.clear
     End If
     
-    TrayAdd fakeTray.hwnd, Me.Icon, "Flex Compiler SHell Server", MouseMove
+    TrayAdd fakeTray.hWnd, Me.Icon, "Flex Compiler SHell Server", MouseMove
     
    
     Set fcsh = New clsFCSH
@@ -315,7 +321,7 @@ Sub SetHorizontalExtent()
     End If
 
     maxWidth = maxWidth / Screen.TwipsPerPixelX
-    SendMessage lstTargets.hwnd, LB_SETHORIZONTALEXTENT, maxWidth, ByVal 0&
+    SendMessage lstTargets.hWnd, LB_SETHORIZONTALEXTENT, maxWidth, ByVal 0&
 End Sub
 
 
@@ -421,7 +427,7 @@ Private Sub deSerialize(ByRef byteArray() As Byte)
                             log.xDebug command.toString
                             executeCommand command
         Case AIR_ERRORVO:
-                            Dim error As New errorVO
+                            Dim error As New ErrorVO
                             error.deSerialize byteArray, pos
                             log.xDebug error.toString
                             processError error
@@ -443,7 +449,7 @@ Private Sub processData(data As DataVO)
 End Sub
 
 
-Private Sub processError(error As errorVO)
+Private Sub processError(error As ErrorVO)
     log.xError "Not implemented: Private Sub processError(error As ErrorVO)"
 End Sub
 
@@ -507,7 +513,7 @@ Private Sub fcsh_onStart(value As DataVO)
     sendDataVO value
 End Sub
 
-Private Sub fcsh_onError(value As errorVO)
+Private Sub fcsh_onError(value As ErrorVO)
     log.xError value.toString
     Dim byteArray() As Byte
     ReDim byteArray(0)
