@@ -20,19 +20,17 @@ Attribute VB_Exposed = False
 
 Option Explicit
 
-Private Declare Sub Sleep Lib "kernel32" (ByVal dwMilliseconds As Long)
-
-
 Private isInitialized As Boolean
 Private log As clsLog
 Public targets As New Dictionary
+Public isStarting As Boolean
 Private commandLine As String
-
+Private prefs As clsPreferences
 
 Public isRunning As Boolean
 
-
 Private output As String
+
 Private isExec_prop As Boolean
 
 '***************************************************************************************
@@ -43,7 +41,7 @@ Public Event onStart(message As DataVO)
 'data input
 Public Event onComplete(data As DataVO)
 'error event
-Public Event onError(message As ErrorVO)
+Public Event onError(message As errorVO)
 
 Public Event CommandsEnabled(enable As Boolean)
 '***************************************************************************************
@@ -57,22 +55,22 @@ Dim WithEvents parser As clsController
 Attribute parser.VB_VarHelpID = -1
 
 
-
-
-
-
-Public Sub initialize(ByRef appLog As clsLog, ByRef prefs As clsPreferences)
+Public Sub initialize(ByRef appLog As clsLog, ByRef preferences As clsPreferences)
     If (Not isInitialized) Then
         Set parser = New clsController
         parser.initialize appLog, Me
         Set fcsh = New RedirectLib.Application
         Set log = appLog
+
+        Set prefs = preferences
+        
         fcsh.BufferSize = prefs.CONSOLE_BUFFER
         fcsh.Wait = prefs.CONSOLE_WAIT
         fcsh.name = prefs.CMD
         
         isExec = False
         isRunning = False
+        isStarting = False
         isInitialized = True
         parser.reset
     End If
@@ -83,20 +81,18 @@ Public Sub Start()
     If (Not isRunning) Then
         Select Case fcsh.Start
            Case laAlreadyRunning
-                RaiseError FCSH_ALREADY_STATRED, "fcsh is already running"
+                RaiseError FCSH_ALREADY_STATRED, "Flex Compiler SHell is already running"
            Case laWindowsError
                 isRunning = False
-                RaiseError FCSH_START_FAILURE, "Windows error: " & CStr(fcsh.LastErrorNumber) & ". Make sure you have configured fcsh.exe path."
+                RaiseError FCSH_START_FAILURE, "Launch error: " & CStr(fcsh.LastErrorNumber) & ". Make sure you have configured fcsh.exe path."
            Case laOk
                 isRunning = True
-                Sleep 1000
-                Dim message As New DataVO
-                message.target = FCSH_STARTED
-                message.data = "empty"
-                RaiseEvent onStart(message)
+                isExec = True
+                isStarting = True
+                log.xInfo "Flex Compiler SHell launched"
         End Select
     Else
-        RaiseError FCSH_ALREADY_STATRED, "fcsh is already running"
+        RaiseError FCSH_ALREADY_STATRED, "Flex Compiler SHell is already running"
     End If
 End Sub
 
@@ -109,6 +105,7 @@ End Sub
 
 
 Private Sub fcsh_ProcessEnded()
+    DisplayBalloon "Flex Compiler SHell", "Failed to start. Check your server.ini", NIIF_ERROR
     MainForm.fillView
     targets.RemoveAll
     parser.reset
@@ -129,16 +126,18 @@ Public Sub exec(command As String)
             log.xDebug "fcsh execute: " + command
             If (targets.Exists(commandLine)) Then
                 log.xInfo "Recompile target: " + command
+                log.xFcsh "(fcsh) compile " & targets.Item(command) & vbCrLf
                 fcsh.Write ToOEM("compile " & targets.Item(command)) + vbCrLf
             Else
                 log.xInfo "Compile target: " + command
+                log.xFcsh "(fcsh) " + command + vbCrLf
                 fcsh.Write ToOEM(command) + vbCrLf
             End If
         Else
-            RaiseError FCSH_BUSY, "Cant exec: fcsh is busy"
+            RaiseError FCSH_BUSY, "Cant exec: Flex Compiler SHell is busy"
         End If
     Else
-        RaiseError FCSH_NOT_STATRED, "Cant exec: fcsh stopped"
+        RaiseError FCSH_NOT_STATRED, "Cant exec: Flex Compiler SHell is stopped"
     End If
 End Sub
 
@@ -161,7 +160,7 @@ End Sub
 
 
 Private Sub RaiseError(id As FCSHErrors, description As String)
-    Dim message As New ErrorVO
+    Dim message As New errorVO
     message.description = description
     message.id = id
     RaiseEvent onError(message)
@@ -179,6 +178,20 @@ Private Sub parser_Result(id As Build, assigned As Long)
     data.data = parser.output
     isExec = False
     parser.reset
+    
+    If (isStarting) Then
+       isStarting = False
+       If (id = BUILD_SUCCESSFULL) Then
+            log.xInfo "Flex Compiler SHell started successfully"
+            DisplayBalloon "Flex Compiler SHell", "Started successfully", NIIF_INFO
+            
+            Dim message As New DataVO
+            message.target = FCSH_STARTED
+            message.data = "empty"
+            RaiseEvent onStart(message)
+       End If
+       Exit Sub
+    End If
     
     Dim isAssigned As Boolean
     If (assigned > 0 And Not targets.Exists(commandLine)) Then

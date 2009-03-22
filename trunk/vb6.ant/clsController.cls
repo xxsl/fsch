@@ -27,21 +27,27 @@ End Sub
 
 Public Sub addStdout(out As String)
     output = output + out
-    'log.xDebug "[FCSH] " + out
+    log.xInfo "[FCSH] " + out
+    log.xFcsh out
     If (isFinished()) Then
+        log.xFcsh vbCrLf
         fcsh.isExec = False
         If (isError) Then
             log.xError "[FCSH] Build error"
+            log.xFcsh "-------------------[BUILD FAILED]-------------------" + vbCrLf
             RaiseEvent result(BUILD_ERROR, -1)
         Else
             If (isWarn()) Then
                 log.xWarning "[FCSH] Build warnings"
+                log.xFcsh "-------------------[BUILD WARNING]-------------------" + vbCrLf
                 RaiseEvent result(BUILD_WARNING, isAssigned())
             Else
                 log.xInfo "[FCSH] Build successfull"
+                log.xFcsh "-------------------[BUILD SUCCESSFULL]-------------------" + vbCrLf
                 RaiseEvent result(BUILD_SUCCESSFULL, isAssigned())
             End If
         End If
+        log.xFcsh vbCrLf
     End If
     
 End Sub
