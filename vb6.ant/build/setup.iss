@@ -65,8 +65,8 @@ Source: "COMCT232.OCX"; DestDir: "{sys}"; Flags: sharedfile regserver  onlyifdoe
 Name: "{group}\FCSHServer"; Filename: "{app}\FCSHServer.exe"
 Name: "{group}\{cm:ProgramOnTheWeb,Flex Compiler Shell Server}"; Filename: "http://code.google.com/p/fsch/"
 Name: "{group}\{cm:UninstallProgram,Flex Compiler Shell Server}"; Filename: "{uninstallexe}"
-Name: "{commondesktop}\Flex compiler shell Wrapper"; Filename: "{app}\FCSHServer.exe"; Tasks: desktopicon
-Name: "{userappdata}\Microsoft\Internet Explorer\Quick Launch\Flex Compiler Shell Wrapper"; Filename: "{app}\FCSHServer.exe"; Tasks: quicklaunchicon
+Name: "{commondesktop}\Flex Compiler SHell Server"; Filename: "{app}\FCSHServer.exe"; Tasks: desktopicon
+Name: "{userappdata}\Microsoft\Internet Explorer\Quick Launch\Flex Compiler Shell Server"; Filename: "{app}\FCSHServer.exe"; Tasks: quicklaunchicon
 
 [Run]
 Filename: "{app}\FCSHServer.exe"; Description: "{cm:LaunchProgram,Flex Compiler Shell Server}"; Flags: nowait postinstall skipifsilent
