@@ -44,5 +44,5 @@ End Sub
 Public Sub Main()
     InitCommonControlsVB
     Load MainForm
-    MainForm.Show
+    'MainForm.Show
 End Sub
