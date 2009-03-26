@@ -402,7 +402,7 @@ Attribute VB_Exposed = False
 Option Explicit
 
 Private Declare Function SendMessage Lib "user32" Alias "SendMessageA" (ByVal _
-    hWnd As Long, ByVal wMsg As Long, ByVal wParam As Long, _
+    HWND As Long, ByVal wMsg As Long, ByVal wParam As Long, _
     lParam As Any) As Long
 Const LB_SETHORIZONTALEXTENT = &H194
 Const LB_GETHORIZONTALEXTENT = &H193
@@ -418,9 +418,9 @@ Private log As New clsLog
 
 Private Sub chkOnTop_Click()
     If (chkOnTop.value = 1) Then
-        SetAlwaysOnTopMode Me.hWnd, True
+        SetAlwaysOnTopMode Me.HWND, True
     Else
-        SetAlwaysOnTopMode Me.hWnd, False
+        SetAlwaysOnTopMode Me.HWND, False
     End If
 End Sub
 
@@ -498,7 +498,7 @@ Private Sub Form_Load()
     Server.LocalPort = port
     
    
-    TrayAdd fakeTray.hWnd, Me.Icon, "Flex Compiler SHell Server", MouseMove
+    TrayAdd fakeTray.HWND, Me.Icon, "Flex Compiler SHell Server", MouseMove
     
    
     Set fcsh = New clsFCSH
@@ -522,7 +522,7 @@ Sub SetHorizontalExtent()
     End If
 
     maxWidth = maxWidth / Screen.TwipsPerPixelX
-    SendMessage lstTargets.hWnd, LB_SETHORIZONTALEXTENT, maxWidth, ByVal 0&
+    SendMessage lstTargets.HWND, LB_SETHORIZONTALEXTENT, maxWidth, ByVal 0&
 End Sub
 
 
@@ -555,7 +555,7 @@ Private Sub lstTargets_Click()
         For i = 0 To UBound(lines) - 1
             result = result & lines(i) & vbCrLf
         Next i
-        DisplayTooltip lstTargets.hWnd, result, App.hInstance
+        DisplayTooltip lstTargets.HWND, result, App.hInstance
     End If
 End Sub
 
