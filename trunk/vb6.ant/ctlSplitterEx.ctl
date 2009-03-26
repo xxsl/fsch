@@ -1,5 +1,6 @@
 VERSION 5.00
 Begin VB.UserControl ctlSplitterEx 
+   BackColor       =   &H8000000C&
    ClientHeight    =   3600
    ClientLeft      =   0
    ClientTop       =   0
@@ -11,7 +12,7 @@ Begin VB.UserControl ctlSplitterEx
       BeginProperty Font 
          Name            =   "MS Sans Serif"
          Size            =   13.5
-         Charset         =   0
+         Charset         =   204
          Weight          =   400
          Underline       =   0   'False
          Italic          =   0   'False
@@ -29,7 +30,7 @@ Begin VB.UserControl ctlSplitterEx
       BeginProperty Font 
          Name            =   "MS Sans Serif"
          Size            =   24
-         Charset         =   0
+         Charset         =   204
          Weight          =   400
          Underline       =   0   'False
          Italic          =   0   'False

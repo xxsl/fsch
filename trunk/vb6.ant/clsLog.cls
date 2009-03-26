@@ -12,6 +12,8 @@ Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Private logWindow As RichTextBox
+Private errWindow As RichTextBox
+Private warnWindow As RichTextBox
 
 Private Sub Class_Initialize()
     Open App.path + "/" + "FCSHServer.log" For Append As #1
@@ -20,8 +22,10 @@ Private Sub Class_Initialize()
     Close #1
 End Sub
 
-Public Sub setWindow(ByRef textBox As RichTextBox)
+Public Sub setWindow(ByRef textBox As RichTextBox, ByRef errBox As RichTextBox, ByRef warnBox As RichTextBox)
     Set logWindow = textBox
+    Set errWindow = errBox
+    Set warnWindow = warnBox
 End Sub
 
 Public Sub xDebug(msg As String)
@@ -44,6 +48,18 @@ Public Sub xFcsh(msg As String)
     logWindow.Text = logWindow.Text + msg
     logWindow.SelStart = Len(logWindow.Text) - Len(msg)
     logWindow.SelLength = Len(msg)
+End Sub
+
+Public Sub xFcshErr(msg As String)
+    errWindow.Text = errWindow.Text + msg
+    errWindow.SelStart = Len(errWindow.Text) - Len(msg)
+    errWindow.SelLength = Len(msg)
+End Sub
+
+Public Sub xFcshWarn(msg As String)
+    warnWindow.Text = warnWindow.Text + msg
+    warnWindow.SelStart = Len(warnWindow.Text) - Len(msg)
+    warnWindow.SelLength = Len(msg)
 End Sub
 
 Private Sub output(msg As String, prefix As String)
