@@ -12,5 +12,6 @@ modMain = 66, 87, 744, 460, C
 clsPreferences = 66, 87, 744, 460, C
 clsLog = 88, 116, 766, 489, C
 modConst = 132, 174, 752, 697, C
-clsController = 66, 87, 732, 610, C
+clsController = 66, 87, 732, 610, 
 ctlSplitterEx = 66, 87, 867, 531, C, 110, 145, 844, 589, C
+modTooltip = 44, 64, 757, 684, 
