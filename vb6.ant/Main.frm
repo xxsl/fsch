@@ -1,12 +1,14 @@
 VERSION 5.00
 Object = "{248DD890-BB45-11CF-9ABC-0080C7E7B78D}#1.0#0"; "MSWINSCK.OCX"
 Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "RICHTX32.OCX"
+Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.OCX"
 Begin VB.Form MainForm 
+   BackColor       =   &H8000000C&
    Caption         =   "Flex Compiler SHell Server"
-   ClientHeight    =   7620
+   ClientHeight    =   7560
    ClientLeft      =   4290
-   ClientTop       =   3600
-   ClientWidth     =   10320
+   ClientTop       =   3675
+   ClientWidth     =   10260
    BeginProperty Font 
       Name            =   "MS Sans Serif"
       Size            =   9.75
@@ -18,8 +20,8 @@ Begin VB.Form MainForm
    EndProperty
    Icon            =   "Main.frx":0000
    LinkTopic       =   "Form1"
-   ScaleHeight     =   7620
-   ScaleWidth      =   10320
+   ScaleHeight     =   7560
+   ScaleWidth      =   10260
    StartUpPosition =   2  'CenterScreen
    Begin VB.CommandButton fakeTray 
       Caption         =   "fakeTray"
@@ -55,29 +57,30 @@ Begin VB.Form MainForm
    End
    Begin VB.PictureBox frmTargets 
       Appearance      =   0  'Flat
+      BorderStyle     =   0  'None
       ForeColor       =   &H80000008&
       Height          =   3615
       Left            =   120
-      ScaleHeight     =   3585
-      ScaleWidth      =   9945
-      TabIndex        =   7
+      ScaleHeight     =   3615
+      ScaleWidth      =   9975
+      TabIndex        =   3
       Top             =   3960
       Width           =   9975
       Begin VB.CommandButton cmdHide 
          Cancel          =   -1  'True
          Caption         =   "Hide"
          BeginProperty Font 
-            Name            =   "MS Sans Serif"
-            Size            =   8.25
+            Name            =   "Arial"
+            Size            =   9
             Charset         =   204
-            Weight          =   400
+            Weight          =   700
             Underline       =   0   'False
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
          Height          =   375
          Left            =   6360
-         TabIndex        =   11
+         TabIndex        =   7
          Top             =   3120
          Width           =   1215
       End
@@ -86,124 +89,272 @@ Begin VB.Form MainForm
          Default         =   -1  'True
          Enabled         =   0   'False
          BeginProperty Font 
-            Name            =   "MS Sans Serif"
-            Size            =   8.25
+            Name            =   "Arial"
+            Size            =   9
             Charset         =   204
-            Weight          =   400
+            Weight          =   700
             Underline       =   0   'False
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
          Height          =   375
          Left            =   120
-         TabIndex        =   10
+         TabIndex        =   6
          Top             =   3120
-         Width           =   1095
+         Width           =   1215
       End
       Begin VB.CommandButton cmdClear 
          Caption         =   "Clear"
          Enabled         =   0   'False
          BeginProperty Font 
-            Name            =   "MS Sans Serif"
-            Size            =   8.25
+            Name            =   "Arial"
+            Size            =   9
             Charset         =   204
-            Weight          =   400
+            Weight          =   700
             Underline       =   0   'False
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
          Height          =   375
-         Left            =   1320
-         TabIndex        =   9
+         Left            =   1440
+         TabIndex        =   5
          Top             =   3120
-         Width           =   1095
+         Width           =   1215
       End
       Begin VB.ListBox lstTargets 
          Height          =   2460
+         IntegralHeight  =   0   'False
          ItemData        =   "Main.frx":058A
          Left            =   120
          List            =   "Main.frx":058C
          Sorted          =   -1  'True
-         TabIndex        =   8
+         TabIndex        =   4
          Top             =   480
          Width           =   7455
       End
       Begin VB.Label Label1 
          Caption         =   "Compiler cache:"
+         BeginProperty Font 
+            Name            =   "Arial"
+            Size            =   9
+            Charset         =   204
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
          Height          =   255
          Left            =   120
-         TabIndex        =   12
+         TabIndex        =   8
          Top             =   120
          Width           =   1575
       End
    End
    Begin VB.PictureBox frmFcsh 
       Appearance      =   0  'Flat
+      BorderStyle     =   0  'None
       ForeColor       =   &H80000008&
       Height          =   3615
       Left            =   120
-      ScaleHeight     =   3585
-      ScaleWidth      =   9945
+      ScaleHeight     =   3615
+      ScaleWidth      =   9975
       TabIndex        =   2
       Top             =   120
       Width           =   9975
-      Begin VB.CheckBox chkOnTop 
-         Caption         =   "Always on top"
-         Height          =   240
-         Left            =   5880
-         TabIndex        =   4
-         Top             =   120
-         Width           =   1695
-      End
-      Begin VB.CommandButton cmdClearLog 
-         Caption         =   "Clear log"
-         BeginProperty Font 
-            Name            =   "MS Sans Serif"
-            Size            =   8.25
-            Charset         =   204
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   375
-         Left            =   6360
-         TabIndex        =   3
-         Top             =   3000
-         Width           =   1215
-      End
-      Begin RichTextLib.RichTextBox rtbLog 
-         Height          =   2415
+      Begin TabDlg.SSTab SSTab 
+         Height          =   3375
          Left            =   120
-         TabIndex        =   5
-         Top             =   480
-         Width           =   7455
-         _ExtentX        =   13150
-         _ExtentY        =   4260
-         _Version        =   393217
-         ReadOnly        =   -1  'True
-         ScrollBars      =   3
-         Appearance      =   0
-         RightMargin     =   65000
-         AutoVerbMenu    =   -1  'True
-         TextRTF         =   $"Main.frx":058E
+         TabIndex        =   9
+         Top             =   120
+         Width           =   9735
+         _ExtentX        =   17171
+         _ExtentY        =   5953
+         _Version        =   393216
+         Style           =   1
+         Tabs            =   4
+         TabsPerRow      =   4
+         TabHeight       =   520
+         WordWrap        =   0   'False
+         ShowFocusRect   =   0   'False
+         ForeColor       =   16711680
          BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-            Name            =   "Courier New"
-            Size            =   9.75
-            Charset         =   204
-            Weight          =   400
+            Name            =   "Arial"
+            Size            =   9
+            Charset         =   0
+            Weight          =   700
             Underline       =   0   'False
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-      End
-      Begin VB.Label Label2 
-         Caption         =   "Flex Compiler SHell output:"
-         Height          =   255
-         Left            =   120
-         TabIndex        =   6
-         Top             =   120
-         Width           =   2535
+         TabCaption(0)   =   "Output"
+         TabPicture(0)   =   "Main.frx":058E
+         Tab(0).ControlEnabled=   -1  'True
+         Tab(0).Control(0)=   "cmdClearLog"
+         Tab(0).Control(0).Enabled=   0   'False
+         Tab(0).Control(1)=   "rtbLog"
+         Tab(0).Control(1).Enabled=   0   'False
+         Tab(0).ControlCount=   2
+         TabCaption(1)   =   "Errors"
+         TabPicture(1)   =   "Main.frx":069F
+         Tab(1).ControlEnabled=   0   'False
+         Tab(1).Control(0)=   "cmdClearErr"
+         Tab(1).Control(0).Enabled=   0   'False
+         Tab(1).Control(1)=   "rtbError"
+         Tab(1).Control(1).Enabled=   0   'False
+         Tab(1).ControlCount=   2
+         TabCaption(2)   =   "Warnings"
+         TabPicture(2)   =   "Main.frx":07AF
+         Tab(2).ControlEnabled=   0   'False
+         Tab(2).Control(0)=   "cmdClearWarn"
+         Tab(2).Control(0).Enabled=   0   'False
+         Tab(2).Control(1)=   "rtbWarn"
+         Tab(2).Control(1).Enabled=   0   'False
+         Tab(2).ControlCount=   2
+         TabCaption(3)   =   "Preferences"
+         TabPicture(3)   =   "Main.frx":08BF
+         Tab(3).ControlEnabled=   0   'False
+         Tab(3).Control(0)=   "chkOnTop"
+         Tab(3).ControlCount=   1
+         Begin RichTextLib.RichTextBox rtbWarn 
+            Height          =   2295
+            Left            =   -74880
+            TabIndex        =   16
+            Top             =   480
+            Width           =   9495
+            _ExtentX        =   16748
+            _ExtentY        =   4048
+            _Version        =   393217
+            BackColor       =   -2147483638
+            ScrollBars      =   3
+            Appearance      =   0
+            RightMargin     =   65000
+            TextRTF         =   $"Main.frx":0A05
+            BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+               Name            =   "Courier"
+               Size            =   9.75
+               Charset         =   204
+               Weight          =   400
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+         End
+         Begin RichTextLib.RichTextBox rtbError 
+            Height          =   2295
+            Left            =   -74880
+            TabIndex        =   15
+            Top             =   480
+            Width           =   9495
+            _ExtentX        =   16748
+            _ExtentY        =   4048
+            _Version        =   393217
+            BackColor       =   -2147483638
+            ScrollBars      =   3
+            Appearance      =   0
+            RightMargin     =   65000
+            TextRTF         =   $"Main.frx":0A83
+            BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+               Name            =   "Courier"
+               Size            =   9.75
+               Charset         =   204
+               Weight          =   400
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+         End
+         Begin RichTextLib.RichTextBox rtbLog 
+            Height          =   2295
+            Left            =   120
+            TabIndex        =   14
+            Top             =   480
+            Width           =   9375
+            _ExtentX        =   16536
+            _ExtentY        =   4048
+            _Version        =   393217
+            BackColor       =   -2147483638
+            ScrollBars      =   3
+            Appearance      =   0
+            RightMargin     =   65000
+            TextRTF         =   $"Main.frx":0B01
+            BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+               Name            =   "Courier"
+               Size            =   9.75
+               Charset         =   204
+               Weight          =   400
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+         End
+         Begin VB.CommandButton cmdClearWarn 
+            Caption         =   "Clear log"
+            BeginProperty Font 
+               Name            =   "Arial"
+               Size            =   9
+               Charset         =   204
+               Weight          =   700
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            Height          =   375
+            Left            =   -66600
+            TabIndex        =   13
+            Top             =   2880
+            Width           =   1215
+         End
+         Begin VB.CommandButton cmdClearLog 
+            Caption         =   "Clear log"
+            BeginProperty Font 
+               Name            =   "Arial"
+               Size            =   9
+               Charset         =   204
+               Weight          =   700
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            Height          =   375
+            Left            =   8400
+            TabIndex        =   12
+            Top             =   2880
+            Width           =   1215
+         End
+         Begin VB.CommandButton cmdClearErr 
+            Caption         =   "Clear log"
+            BeginProperty Font 
+               Name            =   "Arial"
+               Size            =   9
+               Charset         =   204
+               Weight          =   700
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            Height          =   375
+            Left            =   -66600
+            TabIndex        =   11
+            Top             =   2880
+            Width           =   1215
+         End
+         Begin VB.CheckBox chkOnTop 
+            Caption         =   "Always on top"
+            BeginProperty Font 
+               Name            =   "Arial"
+               Size            =   9
+               Charset         =   204
+               Weight          =   700
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            Height          =   240
+            Left            =   -74880
+            TabIndex        =   10
+            Top             =   480
+            Width           =   1695
+         End
       End
    End
    Begin FCSHServer.ctlSplitterEx ctlSplitterEx1 
@@ -278,13 +429,27 @@ Private Sub cmdClear_Click()
         If (fcsh.isRunning And Not fcsh.isExec) Then
             fcsh.clear "clear " + CStr(fcsh.targets.Item(KEY))
             fcsh.targets.Remove KEY
+        Else
+            log.xFcsh "[ERROR] Flex Compiler SHell is stopped or busy" & vbCrLf
         End If
+    Else
+        log.xFcsh "[ERROR] No target was selected for removal" & vbCrLf
     End If
     fillView
 End Sub
 
+
+
+Private Sub cmdClearErr_Click()
+    rtbError.Text = ""
+End Sub
+
 Private Sub cmdClearLog_Click()
     rtbLog.Text = ""
+End Sub
+
+Private Sub cmdClearWarn_Click()
+    rtbWarn.Text = ""
 End Sub
 
 Private Sub cmdHide_Click()
@@ -298,7 +463,11 @@ Private Sub cmdRecompile_Click()
         KEY = lstTargets.List(lstTargets.ListIndex)
         If (fcsh.isRunning And Not fcsh.isExec) Then
             fcsh.exec KEY
+        Else
+            log.xFcsh "[ERROR] Flex Compiler SHell is stopped or busy" & vbCrLf
         End If
+    Else
+        log.xFcsh "[ERROR] No target was selected for recompile" & vbCrLf
     End If
 End Sub
 
@@ -315,7 +484,7 @@ Private Sub Form_Load()
     Me.ctlSplitterEx1.AttachObjects Me.frmFcsh, Me.frmTargets, False
     Me.ctlSplitterEx1.TileMode = TILE_HORIZONTALLY
     
-    log.setWindow rtbLog
+    log.setWindow rtbLog, rtbError, rtbWarn
     log.xInfo "Application started"
     prefs.initialize log
     
@@ -336,8 +505,6 @@ Private Sub Form_Load()
     fcsh.Start
     
     SetHorizontalExtent
-    
-
 End Sub
 
 Sub SetHorizontalExtent()
@@ -365,38 +532,108 @@ Public Sub fillView()
     For Each KEY In fcsh.targets
         lstTargets.AddItem CStr(KEY)
     Next
+    
+    'lstTargets.AddItem "mxmlc -output=c:\test\resl.swf load-config+=c:\"
+
+    
     SetHorizontalExtent
 End Sub
 
-Private Sub frmTargets_Resize()
-    lstTargets.Width = frmTargets.Width - lstTargets.Left * 2 - 150
+
+Private Sub lstTargets_Click()
+    Dim result As String
+    If (lstTargets.ListIndex <> -1) Then
+        lstTargets.ToolTipText = ""
+        Dim lines() As String
+        Dim i As Long
+        result = lstTargets.List(lstTargets.ListIndex)
+        lines = Split(result, " ")
+        For i = 0 To UBound(lines) - 1
+            lstTargets.ToolTipText = lstTargets.ToolTipText & lines(i) & ""
+        Next i
+    Else
+        lstTargets.ToolTipText = ""
+    End If
+End Sub
+
+Private Sub SSTab_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+    frmFcsh_Resize
+End Sub
+
+Private Sub frmFcsh_Resize()
     Dim listHeight As Long
-    listHeight = frmTargets.Height - lstTargets.Top - 1000
+    SSTab.Width = frmFcsh.Width - SSTab.Left * 2
+    SSTab.Height = frmFcsh.Height - SSTab.Top - 150
+    
+    listHeight = SSTab.Width
+    
+    If (SSTab.Tab = 0) Then
+        rtbLog.Width = listHeight - rtbLog.Left * 2
+    End If
+    
+    If (SSTab.Tab = 1) Then
+        rtbError.Width = listHeight - rtbError.Left * 2
+    End If
+    
+    If (SSTab.Tab = 2) Then
+        rtbWarn.Width = listHeight - rtbWarn.Left * 2
+    End If
+    
+    listHeight = SSTab.Height - rtbLog.Top - 600
+    
+    If (listHeight > 0 And SSTab.Tab = 0) Then
+        rtbLog.Height = listHeight
+    End If
+    
+    listHeight = SSTab.Height - rtbError.Top - 600
+    If (listHeight > 0 And SSTab.Tab = 1) Then
+        rtbError.Height = listHeight
+    End If
+    
+    listHeight = SSTab.Height - rtbWarn.Top - 600
+    If (listHeight > 0 And SSTab.Tab = 2) Then
+        rtbWarn.Height = listHeight
+    End If
+   
+    listHeight = rtbLog.Top + rtbLog.Height + 100
+    If (SSTab.Tab = 0) Then
+        cmdClearLog.Top = listHeight
+        cmdClearLog.Left = rtbLog.Left + rtbLog.Width - cmdClearLog.Width
+    End If
+    
+    listHeight = rtbError.Top + rtbError.Height + 100
+    If (SSTab.Tab = 1) Then
+        cmdClearErr.Top = listHeight
+        cmdClearErr.Left = rtbError.Left + rtbError.Width - cmdClearErr.Width
+    End If
+    
+    listHeight = rtbWarn.Top + rtbWarn.Height + 100
+    If (SSTab.Tab = 2) Then
+        cmdClearWarn.Top = listHeight
+        cmdClearWarn.Left = rtbWarn.Left + rtbWarn.Width - cmdClearWarn.Width
+    End If
+End Sub
+
+Private Sub frmTargets_Resize()
+    lstTargets.Width = frmTargets.Width - lstTargets.Left * 2
+    Dim listHeight As Long
+    listHeight = frmTargets.Height - lstTargets.Top - 700
     If (listHeight > 0) Then
         lstTargets.Height = listHeight
     End If
     
-    listHeight = lstTargets.Top + lstTargets.Height + 100
+    listHeight = frmTargets.Height - 600
     cmdClear.Top = listHeight
     cmdHide.Top = listHeight
     cmdRecompile.Top = listHeight
     cmdHide.Left = lstTargets.Left + lstTargets.Width - cmdHide.Width
-    
-    rtbLog.Width = frmFcsh.Width - rtbLog.Left * 2 - 150
-    listHeight = frmFcsh.Height - rtbLog.Top - 600
-    If (listHeight > 0) Then
-        rtbLog.Height = listHeight
-    End If
+
    
-    listHeight = rtbLog.Top + rtbLog.Height + 100
-    cmdClearLog.Top = listHeight
-    cmdClearLog.Left = rtbLog.Left + rtbLog.Width - cmdClearLog.Width
-    chkOnTop.Left = rtbLog.Left + rtbLog.Width - chkOnTop.Width
 End Sub
 
 Private Sub Form_Resize()
-    ctlSplitterEx1.Width = Me.Width
-    ctlSplitterEx1.Height = Me.Height
+    ctlSplitterEx1.Width = Me.Width - 120
+    ctlSplitterEx1.Height = Me.Height - 410
 End Sub
 
 
@@ -552,6 +789,8 @@ Private Sub fcsh_onComplete(value As DataVO)
 End Sub
 
 Private Sub fcsh_onStop(value As DataVO)
+    cmdRecompile.Enabled = False
+    cmdClear.Enabled = False
     sendDataVO value
 End Sub
 
@@ -669,3 +908,5 @@ Private Sub sendCommand(data As String, target As String)
     dataObject.serialize byteArray
     sendByteArray byteArray
 End Sub
+
+

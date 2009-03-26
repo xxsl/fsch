@@ -15,7 +15,7 @@ Private Type tagInitCommonControlsEx
 End Type
 Private Const ICC_USEREX_CLASSES = &H200
 Private Declare Function InitCommonControlsEx Lib "comctl32.dll" (iccex As tagInitCommonControlsEx) As Boolean
-Private Declare Function SetWindowPos Lib "user32" (ByVal hWnd As Long, ByVal hWndInsertAfter As Long, ByVal X As Long, ByVal Y As Long, ByVal cX As Long, ByVal cY As Long, ByVal wFlags As Long) As Long
+Private Declare Function SetWindowPos Lib "user32" (ByVal HWND As Long, ByVal hWndInsertAfter As Long, ByVal X As Long, ByVal Y As Long, ByVal cX As Long, ByVal cY As Long, ByVal wFlags As Long) As Long
 
 Private Function InitCommonControlsVB() As Boolean
    On Error Resume Next
@@ -31,17 +31,18 @@ Private Function InitCommonControlsVB() As Boolean
 End Function
 
 Public Sub SetAlwaysOnTopMode(hWndOrForm As Variant, Optional ByVal OnTop As Boolean = True)
-    Dim hWnd As Long
+    Dim HWND As Long
     ' get the hWnd of the form to be move on top
     If VarType(hWndOrForm) = vbLong Then
-        hWnd = hWndOrForm
+        HWND = hWndOrForm
     Else
-        hWnd = hWndOrForm.hWnd
+        HWND = hWndOrForm.HWND
     End If
-    SetWindowPos hWnd, IIf(OnTop, HWND_TOPMOST, HWND_NOTOPMOST), 0, 0, 0, 0, SWP_NOMOVE Or SWP_NOSIZE Or SWP_SHOWWINDOW
+    SetWindowPos HWND, IIf(OnTop, HWND_TOPMOST, HWND_NOTOPMOST), 0, 0, 0, 0, SWP_NOMOVE Or SWP_NOSIZE Or SWP_SHOWWINDOW
 End Sub
 
 Public Sub Main()
     InitCommonControlsVB
     Load MainForm
+    MainForm.Show
 End Sub
