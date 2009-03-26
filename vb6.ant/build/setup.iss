@@ -7,7 +7,7 @@
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{16B4B946-D6D2-4A3F-9F71-D85CFBEF6937}
 AppName=FCSHServer
-AppVerName=FCSHServer 1.0.59
+AppVerName=FCSHServer 1.0.64
 AppPublisher=nimrod97@gmail.com
 AppPublisherURL=http://code.google.com/p/fsch/
 AppSupportURL=http://code.google.com/p/fsch/
@@ -19,11 +19,11 @@ LicenseFile=license.txt
 InfoBeforeFile=
 InfoAfterFile=
 OutputDir=/setup
-OutputBaseFilename=fcsh-server-setup-1.0.59
+OutputBaseFilename=fcsh-server-setup-1.0.64
 SetupIconFile=all.ico
 Compression=lzma/ultra
 SolidCompression=yes
-VersionInfoVersion=1.0.59
+VersionInfoVersion=1.0.64
 VersionInfoCopyright=nimrod97@gmail.com
 ChangesEnvironment=yes
 
@@ -57,6 +57,7 @@ Source: "COMCTL32.OCX"; DestDir: "{sys}"; Flags: sharedfile regserver  onlyifdoe
 Source: "MSWINSCK.OCX"; DestDir: "{sys}"; Flags: sharedfile regserver  onlyifdoesntexist
 Source: "MSCOMCTL.OCX"; DestDir: "{sys}"; Flags: sharedfile regserver  onlyifdoesntexist
 Source: "COMCT232.OCX"; DestDir: "{sys}"; Flags: sharedfile regserver  onlyifdoesntexist
+Source: "TABCTL32.OCX"; DestDir: "{sys}"; Flags: sharedfile regserver  onlyifdoesntexist
 
 
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
