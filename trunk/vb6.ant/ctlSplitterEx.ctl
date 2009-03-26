@@ -66,7 +66,7 @@ Dim m_bMoving As Boolean
 
 Dim m_MinTilePercent As Long
 Dim m_MaxTilePercent As Long
-Const TILE_BAR_SIZE = 100
+Const TILE_BAR_SIZE = 50
 Public Property Get HWND() As Long
 HWND = UserControl.HWND
 End Property

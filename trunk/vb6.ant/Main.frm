@@ -173,20 +173,20 @@ Begin VB.Form MainForm
          Style           =   1
          Tabs            =   4
          TabsPerRow      =   4
-         TabHeight       =   520
+         TabHeight       =   617
          WordWrap        =   0   'False
          ShowFocusRect   =   0   'False
-         ForeColor       =   16711680
+         ForeColor       =   -2147483630
          BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
             Name            =   "Arial"
-            Size            =   9
+            Size            =   9.75
             Charset         =   0
-            Weight          =   700
+            Weight          =   400
             Underline       =   0   'False
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         TabCaption(0)   =   "Output"
+         TabCaption(0)   =   "FCSH Output"
          TabPicture(0)   =   "Main.frx":058E
          Tab(0).ControlEnabled=   -1  'True
          Tab(0).Control(0)=   "cmdClearLog"
@@ -194,17 +194,17 @@ Begin VB.Form MainForm
          Tab(0).Control(1)=   "rtbLog"
          Tab(0).Control(1).Enabled=   0   'False
          Tab(0).ControlCount=   2
-         TabCaption(1)   =   "Errors"
+         TabCaption(1)   =   "Build Errors"
          TabPicture(1)   =   "Main.frx":069F
          Tab(1).ControlEnabled=   0   'False
-         Tab(1).Control(0)=   "rtbError"
-         Tab(1).Control(1)=   "cmdClearErr"
+         Tab(1).Control(0)=   "cmdClearErr"
+         Tab(1).Control(1)=   "rtbError"
          Tab(1).ControlCount=   2
-         TabCaption(2)   =   "Warnings"
+         TabCaption(2)   =   "Build Warnings"
          TabPicture(2)   =   "Main.frx":07AF
          Tab(2).ControlEnabled=   0   'False
-         Tab(2).Control(0)=   "rtbWarn"
-         Tab(2).Control(1)=   "cmdClearWarn"
+         Tab(2).Control(0)=   "cmdClearWarn"
+         Tab(2).Control(1)=   "rtbWarn"
          Tab(2).ControlCount=   2
          TabCaption(3)   =   "Preferences"
          TabPicture(3)   =   "Main.frx":08BF
@@ -220,8 +220,9 @@ Begin VB.Form MainForm
             _ExtentX        =   16748
             _ExtentY        =   4048
             _Version        =   393217
-            BackColor       =   -2147483638
+            BackColor       =   16777215
             Enabled         =   -1  'True
+            ReadOnly        =   -1  'True
             ScrollBars      =   3
             Appearance      =   0
             RightMargin     =   65000
@@ -245,8 +246,9 @@ Begin VB.Form MainForm
             _ExtentX        =   16748
             _ExtentY        =   4048
             _Version        =   393217
-            BackColor       =   -2147483638
+            BackColor       =   16777215
             Enabled         =   -1  'True
+            ReadOnly        =   -1  'True
             ScrollBars      =   3
             Appearance      =   0
             RightMargin     =   65000
@@ -270,8 +272,9 @@ Begin VB.Form MainForm
             _ExtentX        =   16536
             _ExtentY        =   4048
             _Version        =   393217
-            BackColor       =   -2147483638
+            BackColor       =   16777215
             Enabled         =   -1  'True
+            ReadOnly        =   -1  'True
             ScrollBars      =   3
             Appearance      =   0
             RightMargin     =   65000
@@ -399,7 +402,7 @@ Attribute VB_Exposed = False
 Option Explicit
 
 Private Declare Function SendMessage Lib "user32" Alias "SendMessageA" (ByVal _
-    HWND As Long, ByVal wMsg As Long, ByVal wParam As Long, _
+    hWnd As Long, ByVal wMsg As Long, ByVal wParam As Long, _
     lParam As Any) As Long
 Const LB_SETHORIZONTALEXTENT = &H194
 Const LB_GETHORIZONTALEXTENT = &H193
@@ -415,9 +418,9 @@ Private log As New clsLog
 
 Private Sub chkOnTop_Click()
     If (chkOnTop.value = 1) Then
-        SetAlwaysOnTopMode Me.HWND, True
+        SetAlwaysOnTopMode Me.hWnd, True
     Else
-        SetAlwaysOnTopMode Me.HWND, False
+        SetAlwaysOnTopMode Me.hWnd, False
     End If
 End Sub
 
@@ -495,7 +498,7 @@ Private Sub Form_Load()
     Server.LocalPort = port
     
    
-    TrayAdd fakeTray.HWND, Me.Icon, "Flex Compiler SHell Server", MouseMove
+    TrayAdd fakeTray.hWnd, Me.Icon, "Flex Compiler SHell Server", MouseMove
     
    
     Set fcsh = New clsFCSH
@@ -519,7 +522,7 @@ Sub SetHorizontalExtent()
     End If
 
     maxWidth = maxWidth / Screen.TwipsPerPixelX
-    SendMessage lstTargets.HWND, LB_SETHORIZONTALEXTENT, maxWidth, ByVal 0&
+    SendMessage lstTargets.hWnd, LB_SETHORIZONTALEXTENT, maxWidth, ByVal 0&
 End Sub
 
 
@@ -534,6 +537,7 @@ Public Sub fillView()
     
     'lstTargets.AddItem "mxmlc -output=c:\test\resl.swf load-config+=c:\"
 
+    DestroyTooltip
     
     SetHorizontalExtent
 End Sub
@@ -541,17 +545,17 @@ End Sub
 
 Private Sub lstTargets_Click()
     Dim result As String
+    DestroyTooltip
     If (lstTargets.ListIndex <> -1) Then
-        lstTargets.ToolTipText = ""
         Dim lines() As String
         Dim i As Long
         result = lstTargets.List(lstTargets.ListIndex)
         lines = Split(result, " ")
+        result = ""
         For i = 0 To UBound(lines) - 1
-            lstTargets.ToolTipText = lstTargets.ToolTipText & lines(i) & ""
+            result = result & lines(i) & vbCrLf
         Next i
-    Else
-        lstTargets.ToolTipText = ""
+        DisplayTooltip lstTargets.hWnd, result, App.hInstance
     End If
 End Sub
 

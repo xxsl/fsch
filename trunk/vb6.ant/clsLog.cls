@@ -48,18 +48,21 @@ Public Sub xFcsh(msg As String)
     logWindow.Text = logWindow.Text + msg
     logWindow.SelStart = Len(logWindow.Text) - Len(msg)
     logWindow.SelLength = Len(msg)
+    logWindow.SelColor = RGB(90, 90, 90)
 End Sub
 
 Public Sub xFcshErr(msg As String)
     errWindow.Text = errWindow.Text + msg
     errWindow.SelStart = Len(errWindow.Text) - Len(msg)
     errWindow.SelLength = Len(msg)
+    errWindow.SelColor = RGB(150, 0, 0)
 End Sub
 
 Public Sub xFcshWarn(msg As String)
     warnWindow.Text = warnWindow.Text + msg
     warnWindow.SelStart = Len(warnWindow.Text) - Len(msg)
     warnWindow.SelLength = Len(msg)
+    warnWindow.SelColor = RGB(223, 112, 0)
 End Sub
 
 Private Sub output(msg As String, prefix As String)

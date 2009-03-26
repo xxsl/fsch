@@ -80,7 +80,7 @@ Public Function isWarn() As Boolean
     regExp.Pattern = "(.*Warning:[^\r]+)"
     Set matches = regExp.Execute(output)
     For Each match In matches
-        log.xFcshWarn "[WARN] " & match.value & vbCrLf
+        log.xFcshWarn "[" & Now & "] " & match.value & vbCrLf
     Next
     isWarn = (matches.Count > 0)
 End Function
@@ -96,7 +96,7 @@ Public Function isError() As Boolean
     regExp.Pattern = "(.*Error:[^\r]+)"
     Set matches = regExp.Execute(output)
     For Each match In matches
-        log.xFcshErr "[ERROR] " & match.value & vbCrLf
+        log.xFcshErr "[" & Now & "] " & match.value & vbCrLf
     Next
     isError = (matches.Count > 0)
 End Function
