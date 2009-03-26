@@ -197,18 +197,14 @@ Begin VB.Form MainForm
          TabCaption(1)   =   "Errors"
          TabPicture(1)   =   "Main.frx":069F
          Tab(1).ControlEnabled=   0   'False
-         Tab(1).Control(0)=   "cmdClearErr"
-         Tab(1).Control(0).Enabled=   0   'False
-         Tab(1).Control(1)=   "rtbError"
-         Tab(1).Control(1).Enabled=   0   'False
+         Tab(1).Control(0)=   "rtbError"
+         Tab(1).Control(1)=   "cmdClearErr"
          Tab(1).ControlCount=   2
          TabCaption(2)   =   "Warnings"
          TabPicture(2)   =   "Main.frx":07AF
          Tab(2).ControlEnabled=   0   'False
-         Tab(2).Control(0)=   "cmdClearWarn"
-         Tab(2).Control(0).Enabled=   0   'False
-         Tab(2).Control(1)=   "rtbWarn"
-         Tab(2).Control(1).Enabled=   0   'False
+         Tab(2).Control(0)=   "rtbWarn"
+         Tab(2).Control(1)=   "cmdClearWarn"
          Tab(2).ControlCount=   2
          TabCaption(3)   =   "Preferences"
          TabPicture(3)   =   "Main.frx":08BF
@@ -225,6 +221,7 @@ Begin VB.Form MainForm
             _ExtentY        =   4048
             _Version        =   393217
             BackColor       =   -2147483638
+            Enabled         =   -1  'True
             ScrollBars      =   3
             Appearance      =   0
             RightMargin     =   65000
@@ -249,6 +246,7 @@ Begin VB.Form MainForm
             _ExtentY        =   4048
             _Version        =   393217
             BackColor       =   -2147483638
+            Enabled         =   -1  'True
             ScrollBars      =   3
             Appearance      =   0
             RightMargin     =   65000
@@ -273,6 +271,7 @@ Begin VB.Form MainForm
             _ExtentY        =   4048
             _Version        =   393217
             BackColor       =   -2147483638
+            Enabled         =   -1  'True
             ScrollBars      =   3
             Appearance      =   0
             RightMargin     =   65000
@@ -562,8 +561,16 @@ End Sub
 
 Private Sub frmFcsh_Resize()
     Dim listHeight As Long
-    SSTab.Width = frmFcsh.Width - SSTab.Left * 2
-    SSTab.Height = frmFcsh.Height - SSTab.Top - 150
+    
+    listHeight = frmFcsh.Width - SSTab.Left * 2
+    If (listHeight > 0) Then
+        SSTab.Width = listHeight
+    End If
+    listHeight = frmFcsh.Height - SSTab.Top - 150
+    If (listHeight > 0) Then
+        SSTab.Height = listHeight
+    End If
+    
     
     listHeight = SSTab.Width
     
