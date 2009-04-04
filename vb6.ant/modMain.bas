@@ -43,6 +43,9 @@ End Sub
 
 Public Sub Main()
     InitCommonControlsVB
-    Load MainForm
-    'MainForm.Show
+    If (Not App.PrevInstance) Then
+        Load MainForm
+    Else
+        MsgBox "FCSHServer is already running!", vbCritical, "FCSHServer"
+    End If
 End Sub
