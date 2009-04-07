@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="fcsh.build" default="buildall" basedir=".">
+
+    <property name="output.dir" value="${basedir}\classes"/>
+    <property name="output.dir.jar" value="${basedir}/../vb6.ant/build"/>
+
+    <path id="classpath">
+        <pathelement location="${basedir}/ant/lib/ant-xslp.jar"/>
+        <pathelement location="${basedir}/ant/lib/ant-weblogic.jar"/>
+        <pathelement location="${basedir}/ant/lib/ant-xalan1.jar"/>
+        <pathelement location="${basedir}/ant/lib/ant-apache-log4j.jar"/>
+        <pathelement location="${basedir}/ant/lib/ant-jai.jar"/>
+        <pathelement location="${basedir}/ant/lib/ant-jmf.jar"/>
+        <pathelement location="${basedir}/ant/lib/ant-apache-bsf.jar"/>
+        <pathelement location="${basedir}/ant/lib/ant-swing.jar"/>
+        <pathelement location="${basedir}/ant/lib/ant-starteam.jar"/>
+        <pathelement location="${basedir}/ant/lib/ant-javamail.jar"/>
+        <pathelement location="${basedir}/ant/lib/ant-commons-net.jar"/>
+        <pathelement location="${basedir}/ant/lib/ant-apache-oro.jar"/>
+        <pathelement location="${basedir}/ant/lib/ant-trax.jar"/>
+        <pathelement location="${basedir}/ant/lib/xml-apis.jar"/>
+        <pathelement location="${basedir}/ant/lib/ant-jsch.jar"/>
+        <pathelement location="${basedir}/ant/lib/ant-stylebook.jar"/>
+        <pathelement location="${basedir}/ant/lib/ant.jar"/>
+        <pathelement location="${basedir}/ant/lib/xercesImpl.jar"/>
+        <pathelement location="${basedir}/ant/lib/ant-netrexx.jar"/>
+        <pathelement location="${basedir}/ant/lib/ant-apache-regexp.jar"/>
+        <pathelement location="${basedir}/ant/lib/ant-apache-resolver.jar"/>
+        <pathelement location="${basedir}/ant/lib/ant-icontract.jar"/>
+        <pathelement location="${basedir}/ant/lib/ant-junit.jar"/>
+        <pathelement location="${basedir}/ant/lib/ant-vaj.jar"/>
+        <pathelement location="${basedir}/ant/lib/ant-antlr.jar"/>
+        <pathelement location="${basedir}/ant/lib/ant-jdepend.jar"/>
+        <pathelement location="${basedir}/ant/lib/ant-launcher.jar"/>
+        <pathelement location="${basedir}/ant/lib/ant-commons-logging.jar"/>
+        <pathelement location="${basedir}/ant/lib/ant-apache-bcel.jar"/>
+        <pathelement location="${basedir}/ant/lib/ant-nodeps.jar"/>
+    </path>
+
+    <path id="sourcepath">
+        <dirset dir="${basedir}">
+            <include name="src"/>
+        </dirset>
+    </path>
+
+    <target name="buildall">
+        <antcall target="fcsh.compile"/>
+        <antcall target="fcsh.jar"/>
+        <antcall target="fcsh.clean"/>
+    </target>
+
+    <target name="fcsh.compile" depends="fcsh.clean" description="Compile fcsh classes">
+        <mkdir dir="${output.dir}"/>
+        <javac destdir="${output.dir}" fork="true">
+            <classpath refid="classpath"/>
+            <src refid="sourcepath"/>
+        </javac>
+
+        <copy todir="${output.dir}">
+            <fileset dir="${basedir}/src">
+                <type type="file"/>
+                <patternset includes="*.class"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="fcsh.jar">
+        <jar basedir="${output.dir}" jarfile="${output.dir.jar}/fcsh.jar">
+        </jar>
+        <copy todir="${basedir}/test">
+            <fileset dir="${output.dir.jar}">
+                <filename name="fcsh.jar"/>
+            </fileset>
+        </copy>
+    </target>
+
+
+    <target name="fcsh.clean" description="cleanup">
+        <delete dir="${output.dir}"/>
+    </target>
+</project>
