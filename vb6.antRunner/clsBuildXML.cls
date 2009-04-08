@@ -36,8 +36,10 @@ Public Function getTargets() As Variant
     
     Set targets = content.selectNodes("//project/target")
     
-    If (targets.length = 0) Then
-        MsgBox "Selected file is not valid Ant build!", vbCritical, "Parser error"
+    'Err.Raise 11540, App.EXEName & ".cXmlTreeView", m_xml.parseError.reason & " at " & m_xml.parseError.Line & ", position " & m_xml.parseError.linepos
+    
+    If (Not content.parsed) Then
+        MsgBox content.parseError.reason & " at " & content.parseError.Line & ", position " & content.parseError.linepos, vbCritical, "Parser error"
     End If
     
     ReDim result(targets.length - 1)

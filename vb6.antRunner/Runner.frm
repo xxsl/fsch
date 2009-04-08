@@ -12,18 +12,26 @@ Begin VB.Form Runner
    ScaleHeight     =   7710
    ScaleWidth      =   10590
    StartUpPosition =   2  'CenterScreen
+   Begin AntRunner.ctlTagetsPanel TargetsPanel 
+      Height          =   4815
+      Left            =   480
+      TabIndex        =   4
+      Top             =   1440
+      Width           =   3015
+      _extentx        =   5318
+      _extenty        =   8493
+   End
    Begin RichTextLib.RichTextBox Log 
       Height          =   4815
       Left            =   3960
-      TabIndex        =   4
+      TabIndex        =   3
       Top             =   1440
       Width           =   5775
       _ExtentX        =   10186
       _ExtentY        =   8493
       _Version        =   393217
-      Enabled         =   -1  'True
+      BorderStyle     =   0
       ScrollBars      =   3
-      Appearance      =   0
       RightMargin     =   65000
       TextRTF         =   $"Runner.frx":0000
    End
@@ -40,7 +48,7 @@ Begin VB.Form Runner
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
          NumListImages   =   1
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Runner.frx":008D
+            Picture         =   "Runner.frx":0084
             Key             =   ""
          EndProperty
       EndProperty
@@ -56,7 +64,7 @@ Begin VB.Form Runner
       Align           =   2  'Align Bottom
       Height          =   270
       Left            =   0
-      TabIndex        =   3
+      TabIndex        =   2
       Top             =   7440
       Width           =   10590
       _ExtentX        =   18680
@@ -80,7 +88,7 @@ Begin VB.Form Runner
       Align           =   1  'Align Top
       Height          =   360
       Left            =   0
-      TabIndex        =   2
+      TabIndex        =   1
       Top             =   0
       Width           =   10590
       _ExtentX        =   18680
@@ -88,24 +96,13 @@ Begin VB.Form Runner
       ButtonWidth     =   609
       Appearance      =   1
       Style           =   1
-      ImageList       =   "Icons"
       _Version        =   393216
       BeginProperty Buttons {66833FE8-8583-11D1-B16A-00C0F0283628} 
          NumButtons      =   1
          BeginProperty Button1 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            ImageIndex      =   1
          EndProperty
       EndProperty
       BorderStyle     =   1
-   End
-   Begin VB.ListBox List1 
-      Height          =   4860
-      IntegralHeight  =   0   'False
-      Left            =   360
-      Sorted          =   -1  'True
-      TabIndex        =   1
-      Top             =   1320
-      Width           =   3375
    End
    Begin AntRunner.ctlSplitterEx VSplitter 
       Height          =   6495
@@ -127,7 +124,7 @@ Public build As New clsBuildXML
 
 
 Private Sub Form_Load()
-    VSplitter.AttachObjects List1, Log
+    VSplitter.AttachObjects TargetsPanel, Log
     VSplitter.TileMode = TILE_VERTICALLY
 End Sub
 
@@ -152,14 +149,18 @@ End Sub
 
 Private Sub loadBuildFile()
    Dim i As Long
+   Dim nodx As Node
 
-    CD.Filter = "XML Files (*.xml,*.xsl)|*.xml;*xsl"
+   CD.Filter = "XML Files (*.xml,*.xsl)|*.xml;*xsl"
    CD.ShowOpen
    If (Len(CD.FileName) > 0) Then
        build.LoadXML CD.FileName
        
+       Set nodx = TargetsPanel.Tree.Nodes.Add(, , "Root", CD.FileName)
        For i = 0 To UBound(build.getTargets)
-          List1.AddItem build.getTargets(i)
+          'List1.AddItem build.getTargets(i)
+          'FileTree.Nodes.Add "Root", tvwChild, build.getTargets(i), build.getTargets(i)
+          Set nodx = TargetsPanel.Tree.Nodes.Add("Root", tvwChild, "Child" & i, build.getTargets(i))
        Next i
    End If
 End Sub
