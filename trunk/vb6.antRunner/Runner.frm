@@ -1,7 +1,7 @@
 VERSION 5.00
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
 Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
-Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "RICHTX32.OCX"
+Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "RICHTX32.ocx"
 Begin VB.Form Runner 
    Caption         =   "Ant Runner"
    ClientHeight    =   7710
@@ -12,25 +12,53 @@ Begin VB.Form Runner
    ScaleHeight     =   7710
    ScaleWidth      =   10590
    StartUpPosition =   2  'CenterScreen
-   Begin AntRunner.ctlTagetsPanel TargetsPanel 
-      Height          =   4815
-      Left            =   480
+   Begin VB.PictureBox PropertyPanel 
+      FillColor       =   &H8000000C&
+      Height          =   1455
+      Left            =   720
+      ScaleHeight     =   1395
+      ScaleWidth      =   2715
+      TabIndex        =   6
+      Top             =   4800
+      Width           =   2775
+   End
+   Begin MSComctlLib.TreeView FileTree 
+      Height          =   3615
+      Left            =   720
       TabIndex        =   4
-      Top             =   1440
-      Width           =   3015
-      _extentx        =   5318
-      _extenty        =   8493
+      Top             =   1080
+      Width           =   2775
+      _ExtentX        =   4895
+      _ExtentY        =   6376
+      _Version        =   393217
+      HideSelection   =   0   'False
+      Indentation     =   441
+      LineStyle       =   1
+      Sorted          =   -1  'True
+      Style           =   7
+      SingleSel       =   -1  'True
+      Appearance      =   1
+   End
+   Begin AntRunner.ctlSplitterEx HSplitter 
+      Height          =   5415
+      Left            =   480
+      TabIndex        =   5
+      Top             =   840
+      Width           =   3255
+      _ExtentX        =   5741
+      _ExtentY        =   9551
    End
    Begin RichTextLib.RichTextBox Log 
-      Height          =   4815
+      Height          =   5535
       Left            =   3960
       TabIndex        =   3
-      Top             =   1440
+      Top             =   720
       Width           =   5775
       _ExtentX        =   10186
-      _ExtentY        =   8493
+      _ExtentY        =   9763
       _Version        =   393217
       BorderStyle     =   0
+      Enabled         =   -1  'True
       ScrollBars      =   3
       RightMargin     =   65000
       TextRTF         =   $"Runner.frx":0000
@@ -94,6 +122,7 @@ Begin VB.Form Runner
       _ExtentX        =   18680
       _ExtentY        =   635
       ButtonWidth     =   609
+      ButtonHeight    =   582
       Appearance      =   1
       Style           =   1
       _Version        =   393216
@@ -110,8 +139,8 @@ Begin VB.Form Runner
       TabIndex        =   0
       Top             =   480
       Width           =   9975
-      _extentx        =   18230
-      _extenty        =   12091
+      _ExtentX        =   18230
+      _ExtentY        =   12091
    End
 End
 Attribute VB_Name = "Runner"
@@ -119,23 +148,22 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-Public build As New clsBuildXML
-
-
-
 Private Sub Form_Load()
-    VSplitter.AttachObjects TargetsPanel, Log
+    HSplitter.TileMode = TILE_HORIZONTALLY
+    HSplitter.AttachObjects FileTree, PropertyPanel
+    
+    VSplitter.AttachObjects HSplitter, Log
     VSplitter.TileMode = TILE_VERTICALLY
 End Sub
 
 Private Sub Form_Resize()
-    Dim size As Long
+    Dim splitterHeight As Long
     
     VSplitter.Width = Me.Width - 380
     
-    size = Me.Height - VSplitter.Top - (Me.Height - Status.Top) - 100
-    If (size > 0) Then
-        VSplitter.Height = size
+    splitterHeight = Me.Height - VSplitter.Top - (Me.Height - Status.Top) - 80
+    If (splitterHeight > 0) Then
+        VSplitter.Height = splitterHeight
     End If
 End Sub
 
@@ -149,19 +177,22 @@ End Sub
 
 Private Sub loadBuildFile()
    Dim i As Long
-   Dim nodx As Node
+   Dim nodx As node
+   Dim Build As New AntBuild
+   
 
    CD.Filter = "XML Files (*.xml,*.xsl)|*.xml;*xsl"
    CD.ShowOpen
    If (Len(CD.FileName) > 0) Then
-       build.LoadXML CD.FileName
-       
-       Set nodx = TargetsPanel.Tree.Nodes.Add(, , "Root", CD.FileName)
-       For i = 0 To UBound(build.getTargets)
-          'List1.AddItem build.getTargets(i)
-          'FileTree.Nodes.Add "Root", tvwChild, build.getTargets(i), build.getTargets(i)
-          Set nodx = TargetsPanel.Tree.Nodes.Add("Root", tvwChild, "Child" & i, build.getTargets(i))
+       Build.buildfile = CD.FileName
+       Build.DisplayName = "ISY3Suite"
+       Set nodx = FileTree.Nodes.Add(, , "Root", Build.DisplayName)
+       For i = 1 To Build.Targets.Count
+          Dim AntTask As AntTarget
+          Set AntTask = Build.Targets.Item(i)
+          Set nodx = FileTree.Nodes.Add("Root", tvwChild, "Child" & i, AntTask.Name)
        Next i
    End If
 End Sub
+
 
