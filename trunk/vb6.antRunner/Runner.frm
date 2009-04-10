@@ -62,9 +62,10 @@ Begin VB.Form Runner
             Strikethrough   =   0   'False
          EndProperty
          ForeColor       =   &H8000000D&
-         Height          =   285
+         Height          =   645
          Left            =   1200
          Locked          =   -1  'True
+         MultiLine       =   -1  'True
          TabIndex        =   12
          Top             =   1200
          Width           =   1455
@@ -232,6 +233,7 @@ Begin VB.Form Runner
       _ExtentX        =   10186
       _ExtentY        =   9763
       _Version        =   393217
+      Enabled         =   -1  'True
       ReadOnly        =   -1  'True
       ScrollBars      =   3
       Appearance      =   0
@@ -259,7 +261,7 @@ Begin VB.Form Runner
       MaskColor       =   16777215
       _Version        =   393216
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
-         NumListImages   =   3
+         NumListImages   =   7
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
             Picture         =   "Runner.frx":009C
             Key             =   ""
@@ -270,6 +272,22 @@ Begin VB.Form Runner
          EndProperty
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
             Picture         =   "Runner.frx":0341
+            Key             =   ""
+         EndProperty
+         BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "Runner.frx":05B2
+            Key             =   ""
+         EndProperty
+         BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "Runner.frx":06C9
+            Key             =   ""
+         EndProperty
+         BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "Runner.frx":0767
+            Key             =   ""
+         EndProperty
+         BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "Runner.frx":09B8
             Key             =   ""
          EndProperty
       EndProperty
@@ -319,7 +337,7 @@ Begin VB.Form Runner
       ImageList       =   "Icons"
       _Version        =   393216
       BeginProperty Buttons {66833FE8-8583-11D1-B16A-00C0F0283628} 
-         NumButtons      =   5
+         NumButtons      =   11
          BeginProperty Button1 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Object.ToolTipText     =   "Add build file"
             ImageIndex      =   1
@@ -339,6 +357,30 @@ Begin VB.Form Runner
          EndProperty
          BeginProperty Button5 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Style           =   3
+         EndProperty
+         BeginProperty Button6 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Object.ToolTipText     =   "Options"
+            ImageIndex      =   4
+         EndProperty
+         BeginProperty Button7 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Style           =   3
+         EndProperty
+         BeginProperty Button8 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Object.ToolTipText     =   "On Top"
+            ImageIndex      =   5
+            Style           =   1
+         EndProperty
+         BeginProperty Button9 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Object.ToolTipText     =   "Floating window"
+            ImageIndex      =   6
+            Style           =   1
+         EndProperty
+         BeginProperty Button10 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Style           =   3
+         EndProperty
+         BeginProperty Button11 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Object.ToolTipText     =   "About"
+            ImageIndex      =   7
          EndProperty
       EndProperty
       BorderStyle     =   1
@@ -384,6 +426,9 @@ Private Sub Form_Load()
     VSplitter.TileMode = TILE_VERTICALLY
     
     LoadBuilds
+    
+    load frmFloat
+    frmFloat.State = 1
 End Sub
 
 
@@ -407,6 +452,10 @@ Public Sub LoadBuilds()
 End Sub
 
 
+
+Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
+    Unload frmFloat
+End Sub
 
 Private Sub Form_Resize()
     Dim splitterHeight As Long
@@ -451,6 +500,7 @@ Private Sub FileTree_NodeClick(ByVal Node As MSComctlLib.Node)
 
     Toolbar.Buttons(2).Enabled = (Not FileTree.SelectedItem Is Nothing) And (TypeOf TreeKeys.Item(Node.Key) Is AntBuild)
     Toolbar.Buttons(4).Enabled = (Not FileTree.SelectedItem Is Nothing) And (TypeOf TreeKeys.Item(Node.Key) Is AntTarget)
+    frmFloat.Toolbar.Buttons(1).Enabled = (Not FileTree.SelectedItem Is Nothing) And (TypeOf TreeKeys.Item(Node.Key) Is AntTarget)
 End Sub
 
 
@@ -475,6 +525,12 @@ Private Sub PropertyPanel_Resize()
         txtDescription.Width = newWidth
         txtBuild.Width = newWidth
     End If
+    
+    Dim newHeight As Long
+    newHeight = PropertyPanel.Height - txtDescription.Top - 80
+    If (newHeight > 0) Then
+        txtDescription.Height = newHeight
+    End If
 End Sub
 
 
@@ -488,15 +544,42 @@ Private Sub Toolbar_ButtonClick(ByVal Button As MSComctlLib.Button)
                 RemoveBuildFile
         Case 4:
                 RunBuildTarget
+        Case 6:
+                ShowOptions
+        Case 8:
+                SetAlwaysOnTopMode Me.hwnd, Button.value = tbrPressed
+        Case 9:
+                ShowFloatingWindow Button.value = tbrPressed
+        Case 11:
+                MsgBox "Ant Runner" & vbCrLf & "version " & App.Major & "." & App.Minor & "." & App.Revision, vbOKOnly, "About"
     End Select
 End Sub
 
-Private Sub RunBuildTarget()
+
+Private Sub ShowFloatingWindow(isVisible As Boolean)
+   If (isVisible) Then
+      frmFloat.Show
+      SetAlwaysOnTopMode frmFloat.hwnd, True
+   Else
+      frmFloat.Hide
+   End If
+End Sub
+
+
+Private Sub ShowOptions()
+    load frmOptions
+    frmOptions.Show vbModal
+End Sub
+
+
+Public Sub RunBuildTarget()
     Dim Target As AntTarget
-    If (TypeOf TreeKeys.Item(FileTree.SelectedItem.Key) Is AntTarget) Then
-        Set Target = TreeKeys.Item(FileTree.SelectedItem.Key)
-        Log.Text = ""
-        Ant.Run Target
+    If (Not FileTree.SelectedItem Is Nothing) Then
+        If (TypeOf TreeKeys.Item(FileTree.SelectedItem.Key) Is AntTarget) Then
+            Set Target = TreeKeys.Item(FileTree.SelectedItem.Key)
+            Log.Text = ""
+            Ant.Run Target
+        End If
     End If
 End Sub
 
@@ -544,6 +627,8 @@ Private Sub Ant_onBuildStart()
     Status.Panels(1).Text = "Status: Running"
     Toolbar.Buttons(4).Enabled = False
     FileTree.Enabled = False
+    frmFloat.Toolbar.Buttons(1).Enabled = False
+    frmFloat.State = 3
 End Sub
 
 Private Sub Ant_onBuildError()
@@ -551,7 +636,9 @@ Private Sub Ant_onBuildError()
     Status.Panels(2).Text = "Build: Failed"
     Toolbar.Buttons(4).Enabled = True
     FileTree.Enabled = True
+    frmFloat.Toolbar.Buttons(1).Enabled = True
     FileTree.SetFocus
+    frmFloat.State = 2
 End Sub
 
 Private Sub Ant_onBuildSuccess()
@@ -559,7 +646,9 @@ Private Sub Ant_onBuildSuccess()
     Status.Panels(2).Text = "Build: Successfull"
     Toolbar.Buttons(4).Enabled = True
     FileTree.Enabled = True
+    frmFloat.Toolbar.Buttons(1).Enabled = True
     FileTree.SetFocus
+    frmFloat.State = 1
 End Sub
 
 Private Sub Ant_onBuildProgess(data As String)
