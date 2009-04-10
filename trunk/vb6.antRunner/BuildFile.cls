@@ -15,7 +15,8 @@ Option Explicit
 
 Public DisplayName As String
 
-Private id As String
+Public Id As String
+
 Private xml As New DOMDocument
 Private xmlFile As String
 
@@ -24,7 +25,7 @@ Private Sub Class_Initialize()
 End Sub
 
 Private Sub parseBuildXML()
-    xml.load buildfile
+    xml.load BuildFile
 End Sub
 
 Public Property Get Name() As Variant
@@ -38,7 +39,7 @@ Public Property Get Targets() As Collection
     Dim AntTask As AntTarget
     
     Dim TargetsList As IXMLDOMNodeList
-    Dim Target As IXMLDOMElement
+    Dim target As IXMLDOMElement
     
     Set TargetsList = xml.selectNodes("//project/target")
 
@@ -46,10 +47,10 @@ Public Property Get Targets() As Collection
         MsgBox xml.parseError.reason & " at " & xml.parseError.Line & ", position " & xml.parseError.linepos, vbCritical, "Parser error"
     End If
 
-    For Each Target In TargetsList
+    For Each target In TargetsList
         Set AntTask = New AntTarget
-        AntTask.fromXMLNode Target
-        Set AntTask.Build = Me
+        AntTask.fromXMLNode target
+        Set AntTask.build = Me
         result.Add AntTask, AntTask.Name
     Next
     
@@ -60,14 +61,14 @@ Public Function getTargetByName(Name As String) As AntTarget
     Dim AntTask As AntTarget
     
     Dim TargetsList As IXMLDOMNodeList
-    Dim Target As IXMLDOMElement
+    Dim target As IXMLDOMElement
     
     Set TargetsList = xml.selectNodes("//project/target")
 
-    For Each Target In TargetsList
+    For Each target In TargetsList
         Set AntTask = New AntTarget
-        AntTask.fromXMLNode Target
-        Set AntTask.Build = Me
+        AntTask.fromXMLNode target
+        Set AntTask.build = Me
         If (AntTask.Name = Name) Then
             Exit For
         End If
@@ -76,24 +77,28 @@ Public Function getTargetByName(Name As String) As AntTarget
     Set getTargetByName = AntTask
 End Function
 
-Public Property Get buildfile() As String
-    buildfile = xmlFile
+Public Property Get BuildFile() As String
+    BuildFile = xmlFile
 End Property
 
-Public Property Let buildfile(ByVal file As String)
+Public Property Let BuildFile(ByVal file As String)
     xmlFile = file
     parseBuildXML
 End Property
 
+Public Sub GenerateId()
+    Id = "Build_" & Rnd
+End Sub
+
 Public Sub load(ByRef prefs As ARINIManager, section As String)
-    buildfile = prefs.getValue(section, "file")
+    BuildFile = prefs.getValue(section, "file")
     DisplayName = prefs.getValue(section, "name")
-    id = section
+    Id = section
 End Sub
 
 Public Sub save(ByRef prefs As ARINIManager)
-    prefs.WriteValue id, "file", buildfile
-    prefs.WriteValue id, "name", DisplayName
+    prefs.WriteValue Id, "file", BuildFile
+    prefs.WriteValue Id, "name", DisplayName
 End Sub
 
 
