@@ -18,28 +18,50 @@ Public Event onBuildSuccess()
 Public Event onBuildError()
 
 
-Private WithEvents ant As RedirectLib.Application
-Attribute ant.VB_VarHelpID = -1
+Private WithEvents Ant As RedirectLib.Application
+Attribute Ant.VB_VarHelpID = -1
+
+Private BuildSuccessfull As Boolean
 
 Private Sub Class_Initialize()
-    Set ant = New RedirectLib.Application
-    ant.BufferSize = 8192
+    Set Ant = New RedirectLib.Application
+    Ant.BufferSize = 8192
 End Sub
 
-Public Sub Run(ByRef target As AntTarget)
-    ant.Name = "ant " & target.build.BuildFile & " " & target.Name
+Public Sub Run(ByRef Target As AntTarget)
+    Dim Name As String
+    BuildSuccessfull = False
+    Name = Target.getCommand
+    Ant.Name = Name
+    
+    Select Case Ant.Start
+       Case laAlreadyRunning:
+            RaiseEvent onBuildProgess("Ant is already running")
+       Case laWindowsError
+            RaiseEvent onBuildProgess("Launch error: " & CStr(Ant.LastErrorNumber) & vbCrLf & Name)
+       Case laOk
+            RaiseEvent onBuildStart
+    End Select
 End Sub
 
 
 Private Sub ant_DataReceived(ByVal sData As String)
-    'todo parse errors
     RaiseEvent onBuildProgess(sData)
+    isSuccess sData
 End Sub
 
+Public Function isSuccess(data As String) As Boolean
+    If (InStr(1, data, "BUILD SUCCESSFUL") > 0) Then
+        BuildSuccessfull = True
+    End If
+End Function
 
 Private Sub ant_ProcessEnded()
-    'todo
-    RaiseEvent onBuildSuccess
+    If (BuildSuccessfull) Then
+        RaiseEvent onBuildSuccess
+    Else
+        RaiseEvent onBuildError
+    End If
 End Sub
 
 

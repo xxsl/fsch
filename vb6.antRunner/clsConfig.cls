@@ -19,13 +19,31 @@ Private Const APPLICATION_SECTION As String = "Application"
 'Keys
 Private Const ALWAYSONTOP_KEY As String = "AlwaysOnTop"
 
-Private prefs As New ARINImanager
+Public prefs As New ARINIManager
 
 
 Private Sub Class_Initialize()
     prefs.INIFile = App.Path + "/AntRunner.ini"
     prefs.Refresh
 End Sub
+
+Public Sub DeleteBuild(section As String)
+    prefs.Sections.Remove section
+End Sub
+
+Public Property Get Builds() As Collection
+    Dim Result As New Collection
+    Dim build As AntBuild
+    Dim i As Long
+    For i = 1 To prefs.Sections.Count
+        If (Mid(prefs.Sections.Item(i).Name, 1, Len("Build_")) = "Build_") Then
+            Set build = New AntBuild
+            build.load prefs, prefs.Sections.Item(i).Name
+            Result.Add build
+        End If
+    Next i
+    Set Builds = Result
+End Property
 
 Public Property Get AlwaysOnTop() As Boolean
     Dim value As Long

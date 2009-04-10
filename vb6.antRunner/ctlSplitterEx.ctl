@@ -65,68 +65,76 @@ Dim m_bMoving As Boolean
 
 Dim m_MinTilePercent As Long
 Dim m_MaxTilePercent As Long
+
 Const TILE_BAR_SIZE = 50
+
 Public Property Get hwnd() As Long
-hwnd = UserControl.hwnd
+    hwnd = UserControl.hwnd
 End Property
+
 Public Property Let MaxTilePercent(mt As Long)
-If mt > 5 And mt < 98 And mt > m_MinTilePercent Then m_MaxTilePercent = mt
+    If mt > 5 And mt < 98 And mt > m_MinTilePercent Then m_MaxTilePercent = mt
 End Property
+
 Public Property Let MinTilePercent(mt As Long)
-If mt > 5 And mt < 98 And mt < m_MaxTilePercent Then m_MinTilePercent = mt
+    If mt > 5 And mt < 98 And mt < m_MaxTilePercent Then m_MinTilePercent = mt
 End Property
 
 Public Property Let TileMode(tm As tTILE_MODE)
-m_tTileMode = tm
-Refresh
+    m_tTileMode = tm
+    Refresh
 End Property
 
 Private Sub FindOwnInstance()
-Dim i As Long
-
-Dim s As String, s2 As String
-s = UserControl.Name
-Dim Myhwnd As Long
-Myhwnd = UserControl.hwnd
-
-For i = 0 To UserControl.ParentControls.Count - 1
-    If TypeOf UserControl.ParentControls.Item(i) Is ctlSplitterEx Then
-            If UserControl.ParentControls.Item(i).hwnd = Myhwnd Then
-                Set m_oMe = UserControl.ParentControls.Item(i)
-                Exit For
-            End If
-    End If
-Next
-
-Exit Sub
-
-For i = 0 To UserControl.ParentControls.Count - 1
-    If TypeOf UserControl.ParentControls.Item(i) Is ctlSplitterEx Then
-        Set m_oMe = UserControl.ParentControls.Item(i)
-        Exit For
-    End If
-Next
-
+    Dim i As Long
+    
+    Dim s As String, s2 As String
+    s = UserControl.Name
+    Dim Myhwnd As Long
+    Myhwnd = UserControl.hwnd
+    
+    For i = 0 To UserControl.ParentControls.Count - 1
+        If TypeOf UserControl.ParentControls.Item(i) Is ctlSplitterEx Then
+                If UserControl.ParentControls.Item(i).hwnd = Myhwnd Then
+                    Set m_oMe = UserControl.ParentControls.Item(i)
+                    Exit For
+                End If
+        End If
+    Next
+    
+    Exit Sub
+    
+    For i = 0 To UserControl.ParentControls.Count - 1
+        If TypeOf UserControl.ParentControls.Item(i) Is ctlSplitterEx Then
+            Set m_oMe = UserControl.ParentControls.Item(i)
+            Exit For
+        End If
+    Next
 End Sub
 
 Private Sub InternalInit()
-m_MinTilePercent = 5
-m_MaxTilePercent = 98
-m_lTilePercence = 30
-lblInfo(1).Visible = False
-lblInfo(0).Visible = False
-FindOwnInstance
-m_bInitializes = True
+    m_MinTilePercent = 5
+    m_MaxTilePercent = 98
+    m_lTilePercence = 30
+    lblInfo(1).Visible = False
+    lblInfo(0).Visible = False
+    FindOwnInstance
+    m_bInitializes = True
 End Sub
+
+Public Property Let firstPanelPercentWidth(percent As Long)
+    m_lTilePercence = percent
+End Property
+
 Public Sub AttachObjects(oLeft As Object, oRight As Object, Optional InitZOrder As Boolean = False)
-Set m_oLeft = oLeft
-Set m_oRight = oRight
-InternalInit
-If InitZOrder = True Then
-    oLeft.ZOrder    'to front
-    oRight.ZOrder   'to front
-End If
-Refresh
+    Set m_oLeft = oLeft
+    Set m_oRight = oRight
+    InternalInit
+    If InitZOrder = True Then
+        oLeft.ZOrder    'to front
+        oRight.ZOrder   'to front
+    End If
+    Refresh
 End Sub
 Public Sub Refresh()
 ResizeObjects
