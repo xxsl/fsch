@@ -1,8 +1,9 @@
 VERSION 5.00
+Object = "{EAFBDB7D-3DF2-42CB-86DA-2383D2449EA3}#1.0#0"; "HotKeyConfig.ocx"
 Begin VB.Form frmOptions 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "Options"
-   ClientHeight    =   4920
+   ClientHeight    =   2085
    ClientLeft      =   2565
    ClientTop       =   1500
    ClientWidth     =   6150
@@ -11,10 +12,53 @@ Begin VB.Form frmOptions
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   4920
+   ScaleHeight     =   2085
    ScaleWidth      =   6150
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
+   Begin VB.CheckBox chkMinimize 
+      Caption         =   "Minimize on close"
+      Height          =   375
+      Left            =   120
+      TabIndex        =   12
+      Top             =   600
+      Width           =   1695
+   End
+   Begin VB.CheckBox chkHotkey 
+      Caption         =   "Enabled"
+      Height          =   255
+      Left            =   2280
+      TabIndex        =   11
+      Top             =   1080
+      Width           =   975
+   End
+   Begin HotKeyConfig.HotKey HotKey 
+      Height          =   255
+      Left            =   960
+      TabIndex        =   9
+      Top             =   1080
+      Width           =   1215
+      _ExtentX        =   2143
+      _ExtentY        =   450
+      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "MS Sans Serif"
+         Size            =   8.25
+         Charset         =   204
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      HotKeyModifier  =   0
+   End
+   Begin VB.CheckBox chkBaloon 
+      Caption         =   "Use baloon tooltips"
+      Height          =   375
+      Left            =   120
+      TabIndex        =   8
+      Top             =   120
+      Width           =   1695
+   End
    Begin VB.PictureBox picOptions 
       BorderStyle     =   0  'None
       Height          =   3780
@@ -81,7 +125,7 @@ Begin VB.Form frmOptions
       Height          =   375
       Left            =   4920
       TabIndex        =   1
-      Top             =   4455
+      Top             =   1575
       Width           =   1095
    End
    Begin VB.CommandButton cmdOK 
@@ -89,8 +133,24 @@ Begin VB.Form frmOptions
       Height          =   375
       Left            =   3720
       TabIndex        =   0
-      Top             =   4440
+      Top             =   1560
       Width           =   1095
+   End
+   Begin VB.Label Label2 
+      Caption         =   "Restart required"
+      Height          =   255
+      Left            =   3360
+      TabIndex        =   13
+      Top             =   1080
+      Width           =   1455
+   End
+   Begin VB.Label Label1 
+      Caption         =   "Build key"
+      Height          =   255
+      Left            =   120
+      TabIndex        =   10
+      Top             =   1080
+      Width           =   855
    End
 End
 Attribute VB_Name = "frmOptions"
@@ -100,12 +160,42 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 
+Private config As New clsConfig
+
+
 Private Sub cmdCancel_Click()
     Unload Me
 End Sub
 
 Private Sub cmdOK_Click()
+    config.ShowBaloon = chkBaloon.value = 1
+    config.MinimizeOnClose = chkMinimize.value = 1
+    config.HotKeyEnabled = chkHotkey.value = 1
+    config.KEY = HotKey.HotKey
+    config.MODIFYER = HotKey.HotKeyModifier
     Unload Me
 End Sub
 
 
+Private Sub Form_Load()
+    If (config.ShowBaloon) Then
+        chkBaloon.value = 1
+    Else
+        chkBaloon.value = 0
+    End If
+    
+    If (config.MinimizeOnClose) Then
+        chkMinimize.value = 1
+    Else
+        chkMinimize.value = 0
+    End If
+    
+    If (config.HotKeyEnabled) Then
+        chkHotkey.value = 1
+    Else
+        chkHotkey.value = 0
+    End If
+    
+    HotKey.HotKey = config.KEY
+    HotKey.HotKeyModifier = config.MODIFYER
+End Sub

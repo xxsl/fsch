@@ -57,6 +57,14 @@ Begin VB.Form frmFloat
          EndProperty
       EndProperty
    End
+   Begin VB.Label Label1 
+      BackStyle       =   0  'Transparent
+      Height          =   375
+      Left            =   360
+      TabIndex        =   2
+      Top             =   0
+      Width           =   495
+   End
    Begin VB.Image ResultIcon 
       Height          =   225
       Index           =   1
@@ -131,8 +139,14 @@ Public Property Let State(value As Long)
 End Property
 
 
-Private Sub ResultIcon_MouseMove(Index As Integer, Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub Label1_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
     MoveWindow Button
+End Sub
+
+Private Sub Label1_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+    If (Button = vbRightButton) Then
+        PopupMenu Runner.mnuShell
+    End If
 End Sub
 
 Private Sub Toolbar_ButtonClick(ByVal Button As MSComctlLib.Button)
