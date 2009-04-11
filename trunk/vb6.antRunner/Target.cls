@@ -45,5 +45,7 @@ Public Sub fromXMLNode(Node As IXMLDOMElement)
 End Sub
 
 Public Function getCommand()
-    getCommand = "cmd /c ant -f " & build.BuildFile & " " & Name
+    Dim config As New clsConfig
+    
+    getCommand = "cmd /c " + config.AntPath + " -f " & build.BuildFile & " " & Name
 End Function

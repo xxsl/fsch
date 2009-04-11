@@ -21,6 +21,7 @@ Private Const HOTKEY_SECTION As String = "Hotkey"
 Private Const ALWAYSONTOP_KEY As String = "ShowBaloon"
 Private Const MINIMIZE_KEY As String = "MinimizeOnClose"
 Private Const HOTKEYENABLED_KEY As String = "HotkeyEnabled"
+Private Const ANTPATH_KEY As String = "AntPath"
 
 
 Public prefs As New ARINIManager
@@ -40,9 +41,9 @@ Public Property Get Builds() As Collection
     Dim build As AntBuild
     Dim i As Long
     For i = 1 To prefs.Sections.Count
-        If (Mid(prefs.Sections.Item(i).name, 1, Len("Build_")) = "Build_") Then
+        If (Mid(prefs.Sections.Item(i).Name, 1, Len("Build_")) = "Build_") Then
             Set build = New AntBuild
-            build.load prefs, prefs.Sections.Item(i).name
+            build.load prefs, prefs.Sections.Item(i).Name
             result.Add build
         End If
     Next i
@@ -114,4 +115,13 @@ End Property
 'use hot keys
 Public Property Get Modifyer() As Long
     Modifyer = Val(prefs.getValue(HOTKEY_SECTION, "key_modifyer", "0"))
+End Property
+
+Public Property Let AntPath(ByVal vNewValue As String)
+    prefs.WriteValue APPLICATION_SECTION, ANTPATH_KEY, vNewValue
+End Property
+
+'use hot keys
+Public Property Get AntPath() As String
+    AntPath = prefs.getValue(APPLICATION_SECTION, ANTPATH_KEY, "ant.bat")
 End Property
