@@ -66,13 +66,11 @@ Begin VB.Form Runner
       Top             =   6840
    End
    Begin VB.PictureBox PropertyPanel 
-      Appearance      =   0  'Flat
       FillColor       =   &H8000000C&
-      ForeColor       =   &H80000008&
       Height          =   1935
       Left            =   720
-      ScaleHeight     =   1905
-      ScaleWidth      =   2745
+      ScaleHeight     =   1875
+      ScaleWidth      =   2715
       TabIndex        =   6
       Top             =   4320
       Width           =   2775
@@ -259,8 +257,7 @@ Begin VB.Form Runner
       Sorted          =   -1  'True
       Style           =   7
       ImageList       =   "TreeIcons"
-      BorderStyle     =   1
-      Appearance      =   0
+      Appearance      =   1
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Arial"
          Size            =   8.25
@@ -289,10 +286,10 @@ Begin VB.Form Runner
       _ExtentX        =   10186
       _ExtentY        =   9763
       _Version        =   393217
+      BorderStyle     =   0
       Enabled         =   -1  'True
       ReadOnly        =   -1  'True
       ScrollBars      =   3
-      Appearance      =   0
       RightMargin     =   65000
       AutoVerbMenu    =   -1  'True
       TextRTF         =   $"Runner.frx":0BC3
@@ -794,6 +791,7 @@ Private Sub FakeTray_MouseMove(Button As Integer, Shift As Integer, X As Single,
             'Debug.Print "Left Down"
         Case LeftDbClick
             'Debug.Print "LeftDbClick"
+            mnuMain_Click
         Case MiddleUp
             'Debug.Print "MiddleUp"
         Case MiddleDown
