@@ -1,9 +1,11 @@
-Runner = 71, 83, 762, 708, C, 22, 29, 713, 654, C
+Runner = 71, 83, 762, 708, Z, 22, 29, 713, 654, C
 ctlSplitterEx = 176, 232, 867, 857, C, 44, 58, 735, 683, C
 modMain = 0, 0, 691, 625, C
-clsConfig = 176, 232, 867, 857, C
+clsConfig = 40, 192, 731, 817, C
 AntBuild = 132, 174, 823, 799, C
 clsRunner = 22, 29, 713, 628, C
 AntTarget = 44, 58, 735, 657, C
 frmOptions = 154, 203, 798, 726, C, 132, 174, 776, 697, C
 frmFloat = 132, 174, 776, 697, C, 110, 145, 754, 668, C
+modTray = 0, 0, 615, 523, C
+clsHotKeySetup = 132, 174, 748, 697, C

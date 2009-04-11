@@ -1,0 +1,225 @@
+[Root]
+Most Recent Package=Standard Setup Package 1
+
+
+[Package|Dep File 1|Root]
+SubWizProgID=PDWizard.DepPkgSubWiz
+BuildFolder=C:\work\google.code\vb6.antRunner\build
+
+[Package|Dep File 1|Configure DAO ISAMs]
+Applicable=No
+
+[Package|Dep File 1|Configure DAO ODBC]
+JetWorkspace=
+ODBCDirect=
+
+[Package|Dep File 1|Files Found]
+
+[Package|Dep File 1|Files Released]
+
+[Package|Dep File 1|Missing Dependency Information]
+C:\work\vb6.air\HotKeyConfig.ocx=
+C:\work\vb6.air\MCLHotkey.ocx=
+C:\work\trunk\build\QProGIF.ocx=
+C:\work\vb6.air\ARINIMgr.dll=
+C:\work\trunk\build\Redirect.dll=
+D:\WINDOWS\system32\msxml3.dll=
+D:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.5512_x-ww_35d4ce83\comctl32.dll=
+
+[Package|Dep File 1|Out-of-Date Dependency Information]
+D:\WINDOWS\system32\MSCOMCTL.OCX=
+D:\WINDOWS\system32\scrrun.dll=
+
+[Package|Dep File 1|Files Added]
+
+[Package|Dep File 1|Files Removed]
+
+[Package|Dep File 1|Files In Project]
+C:\work\google.code\vb6.antRunner\build\AntRunner.exe=Yes
+D:\WINDOWS\system32\msvbvm60.dll=Yes
+D:\WINDOWS\system32\oleaut32.dll=Yes
+D:\WINDOWS\system32\olepro32.dll=Yes
+D:\WINDOWS\system32\asycfilt.dll=Yes
+D:\WINDOWS\system32\stdole2.tlb=Yes
+D:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=Yes
+D:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.5512_x-ww_35d4ce83\comctl32.dll=Yes
+D:\WINDOWS\system32\msxml3.dll=Yes
+C:\work\trunk\build\Redirect.dll=Yes
+C:\work\vb6.air\ARINIMgr.dll=Yes
+D:\WINDOWS\system32\scrrun.dll=Yes
+D:\WINDOWS\system32\msvcrt.dll=Yes
+D:\WINDOWS\system32\MSCOMCTL.OCX=Yes
+D:\WINDOWS\system32\COMDLG32.OCX=Yes
+D:\WINDOWS\system32\RICHTX32.OCX=Yes
+D:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\RICHED32.DLL=Yes
+C:\work\trunk\build\QProGIF.ocx=Yes
+C:\work\vb6.air\MCLHotkey.ocx=Yes
+C:\work\vb6.air\HotKeyConfig.ocx=Yes
+
+[Package|Dep File 1|Configure Registry Files]
+Applicable=
+
+[Package|Dep File 1|Configure Remote Servers]
+Applicable=
+
+[Package|Dep File 1|Install Locations]
+C:\work\google.code\vb6.antRunner\build\AntRunner.exe=$(AppPath)
+D:\WINDOWS\system32\msvbvm60.dll=$(WinSysPathSysFile)
+D:\WINDOWS\system32\oleaut32.dll=$(WinSysPathSysFile)
+D:\WINDOWS\system32\olepro32.dll=$(WinSysPathSysFile)
+D:\WINDOWS\system32\asycfilt.dll=$(WinSysPathSysFile)
+D:\WINDOWS\system32\stdole2.tlb=$(WinSysPathSysFile)
+D:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
+D:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.5512_x-ww_35d4ce83\comctl32.dll=$(WinSysPath)
+D:\WINDOWS\system32\msxml3.dll=$(WinSysPath)
+C:\work\trunk\build\Redirect.dll=$(WinSysPath)
+C:\work\vb6.air\ARINIMgr.dll=$(WinSysPath)
+D:\WINDOWS\system32\scrrun.dll=$(WinSysPath)
+D:\WINDOWS\system32\msvcrt.dll=$(WinSysPathSysFile)
+D:\WINDOWS\system32\MSCOMCTL.OCX=$(WinSysPath)
+D:\WINDOWS\system32\COMDLG32.OCX=$(WinSysPath)
+D:\WINDOWS\system32\RICHTX32.OCX=$(WinSysPath)
+D:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\RICHED32.DLL=$(WinSysPathSysFile)
+C:\work\trunk\build\QProGIF.ocx=$(WinSysPath)
+C:\work\vb6.air\MCLHotkey.ocx=$(WinSysPath)
+C:\work\vb6.air\HotKeyConfig.ocx=$(WinSysPath)
+
+[Package|Dep File 1|Configure Shared Files]
+Applicable=
+
+[Package|Dep File 1|DepFile]
+DepCabFile=AntRunner.CAB
+DepCabRun=AntRunner.INF
+
+[Package|Dep File 1|Package]
+PackageFolder=C:\work\google.code\vb6.antRunner\build
+ProjectFolder=C:\work\google.code\vb6.antRunner
+ServerSideCab=
+File1=C:\work\google.code\vb6.antRunner\build\AntRunner.DEP
+Handler1=PDWizard.FolderDplySubWiz
+Handler2=PDWizard.WebPostDplySubWiz
+
+
+[Package|Standard Setup Package 1|Root]
+SubWizProgID=PDWizard.SetupPkgSubWiz
+BuildFolder=C:\work\google.code\vb6.antRunner\build\pkg
+
+[Package|Standard Setup Package 1|Configure DAO ISAMs]
+Applicable=No
+
+[Package|Standard Setup Package 1|Configure DAO ODBC]
+JetWorkspace=
+ODBCDirect=
+
+[Package|Standard Setup Package 1|Files Found]
+
+[Package|Standard Setup Package 1|Files Released]
+
+[Package|Standard Setup Package 1|Missing Dependency Information]
+C:\work\vb6.air\HotKeyConfig.ocx=
+C:\work\vb6.air\MCLHotkey.ocx=
+C:\work\trunk\build\QProGIF.ocx=
+C:\work\vb6.air\ARINIMgr.dll=
+C:\work\trunk\build\Redirect.dll=
+D:\WINDOWS\system32\msxml3.dll=
+D:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.5512_x-ww_35d4ce83\comctl32.dll=
+
+[Package|Standard Setup Package 1|Out-of-Date Dependency Information]
+D:\WINDOWS\system32\MSCOMCTL.OCX=
+D:\WINDOWS\system32\scrrun.dll=
+
+[Package|Standard Setup Package 1|Files Added]
+
+[Package|Standard Setup Package 1|Files Removed]
+
+[Package|Standard Setup Package 1|Files In Project]
+C:\work\google.code\vb6.antRunner\build\AntRunner.exe=Yes
+D:\WINDOWS\system32\msvbvm60.dll=Yes
+D:\WINDOWS\system32\oleaut32.dll=Yes
+D:\WINDOWS\system32\olepro32.dll=Yes
+D:\WINDOWS\system32\asycfilt.dll=Yes
+D:\WINDOWS\system32\stdole2.tlb=Yes
+D:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=Yes
+D:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.5512_x-ww_35d4ce83\comctl32.dll=Yes
+D:\WINDOWS\system32\msxml3.dll=Yes
+C:\work\trunk\build\Redirect.dll=Yes
+C:\work\vb6.air\ARINIMgr.dll=Yes
+D:\WINDOWS\system32\scrrun.dll=Yes
+D:\WINDOWS\system32\msvcrt.dll=Yes
+D:\WINDOWS\system32\MSCOMCTL.OCX=Yes
+D:\WINDOWS\system32\COMDLG32.OCX=Yes
+D:\WINDOWS\system32\RICHTX32.OCX=Yes
+D:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\RICHED32.DLL=Yes
+C:\work\trunk\build\QProGIF.ocx=Yes
+C:\work\vb6.air\MCLHotkey.ocx=Yes
+C:\work\vb6.air\HotKeyConfig.ocx=Yes
+D:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=Yes
+D:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
+D:\WINDOWS\system32\VB6STKIT.DLL=Yes
+D:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
+
+[Package|Standard Setup Package 1|Configure Registry Files]
+Applicable=No
+
+[Package|Standard Setup Package 1|Configure Remote Servers]
+Applicable=No
+
+[Package|Standard Setup Package 1|Install Locations]
+C:\work\google.code\vb6.antRunner\build\AntRunner.exe=$(AppPath)
+D:\WINDOWS\system32\msvbvm60.dll=$(WinSysPathSysFile)
+D:\WINDOWS\system32\oleaut32.dll=$(WinSysPathSysFile)
+D:\WINDOWS\system32\olepro32.dll=$(WinSysPathSysFile)
+D:\WINDOWS\system32\asycfilt.dll=$(WinSysPathSysFile)
+D:\WINDOWS\system32\stdole2.tlb=$(WinSysPathSysFile)
+D:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
+D:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.5512_x-ww_35d4ce83\comctl32.dll=$(WinSysPath)
+D:\WINDOWS\system32\msxml3.dll=$(WinSysPath)
+C:\work\trunk\build\Redirect.dll=$(WinSysPath)
+C:\work\vb6.air\ARINIMgr.dll=$(WinSysPath)
+D:\WINDOWS\system32\scrrun.dll=$(WinSysPath)
+D:\WINDOWS\system32\msvcrt.dll=$(WinSysPathSysFile)
+D:\WINDOWS\system32\MSCOMCTL.OCX=$(WinSysPath)
+D:\WINDOWS\system32\COMDLG32.OCX=$(WinSysPath)
+D:\WINDOWS\system32\RICHTX32.OCX=$(WinSysPath)
+D:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\RICHED32.DLL=$(WinSysPathSysFile)
+C:\work\trunk\build\QProGIF.ocx=$(WinSysPath)
+C:\work\vb6.air\MCLHotkey.ocx=$(WinSysPath)
+C:\work\vb6.air\HotKeyConfig.ocx=$(WinSysPath)
+D:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=$(AppPath)
+D:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=$(WinPath)
+D:\WINDOWS\system32\VB6STKIT.DLL=$(WinSysPathSysFile)
+D:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=$(WinPath)
+
+[Package|Standard Setup Package 1|Configure Shared Files]
+Applicable=Yes
+C:\work\google.code\vb6.antRunner\build\AntRunner.exe=No
+
+[Package|Standard Setup Package 1|DepFile]
+DepCabFile=AntRunner.CAB
+DepCabRun=AntRunner.INF
+
+[Package|Standard Setup Package 1|Distribution]
+Type=single
+Size=
+Title=AntRunner
+
+[Package|Standard Setup Package 1|IconGroups]
+Group0=AntRunner
+PrivateGroup0=True
+Parent0=$(Programs)
+
+[Package|Standard Setup Package 1|AntRunner]
+Icon1=AntRunner.exe
+Title1=AntRunner
+StartIn1=$(AppPath)
+Key1=Icon1
+
+[Package|Standard Setup Package 1|Package]
+PackageFolder=C:\work\google.code\vb6.antRunner\build\pkg
+ProjectFolder=C:\work\google.code\vb6.antRunner
+ServerSideCab=
+File1=C:\work\google.code\vb6.antRunner\build\pkg\setup.exe
+File2=C:\work\google.code\vb6.antRunner\build\pkg\Setup.Lst
+File3=C:\work\google.code\vb6.antRunner\build\pkg\AntRunner.CAB
+Handler1=PDWizard.FolderDplySubWiz
+Handler2=PDWizard.WebPostDplySubWiz

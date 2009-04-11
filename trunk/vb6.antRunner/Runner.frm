@@ -2,6 +2,7 @@ VERSION 5.00
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
 Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
 Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "RICHTX32.OCX"
+Object = "{95D85F43-414D-432F-909E-2ED57BBC389C}#1.2#0"; "MCLHotkey.ocx"
 Begin VB.Form Runner 
    AutoRedraw      =   -1  'True
    Caption         =   "Ant Runner"
@@ -9,10 +10,55 @@ Begin VB.Form Runner
    ClientLeft      =   60
    ClientTop       =   450
    ClientWidth     =   10590
+   Icon            =   "Runner.frx":0000
    LinkTopic       =   "Form1"
    ScaleHeight     =   7710
    ScaleWidth      =   10590
    StartUpPosition =   2  'CenterScreen
+   Begin MCLHotkey.VBHotKey VBHotKey 
+      Left            =   7080
+      Top             =   6840
+      _ExtentX        =   794
+      _ExtentY        =   794
+      VKey            =   127
+      WinKey          =   0   'False
+      Enabled         =   0   'False
+   End
+   Begin VB.CommandButton FakeTray 
+      Caption         =   "FakeTray"
+      Height          =   495
+      Left            =   120
+      TabIndex        =   15
+      Top             =   6840
+      Visible         =   0   'False
+      Width           =   1455
+   End
+   Begin MSComctlLib.ImageList TreeIcons 
+      Left            =   5400
+      Top             =   6720
+      _ExtentX        =   1005
+      _ExtentY        =   1005
+      BackColor       =   -2147483643
+      ImageWidth      =   16
+      ImageHeight     =   16
+      MaskColor       =   16777215
+      _Version        =   393216
+      BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
+         NumListImages   =   3
+         BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "Runner.frx":0442
+            Key             =   "build"
+         EndProperty
+         BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "Runner.frx":06B3
+            Key             =   ""
+         EndProperty
+         BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "Runner.frx":093F
+            Key             =   ""
+         EndProperty
+      EndProperty
+   End
    Begin VB.Timer ResizeTimer 
       Enabled         =   0   'False
       Interval        =   10
@@ -212,8 +258,18 @@ Begin VB.Form Runner
       LineStyle       =   1
       Sorted          =   -1  'True
       Style           =   7
+      ImageList       =   "TreeIcons"
       BorderStyle     =   1
       Appearance      =   0
+      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "Arial"
+         Size            =   8.25
+         Charset         =   204
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
    End
    Begin AntRunner.ctlSplitterEx HSplitter 
       Height          =   5415
@@ -239,7 +295,7 @@ Begin VB.Form Runner
       Appearance      =   0
       RightMargin     =   65000
       AutoVerbMenu    =   -1  'True
-      TextRTF         =   $"Runner.frx":0000
+      TextRTF         =   $"Runner.frx":0BC3
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Courier New"
          Size            =   9.75
@@ -263,31 +319,31 @@ Begin VB.Form Runner
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
          NumListImages   =   7
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Runner.frx":009C
+            Picture         =   "Runner.frx":0C5F
             Key             =   ""
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Runner.frx":0220
+            Picture         =   "Runner.frx":0DE3
             Key             =   ""
          EndProperty
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Runner.frx":0341
+            Picture         =   "Runner.frx":0F04
             Key             =   ""
          EndProperty
          BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Runner.frx":05B2
+            Picture         =   "Runner.frx":1175
             Key             =   ""
          EndProperty
          BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Runner.frx":06C9
+            Picture         =   "Runner.frx":128C
             Key             =   ""
          EndProperty
          BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Runner.frx":0767
+            Picture         =   "Runner.frx":132A
             Key             =   ""
          EndProperty
          BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Runner.frx":09B8
+            Picture         =   "Runner.frx":157B
             Key             =   ""
          EndProperty
       EndProperty
@@ -319,6 +375,15 @@ Begin VB.Form Runner
             Text            =   "Build: "
             TextSave        =   "Build: "
          EndProperty
+      EndProperty
+      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "Arial"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
       EndProperty
    End
    Begin MSComctlLib.Toolbar Toolbar 
@@ -394,6 +459,29 @@ Begin VB.Form Runner
       _ExtentX        =   18230
       _ExtentY        =   12091
    End
+   Begin VB.Menu mnuShell 
+      Caption         =   "shell"
+      Visible         =   0   'False
+      Begin VB.Menu mnuMain 
+         Caption         =   "Main window"
+         Checked         =   -1  'True
+      End
+      Begin VB.Menu mnuFloat 
+         Caption         =   "Floating window"
+      End
+      Begin VB.Menu mnuSep1 
+         Caption         =   "-"
+      End
+      Begin VB.Menu mnuOptions 
+         Caption         =   "Options"
+      End
+      Begin VB.Menu mnuSep2 
+         Caption         =   "-"
+      End
+      Begin VB.Menu mnuExit 
+         Caption         =   "Exit"
+      End
+   End
 End
 Attribute VB_Name = "Runner"
 Attribute VB_GlobalNameSpace = False
@@ -429,6 +517,11 @@ Private Sub Form_Load()
     
     load frmFloat
     frmFloat.State = 1
+    
+    Dim keySetup As New clsHotKeySetup
+    keySetup.SetupKey config, VBHotKey
+    
+    TrayAdd FakeTray.hwnd, Me.Icon, "Ant Runner", MouseMove
 End Sub
 
 
@@ -441,12 +534,12 @@ Public Sub LoadBuilds()
         
        TreeKeys.Add build.Id, build
        
-       FileTree.Nodes.Add , , build.Id, build.DisplayName
+       FileTree.Nodes.Add , , build.Id, build.DisplayName, 2, 2
        For i = 1 To build.Targets.Count
           Dim AntTask As AntTarget
           Set AntTask = build.Targets.Item(i)
           TreeKeys.Add build.Id & AntTask.Name, AntTask
-          FileTree.Nodes.Add build.Id, tvwChild, build.Id & AntTask.Name, AntTask.Name
+          FileTree.Nodes.Add build.Id, tvwChild, build.Id & AntTask.Name, AntTask.Name, 1, 1
        Next
     Next
 End Sub
@@ -454,7 +547,16 @@ End Sub
 
 
 Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
+    If (config.MinimizeOnClose) Then
+        Cancel = 1
+        Me.Hide
+        mnuMain.Checked = False
+    End If
+End Sub
+
+Private Sub Form_Unload(Cancel As Integer)
     Unload frmFloat
+    TrayDelete
 End Sub
 
 Private Sub Form_Resize()
@@ -473,11 +575,13 @@ Private Sub Form_Resize()
     End If
 End Sub
 
+
+
+
 Private Sub ResizeTimer_Timer()
     Form_Resize
     ResizeTimer.Enabled = False
 End Sub
-
 
 
 Private Sub FileTree_NodeClick(ByVal Node As MSComctlLib.Node)
@@ -560,8 +664,10 @@ Private Sub ShowFloatingWindow(isVisible As Boolean)
    If (isVisible) Then
       frmFloat.Show
       SetAlwaysOnTopMode frmFloat.hwnd, True
+      mnuFloat.Checked = True
    Else
       frmFloat.Hide
+      mnuFloat.Checked = False
    End If
 End Sub
 
@@ -592,6 +698,13 @@ Private Sub RemoveBuildFile()
     config.DeleteBuild build.Id
     
     FileTree.Nodes.Remove FileTree.SelectedItem.Index
+    
+    If (FileTree.SelectedItem Is Nothing) Then
+        txtBuild.Text = ""
+        txtTarget.Text = ""
+        txtDepends.Text = ""
+        txtDescription.Text = ""
+    End If
 End Sub
 
 
@@ -601,7 +714,7 @@ Private Sub AddBuildFile()
    Dim build As New AntBuild
    
 
-   CD.Filter = "XML Files (*.xml,*.xsl)|*.xml;*xsl"
+   CD.Filter = "XML Files (*.xml)|*.xml"
    CD.ShowOpen
    If (Len(CD.FileName) > 0) Then
        build.BuildFile = CD.FileName
@@ -610,12 +723,12 @@ Private Sub AddBuildFile()
        
        TreeKeys.Add build.Id, build
        
-       Set nodx = FileTree.Nodes.Add(, , build.Id, build.DisplayName)
+       Set nodx = FileTree.Nodes.Add(, , build.Id, build.DisplayName, 2, 2)
        For i = 1 To build.Targets.Count
           Dim AntTask As AntTarget
           Set AntTask = build.Targets.Item(i)
           TreeKeys.Add build.Id & AntTask.Name, AntTask
-          Set nodx = FileTree.Nodes.Add(build.Id, tvwChild, build.Id & AntTask.Name, AntTask.Name)
+          Set nodx = FileTree.Nodes.Add(build.Id, tvwChild, build.Id & AntTask.Name, AntTask.Name, 1, 1)
        Next i
        
        build.save config.prefs
@@ -637,8 +750,13 @@ Private Sub Ant_onBuildError()
     Toolbar.Buttons(4).Enabled = True
     FileTree.Enabled = True
     frmFloat.Toolbar.Buttons(1).Enabled = True
-    FileTree.SetFocus
+    If (Me.Visible) Then
+        FileTree.SetFocus
+    End If
     frmFloat.State = 2
+    If (config.ShowBaloon) Then
+        DisplayBalloon "Ant", "Build Failed", NIIF_ERROR
+    End If
 End Sub
 
 Private Sub Ant_onBuildSuccess()
@@ -647,8 +765,13 @@ Private Sub Ant_onBuildSuccess()
     Toolbar.Buttons(4).Enabled = True
     FileTree.Enabled = True
     frmFloat.Toolbar.Buttons(1).Enabled = True
-    FileTree.SetFocus
+    If (Me.Visible) Then
+        FileTree.SetFocus
+    End If
     frmFloat.State = 1
+    If (config.ShowBaloon) Then
+        DisplayBalloon "Ant", "Build Successfull", NIIF_INFO
+    End If
 End Sub
 
 Private Sub Ant_onBuildProgess(data As String)
@@ -658,4 +781,73 @@ Private Sub Ant_onBuildProgess(data As String)
     Log.SelColor = RGB(150, 0, 0)
 End Sub
 
+Private Sub FakeTray_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+    Dim cEvent As Single
+    cEvent = X / Screen.TwipsPerPixelX
+    Select Case cEvent
+        Case MouseMove
+            'Debug.Print "MouseMove"
+        Case LeftUp
+            'Debug.Print "Left Up"
+            'showHide
+        Case LeftDown
+            'Debug.Print "Left Down"
+        Case LeftDbClick
+            'Debug.Print "LeftDbClick"
+        Case MiddleUp
+            'Debug.Print "MiddleUp"
+        Case MiddleDown
+            'Debug.Print "MiddleDown"
+        Case MiddleDbClick
+            'Debug.Print "MiddleDbClick"
+        Case RightUp
+            'Debug.Print "RightUp" ': PopupMenu mnuShell
+             PopupMenu mnuShell
+        Case RightDown
+            'Debug.Print "RightDown"
+        Case RightDbClick
+            'Debug.Print "RightDbClick"
+    End Select
+End Sub
 
+Private Sub mnuExit_Click()
+    Unload frmFloat
+    Unload Me
+    TrayDelete
+    End
+End Sub
+
+Private Sub mnuFloat_Click()
+    If (frmFloat.Visible = False) Then
+        frmFloat.Show
+        SetAlwaysOnTopMode frmFloat.hwnd, True
+        Toolbar.Buttons(9).value = tbrPressed
+        mnuFloat.Checked = True
+    Else
+        frmFloat.Hide
+        Toolbar.Buttons(9).value = tbrUnpressed
+        mnuFloat.Checked = False
+    End If
+End Sub
+
+
+Private Sub mnuOptions_Click()
+    load frmOptions
+    frmOptions.Show vbModal
+End Sub
+
+
+Private Sub mnuMain_Click()
+    If (Me.Visible) Then
+        mnuMain.Checked = False
+        Me.Hide
+    Else
+        Me.Show
+        mnuMain.Checked = True
+    End If
+End Sub
+
+
+Private Sub VBHotKey_HotkeyPressed()
+    RunBuildTarget
+End Sub
