@@ -287,6 +287,7 @@ Begin VB.Form Runner
       _ExtentY        =   9763
       _Version        =   393217
       BorderStyle     =   0
+      Enabled         =   -1  'True
       ReadOnly        =   -1  'True
       ScrollBars      =   3
       RightMargin     =   65000
@@ -844,5 +845,7 @@ End Sub
 
 
 Private Sub VBHotKey_HotkeyPressed()
-    RunBuildTarget
+    If (Toolbar.Buttons(4).Enabled) Then
+        RunBuildTarget
+    End If
 End Sub
