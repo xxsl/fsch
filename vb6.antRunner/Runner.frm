@@ -287,14 +287,13 @@ Begin VB.Form Runner
       _ExtentY        =   9763
       _Version        =   393217
       BorderStyle     =   0
-      Enabled         =   -1  'True
       ReadOnly        =   -1  'True
       ScrollBars      =   3
       RightMargin     =   65000
       AutoVerbMenu    =   -1  'True
       TextRTF         =   $"Runner.frx":0BC3
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-         Name            =   "Courier New"
+         Name            =   "Lucida Console"
          Size            =   9.75
          Charset         =   204
          Weight          =   400
@@ -316,31 +315,31 @@ Begin VB.Form Runner
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
          NumListImages   =   7
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Runner.frx":0C5F
+            Picture         =   "Runner.frx":0C48
             Key             =   ""
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Runner.frx":0DE3
+            Picture         =   "Runner.frx":0DCC
             Key             =   ""
          EndProperty
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Runner.frx":0F04
+            Picture         =   "Runner.frx":0EED
             Key             =   ""
          EndProperty
          BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Runner.frx":1175
+            Picture         =   "Runner.frx":115E
             Key             =   ""
          EndProperty
          BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Runner.frx":128C
+            Picture         =   "Runner.frx":1275
             Key             =   ""
          EndProperty
          BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Runner.frx":132A
+            Picture         =   "Runner.frx":1313
             Key             =   ""
          EndProperty
          BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Runner.frx":157B
+            Picture         =   "Runner.frx":1564
             Key             =   ""
          EndProperty
       EndProperty
@@ -773,9 +772,7 @@ End Sub
 
 Private Sub Ant_onBuildProgess(data As String)
     Log.Text = Log.Text + data
-    Log.SelStart = Len(Log.Text) - Len(data)
-    Log.SelLength = Len(data)
-    Log.SelColor = RGB(150, 0, 0)
+    Log.SelStart = Len(Log.Text)
 End Sub
 
 Private Sub FakeTray_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
