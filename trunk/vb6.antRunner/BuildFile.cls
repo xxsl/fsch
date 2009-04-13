@@ -31,7 +31,11 @@ End Sub
 Public Property Get Name() As Variant
     Dim projectName As IXMLDOMAttribute
     Set projectName = xml.selectSingleNode("//project/@name")
-    Name = projectName.Text
+    If (Not projectName Is Nothing) Then
+        Name = projectName.Text
+    Else
+        Name = ""
+    End If
 End Property
 
 Public Property Get Targets() As Collection
@@ -39,7 +43,7 @@ Public Property Get Targets() As Collection
     Dim AntTask As AntTarget
     
     Dim TargetsList As IXMLDOMNodeList
-    Dim target As IXMLDOMElement
+    Dim Target As IXMLDOMElement
     
     Set TargetsList = xml.selectNodes("//project/target")
 
@@ -47,9 +51,9 @@ Public Property Get Targets() As Collection
         MsgBox xml.parseError.reason & " at " & xml.parseError.Line & ", position " & xml.parseError.linepos, vbCritical, "Parser error"
     End If
 
-    For Each target In TargetsList
+    For Each Target In TargetsList
         Set AntTask = New AntTarget
-        AntTask.fromXMLNode target
+        AntTask.fromXMLNode Target
         Set AntTask.build = Me
         result.Add AntTask, AntTask.Name
     Next
@@ -61,13 +65,13 @@ Public Function getTargetByName(Name As String) As AntTarget
     Dim AntTask As AntTarget
     
     Dim TargetsList As IXMLDOMNodeList
-    Dim target As IXMLDOMElement
+    Dim Target As IXMLDOMElement
     
     Set TargetsList = xml.selectNodes("//project/target")
 
-    For Each target In TargetsList
+    For Each Target In TargetsList
         Set AntTask = New AntTarget
-        AntTask.fromXMLNode target
+        AntTask.fromXMLNode Target
         Set AntTask.build = Me
         If (AntTask.Name = Name) Then
             Exit For
@@ -76,6 +80,10 @@ Public Function getTargetByName(Name As String) As AntTarget
     
     Set getTargetByName = AntTask
 End Function
+
+Public Property Get isParsed() As Boolean
+    isParsed = xml.parsed
+End Property
 
 Public Property Get BuildFile() As String
     BuildFile = xmlFile

@@ -1,7 +1,7 @@
 VERSION 5.00
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
 Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
-Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "RICHTX32.OCX"
+Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "RICHTX32.ocx"
 Object = "{95D85F43-414D-432F-909E-2ED57BBC389C}#1.2#0"; "MCLHotkey.ocx"
 Begin VB.Form Runner 
    AutoRedraw      =   -1  'True
@@ -157,7 +157,7 @@ Begin VB.Form Runner
       Begin VB.Label lblBuild 
          Alignment       =   1  'Right Justify
          BackStyle       =   0  'Transparent
-         Caption         =   "Build:"
+         Caption         =   "Project:"
          BeginProperty Font 
             Name            =   "Arial"
             Size            =   8.25
@@ -314,7 +314,7 @@ Begin VB.Form Runner
       MaskColor       =   16777215
       _Version        =   393216
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
-         NumListImages   =   7
+         NumListImages   =   8
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
             Picture         =   "Runner.frx":0C48
             Key             =   ""
@@ -341,6 +341,10 @@ Begin VB.Form Runner
          EndProperty
          BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
             Picture         =   "Runner.frx":1564
+            Key             =   ""
+         EndProperty
+         BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "Runner.frx":168A
             Key             =   ""
          EndProperty
       EndProperty
@@ -399,7 +403,7 @@ Begin VB.Form Runner
       ImageList       =   "Icons"
       _Version        =   393216
       BeginProperty Buttons {66833FE8-8583-11D1-B16A-00C0F0283628} 
-         NumButtons      =   11
+         NumButtons      =   12
          BeginProperty Button1 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Object.ToolTipText     =   "Add build file"
             ImageIndex      =   1
@@ -418,29 +422,34 @@ Begin VB.Form Runner
             ImageIndex      =   3
          EndProperty
          BeginProperty Button5 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Style           =   3
+            Enabled         =   0   'False
+            Object.ToolTipText     =   "Stop build"
+            ImageIndex      =   8
          EndProperty
          BeginProperty Button6 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Style           =   3
+         EndProperty
+         BeginProperty Button7 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Object.ToolTipText     =   "Options"
             ImageIndex      =   4
          EndProperty
-         BeginProperty Button7 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+         BeginProperty Button8 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Style           =   3
          EndProperty
-         BeginProperty Button8 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+         BeginProperty Button9 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Object.ToolTipText     =   "On Top"
             ImageIndex      =   5
             Style           =   1
          EndProperty
-         BeginProperty Button9 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+         BeginProperty Button10 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Object.ToolTipText     =   "Floating window"
             ImageIndex      =   6
             Style           =   1
          EndProperty
-         BeginProperty Button10 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+         BeginProperty Button11 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Style           =   3
          EndProperty
-         BeginProperty Button11 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+         BeginProperty Button12 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Object.ToolTipText     =   "About"
             ImageIndex      =   7
          EndProperty
@@ -645,13 +654,15 @@ Private Sub Toolbar_ButtonClick(ByVal Button As MSComctlLib.Button)
                 RemoveBuildFile
         Case 4:
                 RunBuildTarget
-        Case 6:
+        Case 5:
+                Ant.StopBuild
+        Case 7:
                 ShowOptions
-        Case 8:
-                SetAlwaysOnTopMode Me.hwnd, Button.value = tbrPressed
         Case 9:
+                SetAlwaysOnTopMode Me.hwnd, Button.value = tbrPressed
+        Case 10:
                 ShowFloatingWindow Button.value = tbrPressed
-        Case 11:
+        Case 12:
                 MsgBox "Ant Runner" & vbCrLf & "version " & App.Major & "." & App.Minor & "." & App.Revision, vbOKOnly, "About"
     End Select
 End Sub
@@ -681,7 +692,7 @@ Public Sub RunBuildTarget()
         If (TypeOf TreeKeys.Item(FileTree.SelectedItem.Key) Is AntTarget) Then
             Set Target = TreeKeys.Item(FileTree.SelectedItem.Key)
             Log.Text = ""
-            Ant.Run Target
+            Ant.RunBuild Target
         End If
     End If
 End Sub
@@ -736,6 +747,7 @@ End Sub
 Private Sub Ant_onBuildStart()
     Status.Panels(1).Text = "Status: Running"
     Toolbar.Buttons(4).Enabled = False
+    Toolbar.Buttons(5).Enabled = True
     FileTree.Enabled = False
     frmFloat.Toolbar.Buttons(1).Enabled = False
     frmFloat.State = 3
@@ -745,6 +757,7 @@ Private Sub Ant_onBuildError()
     Status.Panels(1).Text = "Status: Stopped"
     Status.Panels(2).Text = "Build: Failed"
     Toolbar.Buttons(4).Enabled = True
+    Toolbar.Buttons(5).Enabled = False
     FileTree.Enabled = True
     frmFloat.Toolbar.Buttons(1).Enabled = True
     If (Me.Visible) Then
@@ -760,6 +773,7 @@ Private Sub Ant_onBuildSuccess()
     Status.Panels(1).Text = "Status: Stopped"
     Status.Panels(2).Text = "Build: Successfull"
     Toolbar.Buttons(4).Enabled = True
+    Toolbar.Buttons(5).Enabled = False
     FileTree.Enabled = True
     frmFloat.Toolbar.Buttons(1).Enabled = True
     If (Me.Visible) Then
