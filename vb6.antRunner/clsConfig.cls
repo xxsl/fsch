@@ -44,7 +44,9 @@ Public Property Get Builds() As Collection
         If (Mid(prefs.Sections.Item(i).Name, 1, Len("Build_")) = "Build_") Then
             Set build = New AntBuild
             build.load prefs, prefs.Sections.Item(i).Name
-            result.Add build
+            If (build.isParsed) Then
+                result.Add build
+            End If
         End If
     Next i
     Set Builds = result
@@ -108,13 +110,13 @@ Public Property Get Key() As Long
     Key = Val(prefs.getValue(HOTKEY_SECTION, "key", "0"))
 End Property
 
-Public Property Let Modifyer(ByVal vNewValue As Long)
+Public Property Let MODIFYER(ByVal vNewValue As Long)
     prefs.WriteValue HOTKEY_SECTION, "key_modifyer", Str(vNewValue)
 End Property
 
 'use hot keys
-Public Property Get Modifyer() As Long
-    Modifyer = Val(prefs.getValue(HOTKEY_SECTION, "key_modifyer", "0"))
+Public Property Get MODIFYER() As Long
+    MODIFYER = Val(prefs.getValue(HOTKEY_SECTION, "key_modifyer", "0"))
 End Property
 
 Public Property Let AntPath(ByVal vNewValue As String)

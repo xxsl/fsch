@@ -28,7 +28,7 @@ Private Sub Class_Initialize()
     Ant.BufferSize = 8192
 End Sub
 
-Public Sub Run(ByRef Target As AntTarget)
+Public Sub RunBuild(ByRef Target As AntTarget)
     Dim Name As String
     BuildSuccessfull = False
     Name = Target.getCommand
@@ -42,6 +42,11 @@ Public Sub Run(ByRef Target As AntTarget)
        Case laOk
             RaiseEvent onBuildStart
     End Select
+End Sub
+
+
+Public Sub StopBuild()
+    Ant.Stop
 End Sub
 
 
