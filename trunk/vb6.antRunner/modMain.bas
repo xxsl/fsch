@@ -45,6 +45,6 @@ End Sub
 
 Public Sub Main()
     InitCommonControlsVB
-    Load Runner
+    load Runner
     Runner.Show
 End Sub

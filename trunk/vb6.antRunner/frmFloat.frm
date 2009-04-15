@@ -113,6 +113,10 @@ Private Sub MoveWindow(Button As Integer)
   End If
 End Sub
 
+Private Sub Form_Load()
+    Gif.FileName = App.Path + "/ajax-loader.gif"
+End Sub
+
 Private Sub Form_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
     MoveWindow Button
 End Sub

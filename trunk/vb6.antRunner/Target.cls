@@ -47,5 +47,5 @@ End Sub
 Public Function getCommand()
     Dim config As New clsConfig
     '"cmd /c " +
-    getCommand = config.AntPath + " -f " & build.BuildFile & " " & Name
+    getCommand = "cmd /c " + config.AntPath + " -f " & build.BuildFile & " " & Name
 End Function
