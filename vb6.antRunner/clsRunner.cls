@@ -21,6 +21,8 @@ Public Event onBuildError()
 Private WithEvents Ant As RedirectLib.Application
 Attribute Ant.VB_VarHelpID = -1
 
+Private processManager As New CShell
+
 Private BuildSuccessfull As Boolean
 
 Private Sub Class_Initialize()
@@ -46,7 +48,7 @@ End Sub
 
 
 Public Sub StopBuild()
-    Ant.Stop
+    KillProcessTree GetProcessList, GetProcess.ProcessId
 End Sub
 
 
