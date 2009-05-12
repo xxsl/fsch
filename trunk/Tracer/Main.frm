@@ -30,11 +30,13 @@ Begin VB.Form MainWindow
          NumButtons      =   5
          BeginProperty Button1 {0713F354-850A-101B-AFC0-4210102A8DA7} 
             Caption         =   "Monitor"
+            Key             =   ""
             Object.Tag             =   ""
             ImageIndex      =   1
             Style           =   1
          EndProperty
          BeginProperty Button2 {0713F354-850A-101B-AFC0-4210102A8DA7} 
+            Key             =   ""
             Object.Tag             =   ""
             Style           =   4
             Object.Width           =   1e-4
@@ -42,17 +44,20 @@ Begin VB.Form MainWindow
          EndProperty
          BeginProperty Button3 {0713F354-850A-101B-AFC0-4210102A8DA7} 
             Caption         =   "Clear"
+            Key             =   ""
             Object.Tag             =   ""
             ImageIndex      =   3
          EndProperty
          BeginProperty Button4 {0713F354-850A-101B-AFC0-4210102A8DA7} 
             Caption         =   "On Top"
+            Key             =   ""
             Object.Tag             =   ""
             ImageIndex      =   5
             Style           =   1
          EndProperty
          BeginProperty Button5 {0713F354-850A-101B-AFC0-4210102A8DA7} 
             Caption         =   "Alpha"
+            Key             =   ""
             Object.Tag             =   ""
             ImageIndex      =   4
             Style           =   1
@@ -88,6 +93,7 @@ Begin VB.Form MainWindow
       _Version        =   393217
       BackColor       =   15987699
       BorderStyle     =   0
+      Enabled         =   -1  'True
       HideSelection   =   0   'False
       ReadOnly        =   -1  'True
       ScrollBars      =   3
@@ -247,7 +253,7 @@ Private Sub RunMonitoring()
     End If
     
     Do
-        result = WaitForFileChange(path, FILE_NOTIFY_CHANGE_SIZE, True, 10)
+        result = WaitForFileChange(path, FILE_NOTIFY_CHANGE_SIZE, True, prefs.wait)
      
         Select Case result
          

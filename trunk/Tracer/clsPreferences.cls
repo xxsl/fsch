@@ -77,10 +77,10 @@ Public Property Let alpha(ByVal vNewValue As Long)
     prefs.WriteValue PREFERENCES, "alpha", Trim(Str(vNewValue))
 End Property
 
-Public Property Get CONSOLE_WAIT() As Long
-    CONSOLE_WAIT = Val(prefs.GetValue(PREFERENCES, "console.wait", "8192"))
+Public Property Get wait() As Long
+    wait = Val(prefs.GetValue(PREFERENCES, "wait", "10"))
 End Property
 
-Public Property Let CONSOLE_WAIT(ByVal vNewValue As Long)
-    prefs.WriteValue PREFERENCES, "console.wait", Trim(Str(vNewValue))
+Public Property Let wait(ByVal vNewValue As Long)
+    prefs.WriteValue PREFERENCES, "wait", Trim(Str(vNewValue))
 End Property
