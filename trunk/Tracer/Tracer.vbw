@@ -2,4 +2,5 @@ MainWindow = 44, 58, 823, 475, Z, 22, 29, 801, 446, C
 modFileSystem = 66, 87, 845, 504, C
 mdlTray = 176, 232, 867, 857, C
 modApi = 198, 261, 889, 886, C
-modMain = 88, 116, 779, 741, C
+modMain = 88, 116, 779, 741, 
+clsPreferences = 66, 87, 757, 712, 
