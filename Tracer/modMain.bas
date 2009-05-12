@@ -1,4 +1,6 @@
 Attribute VB_Name = "modMain"
+Option Explicit
+
 Public Const START_FCSH As String = "START_FCSH"
 Public Const STOP_FCSH As String = "STOP_FCSH"
 Public Const LOG_CLEAR As String = "LOG_CLEAR"
@@ -52,9 +54,9 @@ End Sub
 
 
 Public Function getAppPath() As String
-    If (Len(App.Path) = 3) Then
-        getPath = App.Path
+    If (Len(App.path) = 3) Then
+        getAppPath = App.path
     Else
-        getPath = App.Path + "\"
+        getAppPath = App.path + "\"
     End If
 End Function
