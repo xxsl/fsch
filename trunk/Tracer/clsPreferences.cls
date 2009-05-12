@@ -61,19 +61,20 @@ End Property
 
 'exec command
 Public Property Get LogDir() As String
-    LogDir = prefs.GetValue(PREFERENCES, "logdir", "C:\Documents and Settings\user\Application Data\Macromedia\Flash Player\Logs\")
+    'LogDir = prefs.GetValue(PREFERENCES, "logdir", "C:\Documents and Settings\user\Application Data\Macromedia\Flash Player\Logs\")
+    LogDir = SpecialFolder(feUserAppData) + "\Macromedia\Flash Player\Logs\"
 End Property
 
 Public Property Let LogDir(ByVal vNewValue As String)
     prefs.WriteValue PREFERENCES, "logdir", vNewValue
 End Property
 
-Public Property Get CONSOLE_BUFFER() As Long
-    CONSOLE_BUFFER = Val(prefs.GetValue(PREFERENCES, "console.buffer", "8192"))
+Public Property Get alpha() As Long
+    alpha = Val(prefs.GetValue(PREFERENCES, "alpha", "150"))
 End Property
 
-Public Property Let CONSOLE_BUFFER(ByVal vNewValue As Long)
-    prefs.WriteValue PREFERENCES, "console.buffer", Trim(Str(vNewValue))
+Public Property Let alpha(ByVal vNewValue As Long)
+    prefs.WriteValue PREFERENCES, "alpha", Trim(Str(vNewValue))
 End Property
 
 Public Property Get CONSOLE_WAIT() As Long
