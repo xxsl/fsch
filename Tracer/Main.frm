@@ -4,16 +4,16 @@ Object = "{6B7E6392-850A-101B-AFC0-4210102A8DA7}#1.3#0"; "COMCTL32.OCX"
 Begin VB.Form MainWindow 
    BorderStyle     =   5  'Sizable ToolWindow
    Caption         =   "Tracer"
-   ClientHeight    =   7215
+   ClientHeight    =   7275
    ClientLeft      =   60
    ClientTop       =   330
    ClientWidth     =   7245
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   7215
+   ScaleHeight     =   7275
    ScaleWidth      =   7245
-   StartUpPosition =   3  'Windows Default
+   StartUpPosition =   2  'CenterScreen
    Begin ComctlLib.Toolbar Toolbar 
       Align           =   1  'Align Top
       Height          =   420
@@ -30,6 +30,7 @@ Begin VB.Form MainWindow
       BeginProperty Buttons {0713E452-850A-101B-AFC0-4210102A8DA7} 
          NumButtons      =   1
          BeginProperty Button1 {0713F354-850A-101B-AFC0-4210102A8DA7} 
+            Key             =   ""
             Object.Tag             =   ""
             ImageIndex      =   1
             Style           =   1
@@ -39,15 +40,17 @@ Begin VB.Form MainWindow
    End
    Begin RichTextLib.RichTextBox Log 
       Height          =   6495
-      Left            =   120
+      Left            =   0
       TabIndex        =   0
-      Top             =   600
-      Width           =   6975
-      _ExtentX        =   12303
+      Top             =   420
+      Width           =   7215
+      _ExtentX        =   12726
       _ExtentY        =   11456
       _Version        =   393217
       BorderStyle     =   0
+      Enabled         =   -1  'True
       ScrollBars      =   3
+      Appearance      =   0
       RightMargin     =   65000
       TextRTF         =   $"Main.frx":0000
    End
@@ -77,18 +80,31 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 
-Private prefs As New clsPreferences
+Private prefs As clsPreferences
 
 
 Private Sub Form_Load()
-    'test
+     Set prefs = New clsPreferences
+     prefs.initialize
+End Sub
+
+Private Sub Form_Resize()
+    Log.Width = Me.Width - Log.Left - Log.Left - 120
+    
+    Dim logheight As Long
+    logheight = Me.Height - Log.Top - 410
+    If (logheight > 0) Then
+        Log.Height = Me.Height - Log.Top - 410
+    End If
 End Sub
 
 
 
 Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
+    Debug.Print "QueryUnload"
     Toolbar.Buttons(1).Value = tbrUnpressed
 End Sub
+
 
 Private Sub Toolbar_ButtonClick(ByVal Button As ComctlLib.Button)
     Select Case Button.Index
