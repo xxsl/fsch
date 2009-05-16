@@ -42,21 +42,16 @@ Private Function FileExists(ByVal sPath As String) As Boolean
 End Function
 
 'server port --------------------------
-Public Property Get SERVER_PORT() As Long
-    SERVER_PORT = Val(prefs.GetValue(PREFERENCES, "port", "40000"))
+Public Property Get minimize() As Boolean
+    minimize = (Val(prefs.GetValue(PREFERENCES, "minimizetotray", "0")) = 1)
 End Property
 
-Public Property Let SERVER_PORT(ByVal vNewValue As Long)
-    prefs.WriteValue PREFERENCES, "port", Trim(Str(vNewValue))
-End Property
-
-'server host --------------------------
-Public Property Get SERVER_HOST() As String
-    SERVER_HOST = prefs.GetValue(PREFERENCES, "host", "localhost")
-End Property
-
-Public Property Let SERVER_HOST(ByVal vNewValue As String)
-    prefs.WriteValue PREFERENCES, "host", vNewValue
+Public Property Let minimize(ByVal vNewValue As Boolean)
+    Dim value As Long
+    If (vNewValue) Then
+        value = 1
+    End If
+    prefs.WriteValue PREFERENCES, "minimizetotray", Trim(Str(value))
 End Property
 
 'exec command
