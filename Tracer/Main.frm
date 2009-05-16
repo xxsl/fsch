@@ -4,14 +4,13 @@ Object = "{6B7E6392-850A-101B-AFC0-4210102A8DA7}#1.3#0"; "COMCTL32.OCX"
 Begin VB.Form MainWindow 
    Caption         =   "Tracer"
    ClientHeight    =   2385
-   ClientLeft      =   60
-   ClientTop       =   450
+   ClientLeft      =   12675
+   ClientTop       =   9270
    ClientWidth     =   4230
    Icon            =   "Main.frx":0000
    LinkTopic       =   "Form1"
    ScaleHeight     =   2385
    ScaleWidth      =   4230
-   StartUpPosition =   2  'CenterScreen
    Begin ComctlLib.Toolbar Toolbar 
       Align           =   1  'Align Top
       Height          =   630
@@ -61,6 +60,15 @@ Begin VB.Form MainWindow
          EndProperty
       EndProperty
       BorderStyle     =   1
+   End
+   Begin VB.CommandButton cmdFake 
+      Caption         =   "cmdFake"
+      Height          =   375
+      Left            =   120
+      TabIndex        =   5
+      Top             =   1200
+      Visible         =   0   'False
+      Width           =   1215
    End
    Begin Tracer.TagAnchor TagAnchor1 
       Left            =   1080
@@ -169,6 +177,7 @@ Option Explicit
 
 Private prefs As clsPreferences
 Private searchPos As Long
+Private lastWindowState As Long
 
 Private Const filename As String = "flashlog.txt"
 
@@ -177,27 +186,30 @@ Private Const filename As String = "flashlog.txt"
 
 Private Sub Form_Load()
      Set prefs = New clsPreferences
+     TrayAdd cmdFake.hWnd, Me.Icon, "Flash Tracer", MouseMove
+     lastWindowState = vbNormal
      prefs.initialize
      ReloadLog
 End Sub
 
 Private Sub Form_Resize()
     TagAnchor1.DoResize
-    'Log.Width = Screen.ActiveForm.Width
     
-    'Dim logheight As Long
-    'logheight = Me.Height - Log.Top - 850
-    'If (logheight > 0) Then
-    '    Log.Height = logheight
-    'End If
     
-    'txtFind.Top = Me.Height - 820
-    'lblSearch.Top = Me.Height - 770
-    'cmdNext.Top = Me.Height - 820
+    If (Me.WindowState <> vbMinimized) Then
+        lastWindowState = Me.WindowState
+    End If
+    
+    If (prefs.minimize) Then
+        If Me.WindowState = vbMinimized Then
+            Me.Visible = False
+        End If
+    End If
 End Sub
 
 
 Private Sub Form_Unload(Cancel As Integer)
+    TrayDelete
     End
 End Sub
 
@@ -205,7 +217,7 @@ Private Sub Toolbar_ButtonClick(ByVal Button As ComctlLib.Button)
     Debug.Print "Button selected is " & Button.Index
     Select Case Button.Index
         Case 1:
-               If (Button.Value = tbrPressed) Then
+               If (Button.value = tbrPressed) Then
                     Debug.Print "Run monitoring..."
                     ReloadLog
                     RunMonitoring
@@ -223,16 +235,16 @@ Private Sub Toolbar_ButtonClick(ByVal Button As ComctlLib.Button)
 
 
         Case 4:
-                If (Button.Value = tbrPressed) Then
+                If (Button.value = tbrPressed) Then
                     SetAlwaysOnTopMode Me.hWnd, True
                 Else
                     SetAlwaysOnTopMode Me.hWnd, False
                 End If
         Case 5:
-                If (Button.Value = tbrPressed) Then
+                If (Button.value = tbrPressed) Then
                      Dim bytOpacity As Byte
                      'Set the transparency level
-                     bytOpacity = prefs.Alpha
+                     bytOpacity = prefs.alpha
                      Call SetWindowLong(Me.hWnd, GWL_EXSTYLE, GetWindowLong(Me.hWnd, GWL_EXSTYLE) Or WS_EX_LAYERED)
                      Call SetLayeredWindowAttributes(Me.hWnd, 0, bytOpacity, LWA_ALPHA)
                 Else
@@ -254,7 +266,7 @@ Private Sub RunMonitoring()
 
     If (Not FileExists(filePath)) Then
         MsgBox "File " + filePath + " does not exist. Monitoring stopped.", vbCritical
-        Toolbar.Buttons(1).Value = tbrUnpressed
+        Toolbar.Buttons(1).value = tbrUnpressed
         Exit Sub
     End If
     
@@ -274,7 +286,7 @@ Private Sub RunMonitoring()
                     
         End Select
     
-        If (Toolbar.Buttons(1).Value = tbrUnpressed) Then
+        If (Toolbar.Buttons(1).value = tbrUnpressed) Then
             Debug.Print "Stop monitoring..."
             Exit Do
         End If
@@ -332,4 +344,41 @@ End Sub
 Private Sub txtFind_GotFocus()
     txtFind.SelStart = 0
     txtFind.SelLength = Len(txtFind.Text)
+End Sub
+
+Private Sub cmdFake_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+    Dim cEvent As Single
+    cEvent = X / Screen.TwipsPerPixelX
+    Select Case cEvent
+        Case MouseMove
+            'Debug.Print "MouseMove"
+        Case LeftUp
+            If (prefs.minimize) Then
+                If (Me.Visible = False) Then
+                    Me.Visible = True
+                    Me.WindowState = lastWindowState
+                Else
+                    lastWindowState = Me.WindowState
+                    Me.WindowState = vbMinimized
+                    Me.Visible = False
+                End If
+            End If
+        Case LeftDown
+            'Debug.Print "Left Down"
+        Case LeftDbClick
+            'Debug.Print "LeftDbClick"
+        Case MiddleUp
+            'Debug.Print "MiddleUp"
+        Case MiddleDown
+            'Debug.Print "MiddleDown"
+        Case MiddleDbClick
+            'Debug.Print "MiddleDbClick"
+        Case RightUp
+            'Debug.Print "RightUp" ': PopupMenu mnuShell
+            'PopupMenu mnu_shell
+        Case RightDown
+            'Debug.Print "RightDown"
+        Case RightDbClick
+            'Debug.Print "RightDbClick"
+    End Select
 End Sub
