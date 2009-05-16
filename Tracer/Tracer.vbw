@@ -1,6 +1,7 @@
 MainWindow = 44, 58, 823, 475, , 22, 29, 801, 446, C
-modFileSystem = 66, 87, 845, 504, 
+modFileSystem = 66, 87, 845, 504, C
 mdlTray = 176, 232, 867, 857, C
-modApi = 198, 261, 889, 886, 
+modApi = 198, 261, 889, 886, C
 modMain = 88, 116, 779, 741, C
-clsPreferences = 66, 87, 757, 712, Z
+clsPreferences = 66, 87, 757, 712, C
+TagAnchor = 44, 58, 724, 444, C, 110, 145, 790, 531, C
