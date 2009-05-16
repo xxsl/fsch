@@ -3,14 +3,14 @@ Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "RICHTX32.OCX"
 Object = "{6B7E6392-850A-101B-AFC0-4210102A8DA7}#1.3#0"; "COMCTL32.OCX"
 Begin VB.Form MainWindow 
    Caption         =   "Tracer"
-   ClientHeight    =   7275
+   ClientHeight    =   2385
    ClientLeft      =   60
    ClientTop       =   450
-   ClientWidth     =   7245
+   ClientWidth     =   4230
    Icon            =   "Main.frx":0000
    LinkTopic       =   "Form1"
-   ScaleHeight     =   7275
-   ScaleWidth      =   7245
+   ScaleHeight     =   2385
+   ScaleWidth      =   4230
    StartUpPosition =   2  'CenterScreen
    Begin ComctlLib.Toolbar Toolbar 
       Align           =   1  'Align Top
@@ -18,11 +18,13 @@ Begin VB.Form MainWindow
       Left            =   0
       TabIndex        =   1
       Top             =   0
-      Width           =   7245
-      _ExtentX        =   12779
+      Width           =   4230
+      _ExtentX        =   7461
       _ExtentY        =   1111
       ButtonWidth     =   1138
       ButtonHeight    =   953
+      AllowCustomize  =   0   'False
+      Wrappable       =   0   'False
       Appearance      =   1
       ImageList       =   "ToolbarIcons"
       _Version        =   327682
@@ -30,13 +32,11 @@ Begin VB.Form MainWindow
          NumButtons      =   5
          BeginProperty Button1 {0713F354-850A-101B-AFC0-4210102A8DA7} 
             Caption         =   "Monitor"
-            Key             =   ""
             Object.Tag             =   ""
             ImageIndex      =   1
             Style           =   1
          EndProperty
          BeginProperty Button2 {0713F354-850A-101B-AFC0-4210102A8DA7} 
-            Key             =   ""
             Object.Tag             =   ""
             Style           =   4
             Object.Width           =   1e-4
@@ -44,20 +44,17 @@ Begin VB.Form MainWindow
          EndProperty
          BeginProperty Button3 {0713F354-850A-101B-AFC0-4210102A8DA7} 
             Caption         =   "Clear"
-            Key             =   ""
             Object.Tag             =   ""
             ImageIndex      =   3
          EndProperty
          BeginProperty Button4 {0713F354-850A-101B-AFC0-4210102A8DA7} 
             Caption         =   "On Top"
-            Key             =   ""
             Object.Tag             =   ""
             ImageIndex      =   5
             Style           =   1
          EndProperty
          BeginProperty Button5 {0713F354-850A-101B-AFC0-4210102A8DA7} 
             Caption         =   "Alpha"
-            Key             =   ""
             Object.Tag             =   ""
             ImageIndex      =   4
             Style           =   1
@@ -65,35 +62,43 @@ Begin VB.Form MainWindow
       EndProperty
       BorderStyle     =   1
    End
+   Begin Tracer.TagAnchor TagAnchor1 
+      Left            =   1080
+      Top             =   2880
+      _ExtentX        =   847
+      _ExtentY        =   820
+   End
    Begin VB.CommandButton cmdNext 
       Caption         =   "Next"
       Default         =   -1  'True
       Height          =   285
       Left            =   2040
       TabIndex        =   3
-      Top             =   6960
+      Tag             =   "FFFT"
+      Top             =   2040
       Width           =   735
    End
    Begin VB.TextBox txtFind 
       Height          =   285
       Left            =   50
       TabIndex        =   2
+      Tag             =   "FFFT"
       Text            =   "type text to find"
-      Top             =   6960
+      Top             =   2040
       Width           =   1935
    End
    Begin RichTextLib.RichTextBox Log 
-      Height          =   5535
+      Height          =   1335
       Left            =   0
       TabIndex        =   0
+      Tag             =   "TTTT"
       Top             =   645
-      Width           =   7215
-      _ExtentX        =   12726
-      _ExtentY        =   9763
+      Width           =   4215
+      _ExtentX        =   7435
+      _ExtentY        =   2355
       _Version        =   393217
       BackColor       =   15987699
       BorderStyle     =   0
-      Enabled         =   -1  'True
       HideSelection   =   0   'False
       ReadOnly        =   -1  'True
       ScrollBars      =   3
@@ -117,12 +122,12 @@ Begin VB.Form MainWindow
       Height          =   195
       Left            =   2880
       TabIndex        =   4
-      Top             =   6990
+      Top             =   2070
       Width           =   45
    End
    Begin ComctlLib.ImageList ToolbarIcons 
-      Left            =   0
-      Top             =   1440
+      Left            =   240
+      Top             =   2880
       _ExtentX        =   1005
       _ExtentY        =   1005
       BackColor       =   -2147483643
@@ -177,17 +182,18 @@ Private Sub Form_Load()
 End Sub
 
 Private Sub Form_Resize()
-    Log.Width = Me.Width - Log.Left - Log.Left - 120
+    TagAnchor1.DoResize
+    'Log.Width = Screen.ActiveForm.Width
     
-    Dim logheight As Long
-    logheight = Me.Height - Log.Top - 850
-    If (logheight > 0) Then
-        Log.Height = logheight
-    End If
+    'Dim logheight As Long
+    'logheight = Me.Height - Log.Top - 850
+    'If (logheight > 0) Then
+    '    Log.Height = logheight
+    'End If
     
-    txtFind.Top = Me.Height - 820
-    lblSearch.Top = Me.Height - 770
-    cmdNext.Top = Me.Height - 820
+    'txtFind.Top = Me.Height - 820
+    'lblSearch.Top = Me.Height - 770
+    'cmdNext.Top = Me.Height - 820
 End Sub
 
 
@@ -226,7 +232,7 @@ Private Sub Toolbar_ButtonClick(ByVal Button As ComctlLib.Button)
                 If (Button.Value = tbrPressed) Then
                      Dim bytOpacity As Byte
                      'Set the transparency level
-                     bytOpacity = prefs.alpha
+                     bytOpacity = prefs.Alpha
                      Call SetWindowLong(Me.hWnd, GWL_EXSTYLE, GetWindowLong(Me.hWnd, GWL_EXSTYLE) Or WS_EX_LAYERED)
                      Call SetLayeredWindowAttributes(Me.hWnd, 0, bytOpacity, LWA_ALPHA)
                 Else
@@ -295,7 +301,7 @@ Private Sub txtFind_Change()
     searchPos = 0
     searchPos = Log.Find(txtFind.Text, searchPos, Len(Log.Text))
     Debug.Print "Found text at " & searchPos
-    If (searchPos > 0) Then
+    If (searchPos >= 0) Then
         Debug.Print "Found text at " & searchPos
         Log.SelStart = searchPos
         Log.SelLength = Len(txtFind.Text)
@@ -307,10 +313,10 @@ Private Sub txtFind_Change()
 End Sub
 
 Private Sub cmdNext_Click()
-    If (searchPos > 0) Then
+    If (searchPos >= 0) Then
         searchPos = Log.Find(txtFind.Text, searchPos, Len(Log.Text))
         Debug.Print "Found text at " & searchPos
-        If (searchPos > 0) Then
+        If (searchPos >= 0) Then
             Log.SelStart = searchPos
             Log.SelLength = Len(txtFind.Text)
             searchPos = searchPos + Len(txtFind.Text)
@@ -318,6 +324,8 @@ Private Sub cmdNext_Click()
         Else
             lblSearch.Caption = "Text not found"
         End If
+    Else
+        txtFind_Change
     End If
 End Sub
 
