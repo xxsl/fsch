@@ -1,0 +1,61 @@
+/* CSS file */
+.connected {
+    icon: Embed(source = 'icons/lightbulb.png');
+}
+
+.unconnected {
+    icon: Embed(source = 'icons/lightbulb_off.png');
+}
+
+.running {
+    icon: Embed(source = 'icons/stop.png');
+}
+
+.stopped {
+    icon: Embed(source = 'icons/lightning.png');
+    disabledIcon: Embed(source = 'icons/lightning_disabled.png');
+}
+
+.clearLogs {
+    icon: Embed(source = 'icons/page_white_delete.png');
+}
+
+.options {
+    icon: Embed(source = 'icons/wrench_orange.png');
+    disabledIcon: Embed(source = 'icons/wrench_orange_disabled.png');
+}
+
+.build {
+    icon: Embed(source = 'icons/bricks.png');
+    disabledIcon: Embed(source = 'icons/bricks_disabled.png');
+}
+
+/*preferences*/
+
+.chooser {
+    icon: Embed(source = 'icons/folder_explore.png');
+    disabled-icon: Embed(source = 'icons/folder_explore_disabled.png');
+}
+
+.add {
+    icon: Embed(source = 'icons/add.png');
+    disabled-icon: Embed(source = 'icons/add_disabled.png');
+}
+
+.remove {
+    icon: Embed(source = 'icons/delete.png');
+    disabled-icon: Embed(source = 'icons/delete_disabled.png');
+}
+
+.edit {
+    icon: Embed(source = 'icons/notepad.png');
+    disabled-icon: Embed(source = 'icons/notepad_disabled.png');
+}
+
+.cancel {
+    icon: Embed(source = 'icons/cancel.png');
+}
+
+.accept {
+    icon: Embed(source = 'icons/accept.png');
+}

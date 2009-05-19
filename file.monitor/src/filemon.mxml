@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<app:Main xmlns:app="components.main.*"
+          xmlns:mx="http://www.adobe.com/2006/mxml"
+          xmlns:components="components.*"
+          xmlns:log="components.logs.*"
+          title="File Monitor" width="648" height="395"
+          layout="vertical" verticalAlign="top" paddingBottom="0" paddingLeft="0" paddingRight="0" paddingTop="0" xmlns:code="http://code.google.com/p/flexlib/">
+    <mx:Style source="style/fcsh.css"/>
+    <mx:Script>
+		<![CDATA[
+			import components.logs.ConsoleTarget;
+
+            import flexlib.controls.tabBarClasses.SuperTab;
+import mx.logging.ILogger;
+        import mx.logging.Log;
+        import mx.logging.LogEventLevel;
+
+        import prefs.PreferenceChangeEvent;
+        import prefs.PreferencesFacade;
+
+        private static var log:ILogger = Log.getLogger("filemon");
+
+        override protected function initializeApplication():void
+        {
+            super.initializeApplication();
+
+            var target:ConsoleTarget = new ConsoleTarget(logger);
+            //target.filters = ["amf.*"];
+            target.level = LogEventLevel.DEBUG;
+            target.traceEnabled = true;
+            Log.addTarget(target);
+
+
+            log.info("Application Started");
+
+            //load prefs
+            PreferencesFacade.instance.load();
+
+            //close policy for tabs
+            superTab.setClosePolicyForTab(0, SuperTab.CLOSE_NEVER);
+
+            //listent for prefs change and populate targetsComno
+            //PreferencesFacade.instance.addEventListener(PreferenceChangeEvent.PREFERENCE_CHANGED_EVENT, onPrefs, false, 0, true);
+            //PreferencesFacade.instance.addEventListener(PreferenceChangeEvent.ADD_EDIT_ACTION, onPrefs, false, 0, true);
+            //PreferencesFacade.instance.addEventListener(PreferenceChangeEvent.DELETE_ACTION, onPrefs, false, 0, true);
+        }
+
+
+		]]>
+	</mx:Script>
+
+    <mx:ApplicationControlBar width="100%" height="25"/>
+    <code:SuperTabNavigator id="superTab" width="100%" height="100%">
+    	<mx:VBox label="Log" width="100%" height="100%">
+    		<log:Logwindow id="logger" width="100%" height="100%" borderStyle="none"/>
+    	</mx:VBox>
+    </code:SuperTabNavigator>
+</app:Main>
