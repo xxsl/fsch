@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<mx:WindowedApplication xmlns:mx="http://www.adobe.com/2006/mxml"
+                        applicationComplete="{initializeApplication()}"
+                        layout="absolute"
+                        showStatusBar="false"
+                        showTitleBar="true"
+                        backgroundGradientAlphas="[1.0, 1.0]"
+                        backgroundGradientColors="[#DEDEDE, #BCBCBC]"
+                        themeColor="#FF871D"
+                        cornerRadius="0"
+                        width="580"
+                        verticalScrollPolicy="off"
+                        horizontalScrollPolicy="off"
+                        height="400">
+    <mx:Script>
+            <![CDATA[
+        protected function initializeApplication():void
+        {
+            //center window
+            var screenBounds:Rectangle = Screen.mainScreen.visibleBounds;
+            var w:int = width;
+            var h:int = height;
+
+            var x:int = screenBounds.x + ((screenBounds.width - w) / 2);
+            var y:int = screenBounds.y + ((screenBounds.height - h) / 2);
+            stage.nativeWindow.x = x;
+            stage.nativeWindow.y = y;
+        }
+        ]]>
+    </mx:Script>
+
+</mx:WindowedApplication>

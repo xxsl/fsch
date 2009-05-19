@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml"
+         height="28"
+         right="6"
+         left="6"
+         top="6"
+         borderStyle="solid"
+         verticalAlign="middle"
+         horizontalAlign="left"
+         paddingLeft="4"
+         paddingRight="2"
+         backgroundColor="#F4F4F4"
+         cornerRadius="4"
+         creationComplete="{initializeToolBar()}">
+
+    <mx:Script>
+            <![CDATA[
+            protected function initializeToolBar():void
+        {
+            var filter:DropShadowFilter = new DropShadowFilter();
+            filter.alpha = 0.5;
+            this.filters = [filter];
+        }
+            ]]>
+    </mx:Script>
+</mx:HBox>
