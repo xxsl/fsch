@@ -21,6 +21,7 @@ Attribute VB_Exposed = False
 Option Explicit
 
 Const FCSHServer As String = "FCSHServer"
+Const Application As String = "Application"
 
 Private prefs As New ARINIManager
 Private log As clsLog
@@ -153,4 +154,21 @@ End Property
 
 Public Property Let consoleWait(ByVal vNewValue As Long)
     prefs.WriteValue FCSHServer, "console.wait", Trim(str(vNewValue))
+End Property
+
+
+
+'--------------------------------------------
+'Window AlwaysOnTop mode
+'--------------------------------------------
+Public Property Get alwaysOnTop() As Boolean
+    alwaysOnTop = Val(prefs.GetValue(Application, "AlwaysOnTop", "0")) = 1
+End Property
+
+Public Property Let alwaysOnTop(ByVal vNewValue As Boolean)
+    Dim result As Long
+    If (vNewValue) Then
+        result = 1
+    End If
+    prefs.WriteValue Application, "AlwaysOnTop", Trim(str(result))
 End Property
