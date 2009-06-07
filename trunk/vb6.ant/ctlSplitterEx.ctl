@@ -113,7 +113,7 @@ End Sub
 Private Sub InternalInit()
 m_MinTilePercent = 5
 m_MaxTilePercent = 98
-m_lTilePercence = 30
+m_lTilePercence = 60
 lblInfo(1).Visible = False
 lblInfo(0).Visible = False
 FindOwnInstance
