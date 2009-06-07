@@ -2,7 +2,7 @@
 
 = Introduction =
 
-Fcsh server preferences are stored in server.ini file in application folder (e.g. *C:\Program Files\FCSHServer*).
+Fcsh server preferences are stored in *server.ini* file in application folder (e.g. *C:\Program Files\FCSHServer\server.ini*).
 
 
 = server.ini (version 1.0.75)=
