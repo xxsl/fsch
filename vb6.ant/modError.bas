@@ -1,4 +1,13 @@
 Attribute VB_Name = "modConst"
+'***********************************************************************************
+'* nimrod97@gmail.com                                                              *
+'* Project homepage http://code.google.com/p/fsch/                                 *
+'* Adobe Flex Compiler Shell wrapper                                               *
+'* 2008                                                                            *
+'***********************************************************************************
+
+Option Explicit
+
 Public Enum FCSHErrors
     FCSH_NOT_STATRED = 1&
     FCSH_BUSY = 2&

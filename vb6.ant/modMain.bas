@@ -1,22 +1,42 @@
 Attribute VB_Name = "modMain"
+'***********************************************************************************
+'* nimrod97@gmail.com                                                              *
+'* Project homepage http://code.google.com/p/fsch/                                 *
+'* Adobe Flex Compiler Shell wrapper                                               *
+'* 2008                                                                            *
+'***********************************************************************************
+
 Option Explicit
 
 Public Declare Sub Sleep Lib "kernel32" (ByVal dwMilliseconds As Long)
+
+Public Declare Function PathFileExists Lib "shlwapi" Alias "PathFileExistsA" (ByVal pszPath As String) As Long
+
+Public Declare Function PathIsDirectory Lib "shlwapi" Alias "PathIsDirectoryA" (ByVal pszPath As String) As Long
+
+Public Declare Function SetWindowPos Lib "user32" (ByVal hwnd As Long, ByVal hWndInsertAfter As Long, ByVal X As Long, ByVal Y As Long, ByVal cX As Long, ByVal cY As Long, ByVal wFlags As Long) As Long
+
+Public Declare Function InitCommonControlsEx Lib "comctl32.dll" (iccex As tagInitCommonControlsEx) As Boolean
+
+'window constants
 Public Const HWND_NOTOPMOST = -2
 Public Const HWND_TOPMOST = -1
 Public Const SWP_NOSIZE = &H1
 Public Const SWP_NOMOVE = &H2
 Public Const SWP_SHOWWINDOW = &H40
 
+'controls
+Public Const ICC_USEREX_CLASSES = &H200
 
 Private Type tagInitCommonControlsEx
    lngSize As Long
    lngICC As Long
 End Type
-Private Const ICC_USEREX_CLASSES = &H200
-Private Declare Function InitCommonControlsEx Lib "comctl32.dll" (iccex As tagInitCommonControlsEx) As Boolean
-Private Declare Function SetWindowPos Lib "user32" (ByVal HWND As Long, ByVal hWndInsertAfter As Long, ByVal X As Long, ByVal Y As Long, ByVal cX As Long, ByVal cY As Long, ByVal wFlags As Long) As Long
 
+
+'--------------------
+'Try use WinXP styles
+'--------------------
 Private Function InitCommonControlsVB() As Boolean
    On Error Resume Next
    Dim iccex As tagInitCommonControlsEx
@@ -30,17 +50,9 @@ Private Function InitCommonControlsVB() As Boolean
    On Error GoTo 0
 End Function
 
-Public Sub SetAlwaysOnTopMode(hWndOrForm As Variant, Optional ByVal OnTop As Boolean = True)
-    Dim HWND As Long
-    ' get the hWnd of the form to be move on top
-    If VarType(hWndOrForm) = vbLong Then
-        HWND = hWndOrForm
-    Else
-        HWND = hWndOrForm.HWND
-    End If
-    SetWindowPos HWND, IIf(OnTop, HWND_TOPMOST, HWND_NOTOPMOST), 0, 0, 0, 0, SWP_NOMOVE Or SWP_NOSIZE Or SWP_SHOWWINDOW
-End Sub
-
+'-----------------------
+'Application entry point
+'-----------------------
 Public Sub Main()
     InitCommonControlsVB
     If (Not App.PrevInstance) Then
@@ -49,3 +61,26 @@ Public Sub Main()
         MsgBox "FCSHServer is already running!", vbCritical, "FCSHServer"
     End If
 End Sub
+
+
+'------------------------
+'Set window Always On Top
+'------------------------
+Public Sub SetAlwaysOnTopMode(hWndOrForm As Variant, Optional ByVal OnTop As Boolean = True)
+    Dim hwnd As Long
+    ' get the hWnd of the form to be move on top
+    If VarType(hWndOrForm) = vbLong Then
+        hwnd = hWndOrForm
+    Else
+        hwnd = hWndOrForm.hwnd
+    End If
+    SetWindowPos hwnd, IIf(OnTop, HWND_TOPMOST, HWND_NOTOPMOST), 0, 0, 0, 0, SWP_NOMOVE Or SWP_NOSIZE Or SWP_SHOWWINDOW
+End Sub
+
+
+'--------------------------------------
+'Check file/folder exists on filesystem
+'--------------------------------------
+Public Function FileExists(ByVal sPath As String) As Boolean
+      If (PathFileExists(sPath)) And Not (PathIsDirectory(sPath)) Then FileExists = True
+End Function
