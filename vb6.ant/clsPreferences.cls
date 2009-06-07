@@ -172,3 +172,15 @@ Public Property Let alwaysOnTop(ByVal vNewValue As Boolean)
     End If
     prefs.WriteValue Application, "AlwaysOnTop", Trim(str(result))
 End Property
+
+
+'------------------------------
+'External logfile viewer to use
+'------------------------------
+Public Property Get logViewer() As String
+    logViewer = prefs.GetValue(FCSHServer, "logViewer", "notepad.exe")
+End Property
+
+Public Property Let logViewer(ByVal vNewValue As String)
+    prefs.WriteValue FCSHServer, "logViewer", vNewValue
+End Property
