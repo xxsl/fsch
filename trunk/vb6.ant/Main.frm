@@ -197,20 +197,19 @@ Begin VB.Form MainForm
          TabCaption(1)   =   "Build Errors"
          TabPicture(1)   =   "Main.frx":069F
          Tab(1).ControlEnabled=   0   'False
-         Tab(1).Control(0)=   "cmdClearErr"
-         Tab(1).Control(1)=   "rtbError"
+         Tab(1).Control(0)=   "rtbError"
+         Tab(1).Control(1)=   "cmdClearErr"
          Tab(1).ControlCount=   2
          TabCaption(2)   =   "Build Warnings"
          TabPicture(2)   =   "Main.frx":07AF
          Tab(2).ControlEnabled=   0   'False
-         Tab(2).Control(0)=   "cmdClearWarn"
-         Tab(2).Control(1)=   "rtbWarn"
+         Tab(2).Control(0)=   "rtbWarn"
+         Tab(2).Control(1)=   "cmdClearWarn"
          Tab(2).ControlCount=   2
          TabCaption(3)   =   "Preferences"
          TabPicture(3)   =   "Main.frx":08BF
          Tab(3).ControlEnabled=   0   'False
          Tab(3).Control(0)=   "chkOnTop"
-         Tab(3).Control(0).Enabled=   0   'False
          Tab(3).ControlCount=   1
          Begin RichTextLib.RichTextBox rtbWarn 
             Height          =   2295
@@ -222,7 +221,6 @@ Begin VB.Form MainForm
             _ExtentY        =   4048
             _Version        =   393217
             BackColor       =   16777215
-            Enabled         =   -1  'True
             ReadOnly        =   -1  'True
             ScrollBars      =   3
             Appearance      =   0
@@ -248,7 +246,6 @@ Begin VB.Form MainForm
             _ExtentY        =   4048
             _Version        =   393217
             BackColor       =   16777215
-            Enabled         =   -1  'True
             ReadOnly        =   -1  'True
             ScrollBars      =   3
             Appearance      =   0
@@ -274,7 +271,6 @@ Begin VB.Form MainForm
             _ExtentY        =   4048
             _Version        =   393217
             BackColor       =   16777215
-            Enabled         =   -1  'True
             ReadOnly        =   -1  'True
             ScrollBars      =   3
             Appearance      =   0
@@ -544,6 +540,14 @@ Public Sub fillView()
     SetHorizontalExtent
 End Sub
 
+
+Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
+    Dim result As VbMsgBoxResult
+    result = MsgBox("This action will stop fcsh server. Are you sure?", vbExclamation + vbOKCancel, "Confirm")
+    If (result <> vbOK) Then
+        Cancel = 1
+    End If
+End Sub
 
 Private Sub lstTargets_Click()
     Dim result As String
