@@ -1,4 +1,4 @@
-#prefernces file description (server.ini)
+#summary prefernces file description (server.ini)
 
 = Introduction =
 
