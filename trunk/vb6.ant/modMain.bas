@@ -14,9 +14,11 @@ Public Declare Function PathFileExists Lib "shlwapi" Alias "PathFileExistsA" (By
 
 Public Declare Function PathIsDirectory Lib "shlwapi" Alias "PathIsDirectoryA" (ByVal pszPath As String) As Long
 
-Public Declare Function SetWindowPos Lib "user32" (ByVal hwnd As Long, ByVal hWndInsertAfter As Long, ByVal X As Long, ByVal Y As Long, ByVal cX As Long, ByVal cY As Long, ByVal wFlags As Long) As Long
+Public Declare Function SetWindowPos Lib "user32" (ByVal HWND As Long, ByVal hWndInsertAfter As Long, ByVal X As Long, ByVal Y As Long, ByVal cX As Long, ByVal cY As Long, ByVal wFlags As Long) As Long
 
 Public Declare Function InitCommonControlsEx Lib "comctl32.dll" (iccex As tagInitCommonControlsEx) As Boolean
+
+Public Declare Function GetShortPathName Lib "kernel32" Alias "GetShortPathNameA" (ByVal lpszLongPath As String, ByVal lpszShortPath As String, ByVal cchBuffer As Long) As Long
 
 'window constants
 Public Const HWND_NOTOPMOST = -2
@@ -67,14 +69,14 @@ End Sub
 'Set window Always On Top
 '------------------------
 Public Sub SetAlwaysOnTopMode(hWndOrForm As Variant, Optional ByVal OnTop As Boolean = True)
-    Dim hwnd As Long
+    Dim HWND As Long
     ' get the hWnd of the form to be move on top
     If VarType(hWndOrForm) = vbLong Then
-        hwnd = hWndOrForm
+        HWND = hWndOrForm
     Else
-        hwnd = hWndOrForm.hwnd
+        HWND = hWndOrForm.HWND
     End If
-    SetWindowPos hwnd, IIf(OnTop, HWND_TOPMOST, HWND_NOTOPMOST), 0, 0, 0, 0, SWP_NOMOVE Or SWP_NOSIZE Or SWP_SHOWWINDOW
+    SetWindowPos HWND, IIf(OnTop, HWND_TOPMOST, HWND_NOTOPMOST), 0, 0, 0, 0, SWP_NOMOVE Or SWP_NOSIZE Or SWP_SHOWWINDOW
 End Sub
 
 
@@ -83,4 +85,19 @@ End Sub
 '--------------------------------------
 Public Function FileExists(ByVal sPath As String) As Boolean
       If (PathFileExists(sPath)) And Not (PathIsDirectory(sPath)) Then FileExists = True
+End Function
+
+
+'------------------
+'Get DOS short path
+'------------------
+Public Function GetShortName(sFile As String) As String
+    Dim sShortFile As String * 256
+    Dim lResult As Long
+
+    'Make a call to the GetShortPathName API
+    lResult = GetShortPathName(sFile, sShortFile, Len(sShortFile))
+
+    'Trim out unused characters from the string.
+    GetShortName = Left$(sShortFile, lResult)
 End Function
