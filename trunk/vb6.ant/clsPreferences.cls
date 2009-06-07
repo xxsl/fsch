@@ -11,23 +11,29 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
+'***********************************************************************************
+'* nimrod97@gmail.com                                                              *
+'* Project homepage http://code.google.com/p/fsch/                                 *
+'* Adobe Flex Compiler Shell wrapper                                               *
+'* 2008                                                                            *
+'***********************************************************************************
+
 Option Explicit
 
-Private Declare Function PathFileExists Lib "shlwapi" Alias "PathFileExistsA" (ByVal pszPath As String) As Long
-Private Declare Function PathIsDirectory Lib "shlwapi" Alias "PathIsDirectoryA" (ByVal pszPath As String) As Long
+Const FCSHServer As String = "FCSHServer"
 
-Private Const FCSHServer As String = "FCSHServer"
-
-Public prefs As New ARINIManager
+Private prefs As New ARINIManager
 Private log As clsLog
 Private initialized As Boolean
 
 
-
+'------------------------------------------------
+'Check server.ini file exists, setup ARINIManager
+'------------------------------------------------
 Public Sub initialize(appLog As clsLog)
     If (Not initialized) Then
         Set log = appLog
-        log.xInfo "initialize preferences"
+        log.xInfo "Initialize preferences"
         Dim path As String
         path = App.path + "\" + "server.ini"
         prefs.INIFile = path
@@ -36,59 +42,75 @@ Public Sub initialize(appLog As clsLog)
         If (Not FileExists(path)) Then
            log.xError "Preferences file is not found: " + path
            MsgBox "Preferences file is not found: " + path, vbCritical
+        Else
+           log.xInfo "Preferences initialized"
         End If
     End If
 End Sub
 
-Private Function FileExists(ByVal sPath As String) As Boolean
-      If (PathFileExists(sPath)) And Not (PathIsDirectory(sPath)) Then FileExists = True
-End Function
 
-'server port --------------------------
-Public Property Get SERVER_PORT() As Long
-    SERVER_PORT = Val(prefs.GetValue(FCSHServer, "port", "40000"))
+'------------------------------------------------------------------
+'Server port, used to pass commands, currently must not be modified
+'------------------------------------------------------------------
+Public Property Get serverPort() As Long
+    serverPort = Val(prefs.GetValue(FCSHServer, "port", "40000"))
 End Property
-
-Public Property Let SERVER_PORT(ByVal vNewValue As Long)
+Public Property Let serverPort(ByVal vNewValue As Long)
     prefs.WriteValue FCSHServer, "port", Trim(str(vNewValue))
 End Property
 
-'server host --------------------------
-Public Property Get SERVER_HOST() As String
-    SERVER_HOST = prefs.GetValue(FCSHServer, "host", "localhost")
+
+
+'--------------------------
+'Java virual machine to use
+'--------------------------
+Public Property Get java() As String
+    java = prefs.GetValue(FCSHServer, "java", "")
+End Property
+Public Property Let java(ByVal vNewValue As String)
+    prefs.WriteValue FCSHServer, "java", vNewValue
 End Property
 
-Public Property Let SERVER_HOST(ByVal vNewValue As String)
-    prefs.WriteValue FCSHServer, "host", vNewValue
-End Property
 
-'exec command
-Public Property Get CMD() As String
+
+
+'-------------------------------
+'Command line for fcsh execution
+'-------------------------------
+Public Property Get cmd() As String
     Dim result As String, sdk As String
     sdk = prefs.GetValue(FCSHServer, "sdk", "C:\flex")
-    result = prefs.GetValue(FCSHServer, "vmoptions", "fcsh.exe")
+    result = prefs.GetValue(FCSHServer, "vmoptions", "")
     result = "java.exe " + result
     result = result + " -Dapplication.home=" + sdk + " -jar " + sdk + "\lib\fcsh.jar"
     log.xInfo result
-    CMD = result
+    cmd = result
 End Property
-
-Public Property Let CMD(ByVal vNewValue As String)
+Public Property Let cmd(ByVal vNewValue As String)
     prefs.WriteValue FCSHServer, "vmoptions", vNewValue
 End Property
 
-Public Property Get CONSOLE_BUFFER() As Long
-    CONSOLE_BUFFER = Val(prefs.GetValue(FCSHServer, "console.buffer", "8192"))
-End Property
 
-Public Property Let CONSOLE_BUFFER(ByVal vNewValue As Long)
+
+'-----------------------------------
+'Buffer for console output, in bytes
+'-----------------------------------
+Public Property Get consoleBuffer() As Long
+    consoleBuffer = Val(prefs.GetValue(FCSHServer, "console.buffer", "8192"))
+End Property
+Public Property Let consoleBuffer(ByVal vNewValue As Long)
     prefs.WriteValue FCSHServer, "console.buffer", Trim(str(vNewValue))
 End Property
 
-Public Property Get CONSOLE_WAIT() As Long
-    CONSOLE_WAIT = Val(prefs.GetValue(FCSHServer, "console.wait", "8192"))
+
+
+'--------------------------------------------
+'Time in milliseconds to wait for fcsh output
+'--------------------------------------------
+Public Property Get consoleWait() As Long
+    consoleWait = Val(prefs.GetValue(FCSHServer, "console.wait", "500"))
 End Property
 
-Public Property Let CONSOLE_WAIT(ByVal vNewValue As Long)
+Public Property Let consoleWait(ByVal vNewValue As Long)
     prefs.WriteValue FCSHServer, "console.wait", Trim(str(vNewValue))
 End Property

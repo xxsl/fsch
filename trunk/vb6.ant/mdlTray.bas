@@ -8,8 +8,10 @@ Attribute VB_Name = "modTray"
 
 Option Explicit
 
-' Константы и структуры
-'-------------------------------------------------
+
+Public Declare Function Shell_NotifyIcon Lib "shell32" Alias "Shell_NotifyIconA" (ByVal dwMessage As Long, pnid As NOTIFYICONDATA) As Boolean
+
+
 Private Const NOTIFYICON_VERSION = &H3
 Private Const WM_RBUTTONDOWN = &H204
 Private Const WM_NULL = &H0
@@ -71,12 +73,14 @@ Public Enum InfoIcon
         NIIF_INFO = &H1
         NIIF_WARNING = &H2
         NIIF_ERROR = &H3
-        NIIF_GUID = &H5         ' Не используется
-        NIIF_ICON_MASK = &HF    ' Не используется
+        NIIF_GUID = &H5
+        NIIF_ICON_MASK = &HF
         NIIF_NOSOUND = &H10
 End Enum
 
-'[Return Events]
+'-------------
+'Return Events
+'-------------
 Public Enum TrayRetunEventEnum
     MouseMove = &H200       'On Mousemove
     LeftUp = &H202          'Left Button Mouse Up
@@ -90,21 +94,28 @@ Public Enum TrayRetunEventEnum
     MiddleDbClick = &H209   'Middle Button Double Click
 End Enum
 
-'[Modify Items]
+'------------
+'Modify Items
+'------------
 Public Enum ModifyItemEnum
     ToolTip = 1             'Modify ToolTip
     Icon = 2                'Modify Icon
 End Enum
 
-'[API]
+
+Public Const NOTIFYICONDATA_SIZE As Long = 504 '6.0+ structure size
+
+
+'-------------------
+'Hold application tray reference
+'-------------------
 Private TrayIcon As NOTIFYICONDATA
-Private Declare Function Shell_NotifyIcon Lib "shell32" Alias "Shell_NotifyIconA" (ByVal dwMessage As Long, pnid As NOTIFYICONDATA) As Boolean
 
-Private Const NOTIFYICONDATA_SIZE As Long = 504 '6.0+ structure size
 
-'[Add to Tray]
-Public Sub TrayAdd(hwnd As Long, Icon As Picture, _
-                    ToolTip As String, ReturnCallEvent As TrayRetunEventEnum)
+'----------------
+'Add icon to Tray
+'----------------
+Public Sub TrayAdd(hwnd As Long, Icon As Picture, ToolTip As String, ReturnCallEvent As TrayRetunEventEnum)
     With TrayIcon
         .cbSize = Len(TrayIcon)
         .hwnd = hwnd
@@ -117,12 +128,18 @@ Public Sub TrayAdd(hwnd As Long, Icon As Picture, _
     Shell_NotifyIcon NIM_ADD, TrayIcon
 End Sub
 
-'[Remove From tray]
+
+'----------------
+'Remove application icon from tray
+'----------------
 Public Sub TrayDelete()
     Shell_NotifyIcon NIM_DELETE, TrayIcon
 End Sub
 
-'[Modify the tray]
+
+'---------------------------------
+'Modify tray icon & info (not used)
+'---------------------------------
 Public Sub TrayModify(Item As ModifyItemEnum, vNewValue As Variant)
     Select Case Item
         Case ToolTip
@@ -133,10 +150,13 @@ Public Sub TrayModify(Item As ModifyItemEnum, vNewValue As Variant)
     Shell_NotifyIcon NIM_MODIFY, TrayIcon
 End Sub
 
-' вывод всплывающего сообщения
+
+'-------------------
+'Show baloon tooltip
+'-------------------
 Public Sub DisplayBalloon(ByVal sTitle As String, ByVal sText As String, ByVal info As InfoIcon)
 
-Dim ret As Long
+   Dim result As Long
   
    With TrayIcon
       .cbSize = NOTIFYICONDATA_SIZE
@@ -146,5 +166,5 @@ Dim ret As Long
       .szInfo = sText & vbNullChar
    End With
 
-   ret = Shell_NotifyIcon(NIM_MODIFY, TrayIcon)
+   result = Shell_NotifyIcon(NIM_MODIFY, TrayIcon)
 End Sub

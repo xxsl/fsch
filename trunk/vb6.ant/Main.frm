@@ -197,14 +197,14 @@ Begin VB.Form MainForm
          TabCaption(1)   =   "Build Errors"
          TabPicture(1)   =   "Main.frx":069F
          Tab(1).ControlEnabled=   0   'False
-         Tab(1).Control(0)=   "cmdClearErr"
-         Tab(1).Control(1)=   "rtbError"
+         Tab(1).Control(0)=   "rtbError"
+         Tab(1).Control(1)=   "cmdClearErr"
          Tab(1).ControlCount=   2
          TabCaption(2)   =   "Build Warnings"
          TabPicture(2)   =   "Main.frx":07AF
          Tab(2).ControlEnabled=   0   'False
-         Tab(2).Control(0)=   "cmdClearWarn"
-         Tab(2).Control(1)=   "rtbWarn"
+         Tab(2).Control(0)=   "rtbWarn"
+         Tab(2).Control(1)=   "cmdClearWarn"
          Tab(2).ControlCount=   2
          TabCaption(3)   =   "Preferences"
          TabPicture(3)   =   "Main.frx":08BF
@@ -221,7 +221,6 @@ Begin VB.Form MainForm
             _ExtentY        =   4048
             _Version        =   393217
             BackColor       =   16777215
-            Enabled         =   -1  'True
             ReadOnly        =   -1  'True
             ScrollBars      =   3
             Appearance      =   0
@@ -247,7 +246,6 @@ Begin VB.Form MainForm
             _ExtentY        =   4048
             _Version        =   393217
             BackColor       =   16777215
-            Enabled         =   -1  'True
             ReadOnly        =   -1  'True
             ScrollBars      =   3
             Appearance      =   0
@@ -273,7 +271,6 @@ Begin VB.Form MainForm
             _ExtentY        =   4048
             _Version        =   393217
             BackColor       =   16777215
-            Enabled         =   -1  'True
             ReadOnly        =   -1  'True
             ScrollBars      =   3
             Appearance      =   0
@@ -402,7 +399,7 @@ Attribute VB_Exposed = False
 Option Explicit
 
 Private Declare Function SendMessage Lib "user32" Alias "SendMessageA" (ByVal _
-    HWND As Long, ByVal wMsg As Long, ByVal wParam As Long, _
+    hwnd As Long, ByVal wMsg As Long, ByVal wParam As Long, _
     lParam As Any) As Long
 Const LB_SETHORIZONTALEXTENT = &H194
 Const LB_GETHORIZONTALEXTENT = &H193
@@ -418,9 +415,9 @@ Private log As New clsLog
 
 Private Sub chkOnTop_Click()
     If (chkOnTop.value = 1) Then
-        SetAlwaysOnTopMode Me.HWND, True
+        SetAlwaysOnTopMode Me.hwnd, True
     Else
-        SetAlwaysOnTopMode Me.HWND, False
+        SetAlwaysOnTopMode Me.hwnd, False
     End If
 End Sub
 
@@ -491,14 +488,14 @@ Private Sub Form_Load()
     prefs.initialize log
     
     Dim port As Long
-    port = prefs.SERVER_PORT
+    port = prefs.serverPort
 
     log.xInfo "Server is listening on port " & port
     Server.Close
     Server.LocalPort = port
     
    
-    TrayAdd fakeTray.HWND, Me.Icon, "Flex Compiler SHell Server", MouseMove
+    TrayAdd fakeTray.hwnd, Me.Icon, "Flex Compiler SHell Server", MouseMove
     
    
     Set fcsh = New clsFCSH
@@ -522,7 +519,7 @@ Sub SetHorizontalExtent()
     End If
 
     maxWidth = maxWidth / Screen.TwipsPerPixelX
-    SendMessage lstTargets.HWND, LB_SETHORIZONTALEXTENT, maxWidth, ByVal 0&
+    SendMessage lstTargets.hwnd, LB_SETHORIZONTALEXTENT, maxWidth, ByVal 0&
 End Sub
 
 
@@ -555,7 +552,7 @@ Private Sub lstTargets_Click()
         For i = 0 To UBound(lines) - 1
             result = result & lines(i) & vbCrLf
         Next i
-        DisplayTooltip lstTargets.HWND, result, App.hInstance
+        DisplayTooltip lstTargets.hwnd, result, App.hInstance
     End If
 End Sub
 

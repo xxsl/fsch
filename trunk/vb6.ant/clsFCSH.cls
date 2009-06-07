@@ -41,7 +41,7 @@ Public Event onStart(message As DataVO)
 'data input
 Public Event onComplete(data As DataVO)
 'error event
-Public Event onError(message As errorVO)
+Public Event onError(message As ErrorVO)
 
 Public Event CommandsEnabled(enable As Boolean)
 '***************************************************************************************
@@ -64,9 +64,9 @@ Public Sub initialize(ByRef appLog As clsLog, ByRef preferences As clsPreference
 
         Set prefs = preferences
         
-        fcsh.BufferSize = prefs.CONSOLE_BUFFER
-        fcsh.Wait = prefs.CONSOLE_WAIT
-        fcsh.name = prefs.CMD
+        fcsh.BufferSize = prefs.consoleBuffer
+        fcsh.Wait = prefs.consoleWait
+        fcsh.Name = prefs.cmd
         
         isExec = False
         isRunning = False
@@ -160,7 +160,7 @@ End Sub
 
 
 Private Sub RaiseError(id As FCSHErrors, description As String)
-    Dim message As New errorVO
+    Dim message As New ErrorVO
     message.description = description
     message.id = id
     RaiseEvent onError(message)
