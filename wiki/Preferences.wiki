@@ -1,0 +1,36 @@
+#summary One-sentence summary of this page.
+
+= Introduction =
+
+Fcsh server preferences are stored in server.ini file in application folder (e.g. *C:\Program Files\FCSHServer*).
+
+
+= server.ini =
+
+{{{
+[FCSHServer]
+#Currently must not be modified, default "40000"
+port=40000
+
+#[Required] Path to Flex SDK e.g. "c:\flex\3.3\"
+sdk=c:\work\3.3\
+
+#[Optional] Java virual machine to use e.g. "D:\Program Files\Java\jre1.5.0_08\", if empty java from Windows Path variable will be used
+java=
+
+#[Optional] Java virtual machine options to use for fcsh
+vmoptions=-Xmx384m -Xms125m -XX:MaxPermSize=512m -Dsun.io.useCanonCaches=false -Duser.language=en
+
+#[Optional] Time in milliseconds to wait for fcsh output, default "50"
+console.wait=50
+
+#[Optional] Buffer for console output, in bytes, default "8192"
+console.buffer=8192
+
+#Viewer to open logfile, default "notepad.exe"
+logViewer=notepad.exe
+
+[Application]
+#Set AlwaysOnTop mode 0/1
+AlwaysOnTop=0
+}}}
