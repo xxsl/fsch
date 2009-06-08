@@ -1,5 +1,5 @@
 #summary preferences file description (server.ini)
-#labels Featured
+#labels Featured,Phase-Deploy
 
 = Introduction =
 
