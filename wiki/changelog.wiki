@@ -1,0 +1,10 @@
+#summary version history
+
+= Latest version is 1.0.76 =
+
+*1.0.76*
+ * Allow to specify Java Virtual Machine via server.ini (e.g. add the following line to the *FCSHServer* section *java=D:\Program Files\Java\jre1.5.0_08\*) 
+ * Allow to use Flex SDK path that contains spaces (see [http://code.google.com/p/fsch/issues/detail?id=2#c0 FCSH won't start on Windows Server 2008])
+ * Save AlwaysOnTop mode to preferences
+ * Added confirmation dialog when main window is closed
+ * Allow to specify logfile viewer (e.g. add the following line to the *FCSHServer* section *logViewer=notepad.exe*)
