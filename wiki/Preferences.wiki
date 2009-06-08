@@ -1,4 +1,5 @@
 #summary preferences file description (server.ini)
+#labels Featured
 
 = Introduction =
 
