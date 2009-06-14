@@ -197,14 +197,14 @@ Begin VB.Form MainForm
          TabCaption(1)   =   "Build Errors"
          TabPicture(1)   =   "Main.frx":069F
          Tab(1).ControlEnabled=   0   'False
-         Tab(1).Control(0)=   "rtbError"
-         Tab(1).Control(1)=   "cmdClearErr"
+         Tab(1).Control(0)=   "cmdClearErr"
+         Tab(1).Control(1)=   "rtbError"
          Tab(1).ControlCount=   2
          TabCaption(2)   =   "Build Warnings"
          TabPicture(2)   =   "Main.frx":07AF
          Tab(2).ControlEnabled=   0   'False
-         Tab(2).Control(0)=   "rtbWarn"
-         Tab(2).Control(1)=   "cmdClearWarn"
+         Tab(2).Control(0)=   "cmdClearWarn"
+         Tab(2).Control(1)=   "rtbWarn"
          Tab(2).ControlCount=   2
          TabCaption(3)   =   "Preferences"
          TabPicture(3)   =   "Main.frx":08BF
@@ -430,6 +430,10 @@ Private prefs As New clsPreferences
 '-----------------------
 Private log As New clsLog
 
+'--------------
+'resize handler
+'--------------
+Private resizeHandle As New clsResizeHandle
 
 
 '-------------------------------------
@@ -563,6 +567,8 @@ Private Sub Form_Load()
     fcsh.Start
     
     SetHorizontalExtent
+    
+    resizeHandle.setup Me
 End Sub
 
 Sub SetHorizontalExtent()
@@ -891,115 +897,3 @@ Private Sub sendCommand(data As String, target As String)
     dataObject.serialize byteArray
     sendByteArray byteArray
 End Sub
-
-
-
-'--------------------------
-'Force resize on tab select
-'--------------------------
-Private Sub SSTab_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
-    frmFcsh_Resize
-End Sub
-
-
-
-'------------------
-'Top section resize
-'------------------
-Private Sub frmFcsh_Resize()
-    Dim listHeight As Long
-    
-    listHeight = frmFcsh.Width - SSTab.Left * 2
-    If (listHeight > 0) Then
-        SSTab.Width = listHeight
-    End If
-    listHeight = frmFcsh.Height - SSTab.Top - 150
-    If (listHeight > 0) Then
-        SSTab.Height = listHeight
-    End If
-    
-    
-    listHeight = SSTab.Width
-    
-    If (SSTab.Tab = 0) Then
-        rtbLog.Width = listHeight - rtbLog.Left * 2
-    End If
-    
-    If (SSTab.Tab = 1) Then
-        rtbError.Width = listHeight - rtbError.Left * 2
-    End If
-    
-    If (SSTab.Tab = 2) Then
-        rtbWarn.Width = listHeight - rtbWarn.Left * 2
-    End If
-    
-    listHeight = SSTab.Height - rtbLog.Top - 600
-    
-    If (listHeight > 0 And SSTab.Tab = 0) Then
-        rtbLog.Height = listHeight
-    End If
-    
-    listHeight = SSTab.Height - rtbError.Top - 600
-    If (listHeight > 0 And SSTab.Tab = 1) Then
-        rtbError.Height = listHeight
-    End If
-    
-    listHeight = SSTab.Height - rtbWarn.Top - 600
-    If (listHeight > 0 And SSTab.Tab = 2) Then
-        rtbWarn.Height = listHeight
-    End If
-   
-    listHeight = rtbLog.Top + rtbLog.Height + 100
-    If (SSTab.Tab = 0) Then
-        cmdClearLog.Top = listHeight
-        cmdClearLog.Left = rtbLog.Left + rtbLog.Width - cmdClearLog.Width
-    End If
-    
-    listHeight = rtbError.Top + rtbError.Height + 100
-    If (SSTab.Tab = 1) Then
-        cmdClearErr.Top = listHeight
-        cmdClearErr.Left = rtbError.Left + rtbError.Width - cmdClearErr.Width
-    End If
-    
-    listHeight = rtbWarn.Top + rtbWarn.Height + 100
-    If (SSTab.Tab = 2) Then
-        cmdClearWarn.Top = listHeight
-        cmdClearWarn.Left = rtbWarn.Left + rtbWarn.Width - cmdClearWarn.Width
-    End If
-End Sub
-
-
-
-'---------------------
-'Resize bottom section
-'---------------------
-Private Sub frmTargets_Resize()
-    lstTargets.Width = frmTargets.Width - lstTargets.Left * 2
-    
-    Dim listHeight As Long
-    
-    listHeight = frmTargets.Height - lstTargets.Top - 700
-    
-    If (listHeight > 0) Then
-        lstTargets.Height = listHeight
-    End If
-    
-    listHeight = frmTargets.Height - 600
-    cmdClear.Top = listHeight
-    cmdHide.Top = listHeight
-    cmdRecompile.Top = listHeight
-    
-    cmdHide.Left = lstTargets.Left + lstTargets.Width - cmdHide.Width
-End Sub
-
-
-
-'-----------
-'Form resize
-'-----------
-Private Sub Form_Resize()
-    ctlSplitterEx1.Width = Me.Width - 120
-    ctlSplitterEx1.Height = Me.Height - 410
-End Sub
-
-

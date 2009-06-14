@@ -1,8 +1,18 @@
 Attribute VB_Name = "modSerialization"
+'***********************************************************************************
+'* nimrod97@gmail.com                                                              *
+'* Project homepage http://code.google.com/p/fsch/                                 *
+'* Adobe Flex Compiler Shell wrapper                                               *
+'* 2008                                                                            *
+'***********************************************************************************
 Option Explicit
 
 Public Declare Sub CopyMemory Lib "kernel32" Alias "RtlMoveMemory" (Destination As Any, Source As Any, ByVal length As Long)
 
+
+'---------------------------------
+'Serialize double to amf bytearray
+'---------------------------------
 Public Function writeDouble(ByRef buffer() As Byte, ByVal str As Double)
     Dim first As Boolean
     If (UBound(buffer) = 0) Then
@@ -26,6 +36,10 @@ Public Function writeDouble(ByRef buffer() As Byte, ByVal str As Double)
     Next i
 End Function
 
+
+'-----------------------------------
+'Deserialize amf bytearray to Double
+'-----------------------------------
 Public Function readDouble(ByRef buffer() As Byte, ByRef position As Long) As Double
 
     On Error GoTo check
@@ -42,23 +56,30 @@ Public Function readDouble(ByRef buffer() As Byte, ByRef position As Long) As Do
         k = k + 1
     Next i
     
-    Dim result As Double
-    CopyMemory result, strBuff(0), (size + 1)
+    Dim Result As Double
+    CopyMemory Result, strBuff(0), (size + 1)
 
     position = position + (size + 1)
-    readDouble = result
+    readDouble = Result
 check:
     'Debug.Print Err.Description
 End Function
 
 
+'------------------------------------
+'Deserialize amf bytearray to Boolean
+'------------------------------------
 Public Function readBoolean(ByRef buffer() As Byte, ByRef position As Long) As Boolean
-    Dim result As Byte
-    result = buffer(position)
+    Dim Result As Byte
+    Result = buffer(position)
     position = position + 1
-    readBoolean = (result = 1)
+    readBoolean = (Result = 1)
 End Function
 
+
+'---------------------------------
+'Serialize double to amf bytearray
+'---------------------------------
 Public Function writeBoolean(ByRef buffer() As Byte, ByVal str As Boolean)
     Dim first As Boolean
     If (UBound(buffer) = 0) Then
@@ -80,6 +101,9 @@ Public Function writeBoolean(ByRef buffer() As Byte, ByVal str As Boolean)
 End Function
 
 
+'---------------------------------
+'Deserialize amf bytearray to Long
+'---------------------------------
 Public Function readLong(ByRef buffer() As Byte, ByRef position As Long) As Long
     Dim strBuff() As Byte
     Dim length As Long, i As Long
@@ -97,6 +121,10 @@ Public Function readLong(ByRef buffer() As Byte, ByRef position As Long) As Long
     readLong = length
 End Function
 
+
+'-------------------------------
+'Serialize Long to amf bytearray
+'-------------------------------
 Public Function writeLong(ByRef buffer() As Byte, ByVal str As Long)
     Dim first As Boolean
     If (UBound(buffer) = 0) Then
@@ -121,6 +149,10 @@ Public Function writeLong(ByRef buffer() As Byte, ByVal str As Long)
     Next i
 End Function
 
+
+'-----------------------------------
+'Deserialize amf bytearray to String
+'-----------------------------------
 Public Function readString(ByRef buffer() As Byte, ByRef position As Long) As String
     Dim strBuff() As Byte
     Dim length As Long, i As Long
@@ -144,6 +176,10 @@ Public Function readString(ByRef buffer() As Byte, ByRef position As Long) As St
     readString = StrConv(UTF16toANSI(strBuff), vbUnicode)
 End Function
 
+
+'----------------------------------
+'Serialize dString to amf bytearray
+'----------------------------------
 Public Function writeString(ByRef buffer() As Byte, ByVal str As String)
     Dim first As Boolean
     If (UBound(buffer) = 0) Then
@@ -184,12 +220,20 @@ Public Function writeString(ByRef buffer() As Byte, ByVal str As String)
     End If
 End Function
 
+
+'---------------------------------------------
+'Convert Long to bytearray using amf byteorder
+'---------------------------------------------
 Public Function LongToByteArray(ByVal lng As Long) As Byte()
     Dim byteArray(0 To 3) As Byte
     CopyMemory byteArray(0), ByVal VarPtr(lng), 4&
     LongToByteArray = byteArray
 End Function
 
+
+'---------------------------------------------
+'Convert Long to bytearray using amf byteorder
+'---------------------------------------------
 Public Function DoubleToByteArray(ByVal lng As Double) As Byte()
     Dim byteArray(0 To 7) As Byte
     CopyMemory byteArray(0), ByVal VarPtr(lng), 8&
