@@ -34,18 +34,13 @@ Private initialized As Boolean
 Public Sub initialize(appLog As clsLog)
     If (Not initialized) Then
         Set log = appLog
-        log.xInfo "Initialize preferences"
         Dim path As String
         path = App.path + "\" + "server.ini"
-        log.xInfo path
         prefs.INIFile = path
         initialized = True
 
         If (Not FileExists(path)) Then
-           log.xError "Preferences file is not found: " + path
            MsgBox "Preferences file is not found: " + path, vbCritical
-        Else
-           log.xInfo "Preferences initialized"
         End If
     End If
 End Sub
@@ -106,7 +101,7 @@ End Property
 'Command line for fcsh execution
 '-------------------------------
 Public Property Get cmd() As String
-    Dim result As String
+    Dim Result As String
     
     If (Len(java) > 0) And (FileExists(java)) Then
         log.xInfo "Using Java Virtual Machine: " + java
@@ -114,16 +109,16 @@ Public Property Get cmd() As String
         Dim JavaBinPath As String
         JavaBinPath = fso.BuildPath(java, "bin")
         
-        result = "cmd.exe /C cd /D " + JavaBinPath + " && java.exe "
+        Result = "cmd.exe /C cd /D " + JavaBinPath + " && java.exe "
     Else
         log.xInfo "Using default Java Virtual Machine"
-        result = "java.exe "
+        Result = "java.exe "
     End If
     
-    result = result + vmoptions
-    result = result + " -Dapplication.home=" + GetShortName(sdk) + " -jar " + Chr(34) + fso.BuildPath(sdk, "lib") + "\fcsh.jar" + Chr(34)
-    log.xInfo "Command: " + result
-    cmd = result
+    Result = Result + vmoptions
+    Result = Result + " -Dapplication.home=" + GetShortName(sdk) + " -jar " + Chr(34) + fso.BuildPath(sdk, "lib") + "\fcsh.jar" + Chr(34)
+    log.xInfo "Command: " + Result
+    cmd = Result
 End Property
 
 Public Property Let cmd(ByVal vNewValue As String)
@@ -158,19 +153,19 @@ End Property
 
 
 
-'--------------------------------------------
+'-----------------------
 'Window AlwaysOnTop mode
-'--------------------------------------------
+'-----------------------
 Public Property Get alwaysOnTop() As Boolean
     alwaysOnTop = Val(prefs.GetValue(Application, "AlwaysOnTop", "0")) = 1
 End Property
 
 Public Property Let alwaysOnTop(ByVal vNewValue As Boolean)
-    Dim result As Long
+    Dim Result As Long
     If (vNewValue) Then
-        result = 1
+        Result = 1
     End If
-    prefs.WriteValue Application, "AlwaysOnTop", Trim(str(result))
+    prefs.WriteValue Application, "AlwaysOnTop", Trim(str(Result))
 End Property
 
 
@@ -183,4 +178,16 @@ End Property
 
 Public Property Let logViewer(ByVal vNewValue As String)
     prefs.WriteValue FCSHServer, "logViewer", vNewValue
+End Property
+
+
+'-----------------------------------------
+'Log levels to use (info,warn,error,debug)
+'-----------------------------------------
+Public Property Get logLevels() As String
+    logLevels = prefs.GetValue(FCSHServer, "logLevels", "")
+End Property
+
+Public Property Let logLevels(ByVal vNewValue As String)
+    prefs.WriteValue FCSHServer, "logLevels", vNewValue
 End Property

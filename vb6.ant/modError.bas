@@ -5,7 +5,6 @@ Attribute VB_Name = "modConst"
 '* Adobe Flex Compiler Shell wrapper                                               *
 '* 2008                                                                            *
 '***********************************************************************************
-
 Option Explicit
 
 Public Enum FCSHErrors
