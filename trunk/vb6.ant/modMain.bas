@@ -20,14 +20,20 @@ Public Declare Function InitCommonControlsEx Lib "comctl32.dll" (iccex As tagIni
 
 Public Declare Function GetShortPathName Lib "kernel32" Alias "GetShortPathNameA" (ByVal lpszLongPath As String, ByVal lpszShortPath As String, ByVal cchBuffer As Long) As Long
 
+Public Declare Function SendMessage Lib "user32" Alias "SendMessageA" (ByVal HWND As Long, ByVal wMsg As Long, ByVal wParam As Long, lParam As Any) As Long
+
+'----------------
 'window constants
+'----------------
 Public Const HWND_NOTOPMOST = -2
 Public Const HWND_TOPMOST = -1
 Public Const SWP_NOSIZE = &H1
 Public Const SWP_NOMOVE = &H2
 Public Const SWP_SHOWWINDOW = &H40
 
+'--------
 'controls
+'--------
 Public Const ICC_USEREX_CLASSES = &H200
 
 Private Type tagInitCommonControlsEx

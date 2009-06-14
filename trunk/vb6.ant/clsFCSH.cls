@@ -17,7 +17,6 @@ Attribute VB_Exposed = False
 '* Adobe Flex Compiler Shell wrapper                                               *
 '* 2008                                                                            *
 '***********************************************************************************
-
 Option Explicit
 
 Private isInitialized As Boolean
@@ -58,7 +57,7 @@ Attribute parser.VB_VarHelpID = -1
 Public Sub initialize(ByRef appLog As clsLog, ByRef preferences As clsPreferences)
     If (Not isInitialized) Then
         Set parser = New clsController
-        parser.initialize appLog, Me
+        parser.initialize appLog
         Set fcsh = New RedirectLib.Application
         Set log = appLog
 
@@ -81,18 +80,18 @@ Public Sub Start()
     If (Not isRunning) Then
         Select Case fcsh.Start
            Case laAlreadyRunning
-                RaiseError FCSH_ALREADY_STATRED, "Flex Compiler SHell is already running"
+                RaiseError FCSH_ALREADY_STATRED, "[FCSH] Flex Compiler SHell is already running"
            Case laWindowsError
                 isRunning = False
-                RaiseError FCSH_START_FAILURE, "Launch error: " & CStr(fcsh.LastErrorNumber) & ". Make sure you have configured fcsh.exe path."
+                RaiseError FCSH_START_FAILURE, "[FCSH] Launch error: " & CStr(fcsh.LastErrorNumber) & ". Make sure you have configured fcsh.exe path."
            Case laOk
                 isRunning = True
                 isExec = True
                 isStarting = True
-                log.xInfo "Flex Compiler SHell launched"
+                log.xInfo "[FCSH] Flex Compiler SHell launched"
         End Select
     Else
-        RaiseError FCSH_ALREADY_STATRED, "Flex Compiler SHell is already running"
+        RaiseError FCSH_ALREADY_STATRED, "[FCSH] Flex Compiler SHell is already running"
     End If
 End Sub
 
@@ -105,10 +104,18 @@ End Sub
 
 
 Private Sub fcsh_ProcessEnded()
+    log.xError "[FCSH] Flex Compiler SHell failed to start. Check your server.ini"
+    log.xError "[FCSH] Output dump:"
+    log.output parser.output, "[DUMP]"
+    log.xError "[FCSH] Dump end"
     DisplayBalloon "Flex Compiler SHell", "Failed to start. Check your server.ini", NIIF_ERROR
-    MainForm.fillView
+    
+    MainForm.FillTargetsBox
+    
     targets.RemoveAll
+    
     parser.reset
+    
     isExec = False
     isRunning = False
     Dim message As New DataVO
@@ -125,19 +132,19 @@ Public Sub exec(command As String)
             commandLine = command
             log.xDebug "fcsh execute: " + command
             If (targets.Exists(commandLine)) Then
-                log.xInfo "Recompile target: " + command
+                log.xInfo "[FCSH] Recompile target: " + command
                 log.xFcsh "(fcsh) compile " & targets.Item(command) & vbCrLf
                 fcsh.Write ToOEM("compile " & targets.Item(command)) + vbCrLf
             Else
-                log.xInfo "Compile target: " + command
+                log.xInfo "[FCSH] Compile target: " + command
                 log.xFcsh "(fcsh) " + command + vbCrLf
                 fcsh.Write ToOEM(command) + vbCrLf
             End If
         Else
-            RaiseError FCSH_BUSY, "Cant exec: Flex Compiler SHell is busy"
+            RaiseError FCSH_BUSY, "[FCSH] Cant exec: Flex Compiler SHell is busy"
         End If
     Else
-        RaiseError FCSH_NOT_STATRED, "Cant exec: Flex Compiler SHell is stopped"
+        RaiseError FCSH_NOT_STATRED, "[FCSH] Cant exec: Flex Compiler SHell is stopped"
     End If
 End Sub
 
@@ -182,7 +189,7 @@ Private Sub parser_Result(id As Build, assigned As Long)
     If (isStarting) Then
        isStarting = False
        If (id = BUILD_SUCCESSFULL) Then
-            log.xInfo "Flex Compiler SHell started successfully"
+            log.xInfo "[FCSH] Flex Compiler SHell started successfully"
             DisplayBalloon "Flex Compiler SHell", "Started successfully", NIIF_INFO
             
             Dim message As New DataVO
@@ -197,7 +204,7 @@ Private Sub parser_Result(id As Build, assigned As Long)
     If (assigned > 0 And Not targets.Exists(commandLine)) Then
         targets.Add commandLine, assigned
         isAssigned = True
-        MainForm.fillView
+        MainForm.FillTargetsBox
     End If
     
 

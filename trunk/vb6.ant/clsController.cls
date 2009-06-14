@@ -11,55 +11,82 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
+'***********************************************************************************
+'* nimrod97@gmail.com                                                              *
+'* Project homepage http://code.google.com/p/fsch/                                 *
+'* Adobe Flex Compiler Shell wrapper                                               *
+'* 2008                                                                            *
+'***********************************************************************************
+Option Explicit
 
+'-----------
+'FCSH Output
+'-----------
 Public output As String
+
+'-------------------------------------------------------------
+'Dispatched when end of build detected (success/warning/error)
+'-------------------------------------------------------------
+Public Event Result(id As Build, assigned As Long)
+
 Private log As clsLog
-Private fcsh As clsFCSH
-
-Public Event result(id As Build, assigned As Long)
 
 
-Public Sub initialize(ByRef logger As clsLog, ByRef fcshShell As clsFCSH)
+'------------------------------------------
+'Setup controller, set logger & fcshwrapper
+'------------------------------------------
+Public Sub initialize(ByRef logger As clsLog)
     Set log = logger
-    Set fcsh = fcshShell
 End Sub
 
 
+'----------------------------
+'On console data output event
+'----------------------------
 Public Sub addStdout(out As String)
+    'add to buffer
     output = output + out
-    log.xInfo "[FCSH] " + out
+    
+    'print to log file and window
     log.xFcsh out
+    
+    'check if compilation finished
     If (isFinished()) Then
-        log.xFcsh vbCrLf
-        fcsh.isExec = False
+        'If error dispatch BUILD_ERROR, id = -1
         If (isError) Then
-            log.xError "[FCSH] Build error"
             log.xFcsh "-------------------[BUILD FAILED]-------------------" + vbCrLf
-            RaiseEvent result(BUILD_ERROR, -1)
+            RaiseEvent Result(BUILD_ERROR, -1)
         Else
+        
+            'If warning dispatch BUILD_WARNING, id = assingned
             If (isWarn()) Then
-                log.xWarning "[FCSH] Build warnings"
                 log.xFcsh "-------------------[BUILD WARNING]-------------------" + vbCrLf
-                RaiseEvent result(BUILD_WARNING, isAssigned())
+                RaiseEvent Result(BUILD_WARNING, isAssigned())
             Else
-                log.xInfo "[FCSH] Build successfull"
+                'If no errors/warnings dispatch BUILD_SUCCESSFULL, id = assingned
                 log.xFcsh "-------------------[BUILD SUCCESSFULL]-------------------" + vbCrLf
-                RaiseEvent result(BUILD_SUCCESSFULL, isAssigned())
+                RaiseEvent Result(BUILD_SUCCESSFULL, isAssigned())
             End If
         End If
-        log.xFcsh vbCrLf
+       
+        log.xInfo "[FCSH] Build completed"
     End If
-    
 End Sub
 
+
+'---------------------------
+'Check if target is assigned
+'---------------------------
 Public Function isAssigned() As Long
     Dim regExp As regExp
     Dim matches As MatchCollection
     Dim match As match
+    
     Set regExp = New regExp
     regExp.IgnoreCase = True
     regExp.Global = True
     regExp.Pattern = "fcsh: Assigned ([0-9]+) as the compile target id"
+    
     Set matches = regExp.Execute(output)
     
     If (matches.Count > 0) Then
@@ -70,50 +97,75 @@ Public Function isAssigned() As Long
     End If
 End Function
 
+
+'--------------------------------------
+'Check if target compiled with warnings
+'--------------------------------------
 Public Function isWarn() As Boolean
     Dim regExp As regExp
     Dim matches As MatchCollection
     Dim match As match
+    
     Set regExp = New regExp
     regExp.IgnoreCase = True
     regExp.Global = True
     regExp.Pattern = "(.*Warning:[^\r]+)"
+    
     Set matches = regExp.Execute(output)
+    
     For Each match In matches
-        log.xFcshWarn "[" & Now & "] " & match.value & vbCrLf
+        log.xFcshWarn "[FCSH] " & match.value
     Next
+    
     isWarn = (matches.Count > 0)
 End Function
 
 
+'---------------------------------
+'Check if target failed to compile
+'---------------------------------
 Public Function isError() As Boolean
     Dim regExp As regExp
     Dim matches As MatchCollection
     Dim match As match
+    
     Set regExp = New regExp
     regExp.IgnoreCase = True
     regExp.Global = True
     regExp.Pattern = "(.*Error:[^\r]+)"
+    
     Set matches = regExp.Execute(output)
+    
     For Each match In matches
-        log.xFcshErr "[" & Now & "] " & match.value & vbCrLf
+        log.xFcshErr "[FCSH] " & match.value
     Next
+    
     isError = (matches.Count > 0)
 End Function
 
 
+'-------------------------------------------------
+'Check if target compilation finished (any status)
+'-------------------------------------------------
 Public Function isFinished() As Boolean
     Dim regExp As regExp
     Dim matches As MatchCollection
     Dim match As match
+    
     Set regExp = New regExp
     regExp.IgnoreCase = True
     regExp.Global = True
     regExp.Pattern = "\(fcsh\)"
+    
     Set matches = regExp.Execute(output)
+    
     isFinished = (matches.Count > 0)
 End Function
 
+
+'--------------------
+'Clears output buffer
+'--------------------
 Public Sub reset()
     output = ""
 End Sub

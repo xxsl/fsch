@@ -225,6 +225,7 @@ Begin VB.Form MainForm
             ScrollBars      =   3
             Appearance      =   0
             RightMargin     =   65000
+            AutoVerbMenu    =   -1  'True
             TextRTF         =   $"Main.frx":0A05
             BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
                Name            =   "Courier"
@@ -250,6 +251,7 @@ Begin VB.Form MainForm
             ScrollBars      =   3
             Appearance      =   0
             RightMargin     =   65000
+            AutoVerbMenu    =   -1  'True
             TextRTF         =   $"Main.frx":0A83
             BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
                Name            =   "Courier"
@@ -275,6 +277,7 @@ Begin VB.Form MainForm
             ScrollBars      =   3
             Appearance      =   0
             RightMargin     =   65000
+            AutoVerbMenu    =   -1  'True
             TextRTF         =   $"Main.frx":0B01
             BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
                Name            =   "Courier"
@@ -396,23 +399,42 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+'***********************************************************************************
+'* nimrod97@gmail.com                                                              *
+'* Project homepage http://code.google.com/p/fsch/                                 *
+'* Adobe Flex Compiler Shell wrapper                                               *
+'* 2008                                                                            *
+'***********************************************************************************
 Option Explicit
 
-Private Declare Function SendMessage Lib "user32" Alias "SendMessageA" (ByVal _
-    HWND As Long, ByVal wMsg As Long, ByVal wParam As Long, _
-    lParam As Any) As Long
+'-------------------------------
+'Fix HorizontalScroll in ListBox
+'-------------------------------
 Const LB_SETHORIZONTALEXTENT = &H194
 Const LB_GETHORIZONTALEXTENT = &H193
 
 
-
-
+'---------------------------------
+'Flex Compiler SHEll Wrapper class
+'---------------------------------
 Private WithEvents fcsh As clsFCSH
 Attribute fcsh.VB_VarHelpID = -1
+
+'-----------------------
+'Application preferences
+'-----------------------
 Private prefs As New clsPreferences
+
+'-----------------------
+'Log to file and console
+'-----------------------
 Private log As New clsLog
 
 
+
+'-------------------------------------
+'PREFERENCES TAB, set AlwaysOnTop mode
+'-------------------------------------
 Private Sub chkOnTop_Click()
     prefs.alwaysOnTop = (chkOnTop.value = 1)
     If (chkOnTop.value = 1) Then
@@ -422,47 +444,83 @@ Private Sub chkOnTop_Click()
     End If
 End Sub
 
+
+
+'-----------------
+'Clear log windows
+'-----------------
+
+'Error window
+Private Sub cmdClearErr_Click()
+    rtbError.Text = ""
+End Sub
+
+'Main log window
+Private Sub cmdClearLog_Click()
+    rtbLog.Text = ""
+End Sub
+
+'Warnings window
+Private Sub cmdClearWarn_Click()
+    rtbWarn.Text = ""
+End Sub
+
+
+'--------------------------------------
+'Clears selected target from FCSH cache
+'--------------------------------------
 Private Sub cmdClear_Click()
-    Dim KEY As String
+    Dim key As String, value As String
+    
     If (lstTargets.ListIndex <> -1) Then
-        KEY = lstTargets.List(lstTargets.ListIndex)
+        key = lstTargets.List(lstTargets.ListIndex)
+        value = CStr(fcsh.targets.Item(key))
         If (fcsh.isRunning And Not fcsh.isExec) Then
-            fcsh.clear "clear " + CStr(fcsh.targets.Item(KEY))
-            fcsh.targets.Remove KEY
+            fcsh.targets.Remove key
+            fcsh.clear "clear " + value
+            
+            log.xInfo "Target cleared: (" & value & ") " & key
         Else
             log.xFcsh "[ERROR] Flex Compiler SHell is stopped or busy" & vbCrLf
         End If
     Else
         log.xFcsh "[ERROR] No target was selected for removal" & vbCrLf
     End If
-    fillView
+    
+    FillTargetsBox
+End Sub
+
+'-----------------
+'Fills targets box
+'-----------------
+Public Sub FillTargetsBox()
+    Dim key As Variant
+    
+    lstTargets.clear
+    
+    For Each key In fcsh.targets
+        lstTargets.AddItem CStr(key)
+    Next
+    
+    DestroyTooltip
+    
+    SetHorizontalExtent
 End Sub
 
 
-
-Private Sub cmdClearErr_Click()
-    rtbError.Text = ""
-End Sub
-
-Private Sub cmdClearLog_Click()
-    rtbLog.Text = ""
-End Sub
-
-Private Sub cmdClearWarn_Click()
-    rtbWarn.Text = ""
-End Sub
 
 Private Sub cmdHide_Click()
     Me.Hide
 End Sub
 
+
 Private Sub cmdRecompile_Click()
-    Dim KEY As String
+    Dim key As String
     
     If (lstTargets.ListIndex <> -1) Then
-        KEY = lstTargets.List(lstTargets.ListIndex)
+        key = lstTargets.List(lstTargets.ListIndex)
         If (fcsh.isRunning And Not fcsh.isExec) Then
-            fcsh.exec KEY
+            fcsh.exec key
         Else
             log.xFcsh "[ERROR] Flex Compiler SHell is stopped or busy" & vbCrLf
         End If
@@ -470,7 +528,6 @@ Private Sub cmdRecompile_Click()
         log.xFcsh "[ERROR] No target was selected for recompile" & vbCrLf
     End If
 End Sub
-
 
 
 Private Sub fcsh_CommandsEnabled(enable As Boolean)
@@ -486,6 +543,7 @@ Private Sub Form_Load()
     
     log.setWindow rtbLog, rtbError, rtbWarn
     log.xInfo "Application started"
+    
     prefs.initialize log
     
     Dim port As Long
@@ -524,138 +582,32 @@ Sub SetHorizontalExtent()
 End Sub
 
 
-
-Public Sub fillView()
-    Dim KEY As Variant
-    
-    lstTargets.clear
-    For Each KEY In fcsh.targets
-        lstTargets.AddItem CStr(KEY)
-    Next
-    
-    'lstTargets.AddItem "mxmlc -output=c:\test\resl.swf load-config+=c:\"
-
-    DestroyTooltip
-    
-    SetHorizontalExtent
-End Sub
-
-
 Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
-    Dim result As VbMsgBoxResult
+    Dim Result As VbMsgBoxResult
     
     If (Me.Visible) Then
-        result = MsgBox("This action will stop fcsh server. Are you sure?", vbExclamation + vbOKCancel, "Confirm")
-        If (result <> vbOK) Then
+        Result = MsgBox("This action will stop fcsh server. Are you sure?", vbExclamation + vbOKCancel, "Confirm")
+        If (Result <> vbOK) Then
             Cancel = 1
         End If
     End If
 End Sub
 
 Private Sub lstTargets_Click()
-    Dim result As String
+    Dim Result As String
     DestroyTooltip
     If (lstTargets.ListIndex <> -1) Then
         Dim lines() As String
         Dim i As Long
-        result = lstTargets.List(lstTargets.ListIndex)
-        lines = Split(result, " ")
-        result = ""
+        Result = lstTargets.List(lstTargets.ListIndex)
+        lines = Split(Result, " ")
+        Result = ""
         For i = 0 To UBound(lines) - 1
-            result = result & lines(i) & vbCrLf
+            Result = Result & lines(i) & vbCrLf
         Next i
-        DisplayTooltip lstTargets.HWND, result, App.hInstance
+        DisplayTooltip lstTargets.HWND, Result, App.hInstance
     End If
 End Sub
-
-Private Sub SSTab_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
-    frmFcsh_Resize
-End Sub
-
-Private Sub frmFcsh_Resize()
-    Dim listHeight As Long
-    
-    listHeight = frmFcsh.Width - SSTab.Left * 2
-    If (listHeight > 0) Then
-        SSTab.Width = listHeight
-    End If
-    listHeight = frmFcsh.Height - SSTab.Top - 150
-    If (listHeight > 0) Then
-        SSTab.Height = listHeight
-    End If
-    
-    
-    listHeight = SSTab.Width
-    
-    If (SSTab.Tab = 0) Then
-        rtbLog.Width = listHeight - rtbLog.Left * 2
-    End If
-    
-    If (SSTab.Tab = 1) Then
-        rtbError.Width = listHeight - rtbError.Left * 2
-    End If
-    
-    If (SSTab.Tab = 2) Then
-        rtbWarn.Width = listHeight - rtbWarn.Left * 2
-    End If
-    
-    listHeight = SSTab.Height - rtbLog.Top - 600
-    
-    If (listHeight > 0 And SSTab.Tab = 0) Then
-        rtbLog.Height = listHeight
-    End If
-    
-    listHeight = SSTab.Height - rtbError.Top - 600
-    If (listHeight > 0 And SSTab.Tab = 1) Then
-        rtbError.Height = listHeight
-    End If
-    
-    listHeight = SSTab.Height - rtbWarn.Top - 600
-    If (listHeight > 0 And SSTab.Tab = 2) Then
-        rtbWarn.Height = listHeight
-    End If
-   
-    listHeight = rtbLog.Top + rtbLog.Height + 100
-    If (SSTab.Tab = 0) Then
-        cmdClearLog.Top = listHeight
-        cmdClearLog.Left = rtbLog.Left + rtbLog.Width - cmdClearLog.Width
-    End If
-    
-    listHeight = rtbError.Top + rtbError.Height + 100
-    If (SSTab.Tab = 1) Then
-        cmdClearErr.Top = listHeight
-        cmdClearErr.Left = rtbError.Left + rtbError.Width - cmdClearErr.Width
-    End If
-    
-    listHeight = rtbWarn.Top + rtbWarn.Height + 100
-    If (SSTab.Tab = 2) Then
-        cmdClearWarn.Top = listHeight
-        cmdClearWarn.Left = rtbWarn.Left + rtbWarn.Width - cmdClearWarn.Width
-    End If
-End Sub
-
-Private Sub frmTargets_Resize()
-    lstTargets.Width = frmTargets.Width - lstTargets.Left * 2
-    Dim listHeight As Long
-    listHeight = frmTargets.Height - lstTargets.Top - 700
-    If (listHeight > 0) Then
-        lstTargets.Height = listHeight
-    End If
-    
-    listHeight = frmTargets.Height - 600
-    cmdClear.Top = listHeight
-    cmdHide.Top = listHeight
-    cmdRecompile.Top = listHeight
-    cmdHide.Left = lstTargets.Left + lstTargets.Width - cmdHide.Width
-
-   
-End Sub
-
-Private Sub Form_Resize()
-    ctlSplitterEx1.Width = Me.Width - 120
-    ctlSplitterEx1.Height = Me.Height - 410
-End Sub
-
 
 
 Private Sub mnu_log_Click()
@@ -896,19 +848,19 @@ End Sub
 
 
 Private Sub mnu_about_Click()
-    Dim result As String
-    result = "Flex Compiler SHell Server. Version " & App.Major & "." & App.Minor & "." & App.Revision & vbCrLf & vbCrLf
+    Dim Result As String
+    Result = "Flex Compiler SHell Server. Version " & App.Major & "." & App.Minor & "." & App.Revision & vbCrLf & vbCrLf
     If (Server.State = sckListening) Then
-        result = result + "Server is listening on port " & Server.LocalPort & vbCrLf & vbCrLf
+        Result = Result + "Server is listening on port " & Server.LocalPort & vbCrLf & vbCrLf
     Else
-        result = result + "Warning: Server socket state " & Server.State & vbCrLf & vbCrLf
+        Result = Result + "Warning: Server socket state " & Server.State & vbCrLf & vbCrLf
     End If
     
-    result = result + "Is client connected: " & (Service.State = sckConnected) & vbCrLf & vbCrLf
+    Result = Result + "Is client connected: " & (Service.State = sckConnected) & vbCrLf & vbCrLf
 
-    result = result + "Is fcsh running: " & (fcsh.isRunning)
+    Result = Result + "Is fcsh running: " & (fcsh.isRunning)
     
-    MsgBox result, vbOKOnly, "About"
+    MsgBox Result, vbOKOnly, "About"
 End Sub
 
 Private Sub mnu_exit_Click()
@@ -938,6 +890,116 @@ Private Sub sendCommand(data As String, target As String)
     dataObject.command = data
     dataObject.serialize byteArray
     sendByteArray byteArray
+End Sub
+
+
+
+'--------------------------
+'Force resize on tab select
+'--------------------------
+Private Sub SSTab_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+    frmFcsh_Resize
+End Sub
+
+
+
+'------------------
+'Top section resize
+'------------------
+Private Sub frmFcsh_Resize()
+    Dim listHeight As Long
+    
+    listHeight = frmFcsh.Width - SSTab.Left * 2
+    If (listHeight > 0) Then
+        SSTab.Width = listHeight
+    End If
+    listHeight = frmFcsh.Height - SSTab.Top - 150
+    If (listHeight > 0) Then
+        SSTab.Height = listHeight
+    End If
+    
+    
+    listHeight = SSTab.Width
+    
+    If (SSTab.Tab = 0) Then
+        rtbLog.Width = listHeight - rtbLog.Left * 2
+    End If
+    
+    If (SSTab.Tab = 1) Then
+        rtbError.Width = listHeight - rtbError.Left * 2
+    End If
+    
+    If (SSTab.Tab = 2) Then
+        rtbWarn.Width = listHeight - rtbWarn.Left * 2
+    End If
+    
+    listHeight = SSTab.Height - rtbLog.Top - 600
+    
+    If (listHeight > 0 And SSTab.Tab = 0) Then
+        rtbLog.Height = listHeight
+    End If
+    
+    listHeight = SSTab.Height - rtbError.Top - 600
+    If (listHeight > 0 And SSTab.Tab = 1) Then
+        rtbError.Height = listHeight
+    End If
+    
+    listHeight = SSTab.Height - rtbWarn.Top - 600
+    If (listHeight > 0 And SSTab.Tab = 2) Then
+        rtbWarn.Height = listHeight
+    End If
+   
+    listHeight = rtbLog.Top + rtbLog.Height + 100
+    If (SSTab.Tab = 0) Then
+        cmdClearLog.Top = listHeight
+        cmdClearLog.Left = rtbLog.Left + rtbLog.Width - cmdClearLog.Width
+    End If
+    
+    listHeight = rtbError.Top + rtbError.Height + 100
+    If (SSTab.Tab = 1) Then
+        cmdClearErr.Top = listHeight
+        cmdClearErr.Left = rtbError.Left + rtbError.Width - cmdClearErr.Width
+    End If
+    
+    listHeight = rtbWarn.Top + rtbWarn.Height + 100
+    If (SSTab.Tab = 2) Then
+        cmdClearWarn.Top = listHeight
+        cmdClearWarn.Left = rtbWarn.Left + rtbWarn.Width - cmdClearWarn.Width
+    End If
+End Sub
+
+
+
+'---------------------
+'Resize bottom section
+'---------------------
+Private Sub frmTargets_Resize()
+    lstTargets.Width = frmTargets.Width - lstTargets.Left * 2
+    
+    Dim listHeight As Long
+    
+    listHeight = frmTargets.Height - lstTargets.Top - 700
+    
+    If (listHeight > 0) Then
+        lstTargets.Height = listHeight
+    End If
+    
+    listHeight = frmTargets.Height - 600
+    cmdClear.Top = listHeight
+    cmdHide.Top = listHeight
+    cmdRecompile.Top = listHeight
+    
+    cmdHide.Left = lstTargets.Left + lstTargets.Width - cmdHide.Width
+End Sub
+
+
+
+'-----------
+'Form resize
+'-----------
+Private Sub Form_Resize()
+    ctlSplitterEx1.Width = Me.Width - 120
+    ctlSplitterEx1.Height = Me.Height - 410
 End Sub
 
 
