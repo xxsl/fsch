@@ -20,19 +20,41 @@ Attribute VB_Exposed = False
 Option Explicit
 
 Private isInitialized As Boolean
+
+'------
+'Logger
+'------
 Private log As clsLog
+
+'----------------------------------------
+'fcsh targets map (targetID, commandline)
+'----------------------------------------
 Public targets As New Dictionary
+
+'----------------------------
+'Flex Compiler SHell starting
+'----------------------------
 Public isStarting As Boolean
+
+'---------------------
+'Last executed command
+'---------------------
 Private commandLine As String
+
+'-----------
+'Preferences
+'-----------
 Private prefs As clsPreferences
 
+'-------------
+'Wrapper state
+'-------------
 Public isRunning As Boolean
-
-Private output As String
 
 Private isExec_prop As Boolean
 
-'***************************************************************************************
+'-------------
+'EVENTS
 'fcsh.exe stop
 Public Event onStop(message As DataVO)
 'fcsh.exe launch
@@ -41,28 +63,42 @@ Public Event onStart(message As DataVO)
 Public Event onComplete(data As DataVO)
 'error event
 Public Event onError(message As ErrorVO)
-
+'complex event to disable/enable controls
 Public Event CommandsEnabled(enable As Boolean)
-'***************************************************************************************
+'-------------
 
-'console stdOut capture
+'-------------
+'Wrapper class
+'-------------
 Dim WithEvents fcsh As RedirectLib.Application
 Attribute fcsh.VB_VarHelpID = -1
 
-'parsing
+'-----------------------------
+'Wrapper console output parser
+'-----------------------------
 Dim WithEvents parser As clsController
 Attribute parser.VB_VarHelpID = -1
 
 
+'-------------------------
+'Setup wrapper, log, prefs
+'-------------------------
 Public Sub initialize(ByRef appLog As clsLog, ByRef preferences As clsPreferences)
     If (Not isInitialized) Then
+        'console output parser
         Set parser = New clsController
         parser.initialize appLog
+        
+        'wrapper
         Set fcsh = New RedirectLib.Application
+        
+        'logger
         Set log = appLog
 
+        'preferences
         Set prefs = preferences
         
+        'wrapper options
         fcsh.BufferSize = prefs.consoleBuffer
         fcsh.Wait = prefs.consoleWait
         fcsh.Name = prefs.cmd
@@ -76,6 +112,9 @@ Public Sub initialize(ByRef appLog As clsLog, ByRef preferences As clsPreference
 End Sub
 
 
+'---------------------------
+'Launch Flex Compiler SHell
+'---------------------------
 Public Sub Start()
     If (Not isRunning) Then
         Select Case fcsh.Start
@@ -96,6 +135,9 @@ Public Sub Start()
 End Sub
 
 
+'------------------------
+'Stop Flex Compiler SHell
+'------------------------
 Public Sub Quit()
     If (isRunning) Then
         fcsh.Stop
@@ -103,11 +145,17 @@ Public Sub Quit()
 End Sub
 
 
+'-------------------------------------
+'Wrapper process exited (assume error)
+'-------------------------------------
 Private Sub fcsh_ProcessEnded()
+    'log error and console dump
     log.xError "[FCSH] Flex Compiler SHell failed to start. Check your server.ini"
     log.xError "[FCSH] Output dump:"
     log.output parser.output, "[DUMP]"
     log.xError "[FCSH] Dump end"
+    
+    'show error tooltip
     DisplayBalloon "Flex Compiler SHell", "Failed to start. Check your server.ini", NIIF_ERROR
     
     MainForm.FillTargetsBox
@@ -118,6 +166,8 @@ Private Sub fcsh_ProcessEnded()
     
     isExec = False
     isRunning = False
+    
+    'send onStop event
     Dim message As New DataVO
     message.target = FCSH_STOPPED
     message.data = "empty"
@@ -125,17 +175,24 @@ Private Sub fcsh_ProcessEnded()
 End Sub
 
 
+
+'---------------
+'Execute command
+'---------------
 Public Sub exec(command As String)
     If (isRunning) Then
         If (Not isExec) Then
             isExec = True
             commandLine = command
             log.xDebug "fcsh execute: " + command
+            
             If (targets.Exists(commandLine)) Then
+                'recompile
                 log.xInfo "[FCSH] Recompile target: " + command
                 log.xFcsh "(fcsh) compile " & targets.Item(command) & vbCrLf
                 fcsh.Write ToOEM("compile " & targets.Item(command)) + vbCrLf
             Else
+                'compile as new
                 log.xInfo "[FCSH] Compile target: " + command
                 log.xFcsh "(fcsh) " + command + vbCrLf
                 fcsh.Write ToOEM(command) + vbCrLf
@@ -149,6 +206,9 @@ Public Sub exec(command As String)
 End Sub
 
 
+'------------------------------
+'Clears targets from fcsh cache
+'------------------------------
 Public Sub clear(command As String)
     If (isRunning) Then
         If (Not isExec) Then
@@ -159,6 +219,9 @@ Public Sub clear(command As String)
 End Sub
 
 
+'-------------------------
+'On wrapper console output
+'-------------------------
 Private Sub fcsh_DataReceived(ByVal sData As String)
     If (isExec) Then
         parser.addStdout (sData)
@@ -166,26 +229,20 @@ Private Sub fcsh_DataReceived(ByVal sData As String)
 End Sub
 
 
-Private Sub RaiseError(id As FCSHErrors, description As String)
-    Dim message As New ErrorVO
-    message.description = description
-    message.id = id
-    RaiseEvent onError(message)
-End Sub
-
-
-Private Sub Class_Terminate()
-    Quit
-End Sub
-
+'----------------------------------
+'On build completed, process result
+'----------------------------------
 Private Sub parser_Result(id As Build, assigned As Long)
     log.xDebug "parser_Result id=" & id & ", assigned=" & assigned
     
     Dim data As New DataVO
     data.data = parser.output
     isExec = False
+    
+    'clear output buffer
     parser.reset
     
+    'detect Flex Compiler SHell startup
     If (isStarting) Then
        isStarting = False
        If (id = BUILD_SUCCESSFULL) Then
@@ -201,6 +258,8 @@ Private Sub parser_Result(id As Build, assigned As Long)
     End If
     
     Dim isAssigned As Boolean
+    
+    'detect new target
     If (assigned > 0 And Not targets.Exists(commandLine)) Then
         targets.Add commandLine, assigned
         isAssigned = True
@@ -209,34 +268,40 @@ Private Sub parser_Result(id As Build, assigned As Long)
     
 
     Select Case id
-    Case Build.BUILD_SUCCESSFULL:
-         data.target = FCSH_BUILD_SUCCESSFULL
-         If (isAssigned) Then
-            DisplayBalloon "Build", "Build successfull. Assigned target id " & assigned & ".", NIIF_INFO
-         Else
-            DisplayBalloon "Build", "Build successfull. Id is " & targets.Item(commandLine), NIIF_INFO
-         End If
-    Case Build.BUILD_WARNING:
-         data.target = FCSH_BUILD_WARNING
-         If (isAssigned) Then
-            Dim msg As String
-            msg = "Build successfull, but there were warnings." + vbCrLf + "Assigned target id " & assigned & "."
-            DisplayBalloon "Build", msg, NIIF_WARNING
-         Else
-            DisplayBalloon "Build", "Build successfull, but there were warnings. Id is " & targets.Item(commandLine), NIIF_WARNING
-         End If
-    Case Build.BUILD_ERROR:
-         data.target = FCSH_BUILD_ERROR
-         If (targets.Exists(commandLine)) Then
-            DisplayBalloon "Build", "Build failed. Id is " & targets.Item(commandLine), NIIF_ERROR
-         Else
-            DisplayBalloon "Build", "Build failed", NIIF_ERROR
-         End If
+        Case Build.BUILD_SUCCESSFULL:
+             data.target = FCSH_BUILD_SUCCESSFULL
+             If (isAssigned) Then
+                DisplayBalloon "Build", "Build successfull. Assigned target id " & assigned & ".", NIIF_INFO
+             Else
+                DisplayBalloon "Build", "Build successfull. Id is " & targets.Item(commandLine), NIIF_INFO
+             End If
+        Case Build.BUILD_WARNING:
+             data.target = FCSH_BUILD_WARNING
+             If (isAssigned) Then
+                Dim msg As String
+                msg = "Build successfull, but there were warnings." + vbCrLf + "Assigned target id " & assigned & "."
+                DisplayBalloon "Build", msg, NIIF_WARNING
+             Else
+                DisplayBalloon "Build", "Build successfull, but there were warnings. Id is " & targets.Item(commandLine), NIIF_WARNING
+             End If
+        Case Build.BUILD_ERROR:
+             data.target = FCSH_BUILD_ERROR
+             If (targets.Exists(commandLine)) Then
+                DisplayBalloon "Build", "Build failed. Id is " & targets.Item(commandLine), NIIF_ERROR
+             Else
+                DisplayBalloon "Build", "Build failed", NIIF_ERROR
+             End If
     End Select
     
+    'dispatch build completed event
     RaiseEvent onComplete(data)
 End Sub
 
+
+
+'----------------------------------------------
+'Compiler state (Busy/true, Idle/false)
+'----------------------------------------------
 Public Property Get isExec() As Boolean
     isExec = isExec_prop
 End Property
@@ -245,3 +310,22 @@ Public Property Let isExec(ByVal vNewValue As Boolean)
     isExec_prop = vNewValue
     RaiseEvent CommandsEnabled((Not isExec_prop) And isRunning)
 End Property
+
+
+'--------------------------------
+'Kill wrapper process onTerminate
+'--------------------------------
+Private Sub Class_Terminate()
+    Quit
+End Sub
+
+
+'----------
+'Send error
+'----------
+Private Sub RaiseError(id As FCSHErrors, description As String)
+    Dim message As New ErrorVO
+    message.description = description
+    message.id = id
+    RaiseEvent onError(message)
+End Sub

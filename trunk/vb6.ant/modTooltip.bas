@@ -1,5 +1,16 @@
 Attribute VB_Name = "modTooltip"
+'***********************************************************************************
+'* nimrod97@gmail.com                                                              *
+'* Project homepage http://code.google.com/p/fsch/                                 *
+'* Adobe Flex Compiler Shell wrapper                                               *
+'* 2008                                                                            *
+'***********************************************************************************
+
+Option Explicit
+
+
 Private Declare Function CreateWindowEx Lib "user32" Alias "CreateWindowExA" (ByVal dwExStyle As Long, ByVal lpClassName As String, ByVal lpWindowName As String, ByVal dwStyle As Long, ByVal X As Long, ByVal Y As Long, ByVal nWidth As Long, ByVal nHeight As Long, ByVal hWndParent As Long, ByVal hMenu As Long, ByVal hInstance As Long, lpParam As Any) As Long
+
 Private Declare Function SetWindowPos Lib "user32" (ByVal HWND As Long, ByVal hWndInsertAfter As Long, ByVal X As Long, ByVal Y As Long, ByVal cX As Long, ByVal cY As Long, ByVal wFlags As Long) As Long
 
 Private Declare Function SendMessage Lib "user32" Alias "SendMessageA" (ByVal HWND As Long, ByVal wMsg As Long, ByVal wParam As Long, lParam As Any) As Long
@@ -121,8 +132,15 @@ Private Const TTS_NOPREFIX = &H2
 Private Const TOOLTIPS_CLASS = "tooltips_class"
 Private Const TOOLTIPS_CLASSA = "tooltips_class32"
 
+'------------------------
+'Tooltip window reference
+'------------------------
 Dim hwndTT As Long
 
+
+'----------------------
+'Destroy tooltip window
+'----------------------
 Public Sub DestroyTooltip()
     If (hwndTT <> 0) Then
         DestroyWindow hwndTT
@@ -131,6 +149,9 @@ Public Sub DestroyTooltip()
 End Sub
 
 
+'------------
+'Show tooltip
+'------------
 Public Sub DisplayTooltip(ControlHandle As Long, TooltipText As String, ApphInstance As Long)
     DestroyTooltip
     Dim ti As TOOLINFO

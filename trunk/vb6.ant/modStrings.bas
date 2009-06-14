@@ -1,5 +1,13 @@
 Attribute VB_Name = "modString"
-      Option Explicit
+'***********************************************************************************
+'* nimrod97@gmail.com                                                              *
+'* Project homepage http://code.google.com/p/fsch/                                 *
+'* Adobe Flex Compiler Shell wrapper                                               *
+'* 2008                                                                            *
+'***********************************************************************************
+
+Option Explicit
+      
       Public Enum KnownCodePage
           CP_UNKNOWN = -1
           CP_ACP = 0
@@ -137,8 +145,10 @@ Attribute VB_Name = "modString"
       
       Public Declare Function OemToChar Lib "user32" Alias "OemToCharA" (ByVal lpszSrc As String, ByVal lpszDst As String) As Long
       
-      
-      Public Function ANSItoUTF16(ByRef Text() As Byte, Optional ByVal cPage As KnownCodePage = CP_UNKNOWN, _
+'------------------------------------
+'ANSI to UTF16 converter, used in amf
+'------------------------------------
+Public Function ANSItoUTF16(ByRef Text() As Byte, Optional ByVal cPage As KnownCodePage = CP_UNKNOWN, _
                                   Optional lFlags As Long) As Byte()
           Static tmpArr() As Byte, textStr As String
           Dim tmpLen As Long, textLen As Long, A As Long
@@ -168,11 +178,12 @@ Attribute VB_Name = "modString"
           End If
           ' return the result
           ANSItoUTF16 = tmpArr
-      End Function
+End Function
       
-      
-      Public Function UTF16toANSI(ByRef Text() As Byte, Optional ByVal cPage As KnownCodePage = CP_UNKNOWN, _
-                                  Optional lFlags As Long) As Byte()
+'------------------------------------
+'UTF16 to ANSI converter, used in amf
+'-----------------------------------
+Public Function UTF16toANSI(ByRef Text() As Byte, Optional ByVal cPage As KnownCodePage = CP_UNKNOWN, Optional lFlags As Long) As Byte()
           Static tmpArr() As Byte
           Dim tmpLen As Long, textLen As Long, A As Long
           If (Not Text) = True Then Exit Function
@@ -200,9 +211,11 @@ Attribute VB_Name = "modString"
           End If
           ' return the result
           UTF16toANSI = tmpArr
-      End Function
+End Function
 
-
+'-----------------------------------------
+'OEM to ANSI converter, for console output
+'-----------------------------------------
 Public Function OemToCharS(sOutput As String)
    Dim outputstr As String
    outputstr = Space$(Len(sOutput))
@@ -210,6 +223,10 @@ Public Function OemToCharS(sOutput As String)
    OemToCharS = outputstr
 End Function
 
+
+'-------------------------------------------
+'ANSI to OEM converter, for console commands
+'-------------------------------------------
 Public Function ToOEM(sourcestring As String)
     Dim deststring As String  ' получаемая строка
     Dim code As Long
