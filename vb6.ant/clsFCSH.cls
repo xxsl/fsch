@@ -150,15 +150,15 @@ End Sub
 '-------------------------------------
 Private Sub fcsh_ProcessEnded()
     'log error and console dump
-    log.xError "[FCSH] Flex Compiler SHell failed to start. Check your server.ini"
-    log.xError "[FCSH] Output dump:"
+    log.xError "[FCSH] Flex Compiler SHell failed. Check logs/ini."
+    log.xError "Output dump:"
     log.output parser.output, "[DUMP]"
-    log.xError "[FCSH] Dump end"
+    log.xError "Dump end"
     
     'show error tooltip
     DisplayBalloon "Flex Compiler SHell", "Failed to start. Check your server.ini", NIIF_ERROR
     
-    MainForm.FillTargetsBox
+    mainform.FillTargetsBox
     
     targets.RemoveAll
     
@@ -263,7 +263,7 @@ Private Sub parser_Result(id As Build, assigned As Long)
     If (assigned > 0 And Not targets.Exists(commandLine)) Then
         targets.Add commandLine, assigned
         isAssigned = True
-        MainForm.FillTargetsBox
+        mainform.FillTargetsBox
     End If
     
 
