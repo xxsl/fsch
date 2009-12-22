@@ -1,6 +1,8 @@
-Main = 66, 0, 874, 511, , 22, 29, 830, 453, C
-CInterface = 220, 290, 962, 915, 
+MainForm = 66, 0, 874, 511, C, 22, 29, 830, 453, C
+CInterface = 220, 290, 962, 915, C
 CInterfaces = 0, 0, 742, 625, C
 CIpHelper = 149, 379, 935, 913, C
 modManifest = 132, 174, 874, 799, C
-CTray = 150, 150, 1534, 553, Z
+CTray = 150, 150, 1534, 553, C
+modMain = 50, 50, 756, 477, C
+modUtil = 75, 75, 781, 502, C

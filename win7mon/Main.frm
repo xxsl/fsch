@@ -1,6 +1,6 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
-Begin VB.Form Main 
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
+Begin VB.Form MainForm 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Monitor"
    ClientHeight    =   5625
@@ -479,7 +479,7 @@ Begin VB.Form Main
       EndProperty
    End
 End
-Attribute VB_Name = "Main"
+Attribute VB_Name = "MainForm"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
@@ -535,7 +535,7 @@ Private Sub Form_Load()
     BytesReceived = objInterface.OctetsReceived
     BytesSent = objInterface.OctetsSent
 
-    m_tray.Add Me.hwnd, ImageList1.ListImages(4).Picture, "Bytes received: " & Trim$(Format$(BytesReceived, "###,###,###,###")) & vbCrLf & "Bytes sent: " & Trim$(Format$(BytesSent, "###,###,###,###")) & vbNullChar, MouseMove
+    m_tray.Add Me.HWND, ImageList1.ListImages(4).Picture, "Bytes received: " & Trim$(Format$(BytesReceived, "###,###,###,###")) & vbCrLf & "Bytes sent: " & Trim$(Format$(BytesSent, "###,###,###,###")) & vbNullChar, MouseMove
     m_tray.DisplayBalloon App.EXEName, App.EXEName + " started!", NIIF_INFO
     
 
@@ -543,6 +543,7 @@ Private Sub Form_Load()
     tmrGraph.Enabled = True
     Timer1.Enabled = True
     
+    Me.Show
 End Sub
 
 Private Sub PlotChart()
