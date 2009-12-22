@@ -2,14 +2,15 @@ Attribute VB_Name = "modManifest"
 Option Explicit
 
 Public Function CreateManifest() As Boolean
-
     Dim f   As TextStream
-
     Dim fso As New FileSystemObject
+    Dim ApplicationPath As String
 
-    If fso.FileExists(App.Path & App.EXEName & ".exe" & ".manifest") = False Then
-        fso.CreateTextFile App.Path & App.EXEName & ".exe" & ".manifest", False
-        Set f = fso.OpenTextFile(App.Path & App.EXEName & ".exe" & ".manifest", ForAppending, TristateFalse)
+    ApplicationPath = GetPath & ".exe.manifest"
+    
+    If fso.FileExists(ApplicationPath) = False Then
+        fso.CreateTextFile ApplicationPath, False
+        Set f = fso.OpenTextFile(ApplicationPath, ForAppending, TristateFalse)
         f.Write LoadResString("101")
         f.Close
 
@@ -24,4 +25,6 @@ Public Function CreateManifest() As Boolean
     End If
 
 End Function
+
+
 

@@ -1,0 +1,8 @@
+[History]
+1=#P0#=mb	#P1#=DisplayBalloon	#P2#=win7mon/CTray/DisplayBalloon	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20091223013235	#P7#=0	#P8#=9	.
+2=#P0#=mb	#P1#=Form_Load	#P2#=win7mon/MainForm/Form_Load	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20091223013013	#P7#=-2147483640	#P8#=28	.
+3=#P0#=mb	#P1#=InitCommonControlsVB	#P2#=win7mon/modMain/InitCommonControlsVB	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20091223012115	#P7#=0	#P8#=7	.
+4=#P0#=mb	#P1#=Main	#P2#=win7mon/modMain/Main	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20091223012404	#P7#=0	#P8#=0	.
+5=#P0#=mb	#P1#=GetPath	#P2#=win7mon/modUtil/GetPath	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20091223012050	#P7#=0	#P8#=-5	.
+6=#P0#=mb	#P1#=getPath	#P2#=win7mon/modManifest/getPath	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20091223010100	#P7#=0	#P8#=0	.
+7=#P0#=mb	#P1#=CreateManifest	#P2#=win7mon/modManifest/CreateManifest	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20091223012859	#P7#=0	#P8#=6	.
