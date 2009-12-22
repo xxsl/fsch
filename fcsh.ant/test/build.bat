@@ -1,1 +1,0 @@
-ant -lib fcsh.jar
