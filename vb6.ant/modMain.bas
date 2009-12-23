@@ -14,13 +14,13 @@ Public Declare Function PathFileExists Lib "shlwapi" Alias "PathFileExistsA" (By
 
 Public Declare Function PathIsDirectory Lib "shlwapi" Alias "PathIsDirectoryA" (ByVal pszPath As String) As Long
 
-Public Declare Function SetWindowPos Lib "user32" (ByVal HWND As Long, ByVal hWndInsertAfter As Long, ByVal X As Long, ByVal Y As Long, ByVal cX As Long, ByVal cY As Long, ByVal wFlags As Long) As Long
+Public Declare Function SetWindowPos Lib "user32" (ByVal hwnd As Long, ByVal hWndInsertAfter As Long, ByVal x As Long, ByVal y As Long, ByVal cX As Long, ByVal cY As Long, ByVal wFlags As Long) As Long
 
 Public Declare Function InitCommonControlsEx Lib "comctl32.dll" (iccex As tagInitCommonControlsEx) As Boolean
 
 Public Declare Function GetShortPathName Lib "kernel32" Alias "GetShortPathNameA" (ByVal lpszLongPath As String, ByVal lpszShortPath As String, ByVal cchBuffer As Long) As Long
 
-Public Declare Function SendMessage Lib "user32" Alias "SendMessageA" (ByVal HWND As Long, ByVal wMsg As Long, ByVal wParam As Long, lParam As Any) As Long
+Public Declare Function SendMessage Lib "user32" Alias "SendMessageA" (ByVal hwnd As Long, ByVal wMsg As Long, ByVal wParam As Long, lParam As Any) As Long
 
 '----------------
 'window constants
@@ -41,6 +41,10 @@ Private Type tagInitCommonControlsEx
    lngICC As Long
 End Type
 
+'------------------------
+'reference to System Tray
+'------------------------
+Public AppTray As frmSysTray
 
 '--------------------
 'Try use WinXP styles
@@ -62,9 +66,13 @@ End Function
 'Application entry point
 '-----------------------
 Public Sub Main()
-    InitCommonControlsVB
+    If (Not InitCommonControlsVB) Then
+        Dim log As New clsLog
+        log.xError "Critical error: " + Err.description & ":" & Err.Number
+    End If
+    
     If (Not App.PrevInstance) Then
-        Load MainForm
+        Load mainform
     Else
         MsgBox "FCSHServer is already running!", vbCritical, "FCSHServer"
     End If
@@ -75,14 +83,14 @@ End Sub
 'Set window Always On Top
 '------------------------
 Public Sub SetAlwaysOnTopMode(hWndOrForm As Variant, Optional ByVal OnTop As Boolean = True)
-    Dim HWND As Long
+    Dim hwnd As Long
     ' get the hWnd of the form to be move on top
     If VarType(hWndOrForm) = vbLong Then
-        HWND = hWndOrForm
+        hwnd = hWndOrForm
     Else
-        HWND = hWndOrForm.HWND
+        hwnd = hWndOrForm.hwnd
     End If
-    SetWindowPos HWND, IIf(OnTop, HWND_TOPMOST, HWND_NOTOPMOST), 0, 0, 0, 0, SWP_NOMOVE Or SWP_NOSIZE Or SWP_SHOWWINDOW
+    SetWindowPos hwnd, IIf(OnTop, HWND_TOPMOST, HWND_NOTOPMOST), 0, 0, 0, 0, SWP_NOMOVE Or SWP_NOSIZE Or SWP_SHOWWINDOW
 End Sub
 
 

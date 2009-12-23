@@ -126,7 +126,7 @@ Public Sub xFcshErr(msg As String)
     errWindow.Text = errWindow.Text + msg + vbCrLf
     errWindow.SelStart = Len(errWindow.Text) - Len(msg)
     errWindow.SelLength = Len(msg)
-    errWindow.SelColor = RGB(150, 0, 0)
+    'errWindow.SelColor = RGB(150, 0, 0)
     
     xError msg
 End Sub
@@ -139,7 +139,7 @@ Public Sub xFcshWarn(msg As String)
     warnWindow.Text = warnWindow.Text + msg + vbCrLf
     warnWindow.SelStart = Len(warnWindow.Text) - Len(msg)
     warnWindow.SelLength = Len(msg)
-    warnWindow.SelColor = RGB(223, 112, 0)
+    'warnWindow.SelColor = RGB(223, 112, 0)
     
     xWarning msg
 End Sub

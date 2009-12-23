@@ -27,21 +27,29 @@ Private prefs As New ARINIManager
 Private log As clsLog
 Private initialized As Boolean
 
-
 '------------------------------------------------
 'Check server.ini file exists, setup ARINIManager
 '------------------------------------------------
 Public Sub initialize(appLog As clsLog)
+    On Error GoTo prefs_error
     If (Not initialized) Then
         Set log = appLog
         Dim path As String
         path = App.path + "\" + "server.ini"
         prefs.INIFile = path
         initialized = True
-
+    
         If (Not FileExists(path)) Then
-           MsgBox "Preferences file is not found: " + path, vbCritical
+            MsgBox "Preferences file is not found: " + path, vbCritical
         End If
+    End If
+    Exit Sub
+prefs_error:
+    If Err.Number <> 0 Then
+        Err.Raise _
+        Number:=3, _
+        description:="Preference system error: " + Err.description & ":" & Err.Number, _
+        Source:="clsPreferences.initialize"
     End If
 End Sub
 
@@ -101,7 +109,7 @@ End Property
 'Command line for fcsh execution
 '-------------------------------
 Public Property Get cmd() As String
-    Dim Result As String
+    Dim result As String
     
     If (Len(java) > 0) And (FileExists(java)) Then
         log.xInfo "Using Java Virtual Machine: " + java
@@ -109,16 +117,16 @@ Public Property Get cmd() As String
         Dim JavaBinPath As String
         JavaBinPath = fso.BuildPath(java, "bin")
         
-        Result = "cmd.exe /C cd /D " + JavaBinPath + " && java.exe "
+        result = "cmd.exe /C cd /D " + JavaBinPath + " && java.exe "
     Else
         log.xInfo "Using default Java Virtual Machine"
-        Result = "java.exe "
+        result = "java.exe "
     End If
     
-    Result = Result + vmoptions
-    Result = Result + " -Dapplication.home=" + GetShortName(sdk) + " -jar " + Chr(34) + fso.BuildPath(sdk, "lib") + "\fcsh.jar" + Chr(34)
-    log.xInfo "Command: " + Result
-    cmd = Result
+    result = result + vmoptions
+    result = result + " -Dapplication.home=" + GetShortName(sdk) + " -jar " + Chr(34) + fso.BuildPath(sdk, "lib") + "\fcsh.jar" + Chr(34)
+    log.xInfo "Command: " + result
+    cmd = result
 End Property
 
 Public Property Let cmd(ByVal vNewValue As String)
@@ -161,11 +169,11 @@ Public Property Get alwaysOnTop() As Boolean
 End Property
 
 Public Property Let alwaysOnTop(ByVal vNewValue As Boolean)
-    Dim Result As Long
+    Dim result As Long
     If (vNewValue) Then
-        Result = 1
+        result = 1
     End If
-    prefs.WriteValue Application, "AlwaysOnTop", Trim(str(Result))
+    prefs.WriteValue Application, "AlwaysOnTop", Trim(str(result))
 End Property
 
 

@@ -1,14 +1,15 @@
 VERSION 5.00
 Object = "{248DD890-BB45-11CF-9ABC-0080C7E7B78D}#1.0#0"; "MSWINSCK.OCX"
-Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "RICHTX32.OCX"
+Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "Richtx32.ocx"
 Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.OCX"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
 Begin VB.Form MainForm 
    BackColor       =   &H8000000C&
    Caption         =   "Flex Compiler SHell Server"
-   ClientHeight    =   7560
+   ClientHeight    =   7620
    ClientLeft      =   4290
    ClientTop       =   3675
-   ClientWidth     =   10260
+   ClientWidth     =   10215
    BeginProperty Font 
       Name            =   "MS Sans Serif"
       Size            =   9.75
@@ -20,27 +21,9 @@ Begin VB.Form MainForm
    EndProperty
    Icon            =   "Main.frx":0000
    LinkTopic       =   "Form1"
-   ScaleHeight     =   7560
-   ScaleWidth      =   10260
+   ScaleHeight     =   7620
+   ScaleWidth      =   10215
    StartUpPosition =   2  'CenterScreen
-   Begin VB.CommandButton fakeTray 
-      Caption         =   "fakeTray"
-      BeginProperty Font 
-         Name            =   "MS Sans Serif"
-         Size            =   8.25
-         Charset         =   204
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   615
-      Left            =   120
-      TabIndex        =   0
-      Top             =   8040
-      Visible         =   0   'False
-      Width           =   1695
-   End
    Begin MSWinsockLib.Winsock Service 
       Left            =   1920
       Top             =   8520
@@ -63,9 +46,35 @@ Begin VB.Form MainForm
       Left            =   120
       ScaleHeight     =   3615
       ScaleWidth      =   9975
-      TabIndex        =   3
+      TabIndex        =   2
       Top             =   3960
       Width           =   9975
+      Begin MSComctlLib.ImageList imlIcons 
+         Left            =   8160
+         Top             =   1560
+         _ExtentX        =   1005
+         _ExtentY        =   1005
+         BackColor       =   -2147483643
+         ImageWidth      =   16
+         ImageHeight     =   16
+         MaskColor       =   12632256
+         _Version        =   393216
+         BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
+            NumListImages   =   3
+            BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+               Picture         =   "Main.frx":058A
+               Key             =   "normal"
+            EndProperty
+            BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+               Picture         =   "Main.frx":0B24
+               Key             =   ""
+            EndProperty
+            BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+               Picture         =   "Main.frx":10BE
+               Key             =   ""
+            EndProperty
+         EndProperty
+      End
       Begin VB.CommandButton cmdHide 
          Cancel          =   -1  'True
          Caption         =   "Hide"
@@ -80,7 +89,7 @@ Begin VB.Form MainForm
          EndProperty
          Height          =   375
          Left            =   6360
-         TabIndex        =   7
+         TabIndex        =   6
          Top             =   3120
          Width           =   1215
       End
@@ -99,7 +108,7 @@ Begin VB.Form MainForm
          EndProperty
          Height          =   375
          Left            =   120
-         TabIndex        =   6
+         TabIndex        =   5
          Top             =   3120
          Width           =   1215
       End
@@ -117,18 +126,18 @@ Begin VB.Form MainForm
          EndProperty
          Height          =   375
          Left            =   1440
-         TabIndex        =   5
+         TabIndex        =   4
          Top             =   3120
          Width           =   1215
       End
       Begin VB.ListBox lstTargets 
          Height          =   2460
          IntegralHeight  =   0   'False
-         ItemData        =   "Main.frx":058A
+         ItemData        =   "Main.frx":1658
          Left            =   120
-         List            =   "Main.frx":058C
+         List            =   "Main.frx":165A
          Sorted          =   -1  'True
-         TabIndex        =   4
+         TabIndex        =   3
          Top             =   480
          Width           =   7455
       End
@@ -145,7 +154,7 @@ Begin VB.Form MainForm
          EndProperty
          Height          =   255
          Left            =   120
-         TabIndex        =   8
+         TabIndex        =   7
          Top             =   120
          Width           =   1575
       End
@@ -158,13 +167,13 @@ Begin VB.Form MainForm
       Left            =   120
       ScaleHeight     =   3615
       ScaleWidth      =   9975
-      TabIndex        =   2
+      TabIndex        =   1
       Top             =   120
       Width           =   9975
       Begin TabDlg.SSTab SSTab 
          Height          =   3375
          Left            =   120
-         TabIndex        =   9
+         TabIndex        =   8
          Top             =   120
          Width           =   9735
          _ExtentX        =   17171
@@ -187,7 +196,7 @@ Begin VB.Form MainForm
             Strikethrough   =   0   'False
          EndProperty
          TabCaption(0)   =   "FCSH Output"
-         TabPicture(0)   =   "Main.frx":058E
+         TabPicture(0)   =   "Main.frx":165C
          Tab(0).ControlEnabled=   -1  'True
          Tab(0).Control(0)=   "cmdClearLog"
          Tab(0).Control(0).Enabled=   0   'False
@@ -195,39 +204,38 @@ Begin VB.Form MainForm
          Tab(0).Control(1).Enabled=   0   'False
          Tab(0).ControlCount=   2
          TabCaption(1)   =   "Build Errors"
-         TabPicture(1)   =   "Main.frx":069F
+         TabPicture(1)   =   "Main.frx":176D
          Tab(1).ControlEnabled=   0   'False
          Tab(1).Control(0)=   "rtbError"
          Tab(1).Control(1)=   "cmdClearErr"
          Tab(1).ControlCount=   2
          TabCaption(2)   =   "Build Warnings"
-         TabPicture(2)   =   "Main.frx":07AF
+         TabPicture(2)   =   "Main.frx":187D
          Tab(2).ControlEnabled=   0   'False
          Tab(2).Control(0)=   "rtbWarn"
          Tab(2).Control(1)=   "cmdClearWarn"
          Tab(2).ControlCount=   2
          TabCaption(3)   =   "Preferences"
-         TabPicture(3)   =   "Main.frx":08BF
+         TabPicture(3)   =   "Main.frx":198D
          Tab(3).ControlEnabled=   0   'False
          Tab(3).Control(0)=   "chkOnTop"
          Tab(3).ControlCount=   1
          Begin RichTextLib.RichTextBox rtbWarn 
             Height          =   2295
             Left            =   -74880
-            TabIndex        =   16
+            TabIndex        =   15
             Top             =   480
             Width           =   9495
             _ExtentX        =   16748
             _ExtentY        =   4048
             _Version        =   393217
             BackColor       =   16777215
-            Enabled         =   -1  'True
             ReadOnly        =   -1  'True
             ScrollBars      =   3
             Appearance      =   0
             RightMargin     =   65000
             AutoVerbMenu    =   -1  'True
-            TextRTF         =   $"Main.frx":0A05
+            TextRTF         =   $"Main.frx":1AD3
             BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
                Name            =   "Courier"
                Size            =   9.75
@@ -241,20 +249,19 @@ Begin VB.Form MainForm
          Begin RichTextLib.RichTextBox rtbError 
             Height          =   2295
             Left            =   -74880
-            TabIndex        =   15
+            TabIndex        =   14
             Top             =   480
             Width           =   9495
             _ExtentX        =   16748
             _ExtentY        =   4048
             _Version        =   393217
             BackColor       =   16777215
-            Enabled         =   -1  'True
             ReadOnly        =   -1  'True
             ScrollBars      =   3
             Appearance      =   0
             RightMargin     =   65000
             AutoVerbMenu    =   -1  'True
-            TextRTF         =   $"Main.frx":0A83
+            TextRTF         =   $"Main.frx":1B51
             BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
                Name            =   "Courier"
                Size            =   9.75
@@ -268,20 +275,19 @@ Begin VB.Form MainForm
          Begin RichTextLib.RichTextBox rtbLog 
             Height          =   2295
             Left            =   120
-            TabIndex        =   14
+            TabIndex        =   13
             Top             =   480
             Width           =   9375
             _ExtentX        =   16536
             _ExtentY        =   4048
             _Version        =   393217
             BackColor       =   16777215
-            Enabled         =   -1  'True
             ReadOnly        =   -1  'True
             ScrollBars      =   3
             Appearance      =   0
             RightMargin     =   65000
             AutoVerbMenu    =   -1  'True
-            TextRTF         =   $"Main.frx":0B01
+            TextRTF         =   $"Main.frx":1BCF
             BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
                Name            =   "Courier"
                Size            =   9.75
@@ -305,7 +311,7 @@ Begin VB.Form MainForm
             EndProperty
             Height          =   375
             Left            =   -66600
-            TabIndex        =   13
+            TabIndex        =   12
             Top             =   2880
             Width           =   1215
          End
@@ -322,7 +328,7 @@ Begin VB.Form MainForm
             EndProperty
             Height          =   375
             Left            =   8400
-            TabIndex        =   12
+            TabIndex        =   11
             Top             =   2880
             Width           =   1215
          End
@@ -339,7 +345,7 @@ Begin VB.Form MainForm
             EndProperty
             Height          =   375
             Left            =   -66600
-            TabIndex        =   11
+            TabIndex        =   10
             Top             =   2880
             Width           =   1215
          End
@@ -356,7 +362,7 @@ Begin VB.Form MainForm
             EndProperty
             Height          =   240
             Left            =   -74880
-            TabIndex        =   10
+            TabIndex        =   9
             Top             =   480
             Width           =   1695
          End
@@ -365,7 +371,7 @@ Begin VB.Form MainForm
    Begin FCSHServer.ctlSplitterEx ctlSplitterEx1 
       Height          =   7575
       Left            =   0
-      TabIndex        =   1
+      TabIndex        =   0
       Top             =   0
       Width           =   10215
       _ExtentX        =   18018
@@ -438,6 +444,9 @@ Private log As New clsLog
 '--------------
 Private resizeHandle As New clsResizeHandle
 
+Private WithEvents m_AppTray As frmSysTray
+Attribute m_AppTray.VB_VarHelpID = -1
+
 
 '-------------------------------------
 'PREFERENCES TAB, set AlwaysOnTop mode
@@ -445,9 +454,9 @@ Private resizeHandle As New clsResizeHandle
 Private Sub chkOnTop_Click()
     prefs.alwaysOnTop = (chkOnTop.value = 1)
     If (chkOnTop.value = 1) Then
-        SetAlwaysOnTopMode Me.HWND, True
+        SetAlwaysOnTopMode Me.hwnd, True
     Else
-        SetAlwaysOnTopMode Me.HWND, False
+        SetAlwaysOnTopMode Me.hwnd, False
     End If
 End Sub
 
@@ -527,6 +536,7 @@ Private Sub cmdRecompile_Click()
     If (lstTargets.ListIndex <> -1) Then
         key = lstTargets.List(lstTargets.ListIndex)
         If (fcsh.isRunning And Not fcsh.isExec) Then
+            AppTray.IconHandle = imlIcons.ListImages(2).Picture.Handle
             fcsh.exec key
         Else
             log.xFcsh "[ERROR] Flex Compiler SHell is stopped or busy" & vbCrLf
@@ -545,6 +555,10 @@ End Sub
 
 
 Private Sub Form_Load()
+    Load frmSysTray
+    Set m_AppTray = New frmSysTray
+    Set AppTray = m_AppTray
+
     Me.ctlSplitterEx1.AttachObjects Me.frmFcsh, Me.frmTargets, False
     Me.ctlSplitterEx1.TileMode = TILE_HORIZONTALLY
     
@@ -560,8 +574,9 @@ Private Sub Form_Load()
     Server.Close
     Server.LocalPort = port
     
-   
-    TrayAdd fakeTray.HWND, Me.Icon, "Flex Compiler SHell Server", MouseMove
+  
+    m_AppTray.AddToTray imlIcons.ListImages(1).Picture.Handle
+    m_AppTray.ToolTip = "Flex Compiler SHell Server"
     
    
     Set fcsh = New clsFCSH
@@ -572,6 +587,7 @@ Private Sub Form_Load()
     SetHorizontalExtent
     
     resizeHandle.setup Me
+    
 End Sub
 
 Sub SetHorizontalExtent()
@@ -587,7 +603,7 @@ Sub SetHorizontalExtent()
     End If
 
     maxWidth = maxWidth / Screen.TwipsPerPixelX
-    SendMessage lstTargets.HWND, LB_SETHORIZONTALEXTENT, maxWidth, ByVal 0&
+    SendMessage lstTargets.hwnd, LB_SETHORIZONTALEXTENT, maxWidth, ByVal 0&
 End Sub
 
 
@@ -614,16 +630,40 @@ Private Sub lstTargets_Click()
         For i = 0 To UBound(lines) - 1
             Result = Result & lines(i) & vbCrLf
         Next i
-        DisplayTooltip lstTargets.HWND, Result, App.hInstance
+        DisplayTooltip lstTargets.hwnd, Result, App.hInstance
     End If
 End Sub
 
 
-Private Sub mnu_log_Click()
-    On Error Resume Next
-    log.xInfo prefs.logViewer + " " + Chr(34) + App.path + "\FCSHServer.log" + Chr(34)
+Private Sub m_AppTray_SysTrayMouseDown(ByVal eButton As MouseButtonConstants)
+    Select Case eButton
+        Case vbRightButton
+                           PopupMenu mnu_shell
     
-    Shell prefs.logViewer + " " + Chr(34) + App.path + "\FCSHServer.log" + Chr(34), vbNormalFocus
+    End Select
+End Sub
+
+Private Sub mnu_log_Click()
+    Const LOG_KEY As String = "${log}"
+    
+    Dim logCommand As String
+    Dim logPath As String
+    
+    logPath = Chr(34) + App.path + "\FCSHServer.log" + Chr(34)
+    
+   
+    If (InStr(1, LOG_KEY, prefs.logViewer) <> -1) Then
+        logCommand = Replace$(prefs.logViewer, LOG_KEY, logPath)
+    Else
+        logCommand = prefs.logViewer + " " + logPath
+    End If
+    
+    log.xInfo logCommand
+    
+    On Error Resume Next
+    Shell logCommand, vbNormalFocus
+    
+    
     If (Err.Number > 0) Then
         MsgBox Err.description, vbCritical, "Error"
         Err.clear
@@ -632,7 +672,7 @@ End Sub
 
 Private Sub mnu_show_window_Click()
     If (prefs.alwaysOnTop) Then
-        SetAlwaysOnTopMode Me.HWND, True
+        SetAlwaysOnTopMode Me.hwnd, True
         chkOnTop.value = vbChecked
     Else
         Me.Show
@@ -702,6 +742,7 @@ Private Sub deSerialize(ByRef byteArray() As Byte)
                             Dim command As New CommandVO
                             command.deSerialize byteArray, pos
                             log.xDebug command.toString
+                            AppTray.IconHandle = imlIcons.ListImages(2).Picture.Handle
                             executeCommand command
         Case AIR_ERRORVO:
                             Dim error As New ErrorVO
@@ -751,7 +792,7 @@ Private Sub executeCommand(command As CommandVO)
 End Sub
 
 Private Sub showBaloon(baloonVO As baloonVO)
-    DisplayBalloon baloonVO.title, baloonVO.message, baloonVO.baloon_type
+    AppTray.ShowBalloonTip baloonVO.message, baloonVO.title, baloonVO.baloon_type
 End Sub
 
 
@@ -765,7 +806,8 @@ Private Sub sendByteArray(ByRef byteArray() As Byte)
         Service.SendData byteArray
     Else
         log.xDebug "Network falure. There are no clients connected to the server"
-        'DisplayBalloon "Network falure", "There are no clients connected to the server", NIIF_ERROR
+        'AppTray.DisplayBalloon "Network falure", "There are no clients connected to the server", NIIF_ERROR
+         AppTray.IconHandle = imlIcons.ListImages(2).Picture.Handle
     End If
 End Sub
 
@@ -794,6 +836,7 @@ Private Sub fcsh_onStart(value As DataVO)
     If Err.Number <> 0 Then
         log.xError "Cant start server: " + Err.description
         Err.clear
+        MsgBox "Can not bind socket! Port: " & Server.LocalPort & "."
     End If
     sendDataVO value
 End Sub
@@ -804,6 +847,10 @@ Private Sub fcsh_onError(value As ErrorVO)
     ReDim byteArray(0)
     value.serialize byteArray
     sendByteArray byteArray
+    If (Not value.id = FCSHErrors.FCSH_ALREADY_STATRED) Then
+        AppTray.ShowBalloonTip value.description, "FCSH Error", NIIF_ERROR
+        AppTray.IconHandle = imlIcons.ListImages(3).Picture.Handle
+    End If
 End Sub
 
 Private Sub sendDataVO(data As DataVO)
@@ -812,6 +859,17 @@ Private Sub sendDataVO(data As DataVO)
     ReDim byteArray(0)
     data.serialize byteArray
     sendByteArray byteArray
+    Select Case data.target
+    
+        Case FCSH_BUILD_ERROR
+                     AppTray.IconHandle = imlIcons.ListImages(3).Picture.Handle
+        Case FCSH_BUILD_SUCCESSFULL
+                     AppTray.IconHandle = imlIcons.ListImages(1).Picture.Handle
+        Case FCSH_BUILD_WARNING
+                     AppTray.IconHandle = imlIcons.ListImages(1).Picture.Handle
+        Case FCSH_STARTED
+                     AppTray.IconHandle = imlIcons.ListImages(1).Picture.Handle
+    End Select
 End Sub
 
 
@@ -825,37 +883,6 @@ Private Sub fcsh_calllback(data As String, target As String)
     dataObject.serialize byteArray
     sendByteArray byteArray
 End Sub
-
-
-Private Sub fakeTray_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
-    Dim cEvent As Single
-    cEvent = X / Screen.TwipsPerPixelX
-    Select Case cEvent
-        Case MouseMove
-            'Debug.Print "MouseMove"
-        Case LeftUp
-            'Debug.Print "Left Up"
-            'showHide
-        Case LeftDown
-            'Debug.Print "Left Down"
-        Case LeftDbClick
-            'Debug.Print "LeftDbClick"
-        Case MiddleUp
-            'Debug.Print "MiddleUp"
-        Case MiddleDown
-            'Debug.Print "MiddleDown"
-        Case MiddleDbClick
-            'Debug.Print "MiddleDbClick"
-        Case RightUp
-            'Debug.Print "RightUp" ': PopupMenu mnuShell
-            PopupMenu mnu_shell
-        Case RightDown
-            'Debug.Print "RightDown"
-        Case RightDbClick
-            'Debug.Print "RightDbClick"
-    End Select
-End Sub
-
 
 
 Private Sub mnu_about_Click()
@@ -883,7 +910,7 @@ Private Sub Form_Unload(Cancel As Integer)
     log.xInfo "Application stopped"
     Server.Close
     Service.Close
-    TrayDelete
+    Unload AppTray
     fcsh.Quit
 End Sub
 

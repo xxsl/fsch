@@ -7,7 +7,7 @@
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{16B4B946-D6D2-4A3F-9F71-D85CFBEF6937}
 AppName=FCSHServer
-AppVerName=FCSHServer 1.0.76
+AppVerName=FCSHServer 1.0.132
 AppPublisher=nimrod97@gmail.com
 AppPublisherURL=http://code.google.com/p/fsch/
 AppSupportURL=http://code.google.com/p/fsch/
@@ -19,11 +19,11 @@ LicenseFile=license.txt
 InfoBeforeFile=
 InfoAfterFile=
 OutputDir=/setup
-OutputBaseFilename=fcsh-server-setup-1.0.76
+OutputBaseFilename=fcsh-server-setup-1.0.132
 SetupIconFile=all.ico
 Compression=lzma/ultra
 SolidCompression=yes
-VersionInfoVersion=1.0.76
+VersionInfoVersion=1.0.132
 VersionInfoCopyright=nimrod97@gmail.com
 ChangesEnvironment=yes
 
@@ -49,7 +49,7 @@ Source: "olepro32.dll"; DestDir: "{sys}"; Flags: sharedfile regserver  onlyifdoe
 Source: "asycfilt.dll"; DestDir: "{sys}"; Flags: sharedfile  onlyifdoesntexist
 Source: "scrrun.dll"; DestDir: "{sys}"; Flags: uninsneveruninstall onlyifdoesntexist
 Source: "RICHTX32.OCX"; DestDir: "{sys}"; Flags: sharedfile regserver  onlyifdoesntexist
-Source: "stdole2.tlb"; DestDir: "{sys}"; Flags: sharedfile regtypelib  onlyifdoesntexist
+Source: "stdole2.tlb"; DestDir: "{sys}";  Flags: sharedfile regtypelib  onlyifdoesntexist; MinVersion: 4.0,4.0; OnlyBelowVersion: 0,6.0
 Source: "COMCAT.DLL"; DestDir: "{sys}"; Flags: sharedfile regserver  onlyifdoesntexist
 Source: "ARINIMgr.dll"; DestDir: "{sys}"; Flags: sharedfile regserver  onlyifdoesntexist
 Source: "Redirect.dll"; DestDir: "{sys}"; Flags: sharedfile regserver  onlyifdoesntexist
