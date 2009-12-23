@@ -1,7 +1,12 @@
 #summary version history
 #labels Featured
 
-= Latest version is 1.0.76 =
+= Latest version is 1.0.132 =
+
+*1.0.132*
+* Added possibility to configure pattern for log viewer (e.g. *logViewer=notepad.exe ${log}*)
+* Fixed Windows7 compatibility problems
+* Added icons for build progress and build falure.
 
 *1.0.76*
  * Allow to specify Java Virtual Machine via server.ini (e.g. add the following line to the *FCSHServer* section *java=D:\Program Files\Java\jre1.5.0_08\*) 
