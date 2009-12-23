@@ -6,7 +6,7 @@
 *1.0.132*
  * Added possibility to configure pattern for log viewer (e.g. *logViewer=notepad.exe ${log}*)
  * Added possibilty to configure loglevels (e.g. *logLevels=info,warn,error*)
- * Fixed Windows7 compatibility problems
+ * Fixed *Windows7* compatibility problems
  * Added icons for build progress and build falure.
 
 *1.0.76*
