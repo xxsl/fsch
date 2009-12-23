@@ -80,10 +80,13 @@ Dim WithEvents parser As clsController
 Attribute parser.VB_VarHelpID = -1
 
 
+
 '-------------------------
 'Setup wrapper, log, prefs
 '-------------------------
 Public Sub initialize(ByRef appLog As clsLog, ByRef preferences As clsPreferences)
+    
+    On Error GoTo fcsh_error
     If (Not isInitialized) Then
         'console output parser
         Set parser = New clsController
@@ -108,6 +111,14 @@ Public Sub initialize(ByRef appLog As clsLog, ByRef preferences As clsPreference
         isStarting = False
         isInitialized = True
         parser.reset
+    End If
+    Exit Sub
+fcsh_error:
+    If Err.Number <> 0 Then
+        Err.Raise _
+        Number:=3, _
+        description:="FSCH system error: " + Err.description & ":" & Err.Number, _
+        Source:="clsFSCH.initialize"
     End If
 End Sub
 
@@ -156,7 +167,7 @@ Private Sub fcsh_ProcessEnded()
     log.xError "Dump end"
     
     'show error tooltip
-    DisplayBalloon "Flex Compiler SHell", "Failed to start. Check your server.ini", NIIF_ERROR
+    AppTray.ShowBalloonTip "Failed to start. Check your server.ini", "Flex Compiler SHell", NIIF_ERROR
     
     mainform.FillTargetsBox
     
@@ -247,7 +258,7 @@ Private Sub parser_Result(id As Build, assigned As Long)
        isStarting = False
        If (id = BUILD_SUCCESSFULL) Then
             log.xInfo "[FCSH] Flex Compiler SHell started successfully"
-            DisplayBalloon "Flex Compiler SHell", "Started successfully", NIIF_INFO
+            AppTray.ShowBalloonTip "Started successfully", "Flex Compiler SHell", NIIF_INFO
             
             Dim message As New DataVO
             message.target = FCSH_STARTED
@@ -271,25 +282,25 @@ Private Sub parser_Result(id As Build, assigned As Long)
         Case Build.BUILD_SUCCESSFULL:
              data.target = FCSH_BUILD_SUCCESSFULL
              If (isAssigned) Then
-                DisplayBalloon "Build", "Build successfull. Assigned target id " & assigned & ".", NIIF_INFO
+                AppTray.ShowBalloonTip "Build successfull. Assigned target id " & assigned & ".", "Build", NIIF_INFO
              Else
-                DisplayBalloon "Build", "Build successfull. Id is " & targets.Item(commandLine), NIIF_INFO
+                AppTray.ShowBalloonTip "Build successfull. Id is " & targets.Item(commandLine), "Build", NIIF_INFO
              End If
         Case Build.BUILD_WARNING:
              data.target = FCSH_BUILD_WARNING
              If (isAssigned) Then
                 Dim msg As String
                 msg = "Build successfull, but there were warnings." + vbCrLf + "Assigned target id " & assigned & "."
-                DisplayBalloon "Build", msg, NIIF_WARNING
+                AppTray.ShowBalloonTip msg, "Build", NIIF_WARNING
              Else
-                DisplayBalloon "Build", "Build successfull, but there were warnings. Id is " & targets.Item(commandLine), NIIF_WARNING
+                AppTray.ShowBalloonTip "Build successfull, but there were warnings. Id is " & targets.Item(commandLine), "Build", NIIF_WARNING
              End If
         Case Build.BUILD_ERROR:
              data.target = FCSH_BUILD_ERROR
              If (targets.Exists(commandLine)) Then
-                DisplayBalloon "Build", "Build failed. Id is " & targets.Item(commandLine), NIIF_ERROR
+                AppTray.ShowBalloonTip "Build failed. Id is " & targets.Item(commandLine), "Build", NIIF_ERROR
              Else
-                DisplayBalloon "Build", "Build failed", NIIF_ERROR
+                AppTray.ShowBalloonTip "Build failed", "Build", NIIF_ERROR
              End If
     End Select
     
