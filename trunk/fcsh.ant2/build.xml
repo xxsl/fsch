@@ -51,7 +51,7 @@
 
     <target name="fcsh.compile" depends="fcsh.clean" description="Compile fcsh classes">
         <mkdir dir="${output.dir}"/>
-        <javac destdir="${output.dir}" fork="true">
+        <javac destdir="${output.dir}" fork="true"  target="1.5">
             <classpath refid="classpath"/>
             <src refid="sourcepath"/>
         </javac>
