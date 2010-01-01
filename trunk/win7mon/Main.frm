@@ -502,6 +502,11 @@ Private BytesReceived As Long
 
 'tray control
 Private WithEvents m_tray As frmSysTray
+Attribute m_tray.VB_VarHelpID = -1
+'prefs
+Private prefs As New CPreferences
+'current interfaceId
+Private interfaceId As Long
 
 Private Sub Chart_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
     Chart.ToolTipText = "Received: " & Abs(ChartRecv(x)) & vbCrLf & " Sent: " & Abs(ChartSend(x))
@@ -513,12 +518,16 @@ End Sub
 
 'CSEH: ErrReportAndTrace
 Private Sub Form_Load()
-
     If (CreateManifest) Then End
+    
+    interfaceId = prefs.interfaceId
+    
     ReDim ChartSend(Chart.ScaleWidth)
     ReDim ChartRecv(Chart.ScaleWidth)
+    
     CurrPoss = 1
     gScale = 1
+    
     Set m_objIpHelper = New CIpHelper
 
     Dim objInterface As CInterface
@@ -531,7 +540,7 @@ Private Sub Form_Load()
         cmbInterfaces.ListIndex = 10
     End If
 
-    Set objInterface = m_objIpHelper.Interfaces(1)
+    Set objInterface = m_objIpHelper.Interfaces(interfaceId)
     BytesReceived = objInterface.OctetsReceived
     BytesSent = objInterface.OctetsSent
 
@@ -690,16 +699,14 @@ Private Sub Form_MouseDown(Button As Integer, Shift As Integer, x As Single, y A
     Me.WindowState = vbNormal
 End Sub
 
-Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
-    Unload m_tray
-End Sub
-
-Private Sub Form_Terminate()
-    Unload m_tray
-End Sub
-
+'----------------------------------------
+'Clear tray
+'Unload tray
+'----------------------------------------
 Private Sub Form_Unload(Cancel As Integer)
     Unload m_tray
+    Set m_tray = Nothing
+    Unload frmSysTray
 End Sub
 
 Private Sub m_tray_SysTrayMouseDown(ByVal eButton As MouseButtonConstants)
