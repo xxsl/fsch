@@ -1,8 +1,14 @@
 [History]
-1=#P0#=mb	#P1#=DisplayBalloon	#P2#=win7mon/CTray/DisplayBalloon	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20091223013235	#P7#=0	#P8#=9	.
-2=#P0#=mb	#P1#=Form_Load	#P2#=win7mon/MainForm/Form_Load	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20091223013013	#P7#=-2147483640	#P8#=28	.
-3=#P0#=mb	#P1#=InitCommonControlsVB	#P2#=win7mon/modMain/InitCommonControlsVB	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20091223012115	#P7#=0	#P8#=7	.
-4=#P0#=mb	#P1#=Main	#P2#=win7mon/modMain/Main	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20091223012404	#P7#=0	#P8#=0	.
-5=#P0#=mb	#P1#=GetPath	#P2#=win7mon/modUtil/GetPath	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20091223012050	#P7#=0	#P8#=-5	.
-6=#P0#=mb	#P1#=getPath	#P2#=win7mon/modManifest/getPath	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20091223010100	#P7#=0	#P8#=0	.
-7=#P0#=mb	#P1#=CreateManifest	#P2#=win7mon/modManifest/CreateManifest	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20091223012859	#P7#=0	#P8#=6	.
+1=#P0#=mb	#P1#=Form_Unload	#P2#=win7mon/MainForm/Form_Unload	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20100101231755	#P7#=0	#P8#=1	.
+2=#P0#=mb	#P1#=m_tray_SysTrayMouseDown	#P2#=win7mon/MainForm/m_tray_SysTrayMouseDown	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20100101231649	#P7#=0	#P8#=0	.
+3=#P0#=mb	#P1#=Form_Click	#P2#=win7mon/MainForm/Form_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20100101231623	#P7#=0	#P8#=-1	.
+4=#P0#=mb	#P1#=Form_QueryUnload	#P2#=win7mon/MainForm/Form_QueryUnload	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20100101231721	#P7#=0	#P8#=-1	.
+5=#P0#=mb	#P1#=UpdateInterfaceInfo	#P2#=win7mon/MainForm/UpdateInterfaceInfo	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20100101231556	#P7#=0	#P8#=48	.
+6=#P0#=mb	#P1#=AddToTray	#P2#=win7mon/frmSysTray/AddToTray	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20100101231235	#P7#=-2147483640	#P8#=6	.
+7=#P0#=mb	#P1#=Form_Load	#P2#=win7mon/MainForm/Form_Load	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20100101231439	#P7#=-2147483640	#P8#=25	.
+8=#P0#=mb	#P1#=Chart_MouseMove	#P2#=win7mon/MainForm/Chart_MouseMove	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20100101230236	#P7#=0	#P8#=0	.
+9=#P0#=mb	#P1#=Form_MouseMove	#P2#=win7mon/MainForm/Form_MouseMove	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20100101231025	#P7#=0	#P8#=0	.
+10=#P0#=mb	#P1#=CreateManifest	#P2#=win7mon/modManifest/CreateManifest	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20091223012859	#P7#=0	#P8#=6	.
+11=#P0#=mb	#P1#=Main	#P2#=win7mon/modMain/Main	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20091223012404	#P7#=0	#P8#=0	.
+12=#P0#=mb	#P1#=InitCommonControlsVB	#P2#=win7mon/modMain/InitCommonControlsVB	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20091223012115	#P7#=0	#P8#=7	.
+13=#P0#=mb	#P1#=GetPath	#P2#=win7mon/modUtil/GetPath	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20091223012050	#P7#=0	#P8#=-5	.
