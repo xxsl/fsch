@@ -1,17 +1,18 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
 Begin VB.Form MainForm 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Monitor"
    ClientHeight    =   5625
    ClientLeft      =   45
    ClientTop       =   405
-   ClientWidth     =   7380
+   ClientWidth     =   7410
    FillColor       =   &H0080FF80&
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
-   ScaleHeight     =   5625
-   ScaleWidth      =   7380
+   ScaleHeight     =   375
+   ScaleMode       =   3  'Pixel
+   ScaleWidth      =   494
    StartUpPosition =   2  'CenterScreen
    Begin VB.Frame frmAdapters 
       Caption         =   "Adapters"
@@ -500,10 +501,10 @@ Private BytesSent     As Long
 Private BytesReceived As Long
 
 'tray control
-Private m_tray As New CTray
+Private WithEvents m_tray As frmSysTray
 
-Private Sub Chart_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
-    Chart.ToolTipText = "Received: " & Abs(ChartRecv(X)) & vbCrLf & " Sent: " & Abs(ChartSend(X))
+Private Sub Chart_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+    Chart.ToolTipText = "Received: " & Abs(ChartRecv(x)) & vbCrLf & " Sent: " & Abs(ChartSend(x))
 End Sub
 
 Private Sub Form_Click()
@@ -523,7 +524,6 @@ Private Sub Form_Load()
     Dim objInterface As CInterface
 
     For Each objInterface In m_objIpHelper.Interfaces
-
         cmbInterfaces.AddItem "[#" & objInterface.InterfaceIndex & "] " + "[Type: " + objInterface.InterfaceTypes & "] " & objInterface.InterfaceDescription
     Next
 
@@ -535,8 +535,13 @@ Private Sub Form_Load()
     BytesReceived = objInterface.OctetsReceived
     BytesSent = objInterface.OctetsSent
 
-    m_tray.Add Me.HWND, ImageList1.ListImages(4).Picture, "Bytes received: " & Trim$(Format$(BytesReceived, "###,###,###,###")) & vbCrLf & "Bytes sent: " & Trim$(Format$(BytesSent, "###,###,###,###")) & vbNullChar, MouseMove
-    m_tray.DisplayBalloon App.EXEName, App.EXEName + " started!", NIIF_INFO
+    Load frmSysTray
+    
+    Set m_tray = New frmSysTray
+    
+    m_tray.AddToTray ImageList1.ListImages(4).Picture.Handle
+    ', "Bytes received: " & Trim$(Format$(BytesReceived, "###,###,###,###")) & vbCrLf & "Bytes sent: " & Trim$(Format$(BytesSent, "###,###,###,###")) & vbNullChar, MouseMove
+    'm_tray.DisplayBalloon App.EXEName, App.EXEName + " started!", NIIF_INFO
     
 
     PlotChart
@@ -661,8 +666,8 @@ Private Sub UpdateInterfaceInfo()
     lngBytesSent = BytesSent
     
    
-    m_tray.ModifyIcon GetIconForConnection(blnIsRecv, blnIsSent)
-    m_tray.ModifyTooltip "Bytes received: " & Trim$(Format$(BytesReceived, "###,###,###,###")) & vbCrLf & "Bytes sent: " & Trim$(Format$(BytesSent, "###,###,###,###")) & vbNullChar
+    m_tray.IconHandle = GetIconForConnection(blnIsRecv, blnIsSent).Handle
+    m_tray.ToolTip = "Bytes received: " & Trim$(Format$(BytesReceived, "###,###,###,###")) & vbCrLf & "Bytes sent: " & Trim$(Format$(BytesSent, "###,###,###,###")) & vbNullChar
 End Sub
 
 Private Function GetIconForConnection(ByVal blnIsRecv As Boolean, ByVal blnIsSent As Boolean) As StdPicture
@@ -681,47 +686,24 @@ Private Function GetIconForConnection(ByVal blnIsRecv As Boolean, ByVal blnIsSen
     End If
 End Function
 
-Private Sub Form_MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub Form_MouseDown(Button As Integer, Shift As Integer, x As Single, y As Single)
     Me.WindowState = vbNormal
 End Sub
 
-Private Sub Form_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
-
-    Dim msg As Long
-
-    If Me.ScaleMode = vbPixels Then
-        msg = X
-    Else
-        msg = X / Screen.TwipsPerPixelX
-    End If
-
-    Select Case msg
-
-        Case TrayRetunEventEnum.LeftDown '515 restore form window
-
-            If Me.WindowState = vbNormal Then
-                Me.WindowState = vbMinimized
-                Me.Visible = False
-            Else
-                Me.WindowState = vbNormal
-                Me.Visible = True
-                Me.SetFocus
-            End If
-
-    End Select
-
-End Sub
-
 Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
-    m_tray.Delete
+    Unload m_tray
 End Sub
 
 Private Sub Form_Terminate()
-    m_tray.Delete
+    Unload m_tray
 End Sub
 
 Private Sub Form_Unload(Cancel As Integer)
-    m_tray.Delete
+    Unload m_tray
+End Sub
+
+Private Sub m_tray_SysTrayMouseDown(ByVal eButton As MouseButtonConstants)
+    MsgBox eButton
 End Sub
 
 Private Sub Timer1_Timer()
