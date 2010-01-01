@@ -38,7 +38,7 @@ Public Sub Main()
     If (Not App.PrevInstance) Then
         Load MainForm
     Else
-        MsgBox "FCSHServer is already running!", vbCritical, "FCSHServer"
+        MsgBox "NetMon is already running!", vbCritical, "NetMon"
     End If
 End Sub
 
