@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:WindowedApplication xmlns:mx="http://www.adobe.com/2006/mxml"
+                        layout="vertical"
+                        horizontalAlign="left"
+                        paddingBottom="6"
+                        paddingLeft="6"
+                        paddingRight="6"
+                        paddingTop="6"
+                        title="Title"
+                        showStatusBar="false"
+                        showTitleBar="true"
+                        backgroundGradientAlphas="[1.0, 1.0]"
+                        applicationComplete="{initializeApplication()}"
+                        backgroundGradientColors="[#DEDEDE, #BCBCBC]"
+                        themeColor="#FF871D"
+                        cornerRadius="0"
+                        width="580"
+                        verticalScrollPolicy="off"
+                        horizontalScrollPolicy="off">
+    <mx:Style source="style/fcsh.css"/>
+    <mx:Script>
+		<![CDATA[
+        import com.flexspy.FlexSpy;
+
+        import mx.controls.Alert;
+
+        private function onQuit():void
+        {
+            process.exit(true);
+        }
+
+        private var process:NativeProcess;
+
+        private function onProcessOutPut(event:ProgressEvent):void
+        {
+            log.text += process.standardOutput.readUTFBytes(process.standardOutput.bytesAvailable);
+        }
+
+        private function onExit(event:NativeProcessExitEvent):void
+        {
+            log.text += "\nApplication exit\n";
+        }
+
+        private function initializeApplication():void
+        {
+            if (!NativeProcess.isSupported)
+            {
+                Alert.show("NativeProcess is not supported!");
+            }
+            process = new NativeProcess();
+            var info:NativeProcessStartupInfo = new NativeProcessStartupInfo();
+            var file:File = new File();
+            file.nativePath = "g:/work/google.code/fcsh.ant2/3rdParty/ant1.6.2/bin/ant.cmd";
+            info.executable = file;
+            var arg:Vector.<String> = new Vector.<String>();
+            arg.push("g:/work/realworld/FLX/src/build.xml");
+            info.arguments = arg;
+            info.workingDirectory = new File("g:/work/realworld/FLX/src/");
+            process.addEventListener(ProgressEvent.STANDARD_OUTPUT_DATA, onProcessOutPut, false, 0, true);
+            process.addEventListener(NativeProcessExitEvent.EXIT, onExit);
+            process.start(info);
+        }
+		]]>
+	</mx:Script>
+    <mx:HBox>
+        <mx:Button id="quit" label="Quit" click="onQuit()"/>
+        <mx:Button id="spy" label="Spy" click="FlexSpy.show()"/>
+    </mx:HBox>
+    <mx:HDividedBox percentWidth="100" percentHeight="100" liveDragging="true">
+        <mx:TabNavigator percentHeight="100" percentWidth="30" paddingTop="0">
+            <mx:VBox label="Tasks" percentHeight="100" percentWidth="100">
+                <mx:Tree percentHeight="100" percentWidth="100" borderStyle="none"/>
+            </mx:VBox>
+            <mx:VBox label="Targets" percentHeight="100" percentWidth="100">
+            </mx:VBox>
+            <mx:VBox label="Properties" percentHeight="100" percentWidth="100">
+            </mx:VBox>
+        </mx:TabNavigator>
+        <mx:VBox percentHeight="100" percentWidth="70">
+            <mx:Spacer height="16" percentWidth="100"/>
+            <mx:TextArea id="log" percentHeight="100" percentWidth="100"/>
+        </mx:VBox>
+    </mx:HDividedBox>
+</mx:WindowedApplication>
