@@ -14,7 +14,8 @@
                         backgroundGradientColors="[#DEDEDE, #BCBCBC]"
                         themeColor="#FF871D"
                         cornerRadius="0"
-                        width="580"
+                        width="800"
+                        height="600"
                         verticalScrollPolicy="off"
                         horizontalScrollPolicy="off">
     <mx:Style source="style/fcsh.css"/>
@@ -52,6 +53,11 @@
             log.text += process.standardOutput.readUTFBytes(process.standardOutput.bytesAvailable);
         }
 
+        private function onProcessErrOutPut(event:ProgressEvent):void
+        {
+            log.text += process.standardError.readUTFBytes(process.standardError.bytesAvailable);
+        }
+
         private function onExit(event:NativeProcessExitEvent):void
         {
             log.text += "\nApplication exit\n";
@@ -70,13 +76,15 @@
             process = new NativeProcess();
             var info:NativeProcessStartupInfo = new NativeProcessStartupInfo();
             var file:File = new File();
-            file.nativePath = "g:/work/google.code/fcsh.ant2/3rdParty/ant1.6.2/bin/ant.cmd";
+            file.nativePath = "g:\\work\\AntRunner\\test.cmd";
             info.executable = file;
             var arg:Vector.<String> = new Vector.<String>();
-            arg.push("g:/work/realworld/FLX/src/build.xml");
-            info.arguments = arg;
+            arg.push("g:\\work\\realworld\\FLX\\src\\build.xml");
+            arg.push("compile");
+            info.arguments = Vector.<String>(arg);
             info.workingDirectory = new File("g:/work/realworld/FLX/src/");
             process.addEventListener(ProgressEvent.STANDARD_OUTPUT_DATA, onProcessOutPut, false, 0, true);
+            process.addEventListener(ProgressEvent.STANDARD_ERROR_DATA, onProcessErrOutPut, false, 0, true);
             process.addEventListener(NativeProcessExitEvent.EXIT, onExit);
             process.start(info);
         }
