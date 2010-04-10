@@ -11,6 +11,7 @@
         <exec executable="${amxmlc}" failonerror="true">
             <arg line="-locale en_US"/>
             <arg line="-keep-as3-metadata"/>
+            <arg line="-debug=true"/>
             <arg line="-incremental"/>
             <arg line="-include-libraries+=3rdParty/FlexSpy.swc"/>
             <arg line="-output src/${application}.swf"/>
