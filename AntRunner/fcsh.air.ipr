@@ -98,7 +98,7 @@
     <option name="GENERATE_NO_WARNINGS" value="true" />
     <option name="DEPRECATION" value="false" />
   </component>
-  <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false" />
+  <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false" defaultCharsetForPropertiesFiles="UTF-8" />
   <component name="IdProvider" IDEtalkID="8DE29DF699158B8AA22EAEF313C350E3" />
   <component name="InspectionProjectProfileManager">
     <list size="5">
