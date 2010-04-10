@@ -61,6 +61,7 @@
         {
             mainMenu.dataDescriptor = new DefaultDataDescriptor();
             mainMenu.dataProvider = menuData;
+            groupTree.dataProvider = menuData;
 
             if (!NativeProcess.isSupported)
             {
@@ -82,14 +83,29 @@
 		]]>
 	</mx:Script>
     <mx:MenuBar id="mainMenu" percentWidth="100"/>
-    <mx:HBox>
-        <mx:Button id="quit" label="Quit" click="onQuit()"/>
-        <mx:Button id="spy" label="Spy" click="FlexSpy.show()"/>
-    </mx:HBox>
+    <mx:ApplicationControlBar percentWidth="100">
+        <mx:Button id="quit" label="Quit" click="onQuit()" styleName="stopButton"/>
+        <mx:Button id="spy" label="Spy" click="FlexSpy.show()" styleName="flexSpyButton"/>
+    </mx:ApplicationControlBar>
     <mx:HDividedBox percentWidth="100" percentHeight="100" liveDragging="true">
         <mx:TabNavigator percentHeight="100" percentWidth="30" paddingTop="0">
             <mx:VBox label="Groups" percentHeight="100" percentWidth="100">
-                <mx:Tree id="groupTree" percentHeight="100" percentWidth="100" borderStyle="none"/>
+                <mx:VDividedBox percentWidth="100" percentHeight="100">
+                    <mx:VBox percentWidth="100" percentHeight="80">
+                        <mx:ApplicationControlBar percentWidth="100">
+                            <mx:Button styleName="addGroupButton" width="24" height="24"/>
+                            <mx:Button styleName="removeGroupButton" width="24" height="24" enabled="{groupTree.selectedItem}"/>
+                        </mx:ApplicationControlBar>
+                        <mx:Tree id="groupTree" percentHeight="100" percentWidth="100" borderStyle="none"/>
+                    </mx:VBox>
+                    <mx:VBox percentWidth="100" percentHeight="20">
+                        <mx:Form>
+                            <mx:FormItem>
+                                <mx:TextInput text="{groupTree.selectedItem.label}"/>
+                            </mx:FormItem>
+                        </mx:Form>
+                    </mx:VBox>
+                </mx:VDividedBox>
             </mx:VBox>
         </mx:TabNavigator>
         <mx:VBox percentHeight="100" percentWidth="70">
@@ -97,5 +113,4 @@
             <mx:TextArea id="log" percentHeight="100" percentWidth="100"/>
         </mx:VBox>
     </mx:HDividedBox>
-    <mx:HBox borderStyle="inset" height="16" percentWidth="100"/>
 </mx:WindowedApplication>
