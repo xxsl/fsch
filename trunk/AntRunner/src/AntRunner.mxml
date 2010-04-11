@@ -14,7 +14,7 @@
                         backgroundGradientColors="[#DEDEDE, #BCBCBC]"
                         themeColor="#FF871D"
                         cornerRadius="0"
-                        width="800"
+                        width="900"
                         height="600"
                         verticalScrollPolicy="off"
                         horizontalScrollPolicy="off">
@@ -76,13 +76,20 @@
             process = new NativeProcess();
             var info:NativeProcessStartupInfo = new NativeProcessStartupInfo();
             var file:File = new File();
-            file.nativePath = "g:\\work\\AntRunner\\test.cmd";
+            //java.exe -Xmx384m -Xms125m -XX:MaxPermSize=512m -Dsun.io.useCanonCaches=false -Duser.language=en -Dapplication.home=c:\work\3.3\ -jar "c:\work\3.3\lib\fcsh.jar"
+            file.nativePath = "d:/Program Files (x86)/Java/jdk1.5.0_08/bin/java.exe";
             info.executable = file;
             var arg:Vector.<String> = new Vector.<String>();
-            arg.push("g:\\work\\realworld\\FLX\\src\\build.xml");
-            arg.push("compile");
+            arg.push("-Xmx384m");
+            arg.push("-Xms125m");
+            arg.push("-XX:MaxPermSize=512m");
+            arg.push("-Dsun.io.useCanonCaches=false");
+            arg.push("-Duser.language=en");
+            arg.push("-Dapplication.home=g:\\work\\3.4\\");
+            arg.push("-jar");
+            arg.push("g:\\work\\3.4\\lib\\fcsh.jar");
             info.arguments = Vector.<String>(arg);
-            info.workingDirectory = new File("g:/work/realworld/FLX/src/");
+            //info.workingDirectory = new File("g:\\work\\3.4\\");
             process.addEventListener(ProgressEvent.STANDARD_OUTPUT_DATA, onProcessOutPut, false, 0, true);
             process.addEventListener(ProgressEvent.STANDARD_ERROR_DATA, onProcessErrOutPut, false, 0, true);
             process.addEventListener(NativeProcessExitEvent.EXIT, onExit);
@@ -94,6 +101,8 @@
     <mx:ApplicationControlBar percentWidth="100">
         <mx:Button id="quit" label="Quit" click="onQuit()" styleName="stopButton"/>
         <mx:Button id="spy" label="Spy" click="FlexSpy.show()" styleName="flexSpyButton"/>
+        <mx:TextInput id="cmd" text="mxmlc -output=C:\realworld.swf -load-config+=G:\work\realworld\FLX\src\flex-config.xml -debug=false -optimize=true"/>
+        <mx:Button id="send" label="Send" click="{process.standardInput.writeUTFBytes(cmd.text + '\n')}"/>
     </mx:ApplicationControlBar>
     <mx:HDividedBox percentWidth="100" percentHeight="100" liveDragging="true">
         <mx:TabNavigator percentHeight="100" percentWidth="30" paddingTop="0">
