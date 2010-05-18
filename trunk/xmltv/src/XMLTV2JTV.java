@@ -1,3 +1,4 @@
+import org.apache.commons.cli.*;
 import xmltv.generated.Tv;
 
 import javax.xml.bind.JAXBContext;
@@ -14,6 +15,10 @@ public class XMLTV2JTV
 {
     public static void main(String[] args) throws Exception
     {
+        Options options = createOptions();
+        CommandLine cl = parseArgs(args, options);
+
+
         JAXBContext jc = JAXBContext.newInstance("xmltv.generated");
 
         // unmarshal from foo.xml
@@ -23,5 +28,25 @@ public class XMLTV2JTV
         // marshal to System.out
         //Marshaller m = jc.createMarshaller();
         //m.marshal(tv, System.out);
+        if (cl.hasOption("h"))
+        {
+            HelpFormatter f = new HelpFormatter();
+            f.printHelp("XMLTV2JTV", options);
+        }
+    }
+
+    private static CommandLine parseArgs(String[] args, Options options) throws ParseException
+    {
+        BasicParser parser = new BasicParser();
+        return parser.parse(options, args);
+    }
+
+    private static Options createOptions()
+    {
+        Options opt = new Options();
+        opt.addOption("h", false, "Print help for this application");
+        opt.addOption("u", true, "The username to use");
+        opt.addOption("dsn", true, "The data source to use");
+        return opt;
     }
 }
