@@ -23,7 +23,7 @@ public class XMLTV2JTV
 
         // unmarshal from foo.xml
         Unmarshaller u = jc.createUnmarshaller();
-        Tv tv = (Tv) u.unmarshal(new File("J:\\Projects\\fsch\\xmltv\\dtd\\program.xml"));
+        Tv tv = (Tv) u.unmarshal(new File("j:\\Projects\\fsch\\xmltv\\dtd\\program_xml.xml"));
 
         // marshal to System.out
         //Marshaller m = jc.createMarshaller();
