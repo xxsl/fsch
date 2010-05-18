@@ -11,6 +11,7 @@
         <pathelement location="${basedir}/lib/jsr250-api.jar"/>
         <pathelement location="${basedir}/lib/jsr173_api.jar"/>
         <pathelement location="${basedir}/lib/activation.jar"/>
+        <pathelement location="${basedir}/lib/commons-cli-1.2.jar"/>
     </path>
 
     <path id="sourcepath">
@@ -45,7 +46,7 @@
         <jar basedir="${output.dir}" jarfile="${output.dir.jar}/xmltv2jtv.jar">
             <manifest>
                 <attribute name="Main-Class" value="XMLTV2JTV"/>
-                <attribute name="Class-Path" value="jaxb-impl.jar jaxb-api.jar jsr250-api.jar jsr173_api.jar activation.jar"/>
+                <attribute name="Class-Path" value="jaxb-impl.jar jaxb-api.jar jsr250-api.jar jsr173_api.jar activation.jar commons-cli-1.2.jar"/>
             </manifest>
         </jar>
 
