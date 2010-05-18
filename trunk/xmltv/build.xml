@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="xmltv2jtv" basedir="." default="buildall">
+
+    <property name="output.dir" value="${basedir}\classes"/>
+    <property name="output.dir.jar" value="${basedir}\lib"/>
+
+    <path id="classpath">
+        <pathelement location="${basedir}/lib/jaxb-impl.jar"/>
+        <pathelement location="${basedir}/lib/jaxb-api.jar"/>
+        <pathelement location="${basedir}/lib/jsr250-api.jar"/>
+        <pathelement location="${basedir}/lib/jsr173_api.jar"/>
+        <pathelement location="${basedir}/lib/activation.jar"/>
+    </path>
+
+    <path id="sourcepath">
+        <dirset dir="${basedir}">
+            <include name="src"/>
+        </dirset>
+    </path>
+
+    <target name="buildall">
+        <antcall target="compile"/>
+        <antcall target="jar"/>
+        <antcall target="clean"/>
+    </target>
+
+    <target name="compile" depends="clean" description="Compile classes">
+        <mkdir dir="${output.dir}"/>
+        <javac destdir="${output.dir}" fork="true">
+            <classpath refid="classpath"/>
+            <src refid="sourcepath"/>
+        </javac>
+
+        <copy todir="${output.dir}">
+            <fileset dir="${basedir}/src">
+                <type type="file"/>
+                <patternset includes="*.class"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="jar">
+        <mkdir dir="${output.dir.jar}"/>
+        <jar basedir="${output.dir}" jarfile="${output.dir.jar}/xmltv2jtv.jar">
+            <manifest>
+                <attribute name="Main-Class" value="XMLTV2JTV"/>
+                <attribute name="Class-Path" value="jaxb-impl.jar jaxb-api.jar jsr250-api.jar jsr173_api.jar activation.jar"/>
+            </manifest>
+        </jar>
+
+        <copy todir="${basedir}/test">
+            <fileset dir="${output.dir.jar}">
+                <filename name="fcsh.jar"/>
+            </fileset>
+        </copy>
+    </target>
+
+
+    <target name="clean" description="cleanup">
+        <delete dir="${output.dir}"/>
+    </target>
+</project>
