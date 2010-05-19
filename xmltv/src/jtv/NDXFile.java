@@ -28,13 +28,13 @@ public class NDXFile
         {
             in = new DataInputStream(new BufferedInputStream(new FileInputStream(file)));
             //first 2 bytes is number of records
-            size = in.readShort();
+            size = in.readUnsignedShort();
             for (long i = 0; i < size; i++)
             {
                 //2 zero bytes
-                in.readShort();
-                long time = in.readLong();
-                long offset = in.readShort();
+                in.readInt();
+                long time = in.readInt();
+                long offset = in.readUnsignedShort();
                 NDXTime ndxTime = new NDXTime(offset, time);
                 ndxTimes.add(ndxTime);
             }
