@@ -2,6 +2,7 @@ package convert;
 
 import jtv.vo.JChannel;
 import jtv.vo.JProgramme;
+import xmltv.generated.Channel;
 import xmltv.generated.Programme;
 import xmltv.generated.Tv;
 
@@ -28,12 +29,13 @@ public class XMLTV2JTV
     {
         List<JChannel> jChannels = new ArrayList<JChannel>();
 
-        Map<String, List<Programme>> programmeMap = createChannelMap();
+        Map<String, List<Programme>> programmeMap = createProgrammMap();
+        Map<String, Channel> channelMap = createChannelMap();
 
         for (String key : programmeMap.keySet())
         {
             List<Programme> programmes = programmeMap.get(key);
-            JChannel jChannel = new JChannel(key, new ArrayList<JProgramme>());
+            JChannel jChannel = new JChannel(channelMap.get(key).getDisplayName().get(0).getvalue(), new ArrayList<JProgramme>());//todo lang
             for (Programme programme : programmes)
             {
                 jChannel.getProgrammes().add(new JProgramme(getTitle(programme), getDate(programme)));
@@ -68,7 +70,7 @@ public class XMLTV2JTV
         return programme.getTitle().get(0).getvalue();
     }
 
-    private Map<String, List<Programme>> createChannelMap()
+    private Map<String, List<Programme>> createProgrammMap()
     {
         Map<String, List<Programme>> programmeMap = new HashMap<String, List<Programme>>();
         for (Programme proramme : xmltv.getProgramme())
@@ -82,5 +84,15 @@ public class XMLTV2JTV
             programmes.add(proramme);
         }
         return programmeMap;
+    }
+
+    private Map<String, Channel> createChannelMap()
+    {
+        Map<String, Channel> channelMap = new HashMap<String, Channel>();
+        for (Channel channel : xmltv.getChannel())
+        {
+            channelMap.put(channel.getId(), channel);
+        }
+        return channelMap;
     }
 }

@@ -28,28 +28,25 @@ public class Main
 
         // unmarshal from foo.xml
         Unmarshaller u = jc.createUnmarshaller();
-        //Tv tv = (Tv) u.unmarshal(new File("j:\\Projects\\fsch\\xmltv\\dtd\\program_xml.xml"));
+        Tv tv = (Tv) u.unmarshal(new File("G:\\work\\xmltv\\dtd\\program_xml.xml"));
 
 
-        //XMLTV2JTV xmltv2JTV = new XMLTV2JTV(tv);
-        //List<JChannel> channels = xmltv2JTV.convert();
+        XMLTV2JTV xmltv2JTV = new XMLTV2JTV(tv);
+        List<JChannel> channels = xmltv2JTV.convert();
         // marshal to System.out
         //Marshaller m = jc.createMarshaller();
         //m.marshal(tv, System.out);
-        JFileChannel jFileChannel = new JFileChannel(new File("G:\\work\\xmltv\\jtv\\program_jtv"), "Animal_Planet");
-        JChannel channel = jFileChannel.read();
 
-        for (JProgramme jProgramme : channel.getProgrammes())
+        for(JChannel jChannel:channels)
         {
-            jProgramme.setStart(new Date((jProgramme.getStart().getTime() - 1000 * 60 * 60)));
+            for (JProgramme jProgramme : jChannel.getProgrammes())
+            {
+                jProgramme.setStart(new Date((jProgramme.getStart().getTime() - 1000 * 60 * 60)));
+            }
+
+            JFileChannel jFileChannel = new JFileChannel(new File("G:\\work\\xmltv\\jtv\\program_jtv1"), jChannel);
+            jFileChannel.write();
         }
-
-        JChannel channel1 = new JChannel("Animal_Planet", channel.getProgrammes());
-        JFileChannel jFileChannel1 = new JFileChannel(new File("G:\\work\\xmltv\\jtv\\program_jtv"), channel1);
-        jFileChannel1.write();
-
-        JFileChannel jFileChannel2 = new JFileChannel(new File("G:\\work\\xmltv\\jtv\\program_jtv"), "Animal_Planet");
-        JChannel channel2 = jFileChannel.read();
 
 
         if (cl.hasOption("h"))
