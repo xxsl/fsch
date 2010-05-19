@@ -23,7 +23,7 @@ public class JChannel
         return name;
     }
 
-    public List getProgrammes()
+    public List<JProgramme> getProgrammes()
     {
         return programmes;
     }
