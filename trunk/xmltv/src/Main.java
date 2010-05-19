@@ -20,6 +20,7 @@ public class Main
 {
     public static void main(String[] args) throws Exception
     {
+        Long start = System.currentTimeMillis();
         Options options = createOptions();
         CommandLine cl = parseArgs(args, options);
 
@@ -54,6 +55,8 @@ public class Main
             HelpFormatter f = new HelpFormatter();
             f.printHelp("XMLTV2JTV", options);
         }
+
+        System.out.println("Tine elapsed: " + (System.currentTimeMillis() - start)/1000 + " s");
     }
 
     private static CommandLine parseArgs(String[] args, Options options) throws ParseException
