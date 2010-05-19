@@ -36,7 +36,7 @@ public class PDTFile
             while (result > 0)
             {
                 //2 zero bytes
-                int recordSize = in.readShort();
+                int recordSize = in.readInt();
                 byte[] nameBuff = new byte[recordSize];
                 pdtTitles.put((long) recordSize, new String(nameBuff));
             }
