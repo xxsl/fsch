@@ -7,16 +7,16 @@ package jtv;
  */
 public class NDXTime
 {
-    private Long offset;
+    private Short offset;
     private Long time;
 
-    public NDXTime(Long offset, Long time)
+    public NDXTime(Short offset, Long time)
     {
         this.offset = offset;
         this.time = time;
     }
 
-    public Long getOffset()
+    public Short getOffset()
     {
         return offset;
     }
