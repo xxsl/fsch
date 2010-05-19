@@ -59,7 +59,7 @@ public class JFileChannel
     {
         List<NDXTime> times = new ArrayList<NDXTime>();
         List<String> titles = new ArrayList<String>();
-        short offset = PDTFile.FILE_OFFSET;
+        short offset = (short)(PDTFile.FILE_OFFSET + 3);
         for(JProgramme jProgramme:channel.getProgrammes())
         {
             offset += 2 + jProgramme.getName().getBytes("Cp1251").length;

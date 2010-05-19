@@ -18,13 +18,23 @@ public class JProgramme
         start = date;
     }
 
+    public Date getStart()
+    {
+        return start;
+    }
+
+    public void setStart(Date start)
+    {
+        this.start = start;
+    }
+
     public String getName()
     {
         return name;
     }
 
-    public Date getStart()
+    public void setName(String name)
     {
-        return start;
+        this.name = name;
     }
 }

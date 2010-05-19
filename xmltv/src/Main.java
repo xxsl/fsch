@@ -1,12 +1,14 @@
 import convert.XMLTV2JTV;
 import jtv.JFileChannel;
 import jtv.vo.JChannel;
+import jtv.vo.JProgramme;
 import org.apache.commons.cli.*;
 import xmltv.generated.Tv;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -34,8 +36,21 @@ public class Main
         // marshal to System.out
         //Marshaller m = jc.createMarshaller();
         //m.marshal(tv, System.out);
-        JFileChannel jFileChannel = new JFileChannel(new File("J:\\Projects\\fsch\\xmltv\\jtv\\program_jtv"), "8_канал");
-        jtv.vo.JChannel channel = jFileChannel.read();
+        JFileChannel jFileChannel = new JFileChannel(new File("G:\\work\\xmltv\\jtv\\program_jtv"), "Animal_Planet");
+        JChannel channel = jFileChannel.read();
+
+        for (JProgramme jProgramme : channel.getProgrammes())
+        {
+            jProgramme.setStart(new Date((jProgramme.getStart().getTime() - 1000 * 60 * 60)));
+        }
+
+        JChannel channel1 = new JChannel("Animal_Planet", channel.getProgrammes());
+        JFileChannel jFileChannel1 = new JFileChannel(new File("G:\\work\\xmltv\\jtv\\program_jtv"), channel1);
+        jFileChannel1.write();
+
+        JFileChannel jFileChannel2 = new JFileChannel(new File("G:\\work\\xmltv\\jtv\\program_jtv"), "Animal_Planet");
+        JChannel channel2 = jFileChannel.read();
+
 
         if (cl.hasOption("h"))
         {

@@ -69,12 +69,19 @@ public class PDTFile
 
     public void write() throws IOException
     {
+        if(file.exists())
+        {
+            file.delete();
+        }
         LEDataOutputStream out = null;
         try
         {
             out = new LEDataOutputStream(new BufferedOutputStream(new FileOutputStream(file)));
             //first 2 bytes is number of records
             out.write(FILE_START.getBytes());
+            out.writeByte(160);
+            out.writeByte(160);
+            out.writeByte(160);
             for (int i = 0; i < size; i++)
             {
                 String title = titles.get(i);

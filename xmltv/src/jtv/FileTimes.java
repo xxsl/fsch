@@ -24,6 +24,6 @@ public final class FileTimes
 
     public static long getWindowsTime(Long javaTime)
     {
-        return (javaTime * 10000) + DIFF_IN_MILLIS;
+        return (javaTime + DIFF_IN_MILLIS) * 10000;
     }
 }
