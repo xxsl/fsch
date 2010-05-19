@@ -34,6 +34,8 @@ public class NDXFile
                 //in.skipBytes(12);
                 //2 zero bytes
                 in.skipBytes(2);
+                //      : dwHighDateTime : 30076942 : Long : converter.shiftFile
+                //      : dwLowDateTime : 1746311168 : Long : converter.shiftFile
                 long time = Long.reverseBytes(in.readLong());
                 long offset = Short.reverseBytes(in.readShort());
                 NDXTime ndxTime = new NDXTime(offset, time);
