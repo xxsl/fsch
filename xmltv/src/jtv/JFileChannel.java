@@ -5,6 +5,7 @@ import jtv.vo.JProgramme;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -55,9 +56,18 @@ public class JFileChannel
         return jChannel;
     }
 
-    public void write()
+    public void write() throws IOException
     {
+        NDXFile ndxFile = new NDXFile(new File(folder, getNdxName()));
+        PDTFile pdtFile = new PDTFile(new File(folder, getPdtName()));
 
+        List<NDXTime> times = new ArrayList<NDXTime>();
+        int offset = 0;
+        for(JProgramme jProgramme:channel.getProgrammes())
+        {
+            offset += jProgramme.getName().getBytes("Cp1251").length;
+            times.add(new NDXTime(0l,jProgramme.getStart().getTime()));
+        }
     }
 
     public File getFolder()

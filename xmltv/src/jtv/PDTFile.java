@@ -42,7 +42,7 @@ public class PDTFile
                 int recordSize = in.readShort();
                 byte[] nameBuff = new byte[recordSize];
                 in.readFully(nameBuff);
-                pdtTitles.put((long) offset, new String(nameBuff, "Cp1251"));
+                pdtTitles.put((long) offset, new String(nameBuff, "Cp1251"));//todo options
                 offset += recordSize + 2;
                 size++;
             }
