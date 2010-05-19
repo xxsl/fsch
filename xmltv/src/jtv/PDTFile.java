@@ -26,21 +26,20 @@ public class PDTFile
     public Long read() throws IOException
     {
         pdtTitles = new HashMap<Long, String>();
-        DataInputStream in = null;
+        LEDataInputStream in = null;
         try
         {
-            in = new DataInputStream(new BufferedInputStream(new FileInputStream(file)));
+            in = new LEDataInputStream(new BufferedInputStream(new FileInputStream(file)));
             int offset = 0;
             size = 0;
             //first read FILE_START
-            byte[] b = new byte[FILE_START.getBytes().length];
-            in.readFully(b);
-            offset += b.length;
-            in.skipBytes(3);
-            offset += 3;
+            int fileOffset = 3 + FILE_START.getBytes().length;
+            in.skipBytes(fileOffset);
+            offset += fileOffset;
+
             while (in.available() > 0)
             {
-                int recordSize = Short.reverseBytes(in.readShort());
+                int recordSize = in.readShort();
                 byte[] nameBuff = new byte[recordSize];
                 in.readFully(nameBuff);
                 pdtTitles.put((long) offset, new String(nameBuff, "Cp1251"));
