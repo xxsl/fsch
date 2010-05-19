@@ -34,7 +34,6 @@ public class PDTFile
             byte[] b = new byte[FILE_START.getBytes().length];
             in.readFully(b);
             in.skipBytes(3);
-            int result = 1;
             while (in.available() > 0)
             {
                 //2 zero bytes
