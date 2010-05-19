@@ -1,3 +1,5 @@
+import convert.XMLTV2JTV;
+import jtv.io.JChannel;
 import org.apache.commons.cli.*;
 import xmltv.generated.Tv;
 
@@ -5,13 +7,14 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
+import java.util.List;
 
 /**
  * User: aturtsevitch
  * Date: May 18, 2010
  * Time: 3:40:21 PM
  */
-public class XMLTV2JTV
+public class Main
 {
     public static void main(String[] args) throws Exception
     {
@@ -25,6 +28,9 @@ public class XMLTV2JTV
         Unmarshaller u = jc.createUnmarshaller();
         Tv tv = (Tv) u.unmarshal(new File("j:\\Projects\\fsch\\xmltv\\dtd\\program_xml.xml"));
 
+
+        XMLTV2JTV xmltv2JTV = new XMLTV2JTV(tv);
+        List<JChannel> channels = xmltv2JTV.convert();
         // marshal to System.out
         //Marshaller m = jc.createMarshaller();
         //m.marshal(tv, System.out);
