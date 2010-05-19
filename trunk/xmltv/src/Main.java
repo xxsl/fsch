@@ -56,7 +56,7 @@ public class Main
             f.printHelp("XMLTV2JTV", options);
         }
 
-        System.out.println("Tine elapsed: " + (System.currentTimeMillis() - start)/1000 + " s");
+        System.out.println("Time elapsed: " + (System.currentTimeMillis() - start) + " ms");
     }
 
     private static CommandLine parseArgs(String[] args, Options options) throws ParseException
