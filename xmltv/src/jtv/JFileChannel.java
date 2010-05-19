@@ -5,7 +5,6 @@ import jtv.vo.JProgramme;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -46,11 +45,11 @@ public class JFileChannel
         if (ndxFile.read() > 0 && pdtFile.read() > 0)
         {
             List<NDXTime> times = ndxFile.getNdxTimes();
-            Map<Long, String> names = pdtFile.getPdtTitles();
+            Map<Long, String> names = pdtFile.getOffset2Title();
 
             for (NDXTime time : times)
             {
-                programmes.add(new JProgramme(names.get(time.getOffset()), new Date(time.getTime())));
+                programmes.add(new JProgramme(names.get((long)time.getOffset()), new Date(time.getTime())));
             }
         }
         return jChannel;
@@ -58,18 +57,21 @@ public class JFileChannel
 
     public void write() throws IOException
     {
-        NDXFile ndxFile = new NDXFile(new File(folder, getNdxName()));
-        PDTFile pdtFile = new PDTFile(new File(folder, getPdtName()));
-
         List<NDXTime> times = new ArrayList<NDXTime>();
+        List<String> titles = new ArrayList<String>();
         short offset = PDTFile.FILE_OFFSET;
         for(JProgramme jProgramme:channel.getProgrammes())
         {
             offset += 2 + jProgramme.getName().getBytes("Cp1251").length;
+            titles.add(jProgramme.getName());
             times.add(new NDXTime(offset, jProgramme.getStart().getTime()));
         }
 
+        NDXFile ndxFile = new NDXFile(new File(folder, getNdxName()), times);
         ndxFile.write();
+
+        PDTFile pdtFile = new PDTFile(new File(folder, getPdtName()), titles);
+        pdtFile.write();
     }
 
     public File getFolder()

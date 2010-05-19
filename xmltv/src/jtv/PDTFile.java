@@ -3,6 +3,7 @@ package jtv;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -13,15 +14,23 @@ import java.util.Map;
 public class PDTFile
 {
     private static final String FILE_START = "JTV 3.x TV Program Data";
-    public static final Short FILE_OFFSET = (short)FILE_START.length();
+    public static final Short FILE_OFFSET = (short) FILE_START.length();
 
     private File file;
     private long size;
     private Map<Long, String> pdtTitles;
+    private List<String> titles;
 
     public PDTFile(File file)
     {
         this.file = file;
+    }
+
+    public PDTFile(File file, List<String> titles)
+    {
+        this(file);
+        this.titles = titles;
+        this.size = titles.size();
     }
 
     public Long read() throws IOException
@@ -58,13 +67,43 @@ public class PDTFile
         return size;
     }
 
+    public void write() throws IOException
+    {
+        LEDataOutputStream out = null;
+        try
+        {
+            out = new LEDataOutputStream(new BufferedOutputStream(new FileOutputStream(file)));
+            //first 2 bytes is number of records
+            out.write(FILE_START.getBytes());
+            for (int i = 0; i < size; i++)
+            {
+                String title = titles.get(i);
+                out.writeShort(title.getBytes("Cp1251").length);
+                out.write(title.getBytes("Cp1251"));
+            }
+            out.flush();
+        }
+        finally
+        {
+            if (out != null)
+            {
+                out.close();
+            }
+        }
+    }
+
     public long getSize()
     {
         return size;
     }
 
-    public Map<Long, String> getPdtTitles()
+    public Map<Long, String> getOffset2Title()
     {
         return pdtTitles;
+    }
+
+    public List<String> getTitles()
+    {
+        return titles;
     }
 }
