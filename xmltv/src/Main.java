@@ -1,11 +1,10 @@
 import convert.XMLTV2JTV;
 import jtv.JFileChannel;
-import jtv.io.JChannel;
+import jtv.vo.JChannel;
 import org.apache.commons.cli.*;
 import xmltv.generated.Tv;
 
 import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.util.List;

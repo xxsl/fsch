@@ -1,7 +1,7 @@
 package convert;
 
-import jtv.io.JChannel;
-import jtv.io.JProgramme;
+import jtv.vo.JChannel;
+import jtv.vo.JProgramme;
 import xmltv.generated.Programme;
 import xmltv.generated.Tv;
 

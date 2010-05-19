@@ -28,7 +28,7 @@ public class NDXFile
         {
             in = new DataInputStream(new BufferedInputStream(new FileInputStream(file)));
             //first 2 bytes is number of records
-            size = in.readUnsignedShort();
+            size = in.readShort();
             for (long i = 0; i < size; i++)
             {
                 //2 zero bytes
