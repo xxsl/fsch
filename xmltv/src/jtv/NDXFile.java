@@ -31,9 +31,10 @@ public class NDXFile
             size = Short.reverseBytes(in.readShort());
             for (long i = 0; i < size; i++)
             {
+                //in.skipBytes(12);
                 //2 zero bytes
-                in.readShort();
-                long time = Integer.reverseBytes(in.readInt());
+                in.skipBytes(2);
+                long time = in.readInt();
                 long offset = Short.reverseBytes(in.readShort());
                 NDXTime ndxTime = new NDXTime(offset, time);
                 ndxTimes.add(ndxTime);
