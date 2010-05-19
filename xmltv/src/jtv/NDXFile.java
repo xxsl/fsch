@@ -20,6 +20,13 @@ public class NDXFile
         this.file = file;
     }
 
+    public NDXFile(File file, List<NDXTime> ndxTimes)
+    {
+        this(file);
+        this.ndxTimes = ndxTimes;
+        this.size = ndxTimes.size();
+    }
+
     public Long read() throws IOException
     {
         ndxTimes = new ArrayList<NDXTime>();
@@ -35,7 +42,7 @@ public class NDXFile
                 //2 zero bytes
                 in.skipBytes(2);
                 long time = FileTimes.getJavaTime(in.readLong());
-                long offset = in.readShort();
+                short offset = in.readShort();
                 NDXTime ndxTime = new NDXTime(offset, time);
                 ndxTimes.add(ndxTime);
             }
@@ -48,6 +55,33 @@ public class NDXFile
             }
         }
         return size;
+    }
+
+    public void write() throws IOException
+    {
+        LEDataOutputStream out = null;
+        try
+        {
+            out = new LEDataOutputStream(new BufferedOutputStream(new FileOutputStream(file)));
+            //first 2 bytes is number of records
+            out.writeShort((short)size);
+            for (int i = 0; i < size; i++)
+            {
+                //2 zero bytes
+                out.writeShort((short)0);
+                NDXTime ndxTime = ndxTimes.get(i);
+                out.writeLong(FileTimes.getWindowsTime(ndxTime.getTime()));
+                out.writeShort(ndxTime.getOffset().shortValue());
+            }
+            out.flush();
+        }
+        finally
+        {
+            if(out != null)
+            {
+                out.close();
+            }
+        }
     }
 
     public Long getSize()

@@ -13,6 +13,7 @@ import java.util.Map;
 public class PDTFile
 {
     private static final String FILE_START = "JTV 3.x TV Program Data";
+    public static final Short FILE_OFFSET = (short)FILE_START.length();
 
     private File file;
     private long size;

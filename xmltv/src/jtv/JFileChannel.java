@@ -62,12 +62,14 @@ public class JFileChannel
         PDTFile pdtFile = new PDTFile(new File(folder, getPdtName()));
 
         List<NDXTime> times = new ArrayList<NDXTime>();
-        int offset = 0;
+        short offset = PDTFile.FILE_OFFSET;
         for(JProgramme jProgramme:channel.getProgrammes())
         {
-            offset += jProgramme.getName().getBytes("Cp1251").length;
-            times.add(new NDXTime(0l,jProgramme.getStart().getTime()));
+            offset += 2 + jProgramme.getName().getBytes("Cp1251").length;
+            times.add(new NDXTime(offset, jProgramme.getStart().getTime()));
         }
+
+        ndxFile.write();
     }
 
     public File getFolder()
