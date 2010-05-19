@@ -1,4 +1,5 @@
 import convert.XMLTV2JTV;
+import jtv.JFileChannel;
 import jtv.io.JChannel;
 import org.apache.commons.cli.*;
 import xmltv.generated.Tv;
@@ -34,6 +35,9 @@ public class Main
         // marshal to System.out
         //Marshaller m = jc.createMarshaller();
         //m.marshal(tv, System.out);
+        JFileChannel jFileChannel = new JFileChannel(new File("J:\\Projects\\fsch\\xmltv\\jtv\\program_jtv"), "8_канал");
+        jtv.vo.JChannel channel = jFileChannel.read();
+
         if (cl.hasOption("h"))
         {
             HelpFormatter f = new HelpFormatter();
