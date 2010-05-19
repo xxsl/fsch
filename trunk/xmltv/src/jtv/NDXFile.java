@@ -34,7 +34,7 @@ public class NDXFile
                 //in.skipBytes(12);
                 //2 zero bytes
                 in.skipBytes(2);
-                long time = in.readInt();
+                long time = Long.reverseBytes(in.readLong());
                 long offset = Short.reverseBytes(in.readShort());
                 NDXTime ndxTime = new NDXTime(offset, time);
                 ndxTimes.add(ndxTime);
