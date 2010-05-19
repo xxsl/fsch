@@ -30,17 +30,22 @@ public class PDTFile
         try
         {
             in = new DataInputStream(new BufferedInputStream(new FileInputStream(file)));
+            int offset = 0;
+            size = 0;
             //first read FILE_START
             byte[] b = new byte[FILE_START.getBytes().length];
             in.readFully(b);
+            offset += b.length;
             in.skipBytes(3);
+            offset += 3;
             while (in.available() > 0)
             {
-                //2 zero bytes
                 int recordSize = Short.reverseBytes(in.readShort());
                 byte[] nameBuff = new byte[recordSize];
                 in.readFully(nameBuff);
-                pdtTitles.put((long) recordSize, new String(nameBuff));
+                pdtTitles.put((long) offset, new String(nameBuff, "Cp1251"));
+                offset += recordSize + 2;
+                size++;
             }
         }
         finally
