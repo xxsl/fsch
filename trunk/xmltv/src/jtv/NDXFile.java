@@ -59,6 +59,11 @@ public class NDXFile
 
     public void write() throws IOException
     {
+        if(file.exists())
+        {
+            file.delete();
+        }
+
         LEDataOutputStream out = null;
         try
         {
