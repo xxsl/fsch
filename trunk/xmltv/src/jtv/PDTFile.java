@@ -41,34 +41,32 @@ public class PDTFile
         try
         {
             in = new LEDataInputStream(new BufferedInputStream(new FileInputStream(file)));
-            int offset = 3 + FILE_START.getBytes().length;
             size = 0;
-            //first read FILE_START + 3 bytes
+            //first skip FILE_START bytes + 3 bytes A0
+            int offset = 3 + FILE_START.getBytes().length;
             in.skipBytes(offset);
 
             while (in.available() > 0)
             {
+                //title size
                 int recordSize = in.readShort();
                 byte[] nameBuff = new byte[recordSize];
                 in.readFully(nameBuff);
-                pdtTitles.put((long) offset, new String(nameBuff, charsetName));//todo options
+                pdtTitles.put((long) offset, new String(nameBuff, charsetName));
                 offset += recordSize + 2;
                 size++;
             }
         }
         finally
         {
-            if (in != null)
-            {
-                in.close();
-            }
+            closeQuetly(in);
         }
         return size;
     }
 
     public void write() throws IOException
     {
-        if(file.exists() && !file.delete())
+        if (file.exists() && !file.delete())
         {
             throw new IOException("Unable to delete file " + file.getPath());
         }
@@ -94,9 +92,21 @@ public class PDTFile
         }
         finally
         {
-            if (out != null)
+            closeQuetly(out);
+        }
+    }
+
+    private void closeQuetly(Closeable out)
+    {
+        if (out != null)
+        {
+            try
             {
                 out.close();
+            }
+            catch (IOException e)
+            {
+                //ignore
             }
         }
     }

@@ -41,7 +41,7 @@ import java.io.*;
  * @version 1.8 2007-05-24
  * @since 1998-01-06
  */
-public final class LEDataOutputStream implements DataOutput
+public final class LEDataOutputStream implements DataOutput, Closeable
 {
     // ------------------------------ CONSTANTS ------------------------------
 
