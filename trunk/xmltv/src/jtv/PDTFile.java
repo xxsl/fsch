@@ -68,9 +68,9 @@ public class PDTFile
 
     public void write() throws IOException
     {
-        if(file.exists())
+        if(file.exists() && !file.delete())
         {
-            file.delete();
+            //todo
         }
         LEDataOutputStream out = null;
         try
