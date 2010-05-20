@@ -29,7 +29,7 @@ public class Main
 
         // unmarshal from foo.xml
         Unmarshaller u = jc.createUnmarshaller();
-        Tv tv = (Tv) u.unmarshal(new File("J:\\Projects\\fsch\\xmltv\\dtd\\program_xml.xml"));
+        Tv tv = (Tv) u.unmarshal(new File("J:\\Projects\\fsch\\xmltv\\dtd\\program.xml"));
 
 
         XMLTV2JTV xmltv2JTV = new XMLTV2JTV(tv);
@@ -37,6 +37,8 @@ public class Main
         // marshal to System.out
         //Marshaller m = jc.createMarshaller();
         //m.marshal(tv, System.out);
+
+        //System.exit(0);
 
         for(JChannel jChannel:channels)
         {
