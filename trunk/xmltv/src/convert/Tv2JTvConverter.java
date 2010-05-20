@@ -10,11 +10,11 @@ import javax.xml.bind.DatatypeConverter;
 import java.text.ParseException;
 import java.util.*;
 
-public class Xmltv2JtvConverter
+public class Tv2JTvConverter
 {
     private Tv xmltv;
 
-    public Xmltv2JtvConverter(Tv xmltv)
+    public Tv2JTvConverter(Tv xmltv)
     {
         this.xmltv = xmltv;
     }
