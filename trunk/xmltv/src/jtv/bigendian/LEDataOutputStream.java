@@ -23,7 +23,7 @@
  *  1.7 2007-01-01
  *  1.8 2007-05-24 - add pad, icon, pass Intellij inspector
  */
-package jtv;
+package jtv.bigendian;
 
 import java.io.*;
 

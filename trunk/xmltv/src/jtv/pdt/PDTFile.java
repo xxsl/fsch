@@ -1,4 +1,7 @@
-package jtv;
+package jtv.pdt;
+
+import jtv.bigendian.LEDataInputStream;
+import jtv.bigendian.LEDataOutputStream;
 
 import java.io.*;
 import java.util.HashMap;
@@ -65,7 +68,7 @@ public class PDTFile
         {
             throw new IOException("Unable to delete file " + file.getPath());
         }
-        LEDataOutputStream out = null;
+        jtv.bigendian.LEDataOutputStream out = null;
         try
         {
             out = new LEDataOutputStream(new BufferedOutputStream(new FileOutputStream(file)));
