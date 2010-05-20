@@ -2,11 +2,6 @@ package options;
 
 import org.apache.commons.cli.Option;
 
-/**
- * User: aturtsevitch
- * Date: May 20, 2010
- * Time: 1:04:02 PM
- */
 public class OptionEx extends Option
 {
     private String defaultValue;

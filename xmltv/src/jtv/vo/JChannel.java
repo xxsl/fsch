@@ -2,11 +2,6 @@ package jtv.vo;
 
 import java.util.List;
 
-/**
- * User: aturtsevitch
- * Date: May 19, 2010
- * Time: 12:03:37 PM
- */
 public class JChannel
 {
     private String name;

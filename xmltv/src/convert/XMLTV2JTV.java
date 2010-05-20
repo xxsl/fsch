@@ -10,11 +10,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-/**
- * User: aturtsevitch
- * Date: May 19, 2010
- * Time: 11:48:13 AM
- */
 public class XMLTV2JTV
 {
     private Tv xmltv;
