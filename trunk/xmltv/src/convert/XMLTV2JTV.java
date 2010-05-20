@@ -3,14 +3,12 @@ package convert;
 import jtv.vo.JChannel;
 import jtv.vo.JProgramme;
 import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormatter;
-import org.joda.time.format.DateTimeFormatterBuilder;
-import org.joda.time.format.DateTimeParser;
-import org.joda.time.format.ISODateTimeFormat;
+import org.joda.time.format.*;
 import xmltv.generated.Channel;
 import xmltv.generated.Programme;
 import xmltv.generated.Tv;
 
+import javax.xml.bind.DatatypeConverter;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -25,7 +23,7 @@ public class XMLTV2JTV
         this.xmltv = xmltv;
     }
 
-    public List<JChannel> convert()
+    public List<JChannel> convert() throws ParseException
     {
         List<JChannel> jChannels = new ArrayList<JChannel>();
 
@@ -47,12 +45,11 @@ public class XMLTV2JTV
     }
 
     //ISO 8601
-    private Date getDate(Programme programme)
+    private Date getDate(Programme programme) throws ParseException
     {
-        DateTimeParser timeParser = new DateTimeFormatterBuilder()
-                .appendYear(4, 4)
-                .toParser();
-        return new Date();
+        SimpleDateFormat timeParser =  new SimpleDateFormat();
+        timeParser.applyPattern("yyyyMMddHHmmss");
+        return timeParser.parse(programme.getStart());
     }
 
     private String getTitle(Programme programme)
