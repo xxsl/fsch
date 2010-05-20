@@ -1,5 +1,8 @@
 package jtv;
 
+import jtv.ndx.NDXFile;
+import jtv.ndx.NDXTime;
+import jtv.pdt.PDTFile;
 import jtv.vo.JChannel;
 import jtv.vo.JProgramme;
 
@@ -36,8 +39,8 @@ public class JFileChannel
         ArrayList<JProgramme> programmes = new ArrayList<JProgramme>();
         JChannel jChannel = new JChannel(name, programmes);
 
-        NDXFile ndxFile = new NDXFile(folder, name);
-        PDTFile pdtFile = new PDTFile(folder, name, charsetName);
+        NDXFile ndxFile = new jtv.ndx.NDXFile(folder, name);
+        jtv.pdt.PDTFile pdtFile = new PDTFile(folder, name, charsetName);
 
         if (ndxFile.read() > 0 && pdtFile.read() > 0)
         {

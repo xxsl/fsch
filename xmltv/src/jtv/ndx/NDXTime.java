@@ -1,4 +1,4 @@
-package jtv;
+package jtv.ndx;
 
 public class NDXTime
 {
