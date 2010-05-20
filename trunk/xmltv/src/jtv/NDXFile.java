@@ -15,14 +15,14 @@ public class NDXFile
     private long size;
     private List<NDXTime> ndxTimes;
 
-    public NDXFile(File file)
+    public NDXFile(File folder, String name)
     {
-        this.file = file;
+        this.file = new File(folder, getNdxName(name));
     }
 
-    public NDXFile(File file, List<NDXTime> ndxTimes)
+    public NDXFile(File folder, String name, List<NDXTime> ndxTimes)
     {
-        this(file);
+        this(folder, name);
         this.ndxTimes = ndxTimes;
         this.size = ndxTimes.size();
     }
@@ -59,9 +59,9 @@ public class NDXFile
 
     public void write() throws IOException
     {
-        if(file.exists())
+        if(file.exists() && !file.delete())
         {
-            file.delete();
+            //todo
         }
 
         LEDataOutputStream out = null;
@@ -97,5 +97,10 @@ public class NDXFile
     public List<NDXTime> getNdxTimes()
     {
         return ndxTimes;
+    }
+
+    private String getNdxName(String name)
+    {
+        return name + ".ndx";
     }
 }
