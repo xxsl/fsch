@@ -29,7 +29,7 @@ public class Main
 
         // unmarshal from foo.xml
         Unmarshaller u = jc.createUnmarshaller();
-        Tv tv = (Tv) u.unmarshal(new File("G:\\work\\xmltv\\dtd\\program_xml.xml"));
+        Tv tv = (Tv) u.unmarshal(new File("J:\\Projects\\fsch\\xmltv\\dtd\\program_xml.xml"));
 
 
         XMLTV2JTV xmltv2JTV = new XMLTV2JTV(tv);
@@ -45,7 +45,7 @@ public class Main
                 jProgramme.setStart(new Date((jProgramme.getStart().getTime() - 1000 * 60 * 60)));
             }
 
-            JFileChannel jFileChannel = new JFileChannel(new File("G:\\work\\xmltv\\jtv\\program_jtv1"), jChannel);
+            JFileChannel jFileChannel = new JFileChannel(new File("J:\\Projects\\fsch\\xmltv\\jtv\\program_jtv1"), jChannel, "Cp1251");
             jFileChannel.write();
         }
 

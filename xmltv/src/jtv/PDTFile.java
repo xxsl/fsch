@@ -17,17 +17,19 @@ public class PDTFile
 
     private File file;
     private long size;
+    private String charSet;
     private Map<Long, String> pdtTitles;
     private List<String> titles;
 
-    public PDTFile(File folder, String name)
+    public PDTFile(File folder, String name, String charSet)
     {
         this.file = new File(folder, getPdtName(name));
+        this.charSet = charSet;
     }
 
-    public PDTFile(File file, String name, List<String> titles)
+    public PDTFile(File file, String name, String charSet, List<String> titles)
     {
-        this(file, name);
+        this(file, name, charSet);
         this.titles = titles;
         this.size = titles.size();
     }
@@ -49,7 +51,7 @@ public class PDTFile
                 int recordSize = in.readShort();
                 byte[] nameBuff = new byte[recordSize];
                 in.readFully(nameBuff);
-                pdtTitles.put((long) offset, new String(nameBuff, "Cp1251"));//todo options
+                pdtTitles.put((long) offset, new String(nameBuff, charSet));//todo options
                 offset += recordSize + 2;
                 size++;
             }
@@ -82,8 +84,8 @@ public class PDTFile
             for (int i = 0; i < size; i++)
             {
                 String title = titles.get(i);
-                out.writeShort(title.getBytes("Cp1251").length);
-                out.write(title.getBytes("Cp1251"));
+                out.writeShort(title.getBytes(charSet).length);
+                out.write(title.getBytes(charSet));
             }
             out.flush();
         }
