@@ -49,7 +49,9 @@ public class XMLTV2JTV
     {
         SimpleDateFormat timeParser =  new SimpleDateFormat();
         timeParser.applyPattern("yyyyMMddHHmmss");
-        return timeParser.parse(programme.getStart());
+        DateTimeFormatter parser2 = ISODateTimeFormat.dateTimeNoMillis();
+
+        return DatatypeConverter.parseDateTime(programme.getStart()).getTime();
     }
 
     private String getTitle(Programme programme)
