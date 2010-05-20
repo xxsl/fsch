@@ -13,18 +13,26 @@ public class OptionsEx extends Options
     @Override
     public Options addOption(String opt, boolean hasArg, String description)
     {
-        return super.addOption(opt, hasArg, description);    //TODO : impl
+        Option option = new OptionEx(opt, hasArg, description);
+        return addOption(option);
     }
 
     @Override
     public Options addOption(String opt, String longOpt, boolean hasArg, String description)
     {
-        return super.addOption(opt, longOpt, hasArg, description);    //TODO : impl
+        Option option = new OptionEx(opt, longOpt, hasArg, description);
+        return addOption(option);
     }
 
-    @Override
-    public Options addOption(Option opt)
+    public Options addOption(String opt, boolean hasArg, String description, String defaultValue)
     {
-        return super.addOption(opt);    //TODO : impl
+        Option option = new OptionEx(opt, hasArg, description, defaultValue);
+        return addOption(option);
+    }
+
+    public Options addOption(String opt, String longOpt, boolean hasArg, String description, String defaultValue)
+    {
+        Option option = new OptionEx(opt, longOpt, hasArg, description, defaultValue);
+        return addOption(option);
     }
 }
