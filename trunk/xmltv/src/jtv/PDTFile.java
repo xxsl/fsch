@@ -39,12 +39,10 @@ public class PDTFile
         try
         {
             in = new LEDataInputStream(new BufferedInputStream(new FileInputStream(file)));
-            int offset = 0;
+            int offset = 3 + FILE_START.getBytes().length;
             size = 0;
-            //first read FILE_START
-            int fileOffset = 3 + FILE_START.getBytes().length;
-            in.skipBytes(fileOffset);
-            offset += fileOffset;
+            //first read FILE_START + 3 bytes
+            in.skipBytes(offset);
 
             while (in.available() > 0)
             {
@@ -70,7 +68,7 @@ public class PDTFile
     {
         if(file.exists() && !file.delete())
         {
-            //todo
+            throw new IOException("Unable to delete file " + file.getPath());
         }
         LEDataOutputStream out = null;
         try

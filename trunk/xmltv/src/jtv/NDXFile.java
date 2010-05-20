@@ -61,7 +61,7 @@ public class NDXFile
     {
         if(file.exists() && !file.delete())
         {
-            //todo
+            throw new IOException("Unable to delete file " + file.getPath());
         }
 
         LEDataOutputStream out = null;
