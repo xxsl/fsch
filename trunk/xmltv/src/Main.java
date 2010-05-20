@@ -22,9 +22,12 @@ public class Main
     public static void main(String[] args) throws Exception
     {
         Long start = System.currentTimeMillis();
-        Options options = createOptions();
+        OptionsEx options = createOptions();
         CommandLine cl = parseArgs(args, options);
+        options.getOptionEx("c").getDefaultValue();
 
+
+        //System.exit(0);
 
         JAXBContext jc = JAXBContext.newInstance("xmltv.generated");
 
@@ -66,7 +69,7 @@ public class Main
         return parser.parse(options, args);
     }
 
-    private static Options createOptions()
+    private static OptionsEx createOptions()
     {
         OptionsEx opt = new OptionsEx();
         opt.addOption("h", false, "Print help for this application");

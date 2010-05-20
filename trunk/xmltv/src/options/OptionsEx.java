@@ -35,4 +35,9 @@ public class OptionsEx extends Options
         Option option = new OptionEx(opt, longOpt, hasArg, description, defaultValue);
         return addOption(option);
     }
+
+    public OptionEx getOptionEx(String opt)
+    {
+        return (OptionEx)super.getOption(opt);    
+    }
 }
