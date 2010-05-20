@@ -40,7 +40,7 @@ public class JFileChannel
         JChannel jChannel = new JChannel(name, programmes);
 
         NDXFile ndxFile = new jtv.ndx.NDXFile(folder, name);
-        jtv.pdt.PDTFile pdtFile = new PDTFile(folder, name, charsetName);
+        PDTFile pdtFile = new PDTFile(folder, name, charsetName);
 
         if (ndxFile.read() > 0 && pdtFile.read() > 0)
         {
