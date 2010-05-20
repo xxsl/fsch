@@ -1,4 +1,4 @@
-import convert.XMLTV2JTV;
+import convert.Xmltv2JtvConverter;
 import jtv.JFileChannel;
 import jtv.vo.JChannel;
 import jtv.vo.JProgramme;
@@ -32,7 +32,7 @@ public class Main
         Tv tv = (Tv) u.unmarshal(new File("I:\\work\\xmltv\\dtd\\program_xml.xml"));
 
 
-        XMLTV2JTV xmltv2JTV = new XMLTV2JTV(tv);
+        Xmltv2JtvConverter xmltv2JTV = new Xmltv2JtvConverter(tv);
         List<JChannel> channels = xmltv2JTV.convert();
         // marshal to System.out
         //Marshaller m = jc.createMarshaller();

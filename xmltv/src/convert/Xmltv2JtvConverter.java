@@ -2,23 +2,19 @@ package convert;
 
 import jtv.vo.JChannel;
 import jtv.vo.JProgramme;
-import org.joda.time.DateTime;
-import org.joda.time.format.*;
 import xmltv.generated.Channel;
 import xmltv.generated.Programme;
 import xmltv.generated.Tv;
 
 import javax.xml.bind.DatatypeConverter;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class XMLTV2JTV
+public class Xmltv2JtvConverter
 {
     private Tv xmltv;
 
-    public XMLTV2JTV(Tv xmltv)
+    public Xmltv2JtvConverter(Tv xmltv)
     {
         this.xmltv = xmltv;
     }
@@ -36,7 +32,7 @@ public class XMLTV2JTV
             JChannel jChannel = new JChannel(channelMap.get(key).getDisplayName().get(0).getvalue(), new ArrayList<JProgramme>());//todo lang
             for (Programme programme : programmes)
             {
-                jChannel.getProgrammes().add(new JProgramme(getTitle(programme), getDate(programme)));
+                jChannel.getProgrammes().add(new JProgramme(getTitle(programme), getDate(programme.getStart())));
             }
             jChannels.add(jChannel);
         }
@@ -44,14 +40,15 @@ public class XMLTV2JTV
         return jChannels;
     }
 
-    //ISO 8601
-    private Date getDate(Programme programme) throws ParseException
+    /**
+     * Parse ISO 8601 date using jaxb DatatypeConverter.
+     * @param programStart date as string/
+     * @return Date
+     * @throws ParseException if any.
+     */
+    private Date getDate(String programStart) throws ParseException
     {
-        SimpleDateFormat timeParser =  new SimpleDateFormat();
-        timeParser.applyPattern("yyyyMMddHHmmss");
-        DateTimeFormatter parser2 = ISODateTimeFormat.dateTimeNoMillis();
-
-        return DatatypeConverter.parseDateTime(programme.getStart()).getTime();
+        return DatatypeConverter.parseDateTime(programStart).getTime();
     }
 
     private String getTitle(Programme programme)
