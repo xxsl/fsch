@@ -2,6 +2,11 @@ package convert;
 
 import jtv.vo.JChannel;
 import jtv.vo.JProgramme;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormatter;
+import org.joda.time.format.DateTimeFormatterBuilder;
+import org.joda.time.format.DateTimeParser;
+import org.joda.time.format.ISODateTimeFormat;
 import xmltv.generated.Channel;
 import xmltv.generated.Programme;
 import xmltv.generated.Tv;
@@ -20,7 +25,7 @@ public class XMLTV2JTV
         this.xmltv = xmltv;
     }
 
-    public List<JChannel> convert() throws InvalidDateException
+    public List<JChannel> convert()
     {
         List<JChannel> jChannels = new ArrayList<JChannel>();
 
@@ -42,9 +47,12 @@ public class XMLTV2JTV
     }
 
     //ISO 8601
-    private Date getDate(Programme programme) throws InvalidDateException
+    private Date getDate(Programme programme)
     {
-        return XMLTVDateParser.parse(programme.getStart());
+        DateTimeParser timeParser = new DateTimeFormatterBuilder()
+                .appendYear(4, 4)
+                .toParser();
+        return new Date();
     }
 
     private String getTitle(Programme programme)
