@@ -17,19 +17,19 @@ public class PDTFile
 
     private File file;
     private long size;
-    private String charSet;
+    private String charsetName;
     private Map<Long, String> pdtTitles;
     private List<String> titles;
 
-    public PDTFile(File folder, String name, String charSet)
+    public PDTFile(File folder, String name, String charsetName)
     {
         this.file = new File(folder, getPdtName(name));
-        this.charSet = charSet;
+        this.charsetName = charsetName;
     }
 
-    public PDTFile(File file, String name, String charSet, List<String> titles)
+    public PDTFile(File file, String name, String charsetName, List<String> titles)
     {
-        this(file, name, charSet);
+        this(file, name, charsetName);
         this.titles = titles;
         this.size = titles.size();
     }
@@ -51,7 +51,7 @@ public class PDTFile
                 int recordSize = in.readShort();
                 byte[] nameBuff = new byte[recordSize];
                 in.readFully(nameBuff);
-                pdtTitles.put((long) offset, new String(nameBuff, charSet));//todo options
+                pdtTitles.put((long) offset, new String(nameBuff, charsetName));//todo options
                 offset += recordSize + 2;
                 size++;
             }
@@ -76,16 +76,19 @@ public class PDTFile
         try
         {
             out = new LEDataOutputStream(new BufferedOutputStream(new FileOutputStream(file)));
-            //first 2 bytes is number of records
+            //write FILE_START
             out.write(FILE_START.getBytes());
+            //3 bytes A0
             out.writeByte(160);
             out.writeByte(160);
             out.writeByte(160);
             for (int i = 0; i < size; i++)
             {
-                String title = titles.get(i);
-                out.writeShort(title.getBytes(charSet).length);
-                out.write(title.getBytes(charSet));
+                byte[] title = titles.get(i).getBytes(charsetName);
+                //write title length
+                out.writeShort(title.length);
+                //write title bytes
+                out.write(title);
             }
             out.flush();
         }
@@ -106,11 +109,6 @@ public class PDTFile
     public Map<Long, String> getOffset2Title()
     {
         return pdtTitles;
-    }
-
-    public List<String> getTitles()
-    {
-        return titles;
     }
 
     private String getPdtName(String name)

@@ -20,19 +20,19 @@ public class JFileChannel
     private File folder;
     private JChannel channel;
     private String name;
-    private String charSet;
+    private String charsetName;
 
 
-    public JFileChannel(File folder, String name, String charSet)
+    public JFileChannel(File folder, String name, String charsetName)
     {
         this.folder = folder;
         this.name = name;
-        this.charSet = charSet;
+        this.charsetName = charsetName;
     }
 
-    public JFileChannel(File folder, JChannel channel, String charSet)
+    public JFileChannel(File folder, JChannel channel, String charsetName)
     {
-        this(folder, channel.getName(), charSet);
+        this(folder, channel.getName(), charsetName);
         this.channel = channel;
     }
 
@@ -42,7 +42,7 @@ public class JFileChannel
         JChannel jChannel = new JChannel(name, programmes);
 
         NDXFile ndxFile = new NDXFile(folder, name);
-        PDTFile pdtFile = new PDTFile(folder, name, charSet);
+        PDTFile pdtFile = new PDTFile(folder, name, charsetName);
 
         if (ndxFile.read() > 0 && pdtFile.read() > 0)
         {
@@ -64,7 +64,7 @@ public class JFileChannel
         short offset = (short)(PDTFile.FILE_OFFSET + 3);
         for(JProgramme jProgramme:channel.getProgrammes())
         {
-            offset += 2 + jProgramme.getName().getBytes(charSet).length;
+            offset += 2 + jProgramme.getName().getBytes(charsetName).length;
             titles.add(jProgramme.getName());
             times.add(new NDXTime(offset, jProgramme.getStart().getTime()));
         }
@@ -72,7 +72,7 @@ public class JFileChannel
         NDXFile ndxFile = new NDXFile(folder, name, times);
         ndxFile.write();
 
-        PDTFile pdtFile = new PDTFile(folder, name, charSet, titles);
+        PDTFile pdtFile = new PDTFile(folder, name, charsetName, titles);
         pdtFile.write();
     }
 
