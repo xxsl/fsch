@@ -69,7 +69,7 @@ public class Main
     {
         Options opt = new Options();
         opt.addOption("h", false, "Print help for this application");
-        opt.addOption("u", true, "The username to use");
+        opt.addOption("c", true, "The charsetName to use for JTV format encoding/decoding");
         opt.addOption("dsn", true, "The data source to use");
         return opt;
     }
