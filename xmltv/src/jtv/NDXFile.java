@@ -49,10 +49,7 @@ public class NDXFile
         }
         finally
         {
-            if(in != null)
-            {
-                in.close();
-            }
+            closeQuetly(in);
         }
         return size;
     }
@@ -82,9 +79,21 @@ public class NDXFile
         }
         finally
         {
-            if(out != null)
+            closeQuetly(out);
+        }
+    }
+
+    private void closeQuetly(Closeable out)
+    {
+        if (out != null)
+        {
+            try
             {
                 out.close();
+            }
+            catch (IOException e)
+            {
+                //ignore
             }
         }
     }

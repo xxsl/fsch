@@ -17,10 +17,7 @@
  */
 package jtv;
 
-import java.io.DataInput;
-import java.io.DataInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 
 /**
  * Little-Endian version of DataInputStream.
@@ -35,7 +32,7 @@ import java.io.InputStream;
  * @version 1.8 2007-05-24
  * @since 1998
  */
-public final class LEDataInputStream implements DataInput
+public final class LEDataInputStream implements DataInput, Closeable
 {
     // ------------------------------ CONSTANTS ------------------------------
 
