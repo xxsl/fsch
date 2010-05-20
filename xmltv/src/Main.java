@@ -2,6 +2,7 @@ import convert.XMLTV2JTV;
 import jtv.JFileChannel;
 import jtv.vo.JChannel;
 import jtv.vo.JProgramme;
+import options.OptionsEx;
 import org.apache.commons.cli.*;
 import xmltv.generated.Tv;
 
@@ -67,9 +68,9 @@ public class Main
 
     private static Options createOptions()
     {
-        Options opt = new Options();
+        OptionsEx opt = new OptionsEx();
         opt.addOption("h", false, "Print help for this application");
-        opt.addOption("c", true, "The charsetName to use for JTV format encoding/decoding");
+        opt.addOption("c", true, "The charsetName to use for JTV format encoding/decoding", "Cp1251");
         opt.addOption("dsn", true, "The data source to use");
         return opt;
     }
