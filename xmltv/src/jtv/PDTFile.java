@@ -21,14 +21,14 @@ public class PDTFile
     private Map<Long, String> pdtTitles;
     private List<String> titles;
 
-    public PDTFile(File file)
+    public PDTFile(File folder, String name)
     {
-        this.file = file;
+        this.file = new File(folder, getPdtName(name));
     }
 
-    public PDTFile(File file, List<String> titles)
+    public PDTFile(File file, String name, List<String> titles)
     {
-        this(file);
+        this(file, name);
         this.titles = titles;
         this.size = titles.size();
     }
@@ -112,5 +112,10 @@ public class PDTFile
     public List<String> getTitles()
     {
         return titles;
+    }
+
+    private String getPdtName(String name)
+    {
+        return name + ".pdt";
     }
 }

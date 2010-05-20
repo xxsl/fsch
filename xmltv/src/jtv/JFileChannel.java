@@ -39,8 +39,8 @@ public class JFileChannel
         ArrayList<JProgramme> programmes = new ArrayList<JProgramme>();
         JChannel jChannel = new JChannel(name, programmes);
 
-        NDXFile ndxFile = new NDXFile(new File(folder, getNdxName()));
-        PDTFile pdtFile = new PDTFile(new File(folder, getPdtName()));
+        NDXFile ndxFile = new NDXFile(folder, name);
+        PDTFile pdtFile = new PDTFile(folder, name);
 
         if (ndxFile.read() > 0 && pdtFile.read() > 0)
         {
@@ -67,10 +67,10 @@ public class JFileChannel
             times.add(new NDXTime(offset, jProgramme.getStart().getTime()));
         }
 
-        NDXFile ndxFile = new NDXFile(new File(folder, getNdxName()), times);
+        NDXFile ndxFile = new NDXFile(folder, name, times);
         ndxFile.write();
 
-        PDTFile pdtFile = new PDTFile(new File(folder, getPdtName()), titles);
+        PDTFile pdtFile = new PDTFile(folder, name, titles);
         pdtFile.write();
     }
 
@@ -87,15 +87,5 @@ public class JFileChannel
     public String getName()
     {
         return name;
-    }
-
-    private String getPdtName()
-    {
-        return name + ".pdt";
-    }
-
-    private String getNdxName()
-    {
-        return name + ".ndx";
     }
 }
