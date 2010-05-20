@@ -5,11 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * User: aturtsevitch
- * Date: May 19, 2010
- * Time: 12:37:28 PM
- */
 public class PDTFile
 {
     private static final String FILE_START = "JTV 3.x TV Program Data";

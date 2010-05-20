@@ -12,11 +12,7 @@ import java.io.File;
 import java.util.Date;
 import java.util.List;
 
-/**
- * User: aturtsevitch
- * Date: May 18, 2010
- * Time: 3:40:21 PM
- */
+
 public class Main
 {
     public static void main(String[] args) throws Exception

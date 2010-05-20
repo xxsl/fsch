@@ -4,11 +4,6 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * User: aturtsevitch
- * Date: May 19, 2010
- * Time: 12:37:36 PM
- */
 public class NDXFile
 {
     private File file;

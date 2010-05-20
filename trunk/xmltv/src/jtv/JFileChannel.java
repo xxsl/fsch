@@ -10,11 +10,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-/**
- * User: aturtsevitch
- * Date: May 19, 2010
- * Time: 12:21:07 PM
- */
 public class JFileChannel
 {
     private File folder;
