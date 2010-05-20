@@ -6,6 +6,7 @@ import xmltv.generated.Channel;
 import xmltv.generated.Programme;
 import xmltv.generated.Tv;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -13,14 +14,13 @@ import java.util.*;
 public class XMLTV2JTV
 {
     private Tv xmltv;
-    private String datePattern = "yyyyMMddHHmmss";
 
     public XMLTV2JTV(Tv xmltv)
     {
         this.xmltv = xmltv;
     }
 
-    public List<JChannel> convert() throws ParseException
+    public List<JChannel> convert() throws InvalidDateException
     {
         List<JChannel> jChannels = new ArrayList<JChannel>();
 
@@ -41,22 +41,10 @@ public class XMLTV2JTV
         return jChannels;
     }
 
-
-    // 20080715023000 -0600
-    // 2008 07 15 02 30 00 -0600
-
-    private Date getDate(Programme programme) throws ParseException
+    //ISO 8601
+    private Date getDate(Programme programme) throws InvalidDateException
     {
-        SimpleDateFormat dateFormat = new SimpleDateFormat();
-
-        String dateString = programme.getStart().substring(0, datePattern.length());
-        dateFormat.applyPattern(datePattern);
-
-        Date date = dateFormat.parse(dateString);
-
-        //todo time zone offset parse
-
-        return date;
+        return XMLTVDateParser.parse(programme.getStart());
     }
 
     private String getTitle(Programme programme)
