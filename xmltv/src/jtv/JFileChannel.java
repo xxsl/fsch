@@ -64,7 +64,7 @@ public class JFileChannel
         List<NDXTime> times = new ArrayList<NDXTime>();
         List<String> titles = new ArrayList<String>();
         short offset = (short)(PDTFile.FILE_OFFSET + 3);
-        //optimize pdt size, remove repeated titles
+        //todo optimize pdt size, remove repeated titles
         for(JProgramme jProgramme:channel.getProgrammes())
         {
             offset += 2 + jProgramme.getName().getBytes(charsetName).length;
