@@ -8,10 +8,7 @@ import jtv.vo.JProgramme;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class JFileChannel
 {
@@ -64,12 +61,19 @@ public class JFileChannel
         List<NDXTime> times = new ArrayList<NDXTime>();
         List<String> titles = new ArrayList<String>();
         short offset = (short)(PDTFile.FILE_OFFSET + 3);
-        //todo optimize pdt size, remove repeated titles
+
+        //optimize pdt size, remove repeated titles
+        Map<String, Short> dateStringMap = new HashMap<String, Short>();
+
         for(JProgramme jProgramme:channel.getProgrammes())
         {
-            offset += 2 + jProgramme.getName().getBytes(charsetName).length;
-            titles.add(jProgramme.getName());
-            times.add(new NDXTime(offset, jProgramme.getStart().getTime()));
+            if(dateStringMap.get(jProgramme.getName()) == null)
+            {
+                offset += 2 + jProgramme.getName().getBytes(charsetName).length;
+                titles.add(jProgramme.getName());
+                dateStringMap.put(jProgramme.getName(), offset);
+            }
+            times.add(new NDXTime(dateStringMap.get(jProgramme.getName()), jProgramme.getStart().getTime()));
         }
 
         NDXFile ndxFile = new NDXFile(folder, name, times);
