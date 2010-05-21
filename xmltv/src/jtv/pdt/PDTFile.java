@@ -77,10 +77,13 @@ public class PDTFile
 
     public void write() throws IOException
     {
+        LOGGER.debug("Writing pdt file " + file.getPath());
+
         if (file.exists() && !file.delete())
         {
             throw new IOException("Unable to delete file " + file.getPath());
         }
+        
         jtv.bigendian.LEDataOutputStream out = null;
         try
         {
@@ -100,6 +103,7 @@ public class PDTFile
                 out.write(title);
             }
             out.flush();
+            LOGGER.debug("Writing pdt file complete: " + file.getPath() + ", programs: " + size);
         }
         finally
         {
