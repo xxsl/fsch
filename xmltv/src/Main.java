@@ -11,6 +11,9 @@ import jtv.vo.JChannel;
 import jtv.vo.JProgramme;
 import options.OptionsEx;
 import org.apache.commons.cli.*;
+import org.apache.log4j.Category;
+import org.apache.log4j.Logger;
+import org.apache.log4j.spi.LoggerFactory;
 import xmltv.generated.Tv;
 
 import javax.xml.bind.JAXBContext;
@@ -22,8 +25,14 @@ import java.util.List;
 
 public class Main
 {
+    private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
+
+
     public static void main(String[] args) throws Exception
     {
+        //setup log4j
+        System.getProperties().put("-Dlog4j.configuration", "log4j.properties");
+
         Long start = System.currentTimeMillis();
         OptionsEx options = createOptions();
         CommandLine cl = parseArgs(args, options);
@@ -31,33 +40,39 @@ public class Main
 
 
         //System.exit(0);
-
-        JAXBContext jc = JAXBContext.newInstance("xmltv.generated");
-
-        // unmarshal from foo.xml
-        Unmarshaller u = jc.createUnmarshaller();
-        Tv tv = (Tv) u.unmarshal(new File("I:\\work\\xmltv\\dtd\\program_xml.xml"));
-
-
-        Tv2JTvConverter xmltv2JTV = new Tv2JTvConverter(tv);
-        List<JChannel> channels = xmltv2JTV.convert();
-        // marshal to System.out
-        //Marshaller m = jc.createMarshaller();
-        //m.marshal(tv, System.out);
-
-        //System.exit(0);
-
-        for(JChannel jChannel:channels)
+        try
         {
-            for (JProgramme jProgramme : jChannel.getProgrammes())
+
+            JAXBContext jc = JAXBContext.newInstance("xmltv.generated");
+
+            // unmarshal from foo.xml
+            Unmarshaller u = jc.createUnmarshaller();
+            Tv tv = (Tv) u.unmarshal(new File("J:\\Projects\\fsch\\xmltv\\dtd\\program_xml.xml"));
+
+
+            Tv2JTvConverter xmltv2JTV = new Tv2JTvConverter(tv);
+            List<JChannel> channels = xmltv2JTV.convert();
+            // marshal to System.out
+            //Marshaller m = jc.createMarshaller();
+            //m.marshal(tv, System.out);
+
+            //System.exit(0);
+
+            for (JChannel jChannel : channels)
             {
-                jProgramme.setStart(new Date((jProgramme.getStart().getTime() - 1000 * 60 * 60)));
+                for (JProgramme jProgramme : jChannel.getProgrammes())
+                {
+                    jProgramme.setStart(new Date((jProgramme.getStart().getTime() - 1000 * 60 * 60)));
+                }
+
+                JFileChannel jFileChannel = new JFileChannel(new File("I:\\work\\xmltv\\jtv\\program_jtv1"), jChannel, "Cp1251");
+                jFileChannel.write();
             }
-
-            JFileChannel jFileChannel = new JFileChannel(new File("I:\\work\\xmltv\\jtv\\program_jtv1"), jChannel, "Cp1251");
-            jFileChannel.write();
         }
-
+        catch (Exception e)
+        {
+            LOGGER.error("Convertion failed", e);
+        }
 
         if (cl.hasOption("h"))
         {
@@ -65,7 +80,7 @@ public class Main
             f.printHelp("XMLTV2JTV", options);
         }
 
-        System.out.println("Time elapsed: " + (System.currentTimeMillis() - start) + " ms");
+        LOGGER.info("Time elapsed: " + (System.currentTimeMillis() - start) + " ms");
     }
 
     private static CommandLine parseArgs(String[] args, Options options) throws ParseException
