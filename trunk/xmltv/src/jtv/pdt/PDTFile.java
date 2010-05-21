@@ -1,7 +1,15 @@
+/*
+ * Copyright(c) Nimrod97, 2010.
+ *
+ * Email: Nimrod97@gmail.com
+ * Project: http://code.google.com/p/xmltv2jtv/
+ */
+
 package jtv.pdt;
 
 import jtv.bigendian.LEDataInputStream;
 import jtv.bigendian.LEDataOutputStream;
+import org.apache.log4j.Logger;
 
 import java.io.*;
 import java.util.HashMap;
@@ -10,6 +18,8 @@ import java.util.Map;
 
 public class PDTFile
 {
+    private static final Logger LOGGER = Logger.getLogger(PDTFile.class.getName());
+
     private static final String FILE_START = "JTV 3.x TV Program Data";
     public static final Short FILE_OFFSET = (short) FILE_START.length();
 
@@ -34,6 +44,8 @@ public class PDTFile
 
     public Long read() throws IOException
     {
+        LOGGER.debug("Parsing pdt file " + file.getPath());
+
         pdtTitles = new HashMap<Long, String>();
         LEDataInputStream in = null;
         try
@@ -54,6 +66,7 @@ public class PDTFile
                 offset += recordSize + 2;
                 size++;
             }
+            LOGGER.debug("Successfully parsed pdt file: " + file.getPath() + ", programs: " + size);
         }
         finally
         {
@@ -104,7 +117,7 @@ public class PDTFile
             }
             catch (IOException e)
             {
-                //ignore
+                LOGGER.warn("Close stream error" + e);
             }
         }
     }
