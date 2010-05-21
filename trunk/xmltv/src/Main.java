@@ -29,9 +29,10 @@ public class Main
 
     public static void main(String[] args) throws Exception
     {
+        Long start = System.currentTimeMillis();
+
         setupLog4j();
 
-        Long start = System.currentTimeMillis();
         OptionsEx options = createOptions();
         CommandLine cl = parseArgs(args, options);
         options.getOptionEx("c").getDefaultValue();
