@@ -27,7 +27,7 @@ public final class FileTimes
      * @param windowsTime Windows milliseconds.
      * @return Java milliseconds.
      */
-    public static long getJavaTime(Long windowsTime)
+    public static long getJavaTime(long windowsTime)
     {
         return (windowsTime / 10000) - DIFF_IN_MILLIS;
     }
@@ -37,7 +37,7 @@ public final class FileTimes
      * @param javaTime Java milliseconds.
      * @return Windows milliseconds.
      */
-    public static long getWindowsTime(Long javaTime)
+    public static long getWindowsTime(long javaTime)
     {
         return (javaTime + DIFF_IN_MILLIS) * 10000;
     }
