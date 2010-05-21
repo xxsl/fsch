@@ -36,6 +36,8 @@ public class JFileChannel
 
     public JChannel read() throws IOException
     {
+        checkFolderExists();
+
         ArrayList<JProgramme> programmes = new ArrayList<JProgramme>();
         JChannel jChannel = new JChannel(name, programmes);
 
@@ -57,6 +59,8 @@ public class JFileChannel
 
     public void write() throws IOException
     {
+        checkFolderExists();
+
         List<NDXTime> times = new ArrayList<NDXTime>();
         List<String> titles = new ArrayList<String>();
         short offset = (short)(PDTFile.FILE_OFFSET + 3);
@@ -87,5 +91,13 @@ public class JFileChannel
     public String getName()
     {
         return name;
+    }
+
+    private void checkFolderExists() throws IOException
+    {
+        if(!folder.exists())
+        {
+            throw new IOException("JTV folder must exist: " + folder.getPath()); 
+        }
     }
 }
