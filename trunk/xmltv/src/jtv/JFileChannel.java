@@ -69,9 +69,9 @@ public class JFileChannel
         {
             if(dateStringMap.get(jProgramme.getName()) == null)
             {
+                dateStringMap.put(jProgramme.getName(), offset);
                 offset += 2 + jProgramme.getName().getBytes(charsetName).length;
                 titles.add(jProgramme.getName());
-                dateStringMap.put(jProgramme.getName(), offset);
             }
             times.add(new NDXTime(dateStringMap.get(jProgramme.getName()), jProgramme.getStart().getTime()));
         }
