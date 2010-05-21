@@ -37,6 +37,8 @@ public class NDXFile
 
     public Long read() throws IOException
     {
+        LOGGER.debug("Parsing ndx file " + file.getPath());
+
         ndxTimes = new ArrayList<jtv.ndx.NDXTime>();
         LEDataInputStream in = null;
         try
@@ -54,6 +56,7 @@ public class NDXFile
                 jtv.ndx.NDXTime ndxTime = new jtv.ndx.NDXTime(offset, time);
                 ndxTimes.add(ndxTime);
             }
+            LOGGER.debug("Successfully parsed ndx file: " + file.getPath() + ", schedule size: " + size);
         }
         finally
         {
