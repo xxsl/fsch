@@ -67,6 +67,8 @@ public class NDXFile
 
     public void write() throws IOException
     {
+        LOGGER.debug("Writing ndx file " + file.getPath());
+
         if(file.exists() && !file.delete())
         {
             throw new IOException("Unable to delete file " + file.getPath());
@@ -87,6 +89,7 @@ public class NDXFile
                 out.writeShort(ndxTime.getOffset().shortValue());
             }
             out.flush();
+            LOGGER.debug("Writing ndx file complete " + file.getPath() + ", schedule size: " + size);
         }
         finally
         {
