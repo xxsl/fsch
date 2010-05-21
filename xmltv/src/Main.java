@@ -33,6 +33,8 @@ public class Main
 
         setupLog4j();
 
+        LOGGER.info("Application XMLTV2JTV " + Version.getInfoString());
+
         OptionsEx options = createOptions();
         CommandLine cl = parseArgs(args, options);
         options.getOptionEx("c").getDefaultValue();
@@ -46,7 +48,7 @@ public class Main
 
             // unmarshal from foo.xml
             Unmarshaller u = jc.createUnmarshaller();
-            Tv tv = (Tv) u.unmarshal(new File("J:\\Projects\\fsch\\xmltv\\dtd\\program_xml.xml"));
+            Tv tv = (Tv) u.unmarshal(new File("G:\\work\\xmltv\\dtd\\program_xml.xml"));
 
 
             Tv2JTvConverter xmltv2JTV = new Tv2JTvConverter(tv);
@@ -64,10 +66,10 @@ public class Main
                     jProgramme.setStart(new Date((jProgramme.getStart().getTime() - 1000 * 60 * 60)));
                 }
 
-                JFileChannel jFileChannel = new JFileChannel(new File("J:\\Projects\\fsch\\xmltv\\jtv\\program_jtv1"), jChannel, "Cp1251");
+                JFileChannel jFileChannel = new JFileChannel(new File("G:\\work\\xmltv\\jtv\\program_jtv1"), jChannel, "Cp1251");
                 jFileChannel.write();
 
-                JFileChannel jFileChannel2 = new JFileChannel(new File("J:\\Projects\\fsch\\xmltv\\jtv\\program_jtv1"), jChannel, "Cp1251");
+                JFileChannel jFileChannel2 = new JFileChannel(new File("G:\\work\\xmltv\\jtv\\program_jtv1"), jChannel, "Cp1251");
                 jFileChannel2.read();
             }
         }
@@ -110,9 +112,12 @@ public class Main
         OptionsEx opt = new OptionsEx();
         opt.addOption("h", false, "Print this message");
         opt.addOption("c", true, "The charsetName to use for JTV format encoding/decoding", "Cp1251");
-        opt.addOption("d", true, "The data source [xmltv/jtv] to import");
-        opt.addOption("o", true, "The data source [xmltv/jtv] to export");
-        //opt.addOption
+        Option importSrc = new Option("s", true, "The data [xmltv/jtv] to import, path");
+        importSrc.setRequired(true);
+        opt.addOption(importSrc);
+        Option exportSrc = new Option("o", true, "The data [xmltv/jtv] to export, path");
+        exportSrc.setRequired(true);
+        opt.addOption(exportSrc);
         return opt;
     }
 }
