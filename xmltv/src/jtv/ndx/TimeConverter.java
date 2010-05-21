@@ -10,7 +10,7 @@ package jtv.ndx;
 /**
  * Utility class to convert between Java and Windows times.
  */
-public final class FileTimes
+public final class TimeConverter
 {
     /**
      * Java timestamps use 64-bit milliseconds since 1970 GMT. Windows timestamps use 64-bit value representing the
