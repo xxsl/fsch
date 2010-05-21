@@ -39,7 +39,7 @@ public class NDXFile
             {
                 //2 zero bytes
                 in.skipBytes(2);
-                long time = FileTimes.getJavaTime(in.readLong());
+                long time = TimeConverter.getJavaTime(in.readLong());
                 short offset = in.readShort();
                 jtv.ndx.NDXTime ndxTime = new jtv.ndx.NDXTime(offset, time);
                 ndxTimes.add(ndxTime);
@@ -70,7 +70,7 @@ public class NDXFile
                 //2 zero bytes
                 out.writeShort((short)0);
                 jtv.ndx.NDXTime ndxTime = ndxTimes.get(i);
-                out.writeLong(FileTimes.getWindowsTime(ndxTime.getTime()));
+                out.writeLong(TimeConverter.getWindowsTime(ndxTime.getTime()));
                 out.writeShort(ndxTime.getOffset().shortValue());
             }
             out.flush();
