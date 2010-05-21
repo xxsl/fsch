@@ -88,7 +88,15 @@ public class Main
     private static void setupLog4j()
     {
         String userDir = (String)System.getProperties().get("user.dir");
-        PropertyConfigurator.configure(new File(userDir, "log4j.properties").getPath());
+        File cfg = new File(userDir, "log4j.properties");
+        if(cfg.exists())
+        {
+            PropertyConfigurator.configure(cfg.getPath());
+        }
+        else
+        {
+            System.err.println("Log4j setup failed. File not found: " + cfg.getPath());
+        }
     }
 
     private static CommandLine parseArgs(String[] args, Options options) throws ParseException
@@ -100,9 +108,11 @@ public class Main
     private static OptionsEx createOptions()
     {
         OptionsEx opt = new OptionsEx();
-        opt.addOption("h", false, "Print help for this application");
+        opt.addOption("h", false, "Print this message");
         opt.addOption("c", true, "The charsetName to use for JTV format encoding/decoding", "Cp1251");
-        opt.addOption("dsn", true, "The data source to use");
+        opt.addOption("d", true, "The data source [xmltv/jtv] to import");
+        opt.addOption("o", true, "The data source [xmltv/jtv] to export");
+        //opt.addOption
         return opt;
     }
 }

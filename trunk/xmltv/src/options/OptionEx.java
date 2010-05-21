@@ -43,4 +43,10 @@ public class OptionEx extends Option
     {
         return defaultValue;
     }
+
+    @Override
+    public String getDescription()
+    {
+        return super.getDescription() + (getDefaultValue() != null ? ". Default value: " + getDefaultValue() : "");
+    }
 }
