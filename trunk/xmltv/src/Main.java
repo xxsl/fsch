@@ -29,9 +29,7 @@ public class Main
 
     public static void main(String[] args) throws Exception
     {
-        //setup log4j
-        String userDir = (String)System.getProperties().get("user.dir");
-        PropertyConfigurator.configure(new File(userDir, "log4j.properties").getPath());
+        setupLog4j();
 
         Long start = System.currentTimeMillis();
         OptionsEx options = createOptions();
@@ -84,6 +82,12 @@ public class Main
         }
 
         LOGGER.info("Time elapsed: " + (System.currentTimeMillis() - start) + " ms");
+    }
+
+    private static void setupLog4j()
+    {
+        String userDir = (String)System.getProperties().get("user.dir");
+        PropertyConfigurator.configure(new File(userDir, "log4j.properties").getPath());
     }
 
     private static CommandLine parseArgs(String[] args, Options options) throws ParseException
