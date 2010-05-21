@@ -12,6 +12,7 @@ import jtv.vo.JProgramme;
 import options.OptionsEx;
 import org.apache.commons.cli.*;
 import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import xmltv.generated.Tv;
 
 import javax.xml.bind.JAXBContext;
@@ -30,7 +31,7 @@ public class Main
     {
         //setup log4j
         String userDir = (String)System.getProperties().get("user.dir");
-        System.getProperties().put("log4j.configuration", new File(userDir, "log4j.properties").getPath());
+        PropertyConfigurator.configure(new File(userDir, "log4j.properties").getPath());
 
         Long start = System.currentTimeMillis();
         OptionsEx options = createOptions();
