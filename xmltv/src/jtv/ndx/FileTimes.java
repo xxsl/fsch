@@ -1,12 +1,17 @@
+/*
+ * Copyright(c) Nimrod97, 2010.
+ *
+ * Email: Nimrod97@gmail.com
+ * Project: http://code.google.com/p/xmltv2jtv/
+ */
+
 package jtv.ndx;
 
+/**
+ * Utility class to convert between Java and Windows times.
+ */
 public final class FileTimes
 {
-    /**
-     * 86,400,000 the number of milliseconds in 24 hour day. Easily fits into an int.
-     */
-    private static final int MILLISECONDS_PER_DAY = 24 * 60 * 60 * 1000;
-
     /**
      * Java timestamps use 64-bit milliseconds since 1970 GMT. Windows timestamps use 64-bit value representing the
      * number of 100-nanosecond intervals since January 1, 1601, with ten thousand times as much precision. <br>
@@ -17,11 +22,21 @@ public final class FileTimes
      */
     private static final long DIFF_IN_MILLIS = 11644473600000L;
 
+    /**
+     * Returns Java milliseconds.
+     * @param windowsTime Windows milliseconds.
+     * @return Java milliseconds.
+     */
     public static long getJavaTime(Long windowsTime)
     {
         return (windowsTime / 10000) - DIFF_IN_MILLIS;
     }
 
+    /**
+     * Returns Windows milliseconds.
+     * @param javaTime Java milliseconds.
+     * @return Windows milliseconds.
+     */
     public static long getWindowsTime(Long javaTime)
     {
         return (javaTime + DIFF_IN_MILLIS) * 10000;
