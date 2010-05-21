@@ -1,3 +1,10 @@
+/*
+ * Copyright(c) Nimrod97, 2010.
+ *
+ * Email: Nimrod97@gmail.com
+ * Project: http://code.google.com/p/xmltv2jtv/
+ */
+
 import convert.Tv2JTvConverter;
 import jtv.JFileChannel;
 import jtv.vo.JChannel;
