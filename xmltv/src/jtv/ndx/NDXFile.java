@@ -1,7 +1,15 @@
+/*
+ * Copyright(c) Nimrod97, 2010.
+ *
+ * Email: Nimrod97@gmail.com
+ * Project: http://code.google.com/p/xmltv2jtv/
+ */
+
 package jtv.ndx;
 
 import jtv.bigendian.LEDataInputStream;
 import jtv.bigendian.LEDataOutputStream;
+import org.apache.log4j.Logger;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -9,6 +17,8 @@ import java.util.List;
 
 public class NDXFile
 {
+    private static final Logger LOGGER = Logger.getLogger(NDXFile.class.getName());
+
     private File file;
     private long size;
     private List<jtv.ndx.NDXTime> ndxTimes;
@@ -91,7 +101,7 @@ public class NDXFile
             }
             catch (IOException e)
             {
-                //ignore
+                LOGGER.warn("Close stream error" + e);
             }
         }
     }

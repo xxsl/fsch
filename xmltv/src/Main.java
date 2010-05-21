@@ -11,9 +11,7 @@ import jtv.vo.JChannel;
 import jtv.vo.JProgramme;
 import options.OptionsEx;
 import org.apache.commons.cli.*;
-import org.apache.log4j.Category;
 import org.apache.log4j.Logger;
-import org.apache.log4j.spi.LoggerFactory;
 import xmltv.generated.Tv;
 
 import javax.xml.bind.JAXBContext;
@@ -31,7 +29,8 @@ public class Main
     public static void main(String[] args) throws Exception
     {
         //setup log4j
-        System.getProperties().put("-Dlog4j.configuration", "log4j.properties");
+        String userDir = (String)System.getProperties().get("user.dir");
+        System.getProperties().put("log4j.configuration", new File(userDir, "log4j.properties").getPath());
 
         Long start = System.currentTimeMillis();
         OptionsEx options = createOptions();
@@ -65,8 +64,11 @@ public class Main
                     jProgramme.setStart(new Date((jProgramme.getStart().getTime() - 1000 * 60 * 60)));
                 }
 
-                JFileChannel jFileChannel = new JFileChannel(new File("I:\\work\\xmltv\\jtv\\program_jtv1"), jChannel, "Cp1251");
+                JFileChannel jFileChannel = new JFileChannel(new File("J:\\Projects\\fsch\\xmltv\\jtv\\program_jtv1"), jChannel, "Cp1251");
                 jFileChannel.write();
+
+                JFileChannel jFileChannel2 = new JFileChannel(new File("J:\\Projects\\fsch\\xmltv\\jtv\\program_jtv1"), jChannel, "Cp1251");
+                jFileChannel2.read();
             }
         }
         catch (Exception e)
