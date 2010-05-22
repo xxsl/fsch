@@ -7,8 +7,7 @@
 
 package jtv.ndx;
 
-import jtv.bigendian.LEDataInputStream;
-import jtv.bigendian.LEDataOutputStream;
+import jtv.streams.LEDataInputStream;
 import org.apache.log4j.Logger;
 
 import java.io.*;
@@ -74,10 +73,10 @@ public class NDXFile
             throw new IOException("Unable to delete file " + file.getPath());
         }
 
-        LEDataOutputStream out = null;
+        jtv.streams.LEDataOutputStream out = null;
         try
         {
-            out = new jtv.bigendian.LEDataOutputStream(new BufferedOutputStream(new FileOutputStream(file)));
+            out = new jtv.streams.LEDataOutputStream(new BufferedOutputStream(new FileOutputStream(file)));
             //first 2 bytes is number of records
             out.writeShort((short)size);
             for (int i = 0; i < size; i++)
