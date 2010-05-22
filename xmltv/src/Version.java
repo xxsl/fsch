@@ -11,7 +11,7 @@ public class Version
     private static long MAJOR_ = 0;
     private static long MINOR_ = 1;
 
-    private static Version VERSION = new Version(VERSION_, MAJOR_, MINOR_);
+    private static final Version VERSION = new Version(VERSION_, MAJOR_, MINOR_);
 
     private long version = 0;
     private long major = 0;
