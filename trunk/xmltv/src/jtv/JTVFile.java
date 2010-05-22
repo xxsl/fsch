@@ -10,7 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-public class JFileChannel
+public class JTVFile
 {
     private File folder;
     private JChannel channel;
@@ -18,14 +18,14 @@ public class JFileChannel
     private String charsetName;
 
 
-    public JFileChannel(File folder, String name, String charsetName)
+    public JTVFile(File folder, String name, String charsetName)
     {
         this.folder = folder;
         this.name = name;
         this.charsetName = charsetName;
     }
 
-    public JFileChannel(File folder, JChannel channel, String charsetName)
+    public JTVFile(File folder, JChannel channel, String charsetName)
     {
         this(folder, channel.getName(), charsetName);
         this.channel = channel;
