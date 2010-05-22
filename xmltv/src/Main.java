@@ -6,7 +6,7 @@
  */
 
 import convert.Tv2JTvConverter;
-import jtv.JFileChannel;
+import jtv.JTVFile;
 import jtv.vo.JChannel;
 import jtv.vo.JProgramme;
 import options.OptionsEx;
@@ -66,10 +66,10 @@ public class Main
                     jProgramme.setStart(new Date((jProgramme.getStart().getTime() - 1000 * 60 * 60)));
                 }
 
-                JFileChannel jFileChannel = new JFileChannel(new File("G:\\work\\xmltv\\jtv\\program_jtv1"), jChannel, "Cp1251");
+                JTVFile jFileChannel = new JTVFile(new File("G:\\work\\xmltv\\jtv\\program_jtv1"), jChannel, "Cp1251");
                 jFileChannel.write();
 
-                JFileChannel jFileChannel2 = new JFileChannel(new File("G:\\work\\xmltv\\jtv\\program_jtv1"), jChannel, "Cp1251");
+                JTVFile jFileChannel2 = new JTVFile(new File("G:\\work\\xmltv\\jtv\\program_jtv1"), jChannel, "Cp1251");
                 jFileChannel2.read();
             }
         }
