@@ -16,12 +16,14 @@ public class Version
     private long version = 0;
     private long major = 0;
     private long minor = 1;
+    private String asString;
 
     private Version(long version, long major, long minor)
     {
         this.version = version;
         this.major = major;
         this.minor = minor;
+        this.asString = getVersion() + "." + getMajor() + "." + getMinor();
     }
 
     public static Version getInfo()
@@ -52,6 +54,6 @@ public class Version
     @Override
     public String toString()
     {
-        return getVersion() + "." + getMajor() + "." + getMinor();
+        return asString;
     }
 }
