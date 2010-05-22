@@ -15,7 +15,7 @@
  * Version History:
  *  1.8 2007-05-24
  */
-package jtv.bigendian;
+package jtv.streams;
 
 import java.io.*;
 

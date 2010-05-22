@@ -7,8 +7,6 @@
 
 package jtv.pdt;
 
-import jtv.bigendian.LEDataInputStream;
-import jtv.bigendian.LEDataOutputStream;
 import org.apache.log4j.Logger;
 
 import java.io.*;
@@ -47,10 +45,10 @@ public class PDTFile
         LOGGER.debug("Parsing pdt file " + file.getPath());
 
         pdtTitles = new HashMap<Long, String>();
-        LEDataInputStream in = null;
+        jtv.streams.LEDataInputStream in = null;
         try
         {
-            in = new LEDataInputStream(new BufferedInputStream(new FileInputStream(file)));
+            in = new jtv.streams.LEDataInputStream(new BufferedInputStream(new FileInputStream(file)));
             size = 0;
             //first skip FILE_START bytes + 3 bytes A0
             int offset = 3 + FILE_START.getBytes().length;
@@ -84,10 +82,10 @@ public class PDTFile
             throw new IOException("Unable to delete file " + file.getPath());
         }
         
-        jtv.bigendian.LEDataOutputStream out = null;
+        jtv.streams.LEDataOutputStream out = null;
         try
         {
-            out = new LEDataOutputStream(new BufferedOutputStream(new FileOutputStream(file)));
+            out = new jtv.streams.LEDataOutputStream(new BufferedOutputStream(new FileOutputStream(file)));
             //write FILE_START
             out.write(FILE_START.getBytes());
             //3 bytes A0
