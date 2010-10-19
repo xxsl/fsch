@@ -14,11 +14,13 @@
             <arg line="-debug=true"/>
             <arg line="-incremental"/>
             <arg line="-include-libraries+=3rdParty/FlexSpy.swc"/>
+            <arg line="-include-libraries+=3rdParty/zip.swc "/>
+            <arg line="-library-path+=3rdParty/flexlib.swc"/>
             <arg line="-output src/${application}.swf"/>
             <arg line="-- src/${application}.mxml"/>
         </exec>
-        <copyfile src="src/${application}.swf" dest="${installdir}/${application}/${application}.swf" forceoverwrite="true"/>
-        <copyfile src="src/${manifest}" dest="${installdir}/${application}/META-INF/AIR/application.xml" forceoverwrite="true"/>
+        <!--<copyfile src="src/${application}.swf" dest="${installdir}/${application}/${application}.swf" forceoverwrite="true"/>-->
+        <!--<copyfile src="src/${manifest}" dest="${installdir}/${application}/META-INF/AIR/application.xml" forceoverwrite="true"/>-->
     </target>
 
     <target name="package" depends="build">

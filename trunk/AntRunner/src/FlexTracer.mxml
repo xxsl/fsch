@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:WindowedApplication xmlns:mx="http://www.adobe.com/2006/mxml"
+                        xmlns:fl="flexlib.controls.*"
+                        layout="vertical"
+                        horizontalAlign="left"
+                        paddingBottom="6"
+                        paddingLeft="6"
+                        paddingRight="6"
+                        paddingTop="6"
+                        title="FlexTracer"
+                        showStatusBar="false"
+                        showTitleBar="true"
+                        backgroundGradientAlphas="[1.0, 1.0]"
+                        applicationComplete="{initializeApplication()}"
+                        backgroundGradientColors="[#DEDEDE, #BCBCBC]"
+                        themeColor="#FF871D"
+                        cornerRadius="0"
+                        width="900"
+                        height="600"
+                        verticalScrollPolicy="off"
+                        horizontalScrollPolicy="off">
+    <mx:Style source="style/fcsh.css"/>
+    <mx:Script>
+		<![CDATA[
+        import avmplus.getQualifiedClassName;
+
+        import com.flexspy.FlexSpy;
+
+        import mx.collections.ArrayCollection;
+
+        // The Array data provider
+        [Bindable]
+        public var menuData:ArrayCollection = new ArrayCollection([
+            {time: "21:45:59.678",sender: getQualifiedClassName(this), logObject: [
+                {label: "Add..."},
+                {type: "separator"},
+                {label: "Options"},
+                {label: "Exit"}
+            ]}
+        ]);
+
+
+        private function initializeApplication():void
+        {
+            groupTree.dataProvider = menuData;
+        }
+
+		]]>
+	</mx:Script>
+    <mx:ApplicationControlBar percentWidth="100">
+        <mx:Spacer percentWidth="100"/>
+        <mx:Button id="spy" toolTip="Flex Spy" click="FlexSpy.show()" styleName="flexSpyButton" width="24"/>
+    </mx:ApplicationControlBar>
+    <mx:HDividedBox percentWidth="100" percentHeight="100" liveDragging="true">
+        <mx:VBox label="Trace" percentHeight="100" percentWidth="100">
+            <mx:DataGrid id="logTree" percentWidth="100" percentHeight="100" dataProvider="{menuData}"
+                         borderStyle="none">
+                <mx:columns>
+                    <mx:DataGridColumn headerText="Time" dataField="time" width="90" sortable="true"/>
+                    <mx:DataGridColumn headerText="Sender" dataField="sender" width="200" sortable="true"/>
+                    <mx:DataGridColumn headerText="Message" dataField="logObject" sortable="false"/>
+                </mx:columns>
+            </mx:DataGrid>
+        </mx:VBox>
+        <mx:VBox percentHeight="100" percentWidth="30" minWidth="0">
+            <mx:VDividedBox percentWidth="100" percentHeight="100">
+                <mx:VBox percentWidth="100" percentHeight="80" minWidth="0">
+                    <mx:Tree id="groupTree" percentHeight="100" percentWidth="100" borderStyle="solid" borderThickness="1" minWidth="0"/>
+                </mx:VBox>
+                <mx:VBox  percentWidth="100" height="100">
+                    
+                </mx:VBox>
+            </mx:VDividedBox>
+        </mx:VBox>
+
+    </mx:HDividedBox>
+</mx:WindowedApplication>
