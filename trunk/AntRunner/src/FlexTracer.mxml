@@ -22,27 +22,33 @@
     <mx:Style source="style/fcsh.css"/>
     <mx:Script>
 		<![CDATA[
-        import avmplus.getQualifiedClassName;
 
         import com.flexspy.FlexSpy;
 
+        import connection.TraceMessage;
+
+        import log.LogTimeRenderer;
+
+        import log.MessageRenderer;
+
+        import log.SenderRenderer;
+
         import mx.collections.ArrayCollection;
+        import mx.containers.Box;
+        import mx.utils.ObjectUtil;
 
         // The Array data provider
         [Bindable]
         public var menuData:ArrayCollection = new ArrayCollection([
-            {time: "21:45:59.678",sender: getQualifiedClassName(this), logObject: [
-                {label: "Add..."},
-                {type: "separator"},
-                {label: "Options"},
-                {label: "Exit"}
-            ]}
+            new TraceMessage(new Date(), getQualifiedClassName(new Box()), {test:'ok'}),
+            new TraceMessage(new Date(), getQualifiedClassName(new Box()), {test:'false'}),
+            new TraceMessage(new Date(), getQualifiedClassName(this), {test:'ok'}),
+            new TraceMessage(new Date(), getQualifiedClassName(new Box()), this)
         ]);
 
 
         private function initializeApplication():void
         {
-            groupTree.dataProvider = menuData;
         }
 
 		]]>
@@ -56,22 +62,18 @@
             <mx:DataGrid id="logTree" percentWidth="100" percentHeight="100" dataProvider="{menuData}"
                          borderStyle="none">
                 <mx:columns>
-                    <mx:DataGridColumn headerText="Time" dataField="time" width="90" sortable="true"/>
-                    <mx:DataGridColumn headerText="Sender" dataField="sender" width="200" sortable="true"/>
-                    <mx:DataGridColumn headerText="Message" dataField="logObject" sortable="false"/>
+                    <mx:DataGridColumn headerText="Time" dataField="time" itemRenderer="{new LogTimeRenderer()}" width="90" sortable="true"/>
+                    <mx:DataGridColumn headerText="Sender" dataField="sender" itemRenderer="{new SenderRenderer()}" width="200" sortable="true"/>
+                    <mx:DataGridColumn headerText="Message" dataField="logObject" itemRenderer="{new MessageRenderer()}" sortable="false"/>
                 </mx:columns>
             </mx:DataGrid>
         </mx:VBox>
         <mx:VBox percentHeight="100" percentWidth="30" minWidth="0">
             <mx:VDividedBox percentWidth="100" percentHeight="100">
                 <mx:VBox percentWidth="100" percentHeight="80" minWidth="0">
-                    <mx:Tree id="groupTree" percentHeight="100" percentWidth="100" borderStyle="solid" borderThickness="1" minWidth="0"/>
-                </mx:VBox>
-                <mx:VBox  percentWidth="100" height="100">
-                    
+                    <mx:TextArea editable="false" percentHeight="100" percentWidth="100" text="{ObjectUtil.toString(logTree.selectedItem.message)}"/>
                 </mx:VBox>
             </mx:VDividedBox>
         </mx:VBox>
-
     </mx:HDividedBox>
 </mx:WindowedApplication>
