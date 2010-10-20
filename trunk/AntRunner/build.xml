@@ -25,6 +25,9 @@
 
     <target name="package" depends="build">
         <exec executable="${adt}" failonerror="true">
+            <arg line="-version"/>
+        </exec>
+        <exec executable="${adt}" failonerror="true">
             <arg line="-package"/>
             <arg line="-storetype pkcs12"/>
             <arg line="-keystore fcsh.pfx"/>
