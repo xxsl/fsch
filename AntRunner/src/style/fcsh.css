@@ -7,16 +7,6 @@
 {
     icon:Embed(source="icons/delete.png");
 }
-
-.launchButton
-{
-    icon:Embed(source="icons/play.png");
-}
-
-.stopButton
-{
-    icon:Embed(source="icons/stop.png");
-}
 .flexSpyButton
 {
     icon:Embed(source="icons/flexSpy.png");
