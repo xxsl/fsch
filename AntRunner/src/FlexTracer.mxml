@@ -57,23 +57,32 @@
         <mx:Spacer percentWidth="100"/>
         <mx:Button id="spy" toolTip="Flex Spy" click="FlexSpy.show()" styleName="flexSpyButton" width="24"/>
     </mx:ApplicationControlBar>
-    <mx:HDividedBox percentWidth="100" percentHeight="100" liveDragging="true">
-        <mx:VBox label="Trace" percentHeight="100" percentWidth="100">
-            <mx:DataGrid id="logTree" percentWidth="100" percentHeight="100" dataProvider="{menuData}"
-                         borderStyle="none">
-                <mx:columns>
-                    <mx:DataGridColumn headerText="Time" dataField="time" itemRenderer="{new LogTimeRenderer()}" width="90" sortable="true"/>
-                    <mx:DataGridColumn headerText="Sender" dataField="sender" itemRenderer="{new SenderRenderer()}" width="200" sortable="true"/>
-                    <mx:DataGridColumn headerText="Message" dataField="logObject" itemRenderer="{new MessageRenderer()}" sortable="false"/>
-                </mx:columns>
-            </mx:DataGrid>
+    <mx:TabNavigator percentHeight="100" percentWidth="100" paddingTop="0">
+        <mx:HDividedBox label="FlexTracer" percentWidth="100" percentHeight="100" liveDragging="true">
+            <mx:VBox percentHeight="100" percentWidth="100">
+                <mx:DataGrid id="logTree" percentWidth="100" percentHeight="100" dataProvider="{menuData}"
+                             borderStyle="solid" borderSides="right" verticalScrollPolicy="on">
+                    <mx:columns>
+                        <mx:DataGridColumn headerText="Time" dataField="time" itemRenderer="{new LogTimeRenderer()}"
+                                           width="90" sortable="true"/>
+                        <mx:DataGridColumn headerText="Sender" dataField="sender" itemRenderer="{new SenderRenderer()}"
+                                           width="200" sortable="true"/>
+                        <mx:DataGridColumn headerText="Message" dataField="logObject"
+                                           itemRenderer="{new MessageRenderer()}" sortable="false"/>
+                    </mx:columns>
+                </mx:DataGrid>
+            </mx:VBox>
+            <mx:VBox percentHeight="100" percentWidth="30" minWidth="0">
+                <mx:VDividedBox percentWidth="100" percentHeight="100">
+                    <mx:VBox percentWidth="100" percentHeight="80" minWidth="0">
+                        <mx:TextArea editable="false" percentHeight="100" percentWidth="100"
+                                     text="{ObjectUtil.toString(logTree.selectedItem.message)}" borderSides="left"/>
+                    </mx:VBox>
+                </mx:VDividedBox>
+            </mx:VBox>
+        </mx:HDividedBox>
+        <mx:VBox label="trace" percentHeight="100" percentWidth="100">
+            <mx:List id="traceLog" dataProvider="{menuData}" percentHeight="100" percentWidth="100" borderStyle="none" verticalScrollPolicy="on"/>
         </mx:VBox>
-        <mx:VBox percentHeight="100" percentWidth="30" minWidth="0">
-            <mx:VDividedBox percentWidth="100" percentHeight="100">
-                <mx:VBox percentWidth="100" percentHeight="80" minWidth="0">
-                    <mx:TextArea editable="false" percentHeight="100" percentWidth="100" text="{ObjectUtil.toString(logTree.selectedItem.message)}"/>
-                </mx:VBox>
-            </mx:VDividedBox>
-        </mx:VBox>
-    </mx:HDividedBox>
+    </mx:TabNavigator>
 </mx:WindowedApplication>

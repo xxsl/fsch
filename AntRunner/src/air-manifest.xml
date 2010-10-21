@@ -83,7 +83,7 @@
     </initialWindow>
 
     <!-- The subpath of the standard default installation location to use. Optional. -->
-    <installFolder>Air Applications</installFolder>
+    <installFolder>FlexTracer</installFolder>
 
     <!-- The subpath of the Windows Start/Programs menu to use. Optional. -->
     <!-- <programMenuFolder></programMenuFolder> -->
@@ -97,7 +97,7 @@
         <image128x128>style/app/icon128.png</image128x128>
     </icon>
 
-    <supportedProfiles>extendedDesktop</supportedProfiles>
+    <!--<supportedProfiles>extendedDesktop</supportedProfiles>-->
 
     <!-- Whether the application handles the update when a user double-clicks an update version
      of the AIR file (true), or the default AIR application installer handles the update (false).

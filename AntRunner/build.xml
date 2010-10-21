@@ -32,7 +32,6 @@
             <arg line="-storetype pkcs12"/>
             <arg line="-keystore fcsh.pfx"/>
             <arg line="-storepass password"/>
-            <arg line="-target native"/>
             <arg line="${application}.air"/>
             <arg line="src/${manifest}"/>
             <arg line="-C src/"/>

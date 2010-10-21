@@ -68,5 +68,10 @@ package connection
         {
             _version = value;
         }
+
+        public function toString():String
+        {
+            return _messageAsString;
+        }
     }
 }
