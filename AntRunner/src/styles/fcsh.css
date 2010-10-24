@@ -4,11 +4,11 @@
 }
 
 .leaf {
-    icon: Embed(source = "icons/leaf.png");
+    icon: Embed(source = "icons/bullet_star.png");
 }
 
 .node {
-    icon: Embed(source = "icons/node.png");
+    icon: Embed(source = "icons/chart_organisation.png");
 }
 
 .objectTree {
