@@ -83,6 +83,7 @@ package connection
         public function input(data:ByteArray):void
         {
             counter++;
+            trace("message length", data.length);
             data.uncompress();
             var readObject:ITraceMessage = ITraceMessage(data.readObject());
             trace(counter, readObject.time,readObject.sender, readObject.message);

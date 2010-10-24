@@ -1,0 +1,19 @@
+/* CSS file */
+.flexSpyButton {
+    icon: Embed(source = "icons/flexSpy.png");
+}
+
+.leaf {
+    icon: Embed(source = "icons/leaf.png");
+}
+
+.node {
+    icon: Embed(source = "icons/node.png");
+}
+
+.objectTree {
+    disclosureClosedIcon: Embed(source = "icons/bullet_toggle_plus.png");
+    disclosureOpenIcon: Embed(source = "icons/bullet_toggle_minus.png");
+    folderClosedIcon: Embed(source = "icons/bullet_toggle_plus.png");
+    folderOpenIcon: Embed(source = "icons/bullet_toggle_minus.png");
+}

@@ -9,7 +9,7 @@ package file
         public static const MOVE:String = "MOVE";
         public static const CHANGE:String = "CHANGE";
 
-        public var file:File = null;
+        public var fileProperty:File = null;
 
         public function FileMonitorEvent(type:String, bubbles:Boolean = false, cancelable:Boolean = true)
         {
