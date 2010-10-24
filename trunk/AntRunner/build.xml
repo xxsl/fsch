@@ -16,6 +16,7 @@
             <arg line="-include-libraries+=3rdParty/FlexSpy.swc"/>
             <arg line="-include-libraries+=3rdParty/zip.swc "/>
             <arg line="-library-path+=3rdParty/flexlib.swc"/>
+            <arg line="-library-path+=3rdParty/as3commons-reflect-1.3.swc"/>
             <arg line="-output src/${application}.swf"/>
             <arg line="-- src/${application}.mxml"/>
         </exec>
