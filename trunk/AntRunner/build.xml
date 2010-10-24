@@ -9,7 +9,7 @@
 
     <target name="build">
         <exec executable="${amxmlc}" failonerror="true">
-            <arg line="-locale en_US"/>
+            <!--<arg line="-locale en_US"/>-->
             <arg line="-keep-as3-metadata"/>
             <arg line="-debug=true"/>
             <arg line="-incremental"/>
@@ -36,7 +36,7 @@
             <arg line="${application}.air"/>
             <arg line="src/${manifest}"/>
             <arg line="-C src/"/>
-            <arg line="style/app ${application}.swf"/>
+            <arg line="styles/app ${application}.swf"/>
         </exec>
     </target>
 

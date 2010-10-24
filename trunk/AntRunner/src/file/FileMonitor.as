@@ -183,7 +183,7 @@ package file
 
                         if(outEvent)
                         {
-                                outEvent.file = _file;
+                                outEvent.fileProperty = _file;
                                 dispatchEvent(outEvent);
                         }
 

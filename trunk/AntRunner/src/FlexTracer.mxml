@@ -19,7 +19,8 @@
                         height="600"
                         verticalScrollPolicy="off"
                         horizontalScrollPolicy="off">
-    <mx:Style source="style/fcsh.css"/>
+
+    <mx:Style source="styles/fcsh.css"/>
     <mx:Script>
 		<![CDATA[
 
@@ -38,6 +39,7 @@
 
         import log.MessageRenderer;
 
+        import log.ObjectDataDescriptor;
         import log.SenderRenderer;
 
         import log.TraceRenderer;
@@ -49,6 +51,8 @@
         import mx.utils.ObjectUtil;
 
         import mx.utils.StringUtil;
+
+        import styles.CSSIconUtil;
 
 
         // The Array data provider
@@ -85,15 +89,20 @@
         private function onFlexlogChange(event:FileMonitorEvent):void
         {
             var outStream:FileStream = new FileStream();
-            outStream.open(event.file, FileMode.READ);
-            var logtext:String = outStream.readUTFBytes(event.file.size);
-            var lines:Array = logtext.split("\n");
-            traceLog.dataProvider = lines;
+            outStream.open(event.fileProperty, FileMode.READ);
+            var logtext:String = outStream.readUTFBytes(event.fileProperty.size);
+            //var lines:Array = logtext.split("\n");
+            //traceLog.dataProvider = lines;
+            //traceLog.validateNow();
+            //traceLog.scrollToIndex(lines.length - 1);
+            traceLog.text = logtext;
         }
 
         private function onMessageInput(event:ConnectionEvent):void
         {
             traces.addItem(event.message);
+            logGrid.validateNow();
+            logGrid.scrollToIndex(traces.length - 1);
         }
 
         private function onLogGridSelectionChange():void
@@ -169,6 +178,18 @@
             return count;
         }
 
+        public function messageIconFunction(node:Object):Class
+        {
+            if (node.hasOwnProperty("children"))
+            {
+                return CSSIconUtil.getClass(".node");
+            }
+            else
+            {
+                return CSSIconUtil.getClass(".leaf");
+            }
+        }
+
 		]]>
 	</mx:Script>
     <mx:ApplicationControlBar percentWidth="100">
@@ -179,7 +200,8 @@
         <mx:HDividedBox label="FlexTracer" percentWidth="100" percentHeight="100" liveDragging="true">
             <mx:VBox percentHeight="100" percentWidth="100">
                 <mx:DataGrid id="logGrid" percentWidth="100" percentHeight="100" dataProvider="{traces}"
-                             borderStyle="solid" borderSides="right" verticalScrollPolicy="on" change="onLogGridSelectionChange()">
+                             borderStyle="solid" borderSides="right" verticalScrollPolicy="on"
+                             change="onLogGridSelectionChange()">
                     <mx:columns>
                         <mx:DataGridColumn headerText="Time" dataField="time" itemRenderer="{new LogTimeRenderer()}"
                                            width="90" sortable="true"/>
@@ -193,13 +215,16 @@
             <mx:VBox percentHeight="100" percentWidth="30" minWidth="0">
                 <mx:VDividedBox percentWidth="100" percentHeight="100">
                     <mx:VBox percentWidth="100" percentHeight="80" minWidth="0">
-                        <mx:Tree id="propertiesTree" editable="false" percentHeight="100" percentWidth="100" borderSides="left"/>
+                        <mx:Tree id="propertiesTree" styleName="objectTree" iconFunction="messageIconFunction" dataDescriptor="{new ObjectDataDescriptor()}" percentHeight="100"
+                                 percentWidth="100" borderSides="left"/>
                     </mx:VBox>
                 </mx:VDividedBox>
             </mx:VBox>
         </mx:HDividedBox>
         <mx:VBox label="trace" percentHeight="100" percentWidth="100" creationPolicy="all">
-            <mx:List id="traceLog" itemRenderer="{new TraceRenderer()}"  percentHeight="100" percentWidth="100" borderStyle="none" verticalScrollPolicy="on"/>
+            <!--itemRenderer="{new TraceRenderer()}"-->
+            <mx:TextArea id="traceLog"  percentHeight="100" percentWidth="100"
+                     borderStyle="none" verticalScrollPolicy="on"/>
         </mx:VBox>
     </mx:TabNavigator>
 </mx:WindowedApplication>
