@@ -1,5 +1,6 @@
 package connection
 {
+	[RemoteClass(alias="connection.TraceMessage")]
     public class TraceMessage implements ITraceMessage
     {
         private var _time:Date;
@@ -9,10 +10,10 @@ package connection
         private var _version:int;
 
 
-        public function TraceMessage(time:Date =  null, sender:String = null, message:* = null)
+        public function TraceMessage( message:* = null, sender:Object = null)
         {
-            _time = time;
-            _sender = sender;
+            _time = new Date();
+            _sender = Utils.toString(sender);
             _message = message;
             _version = ClassesVersion.VERSION;
             _messageAsString = message ? message.toString(): "null";

@@ -25,6 +25,9 @@
 
         import com.flexspy.FlexSpy;
 
+        import connection.Connection;
+        import connection.ConnectionEvent;
+        import connection.ITraceMessage;
         import connection.TraceMessage;
 
         import log.LogTimeRenderer;
@@ -34,21 +37,117 @@
         import log.SenderRenderer;
 
         import mx.collections.ArrayCollection;
+        import mx.collections.Sort;
+        import mx.collections.SortField;
         import mx.containers.Box;
         import mx.utils.ObjectUtil;
+
+        import mx.utils.StringUtil;
+
+        import mx.utils.UIDUtil;
+
+        import org.as3commons.reflect.Type;
 
         // The Array data provider
         [Bindable]
         public var menuData:ArrayCollection = new ArrayCollection([
-            new TraceMessage(new Date(), getQualifiedClassName(new Box()), {test:'ok'}),
-            new TraceMessage(new Date(), getQualifiedClassName(new Box()), {test:'false'}),
-            new TraceMessage(new Date(), getQualifiedClassName(this), {test:'ok'}),
-            new TraceMessage(new Date(), getQualifiedClassName(new Box()), this)
+            new TraceMessage({test:'ok'}, (new Box())),
+            new TraceMessage({test:'false'}, (new Box())),
+            new TraceMessage({test:'ok'}, (this)),
+            new TraceMessage(this, (new Box()))
         ]);
+
+        [Bindable]
+        public var traces:ArrayCollection = new ArrayCollection();
 
 
         private function initializeApplication():void
         {
+            var sort:Sort = new Sort();
+            var field:SortField = new SortField();
+            field.name = "time";
+            sort.fields = [field];
+            traces.sort = sort;
+            traces.refresh();
+            Connection.instance.addEventListener(ConnectionEvent.MESSAGE_INPUT, onMessageInput);
+        }
+
+        private function onMessageInput(event:ConnectionEvent):void
+        {
+            traces.addItem(event.message);
+        }
+
+        private function onLogGridSelectionChange():void
+        {
+            if (logGrid.selectedItem)
+            {
+                var message:ITraceMessage = ITraceMessage(logGrid.selectedItem);
+                propertiesTree.dataProvider = printObject(message);
+            }
+        }
+
+        public function printObject(obj:ITraceMessage, filters:Array = null):ArrayCollection
+        {
+            var string:String = ObjectUtil.toString(obj.message, null, filters);
+            var lines:Array = string.split("\n");
+            var result:ArrayCollection = new ArrayCollection();
+            parseBlock(0, lines, result);
+            var itemAt:Object = result.getItemAt(0);
+            itemAt.label = obj.messageAsString;
+            return result;
+        }
+
+        private function parseBlock(pos:int, lines:Array, result:ArrayCollection):int
+        {
+            var node:Object = {"label":StringUtil.trim((lines[pos] as String)), "children": new ArrayCollection()};
+
+            var min:int = countSpace(lines[pos] as String);
+            var cnt:int;
+            var cnt2:int;
+            var type:String = "";
+            for (var i:int = pos + 1; i < lines.length; i++)
+            {
+                cnt = countSpace(lines[i] as String);
+                if (cnt == (min + 2))
+                {
+                    cnt2 = countSpace(lines[i + 1] as String);
+                    if ((cnt2 == (cnt + 2)))
+                    {
+                        i = parseBlock(i, lines, ArrayCollection(node["children"])) - 1;
+                    }
+                    else
+                    {
+                        var propertyNode:Object = {label: StringUtil.trim((lines[i] as String))};
+                        ArrayCollection(node["children"]).addItem(propertyNode);
+                    }
+                }
+                else
+                {
+                    break;
+                }
+            }
+            result.addItem(node);
+            return i;
+        }
+
+        private function countSpace(line:String):int
+        {
+            if ((line == null) || (line.length == 0))
+            {
+                return 0;
+            }
+            var count:int = 0;
+            var cod:Number = line.charCodeAt(count);
+            while (cod == 32)
+            {
+                count++;
+                if (count >= line.length - 1)
+                {
+                    break;
+                }
+                cod = line.charCodeAt(count);
+            }
+            return count;
         }
 
 		]]>
@@ -60,8 +159,8 @@
     <mx:TabNavigator percentHeight="100" percentWidth="100" paddingTop="0">
         <mx:HDividedBox label="FlexTracer" percentWidth="100" percentHeight="100" liveDragging="true">
             <mx:VBox percentHeight="100" percentWidth="100">
-                <mx:DataGrid id="logTree" percentWidth="100" percentHeight="100" dataProvider="{menuData}"
-                             borderStyle="solid" borderSides="right" verticalScrollPolicy="on">
+                <mx:DataGrid id="logGrid" percentWidth="100" percentHeight="100" dataProvider="{traces}"
+                             borderStyle="solid" borderSides="right" verticalScrollPolicy="on" change="onLogGridSelectionChange()">
                     <mx:columns>
                         <mx:DataGridColumn headerText="Time" dataField="time" itemRenderer="{new LogTimeRenderer()}"
                                            width="90" sortable="true"/>
@@ -75,8 +174,7 @@
             <mx:VBox percentHeight="100" percentWidth="30" minWidth="0">
                 <mx:VDividedBox percentWidth="100" percentHeight="100">
                     <mx:VBox percentWidth="100" percentHeight="80" minWidth="0">
-                        <mx:TextArea editable="false" percentHeight="100" percentWidth="100"
-                                     text="{ObjectUtil.toString(logTree.selectedItem.message)}" borderSides="left"/>
+                        <mx:Tree id="propertiesTree" editable="false" percentHeight="100" percentWidth="100" borderSides="left"/>
                     </mx:VBox>
                 </mx:VDividedBox>
             </mx:VBox>

@@ -1,9 +1,11 @@
 package connection
 {
     import flash.events.AsyncErrorEvent;
+    import flash.events.EventDispatcher;
     import flash.events.SecurityErrorEvent;
     import flash.events.StatusEvent;
     import flash.net.LocalConnection;
+    import flash.utils.ByteArray;
 
     /**
      *@author aturtsevitch
@@ -11,16 +13,20 @@ package connection
      *@time   3:45:28 PM
      *@langversion ActionScript 3.0
      */
-    public class Connection
+    public class Connection extends EventDispatcher
     {
+        private static var _instance:Connection;
+
+        private var counter:Number = 0;
+
         // Connections
         private var lineOut:LocalConnection;
         private var lineIn:LocalConnection;
 
 
         // Connection names
-        private const LINE_OUT:String = "_debugger_out";
-        private const LINE_IN:String = "_debugger_in";
+        private const LINE_OUT:String = "_debugger_in";
+        private const LINE_IN:String = "_debugger_out";
 
         // The allow domain for the local connection
         // * = Allow communication with all domains
@@ -29,29 +35,79 @@ package connection
         private var isConnected:Boolean = false;
 
 
-        public function Connection()
+        public function Connection(seal:Seal)
         {
-                // Setup line out
-                lineOut = new LocalConnection();
-                lineOut.addEventListener(AsyncErrorEvent.ASYNC_ERROR, asyncErrorHandler, false, 0, true);
-                lineOut.addEventListener(SecurityErrorEvent.SECURITY_ERROR, securityErrorHandler, false, 0, true);
-                lineOut.addEventListener(StatusEvent.STATUS, statusHandler, false, 0, true);
+            if (!seal)
+            {
+                throw new Error("private");
+            }
 
-                // Setup line in
-                lineIn = new LocalConnection();
-                lineIn.addEventListener(AsyncErrorEvent.ASYNC_ERROR, asyncErrorHandler, false, 0, true);
-                lineIn.addEventListener(SecurityErrorEvent.SECURITY_ERROR, securityErrorHandler, false, 0, true);
-                lineIn.addEventListener(StatusEvent.STATUS, statusHandler, false, 0, true);
-                lineIn.allowDomain(ALLOWED_DOMAIN);
-                lineIn.client = this;
+            // Setup line out
+            lineOut = new LocalConnection();
+            lineOut.addEventListener(AsyncErrorEvent.ASYNC_ERROR, asyncErrorHandler, false, 0, true);
+            lineOut.addEventListener(SecurityErrorEvent.SECURITY_ERROR, securityErrorHandler, false, 0, true);
+            lineOut.addEventListener(StatusEvent.STATUS, statusHandler, false, 0, true);
 
-                try
-                {
-                    lineIn.connect(LINE_IN);
-                } catch(error:ArgumentError)
-                {
-                    // Do nothing
-                }
+            // Setup line in
+            lineIn = new LocalConnection();
+            lineIn.addEventListener(AsyncErrorEvent.ASYNC_ERROR, asyncErrorHandler, false, 0, true);
+            lineIn.addEventListener(SecurityErrorEvent.SECURITY_ERROR, securityErrorHandler, false, 0, true);
+            lineIn.addEventListener(StatusEvent.STATUS, statusHandler, false, 0, true);
+            lineIn.allowDomain(ALLOWED_DOMAIN);
+            lineIn.client = this;
+
+            try
+            {
+                lineIn.connect(LINE_IN);
+            }
+            catch(error:ArgumentError)
+            {
+                trace(error.getStackTrace());
+            }
+        }
+
+
+        public static function get instance():Connection
+        {
+            if (!_instance)
+            {
+                _instance = new Connection(new Seal());
+            }
+            return _instance;
+        }
+
+        /**
+         * External data input
+         * @param data compressed ByteArray
+         */
+        public function input(data:ByteArray):void
+        {
+            counter++;
+            data.uncompress();
+            var readObject:ITraceMessage = ITraceMessage(data.readObject());
+            trace(counter, readObject.time,readObject.sender, readObject.message);
+            var connectionEvent:ConnectionEvent = new ConnectionEvent(ConnectionEvent.MESSAGE_INPUT);
+            connectionEvent.message = readObject;
+            dispatchEvent(connectionEvent);
+        }
+
+        /**
+         * Sends data
+         * @param message ITraceMessage impl
+         */
+        public function output(message:ITraceMessage):void
+        {
+            var bytes:ByteArray = new ByteArray();
+            bytes.writeObject(message);
+            bytes.compress();
+            try
+            {
+                lineOut.send(LINE_OUT, "input", bytes);
+            }
+            catch (error:Error)
+            {
+                trace(error.getStackTrace());
+            }
         }
 
         /**
@@ -76,4 +132,9 @@ package connection
             }
         }
     }
+}
+
+class Seal
+{
+
 }
