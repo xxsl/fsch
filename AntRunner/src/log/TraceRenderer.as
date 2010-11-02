@@ -21,7 +21,7 @@ package log
             super.data = value;
             if (value)
             {
-                var line:String = value as String;
+                var line:String = TraceLine(value).text;
                 if(line.toLocaleLowerCase().indexOf("warning") >= 0)
                 {
                     setStyle("color", 0xEE5400);

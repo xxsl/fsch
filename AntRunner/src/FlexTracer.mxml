@@ -8,6 +8,7 @@
                         paddingRight="6"
                         paddingTop="6"
                         title="FlexTracer"
+                        alwaysInFront="true"
                         showStatusBar="false"
                         showTitleBar="true"
                         backgroundGradientAlphas="[1.0, 1.0]"
@@ -42,6 +43,7 @@
         import log.ObjectDataDescriptor;
         import log.SenderRenderer;
 
+        import log.TraceLine;
         import log.TraceRenderer;
 
         import mx.collections.ArrayCollection;
@@ -80,7 +82,7 @@
             Connection.instance.addEventListener(ConnectionEvent.MESSAGE_INPUT, onMessageInput);
 
             var flexlog:File = File.userDirectory.resolvePath("Application Data/Macromedia/Flash Player/Logs/flashlog.txt");
-            trace(flexlog.nativePath, "exists", flexlog.exists);
+            //trace(flexlog.nativePath, "exists", flexlog.exists);
             fileMonitor = new FileMonitor(flexlog);
             fileMonitor.addEventListener(FileMonitorEvent.CHANGE, onFlexlogChange);
             fileMonitor.watch();
@@ -90,12 +92,17 @@
         {
             var outStream:FileStream = new FileStream();
             outStream.open(event.fileProperty, FileMode.READ);
-            var logtext:String = outStream.readUTFBytes(event.fileProperty.size);
-            //var lines:Array = logtext.split("\n");
-            //traceLog.dataProvider = lines;
-            //traceLog.validateNow();
-            //traceLog.scrollToIndex(lines.length - 1);
-            traceLog.text = logtext;
+            var logtext:String = outStream.readUTFBytes(outStream.bytesAvailable);
+            var lines:Array = logtext.split("\n");
+            var traceLines:ArrayCollection = new ArrayCollection();
+            for each (var line:String in lines)
+            {
+                traceLines.addItem(new TraceLine(line));
+            }
+            traceLog.dataProvider = traceLines;
+            traceLog.validateNow();
+            traceLog.scrollToIndex(traceLines.length - 1);
+            //traceLog.text = logtext;
         }
 
         private function onMessageInput(event:ConnectionEvent):void
@@ -223,7 +230,7 @@
         </mx:HDividedBox>
         <mx:VBox label="trace" percentHeight="100" percentWidth="100" creationPolicy="all">
             <!--itemRenderer="{new TraceRenderer()}"-->
-            <mx:TextArea id="traceLog"  percentHeight="100" percentWidth="100"
+            <mx:List id="traceLog" itemRenderer="{new TraceRenderer()}" percentHeight="100" percentWidth="100"
                      borderStyle="none" verticalScrollPolicy="on"/>
         </mx:VBox>
     </mx:TabNavigator>
