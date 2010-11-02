@@ -57,15 +57,6 @@
         import styles.CSSIconUtil;
 
 
-        // The Array data provider
-        [Bindable]
-        public var menuData:ArrayCollection = new ArrayCollection([
-            new TraceMessage({test:'ok'}, (new Box())),
-            new TraceMessage({test:'false'}, (new Box())),
-            new TraceMessage({test:'ok'}, (this)),
-            new TraceMessage(this, (new Box()))
-        ]);
-
         [Bindable]
         public var traces:ArrayCollection = new ArrayCollection();
 
