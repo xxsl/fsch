@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:WindowedApplication xmlns:mx="http://www.adobe.com/2006/mxml"
                         xmlns:fl="flexlib.controls.*"
+                        xmlns:ui="ui.*"
                         layout="vertical"
                         horizontalAlign="left"
                         paddingBottom="6"
@@ -90,10 +91,7 @@
             {
                 traceLines.addItem(new TraceLine(line));
             }
-            traceLog.dataProvider = traceLines;
-            traceLog.validateNow();
-            traceLog.scrollToIndex(traceLines.length - 1);
-            //traceLog.text = logtext;
+            traceConsole.dataProvider = traceLines;
         }
 
         private function onMessageInput(event:ConnectionEvent):void
@@ -219,10 +217,6 @@
                 </mx:VDividedBox>
             </mx:VBox>
         </mx:HDividedBox>
-        <mx:VBox label="trace" percentHeight="100" percentWidth="100" creationPolicy="all">
-            <!--itemRenderer="{new TraceRenderer()}"-->
-            <mx:List id="traceLog" itemRenderer="{new TraceRenderer()}" percentHeight="100" percentWidth="100"
-                     borderStyle="none" verticalScrollPolicy="on"/>
-        </mx:VBox>
+        <ui:TraceConsole id="traceConsole" percentHeight="100" percentWidth="100"/>
     </mx:TabNavigator>
 </mx:WindowedApplication>
