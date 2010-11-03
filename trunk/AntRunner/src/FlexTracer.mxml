@@ -9,6 +9,7 @@
                         paddingRight="6"
                         paddingTop="6"
                         title="FlexTracer"
+                        alpha="0.5"
                         showStatusBar="false"
                         showTitleBar="true"
                         backgroundGradientAlphas="[1.0, 1.0]"
