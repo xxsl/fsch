@@ -1,5 +1,7 @@
 package ui
 {
+    import mx.collections.ArrayCollection;
+
     /**
      *@author aturtsevitch
      *@date   Nov 2, 2010
@@ -8,6 +10,10 @@ package ui
      */
     public interface ILogConsole
     {
-        function set dataProvider(value:Object):void;
+        function set dataProvider(value:ArrayCollection):void;
+
+        function set autoScroll(value:Boolean):void;
+
+        function get autoScroll():Boolean;
     }
 }

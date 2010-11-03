@@ -6,10 +6,24 @@
     <mx:Script><![CDATA[
         import log.TraceRenderer;
 
-        private var _dataPrividerChanged:Boolean;
-        private var _dataPrivider:Object;
+        import mx.collections.ArrayCollection;
 
-        public function set dataProvider(value:Object):void
+        private var _dataPrividerChanged:Boolean;
+        private var _dataPrivider:ArrayCollection;
+
+        private var _autoScroll:Boolean;
+
+        public function get autoScroll():Boolean
+        {
+            return _autoScroll;
+        }
+
+        public function set autoScroll(value:Boolean):void
+        {
+            _autoScroll = value;
+        }
+
+        public function set dataProvider(value:ArrayCollection):void
         {
             _dataPrivider = value;
             _dataPrividerChanged = true;
@@ -20,11 +34,12 @@
         {
             super.commitProperties();
 
-            if(_dataPrividerChanged)
+            if (_dataPrividerChanged)
             {
                 traceLog.dataProvider = _dataPrivider;
                 _dataPrividerChanged = false;
-                traceLog.callLater(traceLog.scrollToIndex, [_dataPrivider.length - 1]);
+                if(autoScroll)
+                    traceLog.callLater(traceLog.scrollToIndex, [_dataPrivider.length - 1]);
             }
         }
 
