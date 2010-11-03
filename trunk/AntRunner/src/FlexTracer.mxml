@@ -9,7 +9,6 @@
                         paddingRight="6"
                         paddingTop="6"
                         title="FlexTracer"
-                        alwaysInFront="true"
                         showStatusBar="false"
                         showTitleBar="true"
                         backgroundGradientAlphas="[1.0, 1.0]"
@@ -82,9 +81,15 @@
             console.autoScroll = autoScroll.selected;
         }
 
+        private function onAlwaysOnTopChange():void
+        {
+            alwaysInFront = alwaysOnTop.selected;
+        }
+
 		]]>
 	</mx:Script>
     <mx:ApplicationControlBar percentWidth="100">
+        <mx:CheckBox id="alwaysOnTop" change="onAlwaysOnTopChange()" label="AlwaysOnTop"/>
         <mx:CheckBox id="autoScroll" change="onAutoScrollChange()" label="AutoScroll"/>
         <mx:Spacer percentWidth="100"/>
         <mx:Button id="spy" toolTip="Flex Spy" click="FlexSpy.show()" styleName="flexSpyButton" width="24"/>
