@@ -64,5 +64,6 @@
         ]]></mx:Script>
     <mx:List id="traceLog" itemRenderer="{new TraceRenderer()}"
              percentHeight="100" percentWidth="100"
-             borderStyle="none" verticalScrollPolicy="on"/>
+             borderStyle="none" verticalScrollPolicy="on"
+             allowMultipleSelection="true"/>
 </mx:VBox>
