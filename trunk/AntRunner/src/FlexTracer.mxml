@@ -38,6 +38,8 @@
 
         import mx.collections.ArrayCollection;
 
+        import mx.skins.halo.LinkButtonSkin;
+
         import ui.TitleBarEx;
         import ui.ViewComposition;
 
@@ -81,13 +83,14 @@
 
         private function onAutoScrollChange():void
         {
-            console.autoScroll = autoScroll.selected;
+            console.autoScroll = !console.autoScroll;
+            autoScroll.styleName = console.autoScroll ? "autoScrollOn":"autoScrollOff";
         }
 		]]>
 	</mx:Script>
     <mx:ApplicationControlBar percentWidth="100">
         <mx:LinkButton id="optionsButton" toolTip="Options" width="24" height="24" styleName="options"/>
-        <mx:CheckBox id="autoScroll" change="onAutoScrollChange()" toolTip="AutoScroll" styleName="autoScroll" buttonMode="true"/>
+        <mx:LinkButton id="autoScroll" click="onAutoScrollChange()" toolTip="AutoScroll" styleName="autoScrollOff" width="24" height="24"/>
         <mx:Spacer percentWidth="100"/>
         <mx:LinkButton id="spy" toolTip="Flex Spy" click="FlexSpy.show()" styleName="flexSpyButton" width="24"/>
     </mx:ApplicationControlBar>
