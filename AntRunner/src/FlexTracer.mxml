@@ -10,7 +10,7 @@
                         paddingTop="6"
                         title="FlexTracer"
                         alpha="1"
-                        showStatusBar="true"
+                        showStatusBar="false"
                         showTitleBar="true"
                         titleBarFactory="{new TitleBarEx()}"
                         backgroundGradientAlphas="[1.0, 1.0]"
@@ -83,19 +83,13 @@
         {
             console.autoScroll = autoScroll.selected;
         }
-
-        private function onAlwaysOnTopChange():void
-        {
-            alwaysInFront = alwaysOnTop.selected;
-        }
-
 		]]>
 	</mx:Script>
     <mx:ApplicationControlBar percentWidth="100">
-        <mx:CheckBox id="alwaysOnTop" change="onAlwaysOnTopChange()" label="AlwaysOnTop"/>
-        <mx:CheckBox id="autoScroll" change="onAutoScrollChange()" label="AutoScroll"/>
+        <mx:LinkButton id="optionsButton" toolTip="Options" width="24" height="24" styleName="options"/>
+        <mx:CheckBox id="autoScroll" change="onAutoScrollChange()" toolTip="AutoScroll" styleName="autoScroll" buttonMode="true"/>
         <mx:Spacer percentWidth="100"/>
-        <mx:Button id="spy" toolTip="Flex Spy" click="FlexSpy.show()" styleName="flexSpyButton" width="24"/>
+        <mx:LinkButton id="spy" toolTip="Flex Spy" click="FlexSpy.show()" styleName="flexSpyButton" width="24"/>
     </mx:ApplicationControlBar>
     <mx:TabNavigator percentHeight="100" percentWidth="100" paddingTop="0" creationPolicy="all">
         <ui:ConnectorTrace id="messageConsole" percentHeight="100" percentWidth="100"/>
