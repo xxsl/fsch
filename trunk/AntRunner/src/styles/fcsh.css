@@ -3,6 +3,9 @@
     icon: Embed(source = "icons/flexSpy.png");
 }
 
+/*
+ConnectorTrace styles
+*/
 .leaf {
     icon: Embed(source = "icons/bullet_star.png");
 }
@@ -16,4 +19,16 @@
     disclosureOpenIcon: Embed(source = "icons/bullet_toggle_minus.png");
     folderClosedIcon: Embed(source = "icons/bullet_toggle_plus.png");
     folderOpenIcon: Embed(source = "icons/bullet_toggle_minus.png");
+}
+
+/*
+TitleBar styles
+*/
+.alwaysOnTop {
+    upIcon:Embed(source = "icons/bullet_arrow_down.png");
+    downIcon:Embed(source = "icons/bullet_arrow_down.png");
+    overIcon:Embed(source = "icons/bullet_arrow_down.png");
+    selectedOverIcon:Embed(source = "icons/bullet_arrow_up.png");
+    selectedDownIcon:Embed(source = "icons/bullet_arrow_up.png");
+    selectedUpIcon:Embed(source = "icons/bullet_arrow_up.png");
 }
