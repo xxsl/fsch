@@ -43,11 +43,14 @@ Toolbar styles
     overIcon:Embed(source = "icons/wrench_orange.png");
 }
 
-.autoScroll{
+.autoScrollOn{
+    upIcon:Embed(source = "icons/application_put.png");
+    downIcon:Embed(source = "icons/application_put.png");
+    overIcon:Embed(source = "icons/application_put.png");
+}
+
+.autoScrollOff{
     upIcon:Embed(source = "icons/application_put_disabled.png");
     downIcon:Embed(source = "icons/application_put_disabled.png");
     overIcon:Embed(source = "icons/application_put_disabled.png");
-    selectedOverIcon:Embed(source = "icons/application_put.png");
-    selectedDownIcon:Embed(source = "icons/application_put.png");
-    selectedUpIcon:Embed(source = "icons/application_put.png");
 }
