@@ -9,9 +9,10 @@
                         paddingRight="6"
                         paddingTop="6"
                         title="FlexTracer"
-                        alpha="0.5"
-                        showStatusBar="false"
+                        alpha="1"
+                        showStatusBar="true"
                         showTitleBar="true"
+                        titleBarFactory="{new TitleBarEx()}"
                         backgroundGradientAlphas="[1.0, 1.0]"
                         applicationComplete="{initializeApplication()}"
                         backgroundGradientColors="[#DEDEDE, #BCBCBC]"
@@ -37,6 +38,7 @@
 
         import mx.collections.ArrayCollection;
 
+        import ui.TitleBarEx;
         import ui.ViewComposition;
 
         private var fileMonitor:FileMonitor;
