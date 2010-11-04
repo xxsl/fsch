@@ -21,6 +21,10 @@
         public function set autoScroll(value:Boolean):void
         {
             _autoScroll = value;
+            if(_dataPrivider)
+            {
+                dataProvider = _dataPrivider;
+            }
         }
 
         public function set dataProvider(value:ArrayCollection):void
@@ -36,11 +40,25 @@
 
             if (_dataPrividerChanged)
             {
+                var verticalScrollPosition:Number = traceLog.verticalScrollPosition;
+
                 traceLog.dataProvider = _dataPrivider;
                 _dataPrividerChanged = false;
-                if(autoScroll)
+
+                if (autoScroll)
+                {
                     traceLog.callLater(traceLog.scrollToIndex, [_dataPrivider.length - 1]);
+                }
+                else
+                {
+                    traceLog.callLater(restoreVerticalScroll, [verticalScrollPosition]);
+                }
             }
+        }
+
+        private function restoreVerticalScroll(pos:Number):void
+        {
+            traceLog.verticalScrollPosition = pos;
         }
 
         ]]></mx:Script>

@@ -92,7 +92,7 @@
         <mx:LinkButton id="spy" toolTip="Flex Spy" click="FlexSpy.show()" styleName="flexSpyButton" width="24"/>
     </mx:ApplicationControlBar>
     <mx:TabNavigator percentHeight="100" percentWidth="100" paddingTop="0" creationPolicy="all">
-        <ui:ConnectorTrace id="messageConsole" percentHeight="100" percentWidth="100"/>
         <ui:TraceConsole id="traceConsole" percentHeight="100" percentWidth="100"/>
+        <ui:ConnectorTrace id="messageConsole" percentHeight="100" percentWidth="100"/>
     </mx:TabNavigator>
 </mx:WindowedApplication>
