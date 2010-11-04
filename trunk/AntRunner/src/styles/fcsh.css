@@ -32,3 +32,22 @@ TitleBar styles
     selectedDownIcon:Embed(source = "icons/bullet_arrow_up.png");
     selectedUpIcon:Embed(source = "icons/bullet_arrow_up.png");
 }
+
+/*
+Toolbar styles
+*/
+
+.options{
+    upIcon:Embed(source = "icons/wrench_orange.png");
+    downIcon:Embed(source = "icons/wrench_orange.png");
+    overIcon:Embed(source = "icons/wrench_orange.png");
+}
+
+.autoScroll{
+    upIcon:Embed(source = "icons/application_put_disabled.png");
+    downIcon:Embed(source = "icons/application_put_disabled.png");
+    overIcon:Embed(source = "icons/application_put_disabled.png");
+    selectedOverIcon:Embed(source = "icons/application_put.png");
+    selectedDownIcon:Embed(source = "icons/application_put.png");
+    selectedUpIcon:Embed(source = "icons/application_put.png");
+}

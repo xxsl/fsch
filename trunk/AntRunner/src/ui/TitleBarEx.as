@@ -4,6 +4,7 @@ package ui
 
     import mx.controls.CheckBox;
     import mx.core.IFactory;
+    import mx.core.WindowedApplication;
     import mx.core.windowClasses.TitleBar;
 
     import mx.managers.ToolTipManager;
@@ -43,6 +44,7 @@ package ui
         private function onAlwaysOnTopClick(event:MouseEvent):void
         {
             updateAlwaysOnTopTooltip();
+            WindowedApplication(this.parent).alwaysInFront = alwaysOnTop.selected;
         }
 
         private function updateAlwaysOnTopTooltip():void
