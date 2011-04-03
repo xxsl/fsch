@@ -1,3 +1,2 @@
-upx.exe -9v FCSHServer.exe
-upx.exe -9v setup.exe
+upx.exe -9v Profiler.exe
 pAuse
