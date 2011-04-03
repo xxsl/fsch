@@ -1,4 +1,4 @@
-frmMain = 125, 125, 1395, 772, Z, 100, 35, 1433, 747, C
+frmMain = 125, 125, 1395, 772, , 100, 35, 1433, 747, C
 modSerialization = 25, 25, 1295, 672, C
 modString = 250, 250, 1603, 913, C
 clsString = 50, 50, 1403, 713, C
@@ -35,4 +35,4 @@ cPNGparser = 0, 0, 0, 0, C
 cPNGwriter = 0, 0, 0, 0, C
 cGIFparser = 0, 0, 0, 0, C
 clsPngToImageList = 0, 0, 0, 0, C
-clsResource = 300, 300, 1583, 915, 
+clsResource = 300, 300, 1583, 915, Z
