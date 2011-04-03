@@ -1,2 +1,2 @@
-vb6.exe /MAKE FCSHServer.vbp build\FCSHServer.exe /out build.log
+vb6.exe /MAKE Profiler.vbp build\Profiler.exe /out build.log
 pause
