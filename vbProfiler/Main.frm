@@ -1,6 +1,8 @@
 VERSION 5.00
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
 Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.ocx"
+Object = "{DE8CE233-DD83-481D-844C-C07B96589D3A}#1.1#0"; "vbalSGrid6.ocx"
+Object = "{396F7AC0-A0DD-11D3-93EC-00C0DFE7442A}#1.0#0"; "vbalIml6.ocx"
 Begin VB.Form frmMain 
    Caption         =   "Profiler"
    ClientHeight    =   4965
@@ -12,6 +14,12 @@ Begin VB.Form frmMain
    ScaleHeight     =   4965
    ScaleWidth      =   10560
    StartUpPosition =   3  'Windows Default
+   Begin vbalIml6.vbalImageList vbalImageList 
+      Left            =   8760
+      Top             =   2040
+      _ExtentX        =   953
+      _ExtentY        =   953
+   End
    Begin MSComctlLib.Toolbar Toolbar 
       Align           =   1  'Align Top
       Height          =   360
@@ -73,12 +81,35 @@ Begin VB.Form frmMain
       Tab(0).ControlEnabled=   -1  'True
       Tab(0).Control(0)=   "LiveView"
       Tab(0).Control(0).Enabled=   0   'False
-      Tab(0).ControlCount=   1
+      Tab(0).Control(1)=   "vbalGrid1"
+      Tab(0).Control(1).Enabled=   0   'False
+      Tab(0).ControlCount=   2
       TabCaption(1)   =   "Log"
       TabPicture(1)   =   "Main.frx":05A6
       Tab(1).ControlEnabled=   0   'False
       Tab(1).Control(0)=   "Log"
       Tab(1).ControlCount=   1
+      Begin vbAcceleratorSGrid6.vbalGrid vbalGrid1 
+         Height          =   2055
+         Left            =   3600
+         TabIndex        =   5
+         Top             =   840
+         Width           =   3375
+         _ExtentX        =   5953
+         _ExtentY        =   3625
+         BackgroundPictureHeight=   0
+         BackgroundPictureWidth=   0
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "MS Sans Serif"
+            Size            =   8.25
+            Charset         =   204
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         DisableIcons    =   -1  'True
+      End
       Begin VB.ListBox Log 
          Height          =   2700
          IntegralHeight  =   0   'False
@@ -88,13 +119,13 @@ Begin VB.Form frmMain
          Width           =   7455
       End
       Begin MSComctlLib.ListView LiveView 
-         Height          =   3375
+         Height          =   1935
          Left            =   120
          TabIndex        =   1
          Top             =   480
-         Width           =   7575
-         _ExtentX        =   13361
-         _ExtentY        =   5953
+         Width           =   3135
+         _ExtentX        =   5530
+         _ExtentY        =   3413
          SortKey         =   1
          View            =   3
          Arrange         =   1
