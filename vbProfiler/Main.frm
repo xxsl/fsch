@@ -24,7 +24,7 @@ Begin VB.Form frmMain
       Align           =   1  'Align Top
       Height          =   360
       Left            =   0
-      TabIndex        =   4
+      TabIndex        =   3
       Top             =   0
       Width           =   10560
       _ExtentX        =   18627
@@ -46,7 +46,7 @@ Begin VB.Form frmMain
       Align           =   2  'Align Bottom
       Height          =   255
       Left            =   0
-      TabIndex        =   2
+      TabIndex        =   1
       Top             =   4710
       Width           =   10560
       _ExtentX        =   18627
@@ -81,24 +81,25 @@ Begin VB.Form frmMain
       Tab(0).ControlEnabled=   -1  'True
       Tab(0).Control(0)=   "LiveView"
       Tab(0).Control(0).Enabled=   0   'False
-      Tab(0).Control(1)=   "vbalGrid1"
-      Tab(0).Control(1).Enabled=   0   'False
-      Tab(0).ControlCount=   2
+      Tab(0).ControlCount=   1
       TabCaption(1)   =   "Log"
       TabPicture(1)   =   "Main.frx":05A6
       Tab(1).ControlEnabled=   0   'False
       Tab(1).Control(0)=   "Log"
       Tab(1).ControlCount=   1
-      Begin vbAcceleratorSGrid6.vbalGrid vbalGrid1 
+      Begin vbAcceleratorSGrid6.vbalGrid LiveView 
          Height          =   2055
-         Left            =   3600
-         TabIndex        =   5
-         Top             =   840
+         Left            =   120
+         TabIndex        =   4
+         Top             =   480
          Width           =   3375
          _ExtentX        =   5953
          _ExtentY        =   3625
+         RowMode         =   -1  'True
+         GridLines       =   -1  'True
          BackgroundPictureHeight=   0
          BackgroundPictureWidth=   0
+         AlternateRowBackColor=   16053492
          BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
             Name            =   "MS Sans Serif"
             Size            =   8.25
@@ -108,55 +109,16 @@ Begin VB.Form frmMain
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
+         HeaderHotTrack  =   0   'False
          DisableIcons    =   -1  'True
       End
       Begin VB.ListBox Log 
          Height          =   2700
          IntegralHeight  =   0   'False
          Left            =   -74880
-         TabIndex        =   3
+         TabIndex        =   2
          Top             =   480
          Width           =   7455
-      End
-      Begin MSComctlLib.ListView LiveView 
-         Height          =   1935
-         Left            =   120
-         TabIndex        =   1
-         Top             =   480
-         Width           =   3135
-         _ExtentX        =   5530
-         _ExtentY        =   3413
-         SortKey         =   1
-         View            =   3
-         Arrange         =   1
-         LabelEdit       =   1
-         LabelWrap       =   -1  'True
-         HideSelection   =   0   'False
-         AllowReorder    =   -1  'True
-         FullRowSelect   =   -1  'True
-         GridLines       =   -1  'True
-         _Version        =   393217
-         ColHdrIcons     =   "imlIcons"
-         ForeColor       =   -2147483640
-         BackColor       =   -2147483643
-         BorderStyle     =   1
-         Appearance      =   1
-         NumItems        =   3
-         BeginProperty ColumnHeader(1) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-            Text            =   "Type"
-            Object.Width           =   12347
-         EndProperty
-         BeginProperty ColumnHeader(2) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-            SubItemIndex    =   1
-            Key             =   "name"
-            Text            =   "Size"
-            Object.Width           =   2540
-         EndProperty
-         BeginProperty ColumnHeader(3) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-            SubItemIndex    =   2
-            Text            =   "Instances"
-            Object.Width           =   2540
-         EndProperty
       End
    End
    Begin VB.Timer LiveTimer 
@@ -176,18 +138,10 @@ Begin VB.Form frmMain
       MaskColor       =   12632256
       _Version        =   393216
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
-         NumListImages   =   3
+         NumListImages   =   1
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
             Picture         =   "Main.frx":05C2
             Key             =   ""
-         EndProperty
-         BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Main.frx":0B5C
-            Key             =   "up"
-         EndProperty
-         BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Main.frx":0EAE
-            Key             =   "down"
          EndProperty
       EndProperty
    End
@@ -220,11 +174,11 @@ Private processor            As New clsProcessor
 
 Private isCommandPending     As Boolean
 
-Private selectedLiveObject As String
+Private selectedLiveObject   As String
 
-Private logx As New clsLog
+Private logx                 As New clsLog
 
-Private prefs As New clsPreferences
+Private prefs                As New clsPreferences
 
 'Profiler connected
 Private Sub server_OnConnectionEstablished(ByVal Socket As JBSOCKETSERVERLib.ISocket)
@@ -279,9 +233,10 @@ Private Function addressAsString(Socket As JBSOCKETSERVERLib.ISocket) As String
 End Function
 
 Private Sub Form_Resize()
+
     If (Me.WindowState = vbNormal) Then
         tabs.Width = Me.Width - 500
-        tabs.Height = Me.Height - 1000
+        tabs.Height = Me.Height - 1000 - Toolbar.Height
         
         If (tabs.Tab = 0) Then
             LiveView.Width = tabs.Width - LiveView.Left * 2
@@ -291,31 +246,33 @@ Private Sub Form_Resize()
         Log.Width = tabs.Width - 240
         Log.Height = tabs.Height - 600
     End If
+
 End Sub
 
 Private Sub tabs_Click(PreviousTab As Integer)
+
     Form_Resize
 End Sub
 
 Private Sub LiveView_ItemClick(ByVal item As MSComctlLib.ListItem)
-   selectedLiveObject = item.Text
+    selectedLiveObject = item.Text
 End Sub
 
 Private Sub LiveTimer_Timer()
 
-    Dim types  As New Dictionary
+    Dim types   As New Dictionary
 
-    Dim s      As clsNewObjectSample
+    Dim s       As clsNewObjectSample
     
     Dim liveObj As clsLiveObject
 
-    Dim sample As Variant
+    Dim sample  As Variant
 
-    Dim i      As Long
+    Dim i       As Long
 
-    Dim memory As Long
+    Dim memory  As Long
 
-    Dim str    As String
+    Dim str     As String
     
     For Each sample In processor.samples
 
@@ -338,6 +295,7 @@ Private Sub LiveTimer_Timer()
             liveObj.NAME = s.getType
             liveObj.instances = 1
             liveObj.Size = s.getSize
+
             types.Add s.getType, liveObj
 
         End If
@@ -345,142 +303,79 @@ Private Sub LiveTimer_Timer()
         memory = memory + s.getSize
     Next
     
-    LiveView.Visible = False
+    LiveView.Redraw = False
     
-    Dim Size As Long
-
-    Size = LiveView.ListItems.Count - 1
+    LiveView.clear
     
-    For i = 0 To Size
-        LiveView.ListItems.Remove 1
-    Next
-    
-    Dim selectedItem As ListItem
+    LiveView.Rows = UBound(types.Keys) + 1
    
-    For Each sample In types.Keys
-
-        str = sample
+    For i = 1 To UBound(types.Keys) + 1
+        
+        str = types.Keys(i - 1)
         Set liveObj = types.item(str)
 
-        Dim Row As ListItem
-
-        Set Row = LiveView.ListItems.Add
-        Row.Text = liveObj.NAME
-
-        Dim col As ListSubItem
-
-        Set col = Row.ListSubItems.Add
-        col.Text = "" & liveObj.Size
-        
-        Set col = Row.ListSubItems.Add
-        col.Text = "" & liveObj.instances
-        
-        If (selectedLiveObject = liveObj.NAME) Then
-            Set selectedItem = Row
-        End If
+        LiveView.CellText(i, 1) = liveObj.NAME
+        LiveView.CellText(i, 2) = "" & liveObj.Size
+        LiveView.CellText(i, 3) = "" & liveObj.instances
     Next
     
-    Dim ColumnHeader As MSComctlLib.ColumnHeader
-
-    For Each sample In LiveView.ColumnHeaders
-
-        Set ColumnHeader = sample
-
-        Select Case ColumnHeader.icon
-
-            Case "down"
-                ColumnHeader.icon = Empty
-                LiveView_ColumnClick ColumnHeader
-
-            Case "up"
-                ColumnHeader.icon = "down"
-                LiveView_ColumnClick ColumnHeader
-        End Select
-
-    Next
-    
-    If (Not selectedItem Is Nothing) Then
-        Set LiveView.selectedItem = selectedItem
-        'selectedItem.EnsureVisible
-    End If
-    
-    LiveView.Visible = True
+    LiveView.Redraw = True
     
     status.Panels.item(1).Text = "Memory usage:" & memory \ 1024 & " kb"
 End Sub
 
-Private Sub LiveView_ColumnClick(ByVal ColumnHeader As MSComctlLib.ColumnHeader)
-    Call ClearHeaderIcons(ColumnHeader.Index)
+Private Sub LiveView_ColumnClick(ByVal lCol As Long)
 
-    Select Case ColumnHeader.Index
+    Dim iCol     As Long
 
-        Case 1
+    Dim iSortCol As Long
 
-            Select Case ColumnHeader.icon
+    Dim sJunk()  As String, eJunk() As ECGSortOrderConstants
 
-                Case "down"
-                    ColumnHeader.icon = "up"
-                    Call SortColumn(LiveView, ColumnHeader.Index, sortDescending, sortAlpha)
+    With LiveView.SortObject
+        .ClearNongrouped
+        iSortCol = .IndexOf(lCol)
 
-                Case "up"
-                    ColumnHeader.icon = "down"
-                    Call SortColumn(LiveView, ColumnHeader.Index, sortAscending, sortAlpha)
+        If (iSortCol <= 0) Then
+            iSortCol = .Count + 1
+        End If
+      
+        .SortColumn(iSortCol) = lCol
 
-                Case Else
-                    ColumnHeader.icon = "down"
-                    Call SortColumn(LiveView, ColumnHeader.Index, sortAscending, sortAlpha)
-            End Select
-
-        Case 2
-
-            Select Case ColumnHeader.icon
-
-                Case "down"
-                    ColumnHeader.icon = "up"
-                    Call SortColumn(LiveView, ColumnHeader.Index, sortDescending, sortNumeric)
-
-                Case "up"
-                    ColumnHeader.icon = "down"
-                    Call SortColumn(LiveView, ColumnHeader.Index, sortAscending, sortNumeric)
-
-                Case Else
-                    ColumnHeader.icon = "down"
-                    Call SortColumn(LiveView, ColumnHeader.Index, sortAscending, sortNumeric)
-            End Select
-        Case 3
-
-            Select Case ColumnHeader.icon
-
-                Case "down"
-                    ColumnHeader.icon = "up"
-                    Call SortColumn(LiveView, ColumnHeader.Index, sortDescending, sortNumeric)
-
-                Case "up"
-                    ColumnHeader.icon = "down"
-                    Call SortColumn(LiveView, ColumnHeader.Index, sortAscending, sortNumeric)
-
-                Case Else
-                    ColumnHeader.icon = "down"
-                    Call SortColumn(LiveView, ColumnHeader.Index, sortAscending, sortNumeric)
-            End Select
-    End Select
-
-End Sub
-
-Private Sub ClearHeaderIcons(CurrentHeader As Integer)
-
-    Dim i As Integer
-
-    For i = 1 To LiveView.ColumnHeaders.Count
-
-        If LiveView.ColumnHeaders(i).Index <> CurrentHeader Then
-            LiveView.ColumnHeaders(i).icon = Empty
+        If (LiveView.ColumnSortOrder(lCol) = CCLOrderNone) Or (LiveView.ColumnSortOrder(lCol) = CCLOrderDescending) Then
+            .SortOrder(iSortCol) = CCLOrderAscending
+        Else
+            .SortOrder(iSortCol) = CCLOrderDescending
         End If
 
-    Next
+        LiveView.ColumnSortOrder(lCol) = .SortOrder(iSortCol)
+        .SortType(iSortCol) = LiveView.ColumnSortType(lCol)
+      
+        ' Place ascending/descending icon:
+        '      For iCol = 1 To grdLib.Columns
+        '         If (iCol <> lCol) Then
+        '            If Not (grdLib.ColumnIsGrouped(iCol)) Then
+        '               If grdLib.ColumnImage(iCol) > -1 Then
+        '                  grdLib.ColumnImage(iCol) = -1
+        '               End If
+        '            End If
+        '         ElseIf grdLib.ColumnHeader(iCol) <> "" Then
+        '            grdLib.ColumnImageOnRight(iCol) = True
+        '            If (.SortOrder(iSortCol) = CCLOrderAscending) Then
+        '               grdLib.ColumnImage(iCol) = 0
+        '            Else
+        '               grdLib.ColumnImage(iCol) = 1
+        '            End If
+        '         End If
+        '      Next iCol
+      
+    End With
+   
+    Screen.MousePointer = vbHourglass
+    LiveView.Sort
+    Screen.MousePointer = vbDefault
 
 End Sub
-
 
 'Public preloader As New clsResource
 '
@@ -538,7 +433,13 @@ Private Sub Form_Load()
     logx.setWindow Log
 
     Set processor.logx = logx
+    
+    LiveView.AddColumn "Name", "Name", ecgHdrTextALignLeft, , , True, False, , True, , False, CCLSortString
+    LiveView.AddColumn "Size", "Size", ecgHdrTextALignLeft, , , True, False, , True, , False, CCLSortNumeric
+    LiveView.AddColumn "Instances", "Instances", ecgHdrTextALignLeft, , , True, False, , True, , False, CCLSortNumeric
 
+    LiveView.StretchLastColumnToFit = True
+    
     Set server = CreateSocketServer(9999)
     server.StartListening
 End Sub
@@ -577,5 +478,4 @@ Private Sub m_AppTray_SysTrayMouseDown(ByVal eButton As MouseButtonConstants)
     End Select
 
 End Sub
-
 
