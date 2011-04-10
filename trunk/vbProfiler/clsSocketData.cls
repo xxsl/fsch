@@ -13,6 +13,10 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Option Explicit
 
+Private Const x32 As Long = 4
+Private Const x16 As Long = 2
+Private Const x8 As Long = 1
+
 Public socket As Winsock
 
 Private bytes()   As Byte
@@ -20,38 +24,37 @@ Private bytes()   As Byte
 Public Size    As Long
 
 Private Sub Class_Initialize()
-    ReDim bytes(1024)
+    ReDim bytes(2048)
 End Sub
 
-Public Sub append(ByRef buffer() As Byte)
+Public Sub append(ByRef Buffer() As Byte)
     Dim Length   As Long
     
-    Length = UBound(buffer) + 1
+    Length = UBound(Buffer) + 1
     
     If (Size + Length - 1 > 1024) Then
         ReDim Preserve bytes(Size + Length - 1)
     End If
     
-    CopyMemory bytes(Size), buffer(0), Length
+    CopyMemory bytes(Size), Buffer(0), Length
     
     Size = Size + Length
 End Sub
 
 
-Public Sub getBytes(ByRef buffer() As Byte)
-    buffer = bytes
+Public Sub getBytes(ByRef Buffer() As Byte)
+    Buffer = bytes
 End Sub
 
-Public Sub PeekData(ByRef buffer() As Byte, ByVal Size As Long)
-    
-    ReDim Preserve buffer(Size - 1)
+Public Sub PeekData(ByRef Buffer() As Byte, ByVal Size As Long)
+    ReDim Buffer(Size - 1&)
    
-    CopyMemory buffer(0), bytes(0), Size
+    CopyMemory Buffer(0), bytes(0), Size
 End Sub
 
-Public Function ReadData(ByRef buffer() As Byte, ByVal rSize As Long)
+Public Function ReadData(ByRef Buffer() As Byte, ByVal rSize As Long)
 
-    PeekData buffer, rSize
+    PeekData Buffer, rSize
     
     If (Size - rSize > 0) Then
         CopyMemory bytes(0), bytes(rSize), Size - rSize
@@ -60,4 +63,36 @@ Public Function ReadData(ByRef buffer() As Byte, ByVal rSize As Long)
     Size = Size - rSize
 End Function
 
+Public Function ReadData32(ByRef Buffer() As Byte)
+      
+    CopyMemory Buffer(0), bytes(0), x32
+    
+    If (Size - x32 > 0) Then
+        CopyMemory bytes(0), bytes(x32), Size - x32
+    End If
+    
+    Size = Size - x32
+End Function
+
+Public Function ReadData16(ByRef Buffer() As Byte)
+      
+    CopyMemory Buffer(0), bytes(0), x16
+    
+    If (Size - x16 > 0) Then
+        CopyMemory bytes(0), bytes(x16), Size - x16
+    End If
+    
+    Size = Size - x16
+End Function
+
+Public Function ReadData8(ByRef Buffer() As Byte)
+      
+    CopyMemory Buffer(0), bytes(0), x8
+    
+    If (Size - x8 > 0) Then
+        CopyMemory bytes(0), bytes(x8), Size - x8
+    End If
+    
+    Size = Size - x8
+End Function
 

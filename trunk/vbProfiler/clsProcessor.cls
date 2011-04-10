@@ -48,10 +48,8 @@ Public Sub readCommand(ByRef Data As clsSocketData)
 
     If (lastCommand = EMPTY_COMMAND And Data.Size > 0) Then
     
-        lastCommand = read8X(Data)
-        
-        'logx.xDebug "command is " & lastCommand
-               
+        read8X Data, lastCommand
+              
     End If
 
 End Sub

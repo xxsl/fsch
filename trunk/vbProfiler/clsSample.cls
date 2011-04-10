@@ -52,13 +52,18 @@ Public Sub parse(ByRef Data As clsSocketData)
     readX buff, Data, 8
     
     Dim Size As Long, i As Long
-    Size = read32X(Data)
+    read32X Data, Size
 
+    Dim lng As Long
     For i = 1 To Size
         Dim line As New clsStackTraceLine
-        line.NAME = strings.item(read32X(Data))
-        line.FileName = strings.item(read32X(Data))
-        line.line = read32X(Data)
+        
+        read32X Data, lng
+        line.NAME = strings.item(lng)
+        read32X Data, lng
+        line.FileName = strings.item(lng)
+        read32X Data, lng
+        line.line = lng
         Value.lines.Add line
     Next i
 End Sub
