@@ -61,16 +61,16 @@ End Function
 
 Public Sub parse(ByRef Data As clsSocketData)
 
-    Dim Count As Long, i As Long, j As Long
+    Dim Count As Long, i As Long, j As Long, lng As Long
 
-    Count = read32X(Data)
+    read32X Data, Count
     
     For i = 0 To Count
 
         Dim id As Long, Length As Long
 
-        id = read32X(Data)
-        Length = read32X(Data)
+        read32X Data, id
+        read32X Data, Length
         
         If (Length <= 0) Then
 
@@ -82,11 +82,14 @@ Public Sub parse(ByRef Data As clsSocketData)
 
                 Dim NAME As String, isId As Boolean, memberId As Long
 
-                NAME = strings.item(read32X(Data))
-                isId = (read32X(Data) = 1)
+                read32X Data, lng
+                NAME = strings.item(lng)
+                
+                read32X Data, lng
+                isId = (lng = 1)
 
                 If (isId) Then
-                    memberId = read32X(Data)
+                    read32X Data, memberId
                     nameValue.setData j, NAME, memberId
                 Else
                     nameValue.setData j, NAME

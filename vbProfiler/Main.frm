@@ -175,10 +175,6 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 
-'server socket
-'Private WithEvents Server    As JBSOCKETSERVERLib.Server
-
-'tray handle
 Private WithEvents m_AppTray As frmSysTray
 Attribute m_AppTray.VB_VarHelpID = -1
 
@@ -202,6 +198,7 @@ Private Sub Server_ConnectionRequest(ByVal requestID As Long)
         Service.Accept requestID
         Set socketData = New clsSocketData
         Set socketData.socket = Service
+        LiveTimer.Enabled = True
     Else
         logx.xInfo "Connection request ignored " & requestID
     End If
@@ -218,6 +215,7 @@ End Sub
 Private Sub Service_Close()
     logx.xInfo "Service connection closed"
     'DisplayBalloon "Info", "Client disconnected", NIIF_INFO
+    LiveTimer.Enabled = False
 End Sub
 
 Private Sub Service_Error(ByVal Number As Integer, description As String, ByVal Scode As Long, ByVal Source As String, ByVal HelpFile As String, ByVal HelpContext As Long, CancelDisplay As Boolean)
@@ -226,57 +224,12 @@ Private Sub Service_Error(ByVal Number As Integer, description As String, ByVal 
 End Sub
 
 Private Sub Service_DataArrival(ByVal bytesTotal As Long)
-    Dim buffer() As Byte
-    Service.GetData buffer, vbArray
-    socketData.append buffer
+    Dim Buffer() As Byte
+    Service.GetData Buffer, vbArray
+    socketData.append Buffer
     processor.processCommand socketData
 End Sub
 
-'Profiler connected
-'Private Sub server_OnConnectionEstablished(ByVal Socket As JBSOCKETSERVERLib.ISocket)
-'    logx.xInfo "connection established: " & addressAsString(Socket)
-'    'prevent other other connections
-'    Server.StopListening
-'
-'    Set socketData = New clsSocketData
-'    Socket.UserData = socketData
-'
-'    'wait for data
-'    Socket.RequestRead
-'
-'    LiveTimer.Enabled = True
-'End Sub
-'
-''Profiler disconnected
-'Private Sub server_OnConnectionClosed(ByVal Socket As JBSOCKETSERVERLib.ISocket)
-'    logx.xInfo "connection closed: " & addressAsString(Socket)
-'
-'    Socket.UserData = Null
-'    LiveTimer.Enabled = False
-'
-'    selectedLiveObject = ""
-'
-'    'we are ready for new session
-'    Server.StartListening
-'    'TODO clean up session data
-'End Sub
-'
-''Profiler data processing
-'Private Sub server_OnDataReceived(ByVal Socket As JBSOCKETSERVERLib.ISocket, ByVal Data As JBSOCKETSERVERLib.IData)
-'
-'    Dim sckData As clsSocketData
-'
-'    Set sckData = Socket.UserData
-'    sckData.append Data
-'
-'    processor.processCommand sckData, Socket
-'
-'    Socket.RequestRead
-'End Sub
-
-'Private Function addressAsString(Socket As JBSOCKETSERVERLib.ISocket) As String
-'    addressAsString = Socket.RemoteAddress.Address & " : " & Socket.RemoteAddress.port
-'End Function
 
 Private Sub Form_Resize()
 
