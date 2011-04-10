@@ -26,33 +26,33 @@ Option Explicit
 
 Private id   As Long
 
-Private size   As Long
+Private Size   As Long
 
 Public Function canDeserialise(firstByte As Byte) As Boolean
     canDeserialise = (firstByte = C_DELETE_OBJECT_SAMPLE)
 End Function
 
 
-Public Sub parse(ByRef data As clsSocketData)
+Public Sub parse(ByRef Data As clsSocketData)
     Dim buff() As Byte
-    buff = readX(data, 8)
+    readX buff, Data, 8
 
-    id = read32X(data)
+    id = read32X(Data)
 
-    size = read32X(data)
+    Size = read32X(Data)
 End Sub
 
-Public Function bytesAvailable(ByRef data As clsSocketData) As Boolean
+Public Function bytesAvailable(ByRef Data As clsSocketData) As Boolean
 
-    Dim length As Long, Result As Boolean
+    Dim Length As Long, result As Boolean
 
-    If (data.size >= 16) Then
-        Result = True
+    If (Data.Size >= 16) Then
+        result = True
     Else
-        Result = False
+        result = False
     End If
 
-    bytesAvailable = Result
+    bytesAvailable = result
 End Function
 
 
@@ -62,7 +62,7 @@ End Function
 
 
 Public Function getSize() As Long
-    getSize = size
+    getSize = Size
 End Function
 
 

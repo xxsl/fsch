@@ -25,30 +25,30 @@ Public samples              As New Collection
 
 Public members              As New Collection
 
-Public Sub processCommand(ByRef data As clsSocketData, ByRef Socket As JBSOCKETSERVERLib.ISocket)
+Public Sub processCommand(ByRef Data As clsSocketData)
 
     Dim result As Boolean
     
-    readCommand data
+    readCommand Data
     
     If (lastCommand <> EMPTY_COMMAND) Then
-        result = processInternal(data, Socket)
+        result = processInternal(Data)
 
         Do While result
             lastCommand = EMPTY_COMMAND
-            readCommand data
-            result = processInternal(data, Socket)
+            readCommand Data
+            result = processInternal(Data)
         Loop
 
     End If
 
 End Sub
 
-Public Sub readCommand(ByRef data As clsSocketData)
+Public Sub readCommand(ByRef Data As clsSocketData)
 
-    If (lastCommand = EMPTY_COMMAND And data.size > 0) Then
+    If (lastCommand = EMPTY_COMMAND And Data.Size > 0) Then
     
-        lastCommand = read8X(data)
+        lastCommand = read8X(Data)
         
         'logx.xDebug "command is " & lastCommand
                
@@ -56,7 +56,7 @@ Public Sub readCommand(ByRef data As clsSocketData)
 
 End Sub
 
-Public Function processInternal(ByRef data As clsSocketData, ByRef Socket As JBSOCKETSERVERLib.ISocket) As Boolean
+Public Function processInternal(ByRef Data As clsSocketData) As Boolean
 
     Dim str       As New clsString
 
@@ -75,11 +75,11 @@ Public Function processInternal(ByRef data As clsSocketData, ByRef Socket As JBS
     If (lastCommand <> EMPTY_COMMAND) Then
         
         If (str.canDeserialise(lastCommand)) Then
-            If (str.bytesAvailable(data)) Then
-                str.parse data
+            If (str.bytesAvailable(Data)) Then
+                str.parse Data
                 logx.xDebug "string=" & str.getValue
 
-                If (strings.count < str.getKey) Then
+                If (strings.Count < str.getKey) Then
                     strings.Add str.getValue
                 End If
 
@@ -88,10 +88,10 @@ Public Function processInternal(ByRef data As clsSocketData, ByRef Socket As JBS
 
         ElseIf (swf.canDeserialise(lastCommand)) Then
 
-            If (swf.bytesAvailable(data)) Then
-                swf.parse data
+            If (swf.bytesAvailable(Data)) Then
+                swf.parse Data
                 logx.xInfo "swf size=" & swf.getSize
-                logx.xInfo "swf url=" & strings.Item(swf.getKey)
+                logx.xInfo "swf url=" & strings.item(swf.getKey)
                 'logger "swf loaded"
 
                 'send commands
@@ -104,16 +104,16 @@ Public Function processInternal(ByRef data As clsSocketData, ByRef Socket As JBS
                 commands(4) = C_PERFORMANCE_PROFILING
                 commands(5) = 1
                 commands(6) = C_RESUME
-                Socket.Write commands
+                Data.socket.SendData commands
                 result = True
             End If
 
         ElseIf (sample.canDeserialise(lastCommand)) Then
 
-            If (sample.bytesAvailable(data)) Then
+            If (sample.bytesAvailable(Data)) Then
 
                 Set sample.strings = strings
-                sample.parse data
+                sample.parse Data
                 '                Dim line As clsStackTraceLine
                 '                logger "sample size=" & sample.getValue.size
                 '                For Each line In sample.getValue.lines
@@ -126,9 +126,9 @@ Public Function processInternal(ByRef data As clsSocketData, ByRef Socket As JBS
 
         ElseIf (newSample.canDeserialise(lastCommand)) Then
 
-            If (newSample.bytesAvailable(data)) Then
+            If (newSample.bytesAvailable(Data)) Then
                 Set newSample.strings = strings
-                newSample.parse data
+                newSample.parse Data
                 logx.xDebug "create: id=" & newSample.getId & " type=" & newSample.getType & " size=" & newSample.getSize
                 samples.Add newSample, "" & newSample.getId
                 result = True
@@ -137,16 +137,16 @@ Public Function processInternal(ByRef data As clsSocketData, ByRef Socket As JBS
 
         ElseIf (delSample.canDeserialise(lastCommand)) Then
 
-            If (delSample.bytesAvailable(data)) Then
-                delSample.parse data
+            If (delSample.bytesAvailable(Data)) Then
+                delSample.parse Data
                 logx.xDebug "delete: id=" & delSample.getId & " size=" & newSample.getSize
                 samples.Remove "" & delSample.getId
                 result = True
             End If
         ElseIf (gc.canDeserialise(lastCommand)) Then
 
-            If (gc.bytesAvailable(data)) Then
-                gc.parse data
+            If (gc.bytesAvailable(Data)) Then
+                gc.parse Data
                 logx.xInfo "gc"
                 result = True
             End If

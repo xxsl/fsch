@@ -1,92 +1,99 @@
 [History]
-1=#P0#=mb	#P1#=grdLib_ColumnClick	#P2#=Profiler/frmMain/grdLib_ColumnClick	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20110405010056	#P7#=0	#P8#=0	.
-2=#P0#=mb	#P1#=Form_Load	#P2#=Profiler/frmMain/Form_Load	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20110405010424	#P7#=0	#P8#=-22	.
-3=#P0#=mb	#P1#=GetShortName	#P2#=Profiler/modMain/GetShortName	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403232833	#P7#=0	#P8#=7	.
-4=#P0#=mb	#P1#=SetAlwaysOnTopMode	#P2#=Profiler/modMain/SetAlwaysOnTopMode	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403232629	#P7#=0	#P8#=12	.
-5=#P0#=mb	#P1#=getResourceByName	#P2#=Profiler/clsResource/getResourceByName	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403232608	#P7#=0	#P8#=5	.
-6=#P0#=mb	#P1#=processCommand	#P2#=Profiler/clsProcessor/processCommand	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403194644	#P7#=0	#P8#=14	.
-7=#P0#=mb	#P1#=processInternal	#P2#=Profiler/clsProcessor/processInternal	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403194133	#P7#=0	#P8#=0	.
-8=#P0#=mb	#P1#=readCommand	#P2#=Profiler/clsProcessor/readCommand	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403194017	#P7#=0	#P8#=6	.
-9=#P0#=mb	#P1#=output	#P2#=Profiler/clsLog/output	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403193845	#P7#=0	#P8#=11	.
-10=#P0#=mb	#P1#=xError	#P2#=Profiler/clsLog/xError	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403193732	#P7#=0	#P8#=2	.
-11=#P0#=mb	#P1#=xWarning	#P2#=Profiler/clsLog/xWarning	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403193729	#P7#=0	#P8#=4	.
-12=#P0#=mb	#P1#=xDebug	#P2#=Profiler/clsLog/xDebug	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403193727	#P7#=0	#P8#=2	.
-13=#P0#=mb	#P1#=xInfo	#P2#=Profiler/clsLog/xInfo	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403193724	#P7#=0	#P8#=2	.
-14=#P0#=mb	#P1#=Form_Unload	#P2#=Profiler/frmMain/Form_Unload	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20110403193246	#P7#=0	#P8#=0	.
-15=#P0#=mb	#P1#=Form_QueryUnload	#P2#=Profiler/frmMain/Form_QueryUnload	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20110403193240	#P7#=0	#P8#=4	.
-16=#P0#=mb	#P1#=Class_Initialize	#P2#=Profiler/clsProcessor/Class_Initialize	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20110403193221	#P7#=0	#P8#=4	.
-17=#P0#=mb	#P1#=server_OnConnectionEstablished	#P2#=Profiler/frmMain/server_OnConnectionEstablished	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20110405011341	#P7#=0	#P8#=7	.
-18=#P0#=mb	#P1#=m_AppTray_SysTrayMouseDown	#P2#=Profiler/frmMain/m_AppTray_SysTrayMouseDown	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20110403192927	#P7#=0	#P8#=10	.
-19=#P0#=mb	#P1#=isLogLevelEnabled	#P2#=Profiler/clsLog/isLogLevelEnabled	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403192855	#P7#=0	#P8#=-3	.
-20=#P0#=mb	#P1#=Class_Initialize	#P2#=Profiler/clsLog/Class_Initialize	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20110403192521	#P7#=0	#P8#=5	.
-21=#P0#=mb	#P1#=urlPattern	#P2#=Profiler/clsPreferences/urlPattern [Let]	#P3#=	#P4#=	#P5#=MembPropertyPrivate	#P6#=20110403192300	#P7#=0	#P8#=0	.
-22=#P0#=mb	#P1#=urlPattern	#P2#=Profiler/clsPreferences/urlPattern [Get]	#P3#=	#P4#=	#P5#=MembPropertyPrivate	#P6#=20110403192256	#P7#=0	#P8#=0	.
-23=#P0#=mb	#P1#=port	#P2#=Profiler/clsPreferences/port [Get]	#P3#=	#P4#=	#P5#=MembPropertyPrivate	#P6#=20110403192207	#P7#=0	#P8#=-3	.
-24=#P0#=mb	#P1#=alwaysOnTop	#P2#=Profiler/clsPreferences/alwaysOnTop [Get]	#P3#=	#P4#=	#P5#=MembPropertyPrivate	#P6#=20110403192155	#P7#=0	#P8#=1	.
-25=#P0#=mb	#P1#=host	#P2#=Profiler/clsPreferences/host [Get]	#P3#=	#P4#=	#P5#=MembPropertyPrivate	#P6#=20110403192107	#P7#=0	#P8#=0	.
-26=#P0#=mb	#P1#=profilerSWF	#P2#=Profiler/clsPreferences/profilerSWF [Let]	#P3#=	#P4#=	#P5#=MembPropertyPrivate	#P6#=20110403192050	#P7#=0	#P8#=0	.
-27=#P0#=mb	#P1#=port	#P2#=Profiler/clsPreferences/port [Let]	#P3#=	#P4#=	#P5#=MembPropertyPrivate	#P6#=20110403191436	#P7#=0	#P8#=2	.
-28=#P0#=mb	#P1#=initialize	#P2#=Profiler/clsPreferences/initialize	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403191304	#P7#=0	#P8#=3	.
-29=#P0#=mb	#P1#=getLogFilePath	#P2#=Profiler/clsLog/getLogFilePath	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403191157	#P7#=0	#P8#=-5	.
-30=#P0#=mb	#P1#=setWindow	#P2#=Profiler/clsLog/setWindow	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403191045	#P7#=0	#P8#=-3	.
-31=#P0#=mb	#P1#=logLevels	#P2#=Profiler/clsPreferences/logLevels [Get]	#P3#=	#P4#=	#P5#=MembPropertyPrivate	#P6#=20110403185507	#P7#=0	#P8#=1	.
-32=#P0#=mb	#P1#=logViewer	#P2#=Profiler/clsPreferences/logViewer [Get]	#P3#=	#P4#=	#P5#=MembPropertyPrivate	#P6#=20110403185504	#P7#=0	#P8#=1	.
-33=#P0#=mb	#P1#=Form_Resize	#P2#=Profiler/frmMain/Form_Resize	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20110405004850	#P7#=0	#P8#=5	.
-34=#P0#=mb	#P1#=LiveTimer_Timer	#P2#=Profiler/frmMain/LiveTimer_Timer	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20110405005808	#P7#=0	#P8#=37	.
-35=#P0#=mb	#P1#=server_OnConnectionClosed	#P2#=Profiler/frmMain/server_OnConnectionClosed	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20110403162536	#P7#=0	#P8#=1	.
-36=#P0#=mb	#P1#=LiveView_ItemClick	#P2#=Profiler/frmMain/LiveView_ItemClick	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20110403162445	#P7#=0	#P8#=1	.
-37=#P0#=mb	#P1#=getSize	#P2#=Profiler/clsNameValuePairs/getSize	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403161155	#P7#=0	#P8#=1	.
-38=#P0#=mb	#P1#=bytesAvailable	#P2#=Profiler/clsMembers/bytesAvailable	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403161135	#P7#=0	#P8#=-1	.
-39=#P0#=mb	#P1#=canDeserialise	#P2#=Profiler/clsGC/canDeserialise	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403160927	#P7#=0	#P8#=0	.
-40=#P0#=mb	#P1#=bytesAvailable	#P2#=Profiler/clsGC/bytesAvailable	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403160923	#P7#=0	#P8#=3	.
-41=#P0#=mb	#P1#=parse	#P2#=Profiler/clsGC/parse	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403160855	#P7#=0	#P8#=0	.
-42=#P0#=mb	#P1#=parse	#P2#=Profiler/clsMembers/parse	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403142740	#P7#=0	#P8#=33	.
-43=#P0#=mb	#P1#=setSize	#P2#=Profiler/clsNameValuePairs/setSize	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403141813	#P7#=0	#P8#=4	.
-44=#P0#=mb	#P1#=getId	#P2#=Profiler/clsNameValuePairs/getId	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403141805	#P7#=0	#P8#=4	.
-45=#P0#=mb	#P1#=setData	#P2#=Profiler/clsNameValuePairs/setData	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403141313	#P7#=0	#P8#=3	.
-46=#P0#=mb	#P1#=getName	#P2#=Profiler/clsNameValuePairs/getName	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403141217	#P7#=0	#P8#=-2	.
-47=#P0#=mb	#P1#=canDeserialise	#P2#=Profiler/clsMembers/canDeserialise	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403140349	#P7#=0	#P8#=1	.
-48=#P0#=mb	#P1#=tabs_Click	#P2#=Profiler/frmMain/tabs_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20110403135250	#P7#=0	#P8#=1	.
-49=#P0#=mb	#P1#=addressAsString	#P2#=Profiler/frmMain/addressAsString	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403134217	#P7#=0	#P8#=1	.
-50=#P0#=mb	#P1#=LiveView_ColumnClick	#P2#=Profiler/frmMain/LiveView_ColumnClick	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20110405010109	#P7#=0	#P8#=11	.
-51=#P0#=mb	#P1#=ClearHeaderIcons	#P2#=Profiler/frmMain/ClearHeaderIcons	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110405002956	#P7#=0	#P8#=0	.
-52=#P0#=mb	#P1#=parse	#P2#=Profiler/clsNewObjectSample/parse	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403035520	#P7#=0	#P8#=2	.
-53=#P0#=mb	#P1#=parse	#P2#=Profiler/clsDeleteObjectSample/parse	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403032949	#P7#=0	#P8#=7	.
-54=#P0#=mb	#P1#=bytesAvailable	#P2#=Profiler/clsDeleteObjectSample/bytesAvailable	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403031903	#P7#=0	#P8#=8	.
-55=#P0#=mb	#P1#=getId	#P2#=Profiler/clsDeleteObjectSample/getId	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403031841	#P7#=0	#P8#=-1	.
-56=#P0#=mb	#P1#=getSize	#P2#=Profiler/clsDeleteObjectSample/getSize	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403031838	#P7#=0	#P8#=-1	.
-57=#P0#=mb	#P1#=canDeserialise	#P2#=Profiler/clsDeleteObjectSample/canDeserialise	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403031738	#P7#=0	#P8#=1	.
-58=#P0#=mb	#P1#=bytesAvailable	#P2#=Profiler/clsNewObjectSample/bytesAvailable	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403025816	#P7#=0	#P8#=4	.
-59=#P0#=mb	#P1#=getURL	#P2#=Profiler/clsNewObjectSample/getURL	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403025743	#P7#=0	#P8#=-1	.
-60=#P0#=mb	#P1#=getId	#P2#=Profiler/clsNewObjectSample/getId	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403025736	#P7#=0	#P8#=2	.
-61=#P0#=mb	#P1#=getSize	#P2#=Profiler/clsNewObjectSample/getSize	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403025726	#P7#=0	#P8#=-1	.
-62=#P0#=mb	#P1#=getType	#P2#=Profiler/clsNewObjectSample/getType	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403025704	#P7#=0	#P8#=-1	.
-63=#P0#=mb	#P1#=canDeserialise	#P2#=Profiler/clsNewObjectSample/canDeserialise	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403025506	#P7#=0	#P8#=-1	.
-64=#P0#=mb	#P1#=getValue	#P2#=Profiler/clsNewObjectSample/getValue	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403025400	#P7#=0	#P8#=2	.
-65=#P0#=mb	#P1#=canDeserialise	#P2#=Profiler/clsSample/canDeserialise	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403025300	#P7#=0	#P8#=0	.
-66=#P0#=mb	#P1#=bytesAvailable	#P2#=Profiler/clsSample/bytesAvailable	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403024532	#P7#=0	#P8#=9	.
-67=#P0#=mb	#P1#=parse	#P2#=Profiler/clsSample/parse	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403024127	#P7#=0	#P8#=6	.
-68=#P0#=mb	#P1#=getValue	#P2#=Profiler/clsSample/getValue	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403023556	#P7#=0	#P8#=0	.
-69=#P0#=mb	#P1#=size	#P2#=Profiler/clsStackTrace/size [Get]	#P3#=	#P4#=	#P5#=MembPropertyPrivate	#P6#=20110403023446	#P7#=0	#P8#=4	.
-70=#P0#=mb	#P1#=parse	#P2#=Profiler/clsString/parse	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403022006	#P7#=0	#P8#=0	.
-71=#P0#=mb	#P1#=readString	#P2#=Profiler/modSerialization/readString	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403021736	#P7#=0	#P8#=7	.
-72=#P0#=mb	#P1#=server_OnDataReceived	#P2#=Profiler/frmMain/server_OnDataReceived	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20110403020503	#P7#=0	#P8#=6	.
-73=#P0#=mb	#P1#=bytesAvailable	#P2#=Profiler/clsSWF/bytesAvailable	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403013742	#P7#=0	#P8#=2	.
-74=#P0#=mb	#P1#=bytesAvailable	#P2#=Profiler/clsString/bytesAvailable	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403013448	#P7#=0	#P8#=7	.
-75=#P0#=mb	#P1#=PeekData	#P2#=Profiler/clsSocketData/PeekData	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403013107	#P7#=0	#P8#=6	.
-76=#P0#=mb	#P1#=getBytes	#P2#=Profiler/clsSocketData/getBytes	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403013033	#P7#=0	#P8#=1	.
-77=#P0#=mb	#P1#=increment	#P2#=Profiler/clsSocketData/increment	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403013001	#P7#=0	#P8#=5	.
-78=#P0#=mb	#P1#=readStringP	#P2#=Profiler/modSerializationPeak/readStringP	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403012846	#P7#=0	#P8#=13	.
-79=#P0#=mb	#P1#=read32P	#P2#=Profiler/modSerializationPeak/read32P	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403012843	#P7#=0	#P8#=16	.
-80=#P0#=mb	#P1#=read8P	#P2#=Profiler/modSerializationPeak/read8P	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403012841	#P7#=0	#P8#=6	.
-81=#P0#=mb	#P1#=read16P	#P2#=Profiler/modSerializationPeak/read16P	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403012839	#P7#=0	#P8#=0	.
-82=#P0#=mb	#P1#=reverse	#P2#=Profiler/modSerialization/reverse	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403012156	#P7#=0	#P8#=0	.
-83=#P0#=mb	#P1#=readX	#P2#=Profiler/modSerialization/readX	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403012101	#P7#=0	#P8#=2	.
-84=#P0#=mb	#P1#=getValue	#P2#=Profiler/clsSWF/getValue	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403011728	#P7#=0	#P8#=-1	.
-85=#P0#=mb	#P1#=getValue	#P2#=Profiler/clsString/getValue	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403011643	#P7#=0	#P8#=0	.
-86=#P0#=mb	#P1#=parse	#P2#=Profiler/clsSWF/parse	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403010121	#P7#=0	#P8#=1	.
-87=#P0#=mb	#P1#=readData	#P2#=Profiler/clsSocketData/readData	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403005642	#P7#=0	#P8#=0	.
-88=#P0#=mb	#P1#=read8X	#P2#=Profiler/modSerialization/read8X	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403005106	#P7#=0	#P8#=4	.
-89=#P0#=mb	#P1#=write16	#P2#=Profiler/modSerialization/write16	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403004634	#P7#=0	#P8#=18	.
-90=#P0#=mb	#P1#=write32	#P2#=Profiler/modSerialization/write32	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403004624	#P7#=0	#P8#=27	.
-91=#P0#=mb	#P1#=read16X	#P2#=Profiler/modSerialization/read16X	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403004351	#P7#=0	#P8#=4	.
+1=#P0#=mb	#P1#=Service_Close	#P2#=Profiler/frmMain/Service_Close	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20110410154609	#P7#=0	#P8#=3	.
+2=#P0#=mb	#P1#=Service_Connect	#P2#=Profiler/frmMain/Service_Connect	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20110410155515	#P7#=0	#P8#=0	.
+3=#P0#=mb	#P1#=Service_DataArrival	#P2#=Profiler/frmMain/Service_DataArrival	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20110410155106	#P7#=0	#P8#=3	.
+4=#P0#=mb	#P1#=Service_Error	#P2#=Profiler/frmMain/Service_Error	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20110410154318	#P7#=0	#P8#=0	.
+5=#P0#=mb	#P1#=Server_ConnectionRequest	#P2#=Profiler/frmMain/Server_ConnectionRequest	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20110410155542	#P7#=0	#P8#=7	.
+6=#P0#=mb	#P1#=Reverse	#P2#=Profiler/modSerialization/Reverse	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110409175506	#P7#=0	#P8#=-1	.
+7=#P0#=mb	#P1#=readX	#P2#=Profiler/modSerialization/readX	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110409175505	#P7#=0	#P8#=1	.
+8=#P0#=mb	#P1#=read8X	#P2#=Profiler/modSerialization/read8X	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110409175447	#P7#=0	#P8#=3	.
+9=#P0#=mb	#P1#=readData	#P2#=Profiler/clsSocketData/readData	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110409175353	#P7#=0	#P8#=3	.
+10=#P0#=mb	#P1#=PeekData	#P2#=Profiler/clsSocketData/PeekData	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110409175248	#P7#=0	#P8#=1	.
+11=#P0#=mb	#P1#=append	#P2#=Profiler/clsSocketData/append	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110410154905	#P7#=0	#P8#=10	.
+12=#P0#=mb	#P1#=Class_Initialize	#P2#=Profiler/clsSocketData/Class_Initialize	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20110410153636	#P7#=0	#P8#=-1	.
+13=#P0#=mb	#P1#=getBytes	#P2#=Profiler/clsSocketData/getBytes	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110409174212	#P7#=0	#P8#=2	.
+14=#P0#=mb	#P1#=Size	#P2#=Profiler/clsSocketData/Size [Get]	#P3#=	#P4#=	#P5#=MembPropertyPrivate	#P6#=20110409174107	#P7#=0	#P8#=0	.
+15=#P0#=mb	#P1#=bytesAvailable	#P2#=Profiler/clsMembers/bytesAvailable	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110409172558	#P7#=0	#P8#=16	.
+16=#P0#=mb	#P1#=bytesAvailable	#P2#=Profiler/clsNewObjectSample/bytesAvailable	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110409172524	#P7#=0	#P8#=5	.
+17=#P0#=mb	#P1#=bytesAvailable	#P2#=Profiler/clsSample/bytesAvailable	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110409172501	#P7#=0	#P8#=2	.
+18=#P0#=mb	#P1#=bytesAvailable	#P2#=Profiler/clsSWF/bytesAvailable	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110409172423	#P7#=0	#P8#=-1	.
+19=#P0#=mb	#P1#=bytesAvailable	#P2#=Profiler/clsString/bytesAvailable	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110409172354	#P7#=0	#P8#=5	.
+20=#P0#=mb	#P1#=server_OnDataReceived	#P2#=Profiler/frmMain/server_OnDataReceived	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20110409172323	#P7#=0	#P8#=7	.
+21=#P0#=mb	#P1#=parse	#P2#=Profiler/clsDeleteObjectSample/parse	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110409160924	#P7#=0	#P8#=-2	.
+22=#P0#=mb	#P1#=parse	#P2#=Profiler/clsNewObjectSample/parse	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110409160914	#P7#=0	#P8#=2	.
+23=#P0#=mb	#P1#=parse	#P2#=Profiler/clsSample/parse	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110409160905	#P7#=0	#P8#=12	.
+24=#P0#=mb	#P1#=parse	#P2#=Profiler/clsSWF/parse	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110409160852	#P7#=0	#P8#=3	.
+25=#P0#=mb	#P1#=read16X	#P2#=Profiler/modSerialization/read16X	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110409160837	#P7#=0	#P8#=7	.
+26=#P0#=mb	#P1#=read32X	#P2#=Profiler/modSerialization/read32X	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110409160827	#P7#=0	#P8#=7	.
+27=#P0#=mb	#P1#=readString	#P2#=Profiler/modSerialization/readString	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110409160817	#P7#=0	#P8#=12	.
+28=#P0#=mb	#P1#=writeDouble	#P2#=Profiler/modSerialization/writeDouble	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110409153851	#P7#=0	#P8#=15	.
+29=#P0#=mb	#P1#=server_OnConnectionEstablished	#P2#=Profiler/frmMain/server_OnConnectionEstablished	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20110405011341	#P7#=0	#P8#=0	.
+30=#P0#=mb	#P1#=Form_Load	#P2#=Profiler/frmMain/Form_Load	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20110410154110	#P7#=0	#P8#=-47	.
+31=#P0#=mb	#P1#=LiveView_ColumnClick	#P2#=Profiler/frmMain/LiveView_ColumnClick	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20110405010109	#P7#=0	#P8#=4	.
+32=#P0#=mb	#P1#=LiveTimer_Timer	#P2#=Profiler/frmMain/LiveTimer_Timer	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20110405005808	#P7#=0	#P8#=1	.
+33=#P0#=mb	#P1#=Form_Resize	#P2#=Profiler/frmMain/Form_Resize	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20110410155511	#P7#=0	#P8#=-45	.
+34=#P0#=mb	#P1#=GetShortName	#P2#=Profiler/modMain/GetShortName	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403232833	#P7#=0	#P8#=7	.
+35=#P0#=mb	#P1#=SetAlwaysOnTopMode	#P2#=Profiler/modMain/SetAlwaysOnTopMode	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403232629	#P7#=0	#P8#=12	.
+36=#P0#=mb	#P1#=getResourceByName	#P2#=Profiler/clsResource/getResourceByName	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403232608	#P7#=0	#P8#=5	.
+37=#P0#=mb	#P1#=processCommand	#P2#=Profiler/clsProcessor/processCommand	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110410155249	#P7#=0	#P8#=13	.
+38=#P0#=mb	#P1#=processInternal	#P2#=Profiler/clsProcessor/processInternal	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110410155148	#P7#=0	#P8#=49	.
+39=#P0#=mb	#P1#=readCommand	#P2#=Profiler/clsProcessor/readCommand	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403194017	#P7#=0	#P8#=0	.
+40=#P0#=mb	#P1#=output	#P2#=Profiler/clsLog/output	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403193845	#P7#=0	#P8#=11	.
+41=#P0#=mb	#P1#=xError	#P2#=Profiler/clsLog/xError	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403193732	#P7#=0	#P8#=2	.
+42=#P0#=mb	#P1#=xWarning	#P2#=Profiler/clsLog/xWarning	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403193729	#P7#=0	#P8#=4	.
+43=#P0#=mb	#P1#=xDebug	#P2#=Profiler/clsLog/xDebug	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403193727	#P7#=0	#P8#=2	.
+44=#P0#=mb	#P1#=xInfo	#P2#=Profiler/clsLog/xInfo	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403193724	#P7#=0	#P8#=2	.
+45=#P0#=mb	#P1#=Form_Unload	#P2#=Profiler/frmMain/Form_Unload	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20110410155229	#P7#=0	#P8#=5	.
+46=#P0#=mb	#P1#=Form_QueryUnload	#P2#=Profiler/frmMain/Form_QueryUnload	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20110403193240	#P7#=0	#P8#=4	.
+47=#P0#=mb	#P1#=Class_Initialize	#P2#=Profiler/clsProcessor/Class_Initialize	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20110403193221	#P7#=0	#P8#=4	.
+48=#P0#=mb	#P1#=m_AppTray_SysTrayMouseDown	#P2#=Profiler/frmMain/m_AppTray_SysTrayMouseDown	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20110410155225	#P7#=0	#P8#=-2	.
+49=#P0#=mb	#P1#=isLogLevelEnabled	#P2#=Profiler/clsLog/isLogLevelEnabled	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403192855	#P7#=0	#P8#=-3	.
+50=#P0#=mb	#P1#=Class_Initialize	#P2#=Profiler/clsLog/Class_Initialize	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20110403192521	#P7#=0	#P8#=5	.
+51=#P0#=mb	#P1#=urlPattern	#P2#=Profiler/clsPreferences/urlPattern [Let]	#P3#=	#P4#=	#P5#=MembPropertyPrivate	#P6#=20110403192300	#P7#=0	#P8#=0	.
+52=#P0#=mb	#P1#=urlPattern	#P2#=Profiler/clsPreferences/urlPattern [Get]	#P3#=	#P4#=	#P5#=MembPropertyPrivate	#P6#=20110403192256	#P7#=0	#P8#=0	.
+53=#P0#=mb	#P1#=port	#P2#=Profiler/clsPreferences/port [Get]	#P3#=	#P4#=	#P5#=MembPropertyPrivate	#P6#=20110403192207	#P7#=0	#P8#=-3	.
+54=#P0#=mb	#P1#=alwaysOnTop	#P2#=Profiler/clsPreferences/alwaysOnTop [Get]	#P3#=	#P4#=	#P5#=MembPropertyPrivate	#P6#=20110403192155	#P7#=0	#P8#=1	.
+55=#P0#=mb	#P1#=host	#P2#=Profiler/clsPreferences/host [Get]	#P3#=	#P4#=	#P5#=MembPropertyPrivate	#P6#=20110403192107	#P7#=0	#P8#=0	.
+56=#P0#=mb	#P1#=profilerSWF	#P2#=Profiler/clsPreferences/profilerSWF [Let]	#P3#=	#P4#=	#P5#=MembPropertyPrivate	#P6#=20110403192050	#P7#=0	#P8#=0	.
+57=#P0#=mb	#P1#=port	#P2#=Profiler/clsPreferences/port [Let]	#P3#=	#P4#=	#P5#=MembPropertyPrivate	#P6#=20110403191436	#P7#=0	#P8#=2	.
+58=#P0#=mb	#P1#=initialize	#P2#=Profiler/clsPreferences/initialize	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403191304	#P7#=0	#P8#=3	.
+59=#P0#=mb	#P1#=getLogFilePath	#P2#=Profiler/clsLog/getLogFilePath	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403191157	#P7#=0	#P8#=-5	.
+60=#P0#=mb	#P1#=setWindow	#P2#=Profiler/clsLog/setWindow	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403191045	#P7#=0	#P8#=-3	.
+61=#P0#=mb	#P1#=logLevels	#P2#=Profiler/clsPreferences/logLevels [Get]	#P3#=	#P4#=	#P5#=MembPropertyPrivate	#P6#=20110403185507	#P7#=0	#P8#=1	.
+62=#P0#=mb	#P1#=logViewer	#P2#=Profiler/clsPreferences/logViewer [Get]	#P3#=	#P4#=	#P5#=MembPropertyPrivate	#P6#=20110403185504	#P7#=0	#P8#=1	.
+63=#P0#=mb	#P1#=server_OnConnectionClosed	#P2#=Profiler/frmMain/server_OnConnectionClosed	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20110403162536	#P7#=0	#P8#=1	.
+64=#P0#=mb	#P1#=LiveView_ItemClick	#P2#=Profiler/frmMain/LiveView_ItemClick	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20110403162445	#P7#=0	#P8#=1	.
+65=#P0#=mb	#P1#=getSize	#P2#=Profiler/clsNameValuePairs/getSize	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403161155	#P7#=0	#P8#=1	.
+66=#P0#=mb	#P1#=canDeserialise	#P2#=Profiler/clsGC/canDeserialise	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403160927	#P7#=0	#P8#=0	.
+67=#P0#=mb	#P1#=bytesAvailable	#P2#=Profiler/clsGC/bytesAvailable	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403160923	#P7#=0	#P8#=3	.
+68=#P0#=mb	#P1#=parse	#P2#=Profiler/clsGC/parse	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403160855	#P7#=0	#P8#=0	.
+69=#P0#=mb	#P1#=parse	#P2#=Profiler/clsMembers/parse	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403142740	#P7#=0	#P8#=33	.
+70=#P0#=mb	#P1#=setSize	#P2#=Profiler/clsNameValuePairs/setSize	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403141813	#P7#=0	#P8#=4	.
+71=#P0#=mb	#P1#=getId	#P2#=Profiler/clsNameValuePairs/getId	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403141805	#P7#=0	#P8#=4	.
+72=#P0#=mb	#P1#=setData	#P2#=Profiler/clsNameValuePairs/setData	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403141313	#P7#=0	#P8#=3	.
+73=#P0#=mb	#P1#=getName	#P2#=Profiler/clsNameValuePairs/getName	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403141217	#P7#=0	#P8#=-2	.
+74=#P0#=mb	#P1#=canDeserialise	#P2#=Profiler/clsMembers/canDeserialise	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403140349	#P7#=0	#P8#=1	.
+75=#P0#=mb	#P1#=tabs_Click	#P2#=Profiler/frmMain/tabs_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20110410154032	#P7#=0	#P8#=1	.
+76=#P0#=mb	#P1#=addressAsString	#P2#=Profiler/frmMain/addressAsString	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110410154014	#P7#=0	#P8#=0	.
+77=#P0#=mb	#P1#=bytesAvailable	#P2#=Profiler/clsDeleteObjectSample/bytesAvailable	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403031903	#P7#=0	#P8#=8	.
+78=#P0#=mb	#P1#=getId	#P2#=Profiler/clsDeleteObjectSample/getId	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403031841	#P7#=0	#P8#=-1	.
+79=#P0#=mb	#P1#=getSize	#P2#=Profiler/clsDeleteObjectSample/getSize	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403031838	#P7#=0	#P8#=-1	.
+80=#P0#=mb	#P1#=canDeserialise	#P2#=Profiler/clsDeleteObjectSample/canDeserialise	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403031738	#P7#=0	#P8#=1	.
+81=#P0#=mb	#P1#=getURL	#P2#=Profiler/clsNewObjectSample/getURL	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403025743	#P7#=0	#P8#=-1	.
+82=#P0#=mb	#P1#=getId	#P2#=Profiler/clsNewObjectSample/getId	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403025736	#P7#=0	#P8#=2	.
+83=#P0#=mb	#P1#=getSize	#P2#=Profiler/clsNewObjectSample/getSize	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403025726	#P7#=0	#P8#=-1	.
+84=#P0#=mb	#P1#=getType	#P2#=Profiler/clsNewObjectSample/getType	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403025704	#P7#=0	#P8#=-1	.
+85=#P0#=mb	#P1#=canDeserialise	#P2#=Profiler/clsNewObjectSample/canDeserialise	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403025506	#P7#=0	#P8#=0	.
+86=#P0#=mb	#P1#=getValue	#P2#=Profiler/clsNewObjectSample/getValue	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403025400	#P7#=0	#P8#=2	.
+87=#P0#=mb	#P1#=canDeserialise	#P2#=Profiler/clsSample/canDeserialise	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403025300	#P7#=0	#P8#=0	.
+88=#P0#=mb	#P1#=getValue	#P2#=Profiler/clsSample/getValue	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403023556	#P7#=0	#P8#=0	.
+89=#P0#=mb	#P1#=size	#P2#=Profiler/clsStackTrace/size [Get]	#P3#=	#P4#=	#P5#=MembPropertyPrivate	#P6#=20110403023446	#P7#=0	#P8#=4	.
+90=#P0#=mb	#P1#=parse	#P2#=Profiler/clsString/parse	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403022006	#P7#=0	#P8#=0	.
+91=#P0#=mb	#P1#=readStringP	#P2#=Profiler/modSerializationPeak/readStringP	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403012846	#P7#=0	#P8#=13	.
+92=#P0#=mb	#P1#=read32P	#P2#=Profiler/modSerializationPeak/read32P	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403012843	#P7#=0	#P8#=16	.
+93=#P0#=mb	#P1#=read8P	#P2#=Profiler/modSerializationPeak/read8P	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403012841	#P7#=0	#P8#=6	.
+94=#P0#=mb	#P1#=read16P	#P2#=Profiler/modSerializationPeak/read16P	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403012839	#P7#=0	#P8#=0	.
+95=#P0#=mb	#P1#=getValue	#P2#=Profiler/clsSWF/getValue	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403011728	#P7#=0	#P8#=-1	.
+96=#P0#=mb	#P1#=getValue	#P2#=Profiler/clsString/getValue	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403011643	#P7#=0	#P8#=0	.
+97=#P0#=mb	#P1#=write16	#P2#=Profiler/modSerialization/write16	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403004634	#P7#=0	#P8#=18	.
+98=#P0#=mb	#P1#=write32	#P2#=Profiler/modSerialization/write32	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20110403004624	#P7#=0	#P8#=25	.

@@ -3,6 +3,7 @@ Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
 Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.ocx"
 Object = "{DE8CE233-DD83-481D-844C-C07B96589D3A}#1.1#0"; "vbalSGrid6.ocx"
 Object = "{396F7AC0-A0DD-11D3-93EC-00C0DFE7442A}#1.0#0"; "vbalIml6.ocx"
+Object = "{248DD890-BB45-11CF-9ABC-0080C7E7B78D}#1.0#0"; "MSWINSCK.OCX"
 Begin VB.Form frmMain 
    Caption         =   "Profiler"
    ClientHeight    =   4965
@@ -14,6 +15,20 @@ Begin VB.Form frmMain
    ScaleHeight     =   4965
    ScaleWidth      =   10560
    StartUpPosition =   3  'Windows Default
+   Begin MSWinsockLib.Winsock Service 
+      Left            =   9120
+      Top             =   840
+      _ExtentX        =   741
+      _ExtentY        =   741
+      _Version        =   393216
+   End
+   Begin MSWinsockLib.Winsock Server 
+      Left            =   8400
+      Top             =   840
+      _ExtentX        =   741
+      _ExtentY        =   741
+      _Version        =   393216
+   End
    Begin vbalIml6.vbalImageList vbalImageList 
       Left            =   8760
       Top             =   2040
@@ -161,8 +176,7 @@ Attribute VB_Exposed = False
 Option Explicit
 
 'server socket
-Private WithEvents server    As JBSOCKETSERVERLib.server
-Attribute server.VB_VarHelpID = -1
+'Private WithEvents Server    As JBSOCKETSERVERLib.Server
 
 'tray handle
 Private WithEvents m_AppTray As frmSysTray
@@ -180,57 +194,89 @@ Private logx                 As New clsLog
 
 Private prefs                As New clsPreferences
 
-'Profiler connected
-Private Sub server_OnConnectionEstablished(ByVal Socket As JBSOCKETSERVERLib.ISocket)
-    logx.xInfo "connection established: " & addressAsString(Socket)
-    'prevent other other connections
-    server.StopListening
-    
-    Set socketData = New clsSocketData
-    Socket.UserData = socketData
-    
-    'wait for data
-    Socket.RequestRead
-    
-    LiveTimer.Enabled = True
-End Sub
 
-'Profiler disconnected
-Private Sub server_OnConnectionClosed(ByVal Socket As JBSOCKETSERVERLib.ISocket)
-    logx.xInfo "connection closed: " & addressAsString(Socket)
-    
-    Socket.UserData = Null
-    LiveTimer.Enabled = False
-    
-    selectedLiveObject = ""
-    
-    'we are ready for new session
-    server.StartListening
-    'TODO clean up session data
-End Sub
-
-'Profiler data processing
-Private Sub server_OnDataReceived(ByVal Socket As JBSOCKETSERVERLib.ISocket, ByVal Data As JBSOCKETSERVERLib.IData)
-  
-    Dim sckData As clsSocketData
-
-    Set sckData = Socket.UserData
-    sckData.append Data
-    
-    'logger "data counter=" & sckData.increment
-    
-    If (Not sckData.locked) Then
-        processor.processCommand sckData, Socket
+Private Sub Server_ConnectionRequest(ByVal requestID As Long)
+    If (Not Service.State = sckConnected) Then
+        logx.xInfo "Accepted connection request " & requestID
+        Service.Close
+        Service.Accept requestID
+        Set socketData = New clsSocketData
+        Set socketData.socket = Service
     Else
-        'logger "waiting for data"
+        logx.xInfo "Connection request ignored " & requestID
     End If
-    
-    Socket.RequestRead
 End Sub
 
-Private Function addressAsString(Socket As JBSOCKETSERVERLib.ISocket) As String
-    addressAsString = Socket.RemoteAddress.Address & " : " & Socket.RemoteAddress.port
-End Function
+Private Sub Server_Error(ByVal Number As Integer, description As String, ByVal Scode As Long, ByVal Source As String, ByVal HelpFile As String, ByVal HelpContext As Long, CancelDisplay As Boolean)
+    logx.xError "Server socket error: " + description
+End Sub
+
+Private Sub Service_Connect()
+    logx.xInfo "Connection established"
+End Sub
+
+Private Sub Service_Close()
+    logx.xInfo "Service connection closed"
+    'DisplayBalloon "Info", "Client disconnected", NIIF_INFO
+End Sub
+
+Private Sub Service_Error(ByVal Number As Integer, description As String, ByVal Scode As Long, ByVal Source As String, ByVal HelpFile As String, ByVal HelpContext As Long, CancelDisplay As Boolean)
+    logx.xError "Service socket error: " + description
+    Service.Close
+End Sub
+
+Private Sub Service_DataArrival(ByVal bytesTotal As Long)
+    Dim buffer() As Byte
+    Service.GetData buffer, vbArray
+    socketData.append buffer
+    processor.processCommand socketData
+End Sub
+
+'Profiler connected
+'Private Sub server_OnConnectionEstablished(ByVal Socket As JBSOCKETSERVERLib.ISocket)
+'    logx.xInfo "connection established: " & addressAsString(Socket)
+'    'prevent other other connections
+'    Server.StopListening
+'
+'    Set socketData = New clsSocketData
+'    Socket.UserData = socketData
+'
+'    'wait for data
+'    Socket.RequestRead
+'
+'    LiveTimer.Enabled = True
+'End Sub
+'
+''Profiler disconnected
+'Private Sub server_OnConnectionClosed(ByVal Socket As JBSOCKETSERVERLib.ISocket)
+'    logx.xInfo "connection closed: " & addressAsString(Socket)
+'
+'    Socket.UserData = Null
+'    LiveTimer.Enabled = False
+'
+'    selectedLiveObject = ""
+'
+'    'we are ready for new session
+'    Server.StartListening
+'    'TODO clean up session data
+'End Sub
+'
+''Profiler data processing
+'Private Sub server_OnDataReceived(ByVal Socket As JBSOCKETSERVERLib.ISocket, ByVal Data As JBSOCKETSERVERLib.IData)
+'
+'    Dim sckData As clsSocketData
+'
+'    Set sckData = Socket.UserData
+'    sckData.append Data
+'
+'    processor.processCommand sckData, Socket
+'
+'    Socket.RequestRead
+'End Sub
+
+'Private Function addressAsString(Socket As JBSOCKETSERVERLib.ISocket) As String
+'    addressAsString = Socket.RemoteAddress.Address & " : " & Socket.RemoteAddress.port
+'End Function
 
 Private Sub Form_Resize()
 
@@ -250,7 +296,6 @@ Private Sub Form_Resize()
 End Sub
 
 Private Sub tabs_Click(PreviousTab As Integer)
-
     Form_Resize
 End Sub
 
@@ -440,8 +485,12 @@ Private Sub Form_Load()
 
     LiveView.StretchLastColumnToFit = True
     
-    Set server = CreateSocketServer(9999)
-    server.StartListening
+'    Set Server = CreateSocketServer(9999)
+'    Server.StartListening
+
+    Server.Close
+    Server.LocalPort = 9999
+    Server.Listen
 End Sub
 
 'exit dialog
@@ -461,7 +510,8 @@ End Sub
 
 'quit
 Private Sub Form_Unload(Cancel As Integer)
-    server.StopListening
+    Server.Close
+    Service.Close
     Set processor.logx = Nothing
     Unload m_AppTray
     Unload frmSysTray
