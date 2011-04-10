@@ -5,7 +5,7 @@ Public Declare Sub CopyMemory _
                Lib "kernel32" _
                Alias "RtlMoveMemory" (Destination As Any, _
                                       Source As Any, _
-                                      ByVal length As Long)
+                                      ByVal Length As Long)
 
 '---------------------------------
 'Serialize double to amf bytearray
@@ -18,9 +18,9 @@ Public Function writeDouble(ByRef buffer() As Byte, ByVal str As Double)
         first = True
     End If
 
-    Dim length() As Byte
+    Dim Length() As Byte
 
-    length = DoubleToByteArray(str)
+    Length = DoubleToByteArray(str)
     
     Dim oldLen As Long, i As Long
 
@@ -33,7 +33,7 @@ Public Function writeDouble(ByRef buffer() As Byte, ByVal str As Double)
     End If
     
     For i = 0 To 7
-        buffer(UBound(buffer) - i) = length(i)
+        buffer(UBound(buffer) - i) = Length(i)
     Next i
 
 End Function
@@ -49,21 +49,21 @@ Public Function readDouble(ByRef buffer() As Byte, ByRef position As Long) As Do
 
     Dim k                  As Long
     
-    Const size             As Long = 7
+    Const Size             As Long = 7
     
-    Dim strBuff(0 To size) As Byte
+    Dim strBuff(0 To Size) As Byte
    
-    For i = (position + size) To position Step -1
+    For i = (position + Size) To position Step -1
         strBuff(k) = buffer(i)
         k = k + 1
     Next i
     
-    Dim Result As Double
+    Dim result As Double
 
-    CopyMemory Result, strBuff(0), (size + 1)
+    CopyMemory result, strBuff(0), (Size + 1)
 
-    position = position + (size + 1)
-    readDouble = Result
+    position = position + (Size + 1)
+    readDouble = result
 check:
     'Debug.Print Err.Description
 End Function
@@ -73,11 +73,11 @@ End Function
 '------------------------------------
 Public Function readBoolean(ByRef buffer() As Byte, ByRef position As Long) As Boolean
 
-    Dim Result As Byte
+    Dim result As Byte
 
-    Result = buffer(position)
+    result = buffer(position)
     position = position + 1
-    readBoolean = (Result = 1)
+    readBoolean = (result = 1)
 End Function
 
 '---------------------------------
@@ -118,9 +118,9 @@ Public Function write32(ByRef buffer() As Byte, ByVal str As Long)
         first = True
     End If
 
-    Dim length() As Byte
+    Dim Length() As Byte
 
-    length = LongToByteArray(str)
+    Length = LongToByteArray(str)
     
     Dim oldLen As Long, i As Long
 
@@ -133,7 +133,7 @@ Public Function write32(ByRef buffer() As Byte, ByVal str As Long)
     End If
     
     For i = 0 To 3
-        buffer(UBound(buffer) - i) = length(i)
+        buffer(UBound(buffer) - i) = Length(i)
     Next i
 
 End Function
@@ -149,9 +149,9 @@ Public Function write16(ByRef buffer() As Byte, ByVal str As Integer)
         first = True
     End If
 
-    Dim length() As Byte
+    Dim Length() As Byte
 
-    length = LongToByteArray(str)
+    Length = LongToByteArray(str)
     
     Dim oldLen As Long, i As Long
 
@@ -164,7 +164,7 @@ Public Function write16(ByRef buffer() As Byte, ByVal str As Integer)
     End If
     
     For i = 0 To 1
-        buffer(UBound(buffer) - i) = length(i)
+        buffer(UBound(buffer) - i) = Length(i)
     Next i
 
 End Function
@@ -172,16 +172,16 @@ End Function
 '-----------------------------------
 'Deserialize amf bytearray to String
 '-----------------------------------
-Public Function readString(ByRef data As clsSocketData) As String
+Public Function readString(ByRef Data As clsSocketData) As String
 
     Dim strBuff() As Byte
 
-    Dim length    As Long
+    Dim Length    As Long
 
-    length = read16X(data)
+    Length = read16X(Data)
    
-    If (length > 0) Then
-        strBuff = readX(data, length)
+    If (Length > 0) Then
+        readX strBuff, Data, Length
         readString = ConvertUtf8BytesToString(strBuff)
     Else
         readString = ""
@@ -203,9 +203,9 @@ Public Function writeString(ByRef buffer() As Byte, ByVal str As String)
 
     strBuff = ConvertStringToUtf8Bytes(str)
     
-    Dim length() As Byte
+    Dim Length() As Byte
 
-    length = LongToByteArray(UBound(strBuff) + 1)
+    Length = LongToByteArray(UBound(strBuff) + 1)
     
     Dim oldLen As Long, i As Long
 
@@ -214,7 +214,7 @@ Public Function writeString(ByRef buffer() As Byte, ByVal str As String)
     ReDim Preserve buffer(UBound(buffer) + 4)
 
     For i = 0 To 3
-        buffer(UBound(buffer) - i) = length(i)
+        buffer(UBound(buffer) - i) = Length(i)
     Next i
        
     oldLen = UBound(buffer)
@@ -256,59 +256,54 @@ Public Function DoubleToByteArray(ByVal lng As Double) As Byte()
     DoubleToByteArray = byteArray
 End Function
 
-Public Function read32X(ByRef data As clsSocketData) As Long
+Public Function read32X(ByRef Data As clsSocketData) As Long
 
-    Dim buffer() As Byte, length As Long
+    Dim buffer() As Byte, Length As Long
     
-    buffer = reverse(readX(data, 4))
+    readX buffer, Data, 4
     
-    CopyMemory length, buffer(0), 4&
+    Reverse buffer
+    
+    CopyMemory Length, buffer(0), 4&
 
-    read32X = length
+    read32X = Length
 End Function
 
-Public Function read16X(ByRef data As clsSocketData) As Integer
+Public Function read16X(ByRef Data As clsSocketData) As Integer
 
-    Dim buffer() As Byte, length As Integer
+    Dim buffer() As Byte, Length As Integer
     
-    buffer = reverse(readX(data, 2))
+    readX buffer, Data, 2
     
-    CopyMemory length, buffer(0), 2&
+    Reverse buffer
+    
+    CopyMemory Length, buffer(0), 2&
 
-    read16X = length
+    read16X = Length
 End Function
 
-Public Function read8X(ByRef data As clsSocketData) As Byte
-
+Public Function read8X(ByRef Data As clsSocketData) As Byte
     Dim buffer() As Byte
-
-    buffer = readX(data, 1)
+    Data.ReadData buffer, 1&
     read8X = buffer(0)
 End Function
 
-Public Function readX(ByRef data As clsSocketData, ByVal size As Long) As Byte()
-    readX = data.ReadData(size)
-End Function
+Public Sub readX(ByRef buffer() As Byte, ByRef Data As clsSocketData, ByVal Size As Long)
+     Data.ReadData buffer, Size
+End Sub
 
-Public Function reverse(ByRef bytes() As Byte) As Byte()
 
-    Dim length    As Long
-
-    Dim i         As Long
-
-    Dim k         As Long
-
-    Dim shifted() As Byte
-    
-    length = UBound(bytes)
-    
-    ReDim shifted(length)
-    
-    For i = length To 0 Step -1
-        shifted(k) = bytes(i)
-        k = k + 1
-    Next i
-
-    reverse = shifted
-End Function
+Private Sub Reverse(ByRef s() As Byte)
+  Dim i As Long
+  Dim sSwap As Byte
+  Dim Length As Long
+  
+  Length = UBound(s)
+  
+  For i = 0 To (Length - 1) \ 2
+    sSwap = s(Length - i)
+    s(Length - i) = s(i)
+    s(i) = sSwap
+  Next i
+End Sub
 

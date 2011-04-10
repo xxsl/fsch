@@ -13,72 +13,51 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Option Explicit
 
+Public socket As Winsock
+
 Private bytes()   As Byte
 
-Private m_locked  As Boolean
+Public Size    As Long
 
-Private m_counter As Long
-
-Private m_size    As Long
-
-Public Sub append(ByRef data As JBSOCKETSERVERLib.IData)
-
-    Dim buffer() As Byte
-
-    Dim length   As Long
-    
-    buffer = data.Read
-    length = UBound(buffer) + 1
-    
-    ReDim Preserve bytes(m_size + length - 1)
-    CopyMemory bytes(m_size), buffer(0), length
-    
-    m_size = m_size + length
+Private Sub Class_Initialize()
+    ReDim bytes(1024)
 End Sub
 
-Public Property Get locked() As Boolean
-    locked = m_locked
-End Property
-
-Public Property Get size() As Long
-    size = m_size
-End Property
-
-Public Function increment() As Long
-    m_counter = m_counter + 1
-    increment = m_counter
-End Function
-
-Public Function getBytes() As Byte()
-    getBytes = bytes
-End Function
-
-Public Function PeekData(ByVal size As Long) As Byte()
-
-    Dim buffer() As Byte
-
-    ReDim Preserve buffer(size - 1)
+Public Sub append(ByRef buffer() As Byte)
+    Dim Length   As Long
     
-    CopyMemory buffer(0), bytes(0), size
-    PeekData = buffer
-End Function
-
-Public Function ReadData(ByVal size As Long) As Byte()
-
-    Dim buffer()   As Byte
-
-    Dim newBytes() As Byte
+    Length = UBound(buffer) + 1
     
-    buffer = PeekData(size)
-    
-    If (m_size - size > 0) Then
-        ReDim newBytes(m_size - size - 1)
-        CopyMemory newBytes(0), bytes(size), m_size - size
+    If (Size + Length - 1 > 1024) Then
+        ReDim Preserve bytes(Size + Length - 1)
     End If
     
-    bytes = newBytes
+    CopyMemory bytes(Size), buffer(0), Length
     
-    m_size = m_size - size
+    Size = Size + Length
+End Sub
+
+
+Public Sub getBytes(ByRef buffer() As Byte)
+    buffer = bytes
+End Sub
+
+Public Sub PeekData(ByRef buffer() As Byte, ByVal Size As Long)
     
-    ReadData = buffer
+    ReDim Preserve buffer(Size - 1)
+   
+    CopyMemory buffer(0), bytes(0), Size
+End Sub
+
+Public Function ReadData(ByRef buffer() As Byte, ByVal rSize As Long)
+
+    PeekData buffer, rSize
+    
+    If (Size - rSize > 0) Then
+        CopyMemory bytes(0), bytes(rSize), Size - rSize
+    End If
+    
+    Size = Size - rSize
 End Function
+
+

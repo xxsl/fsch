@@ -53,43 +53,43 @@ Public members As Collection
 
 Private id     As Long
 
-Private size   As Long
+Private Size   As Long
 
 Public Function canDeserialise(firstByte As Byte) As Boolean
     canDeserialise = (firstByte = C_MEMBERS)
 End Function
 
-Public Sub parse(ByRef data As clsSocketData)
+Public Sub parse(ByRef Data As clsSocketData)
 
-    Dim count As Long, i As Long, j As Long
+    Dim Count As Long, i As Long, j As Long
 
-    count = read32X(data)
+    Count = read32X(Data)
     
-    For i = 0 To count
+    For i = 0 To Count
 
-        Dim id As Long, length As Long
+        Dim id As Long, Length As Long
 
-        id = read32X(data)
-        length = read32X(data)
+        id = read32X(Data)
+        Length = read32X(Data)
         
-        If (length <= 0) Then
+        If (Length <= 0) Then
 
             Dim nameValue As New clsNameValuePairs
 
-            nameValue.setSize length
+            nameValue.setSize Length
 
-            For j = 0 To length
+            For j = 0 To Length
 
-                Dim name As String, isId As Boolean, memberId As Long
+                Dim NAME As String, isId As Boolean, memberId As Long
 
-                name = strings.Item(read32X(data))
-                isId = (read32X(data) = 1)
+                NAME = strings.item(read32X(Data))
+                isId = (read32X(Data) = 1)
 
                 If (isId) Then
-                    memberId = read32X(data)
-                    nameValue.setData j, name, memberId
+                    memberId = read32X(Data)
+                    nameValue.setData j, NAME, memberId
                 Else
-                    nameValue.setData j, name
+                    nameValue.setData j, NAME
                 End If
 
             Next j
@@ -101,45 +101,47 @@ Public Sub parse(ByRef data As clsSocketData)
 
 End Sub
 
-Public Function bytesAvailable(ByRef data As clsSocketData) As Boolean
+Public Function bytesAvailable(ByRef Data As clsSocketData) As Boolean
 
-    Dim count As Long, Result As Boolean, pos As Long, i As Long, j As Long
+    Dim Count As Long, result As Boolean, Pos As Long, i As Long, j As Long, bytes() As Byte
 
-    Result = True
+    result = True
 
-    If (data.size >= 4) Then
+
+    If (Data.Size >= 4) Then
+        Data.getBytes bytes
     
-        count = read32P(data.getBytes, pos)
+        Count = read32P(bytes, Pos)
 
-        For i = 0 To count
+        For i = 0 To Count
 
-            Dim id As Long, length As Long
+            Dim id As Long, Length As Long
             
-            If (data.size >= pos + 8 And Result) Then
+            If (Data.Size >= Pos + 8 And result) Then
                 
-                id = read32P(data.getBytes, pos)
-                length = read32P(data.getBytes, pos)
+                id = read32P(bytes, Pos)
+                Length = read32P(bytes, Pos)
                 
-                If (length <= 0) Then
+                If (Length <= 0) Then
     
-                    For j = 0 To length
+                    For j = 0 To Length
     
-                        Dim name As String, isId As Boolean, memberId As Long
+                        Dim NAME As String, isId As Boolean, memberId As Long
     
-                        If (data.size >= pos + 8) Then
+                        If (Data.Size >= Pos + 8) Then
     
-                            name = strings.Item(read32P(data.getBytes, pos))
-                            isId = (read32P(data.getBytes, pos) = 1)
+                            NAME = strings.item(read32P(bytes, Pos))
+                            isId = (read32P(bytes, Pos) = 1)
                             
-                            If (data.size >= pos + 4 Or Not isId) Then
+                            If (Data.Size >= Pos + 4 Or Not isId) Then
                             
                                 If (isId) Then
-                                    memberId = read32P(data.getBytes, pos)
+                                    memberId = read32P(bytes, Pos)
                                 End If
 
                             Else
                             
-                                Result = False
+                                result = False
                                 
                                 Exit For
                             
@@ -147,7 +149,7 @@ Public Function bytesAvailable(ByRef data As clsSocketData) As Boolean
 
                         Else
                         
-                            Result = False
+                            result = False
                             
                             Exit For
                             
@@ -159,7 +161,7 @@ Public Function bytesAvailable(ByRef data As clsSocketData) As Boolean
     
             Else
             
-                Result = False
+                result = False
 
                 Exit For
 
@@ -168,10 +170,10 @@ Public Function bytesAvailable(ByRef data As clsSocketData) As Boolean
         Next i
 
     Else
-        Result = False
+        result = False
     End If
 
-    bytesAvailable = Result
+    bytesAvailable = result
 End Function
 
 Public Function getId() As Long
@@ -179,6 +181,6 @@ Public Function getId() As Long
 End Function
 
 Public Function getSize() As Long
-    getSize = size
+    getSize = Size
 End Function
 

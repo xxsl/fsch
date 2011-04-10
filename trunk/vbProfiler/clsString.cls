@@ -13,7 +13,7 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Option Explicit
 
-Private value As String
+Private Value As String
 
 Private key   As Long
 
@@ -21,27 +21,28 @@ Public Function canDeserialise(firstByte As Byte) As Boolean
     canDeserialise = (firstByte = C_STRING)
 End Function
 
-Public Sub parse(ByRef data As clsSocketData)
-    value = readString(data)
-    key = read32X(data)
+Public Sub parse(ByRef Data As clsSocketData)
+    Value = readString(Data)
+    key = read32X(Data)
 End Sub
 
-Public Function bytesAvailable(ByRef data As clsSocketData) As Boolean
+Public Function bytesAvailable(ByRef Data As clsSocketData) As Boolean
 
-    Dim length As Long, Result As Boolean
+    Dim Length As Long, result As Boolean, bytes() As Byte
 
-    If (data.size >= 2) Then
-        length = read16P(data.getBytes, 0)
-        Result = ((length + 6) <= data.size)
+    If (Data.Size >= 2) Then
+        Data.getBytes bytes
+        Length = read16P(bytes, 0)
+        result = ((Length + 6) <= Data.Size)
     Else
-        Result = False
+        result = False
     End If
 
-    bytesAvailable = Result
+    bytesAvailable = result
 End Function
 
 Public Function getValue() As String
-    getValue = value
+    getValue = Value
 End Function
 
 Public Function getKey() As Long
