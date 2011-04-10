@@ -15,6 +15,17 @@ Begin VB.Form frmMain
    ScaleHeight     =   4965
    ScaleWidth      =   10560
    StartUpPosition =   3  'Windows Default
+   Begin VB.Timer tmrResize 
+      Enabled         =   0   'False
+      Interval        =   100
+      Left            =   9960
+      Top             =   3840
+   End
+   Begin VB.Timer tmrSocketSpeed 
+      Interval        =   1000
+      Left            =   8520
+      Top             =   3840
+   End
    Begin MSWinsockLib.Winsock Service 
       Left            =   9120
       Top             =   840
@@ -68,10 +79,20 @@ Begin VB.Form frmMain
       _ExtentY        =   450
       _Version        =   393216
       BeginProperty Panels {8E3867A5-8586-11D1-B16A-00C0F0283628} 
-         NumPanels       =   1
+         NumPanels       =   2
          BeginProperty Panel1 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
-            Object.Width           =   3245
-            MinWidth        =   3245
+            AutoSize        =   2
+            Bevel           =   2
+            Object.Width           =   4233
+            MinWidth        =   4233
+            Text            =   "Socket speed: N/A"
+            TextSave        =   "Socket speed: N/A"
+         EndProperty
+         BeginProperty Panel2 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
+            AutoSize        =   2
+            Bevel           =   2
+            Object.Width           =   4233
+            MinWidth        =   4233
             Text            =   "Memory usage: N/A"
             TextSave        =   "Memory usage: N/A"
          EndProperty
@@ -138,9 +159,9 @@ Begin VB.Form frmMain
    End
    Begin VB.Timer LiveTimer 
       Enabled         =   0   'False
-      Interval        =   10000
-      Left            =   9120
-      Top             =   3120
+      Interval        =   5000
+      Left            =   9240
+      Top             =   3840
    End
    Begin MSComctlLib.ImageList imlIcons 
       Left            =   8280
@@ -190,8 +211,16 @@ Private logx                 As New clsLog
 
 Private prefs                As New clsPreferences
 
+Private dataCount            As Long
+
+'last window state
+Private prevState            As Long
+
+'last sort column
+Private lastSortColumn       As Long
 
 Private Sub Server_ConnectionRequest(ByVal requestID As Long)
+
     If (Not Service.State = sckConnected) Then
         logx.xInfo "Accepted connection request " & requestID
         Service.Close
@@ -202,9 +231,16 @@ Private Sub Server_ConnectionRequest(ByVal requestID As Long)
     Else
         logx.xInfo "Connection request ignored " & requestID
     End If
+
 End Sub
 
-Private Sub Server_Error(ByVal Number As Integer, description As String, ByVal Scode As Long, ByVal Source As String, ByVal HelpFile As String, ByVal HelpContext As Long, CancelDisplay As Boolean)
+Private Sub Server_Error(ByVal Number As Integer, _
+                         description As String, _
+                         ByVal Scode As Long, _
+                         ByVal Source As String, _
+                         ByVal HelpFile As String, _
+                         ByVal HelpContext As Long, _
+                         CancelDisplay As Boolean)
     logx.xError "Server socket error: " + description
 End Sub
 
@@ -218,22 +254,30 @@ Private Sub Service_Close()
     LiveTimer.Enabled = False
 End Sub
 
-Private Sub Service_Error(ByVal Number As Integer, description As String, ByVal Scode As Long, ByVal Source As String, ByVal HelpFile As String, ByVal HelpContext As Long, CancelDisplay As Boolean)
+Private Sub Service_Error(ByVal Number As Integer, _
+                          description As String, _
+                          ByVal Scode As Long, _
+                          ByVal Source As String, _
+                          ByVal HelpFile As String, _
+                          ByVal HelpContext As Long, _
+                          CancelDisplay As Boolean)
     logx.xError "Service socket error: " + description
     Service.Close
 End Sub
 
 Private Sub Service_DataArrival(ByVal bytesTotal As Long)
+
     Dim Buffer() As Byte
+
     Service.GetData Buffer, vbArray
     socketData.append Buffer
     processor.processCommand socketData
+    dataCount = dataCount + bytesTotal
 End Sub
-
 
 Private Sub Form_Resize()
 
-    If (Me.WindowState = vbNormal) Then
+    If (Me.WindowState <> vbMinimized) Then
         tabs.Width = Me.Width - 500
         tabs.Height = Me.Height - 1000 - Toolbar.Height
         
@@ -246,14 +290,31 @@ Private Sub Form_Resize()
         Log.Height = tabs.Height - 600
     End If
 
+    If (Me.WindowState <> prevState) Then
+        prevState = Me.WindowState
+        tmrResize.Enabled = True
+    End If
+
+End Sub
+
+Private Sub tmrResize_Timer()
+
+    Form_Resize
+    tmrResize.Enabled = False
 End Sub
 
 Private Sub tabs_Click(PreviousTab As Integer)
+
     Form_Resize
 End Sub
 
 Private Sub LiveView_ItemClick(ByVal item As MSComctlLib.ListItem)
     selectedLiveObject = item.Text
+End Sub
+
+Private Sub tmrSocketSpeed_Timer()
+    status.Panels.item(1).Text = "Socket speed: " & FormatNumber(dataCount / 1024, 2) & " kb/s"
+    dataCount = 0
 End Sub
 
 Private Sub LiveTimer_Timer()
@@ -300,7 +361,7 @@ Private Sub LiveTimer_Timer()
 
         memory = memory + s.getSize
     Next
-    
+   
     LiveView.Redraw = False
     
     LiveView.clear
@@ -317,12 +378,50 @@ Private Sub LiveTimer_Timer()
         LiveView.CellText(i, 3) = "" & liveObj.instances
     Next
     
+    LiveViewRestoreSort
+
     LiveView.Redraw = True
     
-    status.Panels.item(1).Text = "Memory usage:" & memory \ 1024 & " kb"
+    status.Panels.item(2).Text = "Memory usage: " & FormatNumber(memory / 1024, 2) & " kb"
+End Sub
+
+Private Sub LiveViewRestoreSort()
+    Dim iCol     As Long
+
+    Dim iSortCol As Long
+
+    Dim sJunk()  As String, eJunk() As ECGSortOrderConstants
+
+    With LiveView.SortObject
+        .ClearNongrouped
+        iSortCol = .IndexOf(lastSortColumn)
+
+        If (iSortCol <= 0) Then
+            iSortCol = .Count + 1
+        End If
+      
+        .SortColumn(iSortCol) = lastSortColumn
+
+        If (LiveView.ColumnSortOrder(lastSortColumn) = CCLOrderNone) Or (LiveView.ColumnSortOrder(lastSortColumn) = CCLOrderAscending) Then
+            .SortOrder(iSortCol) = CCLOrderAscending
+        Else
+            .SortOrder(iSortCol) = CCLOrderDescending
+        End If
+
+        LiveView.ColumnSortOrder(lastSortColumn) = .SortOrder(iSortCol)
+        .SortType(iSortCol) = LiveView.ColumnSortType(lastSortColumn)
+      
+    End With
+   
+    Screen.MousePointer = vbHourglass
+    LiveView.Sort
+    Screen.MousePointer = vbDefault
+
 End Sub
 
 Private Sub LiveView_ColumnClick(ByVal lCol As Long)
+
+    lastSortColumn = lCol
 
     Dim iCol     As Long
 
@@ -432,15 +531,14 @@ Private Sub Form_Load()
 
     Set processor.logx = logx
     
-    LiveView.AddColumn "Name", "Name", ecgHdrTextALignLeft, , , True, False, , True, , False, CCLSortString
+    LiveView.AddColumn "Name", "Name", ecgHdrTextALignLeft, , 500, True, False, , True, , False, CCLSortString
     LiveView.AddColumn "Size", "Size", ecgHdrTextALignLeft, , , True, False, , True, , False, CCLSortNumeric
     LiveView.AddColumn "Instances", "Instances", ecgHdrTextALignLeft, , , True, False, , True, , False, CCLSortNumeric
 
     LiveView.StretchLastColumnToFit = True
     
-'    Set Server = CreateSocketServer(9999)
-'    Server.StartListening
-
+    lastSortColumn = 1
+    
     Server.Close
     Server.LocalPort = 9999
     Server.Listen
@@ -481,4 +579,3 @@ Private Sub m_AppTray_SysTrayMouseDown(ByVal eButton As MouseButtonConstants)
     End Select
 
 End Sub
-

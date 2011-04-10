@@ -1,4 +1,4 @@
-frmMain = 125, 125, 1395, 772, C, 100, 35, 1433, 747, C
+frmMain = 125, 125, 1395, 772, Z, 100, 35, 1433, 747, C
 modSerialization = 25, 25, 1295, 672, 
 modString = 250, 250, 1603, 913, C
 clsString = 50, 50, 1403, 713, C
@@ -8,7 +8,7 @@ clsCommand = 100, 100, 1478, 714, C
 modMain = 175, 175, 1525, 790, C
 frmSysTray = 125, 125, 1408, 740, C, 125, 125, 1475, 740, C
 clsSocketData = 225, 225, 1508, 840, 
-clsProcessor = 125, 125, 1550, 605, Z
+clsProcessor = 125, 125, 1550, 605, 
 modSerializationPeak = 175, 175, 1483, 789, C
 clsSample = 125, 125, 1408, 740, C
 clsStackTrace = 0, 0, 0, 0, C
