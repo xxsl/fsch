@@ -29,7 +29,7 @@ Public Sub processCommand(ByRef Data As clsSocketData)
 
     Dim result As Boolean
     
-    If (lastCommand = EMPTY_COMMAND And Data.socket.BytesReceived > 0) Then
+    If (lastCommand = EMPTY_COMMAND And Data.bytesAvailable > 0) Then
         Data.ReadData8 lastCommand
     End If
     
@@ -38,7 +38,7 @@ Public Sub processCommand(ByRef Data As clsSocketData)
 
         Do While result
             lastCommand = EMPTY_COMMAND
-            If (Data.socket.BytesReceived > 0) Then
+            If (Data.bytesAvailable > 0) Then
                 Data.ReadData8 lastCommand
             End If
             result = processInternal(Data)

@@ -15,40 +15,45 @@ Option Explicit
 
 Public socket As Winsock
 
+Public bytesAvailable As Long
+
 Public Sub getBytes(ByRef Buffer() As Byte)
      socket.PeekData Buffer, vbArray
 End Sub
 
 Public Function ReadData(ByRef Buffer() As Byte, ByVal rSize As Long)
     socket.GetData Buffer, vbArray, rSize
+    bytesAvailable = bytesAvailable - rSize
 End Function
 
-Public Function ReadData32(ByRef result As Long)
-    socket.GetData result, vbLong
-    result = ntohl(result)
-End Function
 
-Public Function ReadData16(ByRef result As Integer)
-    socket.GetData result, vbInteger
-    result = ntohs(result)
-End Function
+'Public Function ReadData32(ByRef result As Long)
+'    socket.GetData result, vbLong
+'    result = ntohl(result)
+'End Function
+'
+'Public Function ReadData16(ByRef result As Integer)
+'    socket.GetData result, vbInteger
+'    result = ntohs(result)
+'End Function
 
 Public Function ReadData8(ByRef result As Byte)
     socket.GetData result, vbByte
+    bytesAvailable = bytesAvailable - 1
 End Function
 
-Public Sub readString(ByRef result As String)
-    Dim strBuff() As Byte
-    Dim Length    As Integer
-
-    ReadData16 Length
-   
-    If (Length > 0) Then
-        ReadData strBuff, Length
-        ConvertUtf8BytesToString strBuff, result
-    Else
-        result = ""
-    End If
-End Sub
+'Public Sub readString(ByRef result As String)
+'    Dim strBuff() As Byte
+'    Dim Length    As Integer
+'
+'    ReadData16 Length
+'
+'    If (Length > 0) Then
+'        ReadData strBuff, Length
+'        ConvertUtf8BytesToString strBuff, result
+'    Else
+'        result = ""
+'    End If
+'End Sub
 
 
