@@ -49,20 +49,20 @@ End Function
 
 Public Sub parse(ByRef Data As clsSocketData)
     Dim buff() As Byte
-    readX buff, Data, 8
+    Data.ReadData buff, 8
     
     Dim Size As Long, i As Long
-    read32X Data, Size
+    Data.ReadData32 Size
 
     Dim lng As Long
     For i = 1 To Size
         Dim line As New clsStackTraceLine
         
-        read32X Data, lng
+        Data.ReadData32 lng
         line.NAME = strings.item(lng)
-        read32X Data, lng
+        Data.ReadData32 lng
         line.FileName = strings.item(lng)
-        read32X Data, lng
+        Data.ReadData32 lng
         line.line = lng
         Value.lines.Add line
     Next i

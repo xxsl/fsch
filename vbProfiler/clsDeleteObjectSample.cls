@@ -35,11 +35,11 @@ End Function
 
 Public Sub parse(ByRef Data As clsSocketData)
     Dim buff() As Byte
-    readX buff, Data, 8
+    Data.ReadData buff, 8
 
-    read32X Data, id
+    Data.ReadData32 id
 
-    read32X Data, Size
+    Data.ReadData32 Size
 End Sub
 
 Public Function bytesAvailable(ByRef Data As clsSocketData) As Boolean
