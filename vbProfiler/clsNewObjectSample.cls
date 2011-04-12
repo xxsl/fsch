@@ -45,7 +45,7 @@ Private typeName   As String
 
 Private url   As String
 
-Private size   As Long
+Private Size   As Long
 
 Private dataSize As Long
 
@@ -55,45 +55,45 @@ End Function
 
 
 Public Sub parse(ByRef Data As clsSocketData)
-    Dim buff() As Byte, pos As Long
+    Dim buff() As Byte, Pos As Long
     
     Data.ReadData buff, dataSize
-    pos = 8
+    Pos = 8
     
     Dim Count As Long, i As Long
     
-    read32P buff, pos, Count
+    read32P buff, Pos, Count
 
     Dim lng As Long
     
     For i = 1 To Count
         Dim line As New clsStackTraceLine
-        read32P buff, pos, lng
+        read32P buff, Pos, lng
         line.NAME = strings.item(lng)
-        read32P buff, pos, lng
+        read32P buff, Pos, lng
         line.FileName = strings.item(lng)
-        read32P buff, pos, lng
+        read32P buff, Pos, lng
         line.line = lng
         Value.lines.Add line
     Next i
     
-    read32P buff, pos, id
+    read32P buff, Pos, id
     
-    read32P buff, pos, lng
+    read32P buff, Pos, lng
     typeName = strings.item(lng)
-    read32P buff, pos, lng
+    read32P buff, Pos, lng
     url = strings.item(lng)
-    read32P buff, pos, size
+    read32P buff, Pos, Size
 End Sub
 
 Public Function bytesAvailable(ByRef Data As clsSocketData) As Boolean
 
-    Dim Length As Long, result As Boolean, bytes() As Byte, pos As Long
+    Dim Length As Long, result As Boolean, Pos As Long
 
     If (Data.bytesAvailable >= 12) Then
-        Data.getBytes bytes, pos
-        pos = pos + 8
-        read32P bytes, pos, Length
+        Data.getPos Pos
+        Pos = Pos + 8
+        Data.read32P Pos, Length
         dataSize = Length * 12 + 28
         result = (dataSize <= Data.bytesAvailable)
     Else
@@ -120,7 +120,7 @@ Public Function getURL() As String
 End Function
 
 Public Function getSize() As Long
-    getSize = size
+    getSize = Size
 End Function
 
 

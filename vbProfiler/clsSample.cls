@@ -50,23 +50,23 @@ End Function
 
 
 Public Sub parse(ByRef Data As clsSocketData)
-    Dim buff() As Byte, pos As Long
+    Dim buff() As Byte, Pos As Long
     Data.ReadData buff, dataSize
-    pos = 8
+    Pos = 8
     
-    Dim size As Long, i As Long
+    Dim Size As Long, i As Long
     
-    read32P buff, pos, size
+    read32P buff, Pos, Size
 
     Dim lng As Long
-    For i = 1 To size
+    For i = 1 To Size
         Dim line As New clsStackTraceLine
         
-        read32P buff, pos, lng
+        read32P buff, Pos, lng
         line.NAME = strings.item(lng)
-        read32P buff, pos, lng
+        read32P buff, Pos, lng
         line.FileName = strings.item(lng)
-        read32P buff, pos, lng
+        read32P buff, Pos, lng
         line.line = lng
         Value.lines.Add line
     Next i
@@ -74,12 +74,12 @@ End Sub
 
 Public Function bytesAvailable(ByRef Data As clsSocketData) As Boolean
 
-    Dim Length As Long, result As Boolean, bytes() As Byte, pos As Long
+    Dim Length As Long, result As Boolean, Pos As Long
 
     If (Data.bytesAvailable >= 12) Then
-        Data.getBytes bytes, pos
-        pos = pos + 8
-        read32P bytes, pos, Length
+        Data.getPos Pos
+        Pos = Pos + 8
+        Data.read32P Pos, Length
         dataSize = Length * 12 + 12
         result = (dataSize <= Data.bytesAvailable)
     Else
