@@ -42,6 +42,8 @@ Public strings As Collection
 
 Private Value As New clsStackTrace
 
+Private dataSize As Long
+
 Public Function canDeserialise(firstByte As Byte) As Boolean
     canDeserialise = (firstByte = C_SAMPLE)
 End Function
@@ -74,8 +76,9 @@ Public Function bytesAvailable(ByRef Data As clsSocketData) As Boolean
 
     If (Data.socket.BytesReceived >= 12) Then
         Data.getBytes bytes
-        Length = read32P(bytes, 8)
-        result = ((Length * 12 + 12) <= Data.socket.BytesReceived)
+        read32P bytes, 8, Length
+        dataSize = Length * 12 + 12
+        result = (dataSize <= Data.socket.BytesReceived)
     Else
         result = False
     End If

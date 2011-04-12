@@ -17,6 +17,8 @@ Private Value As String
 
 Private key   As Long
 
+Private dataSize As Long
+
 Public Function canDeserialise(firstByte As Byte) As Boolean
     canDeserialise = (firstByte = C_STRING)
 End Function
@@ -28,12 +30,13 @@ End Sub
 
 Public Function bytesAvailable(ByRef Data As clsSocketData) As Boolean
 
-    Dim Length As Long, result As Boolean, bytes() As Byte
+    Dim Length As Integer, result As Boolean, bytes() As Byte
 
     If (Data.socket.BytesReceived >= 2) Then
         Data.getBytes bytes
-        Length = read16P(bytes, 0)
-        result = ((Length + 6) <= Data.socket.BytesReceived)
+        read16P bytes, 0, Length
+        dataSize = Length + 6
+        result = (dataSize <= Data.socket.BytesReceived)
     Else
         result = False
     End If

@@ -29,27 +29,21 @@ Public Sub processCommand(ByRef Data As clsSocketData)
 
     Dim result As Boolean
     
-    readCommand Data
+    If (lastCommand = EMPTY_COMMAND And Data.socket.BytesReceived > 0) Then
+        Data.ReadData8 lastCommand
+    End If
     
     If (lastCommand <> EMPTY_COMMAND) Then
         result = processInternal(Data)
 
         Do While result
             lastCommand = EMPTY_COMMAND
-            readCommand Data
+            If (Data.socket.BytesReceived > 0) Then
+                Data.ReadData8 lastCommand
+            End If
             result = processInternal(Data)
         Loop
 
-    End If
-
-End Sub
-
-Public Sub readCommand(ByRef Data As clsSocketData)
-
-    If (lastCommand = EMPTY_COMMAND And Data.socket.BytesReceived > 0) Then
-    
-        Data.ReadData8 lastCommand
-        'logx.xInfo "command " & lastCommand
     End If
 
 End Sub
@@ -72,84 +66,77 @@ Public Function processInternal(ByRef Data As clsSocketData) As Boolean
         
     If (lastCommand <> EMPTY_COMMAND) Then
         
-        If (str.canDeserialise(lastCommand)) Then
-            If (str.bytesAvailable(Data)) Then
-                str.parse Data
-                logx.xDebug "string=" & str.getValue
-
-                If (strings.Count < str.getKey) Then
-                    strings.Add str.getValue
+        Select Case lastCommand
+            Case C_NEW_OBJECT_SAMPLE:
+                If (newSample.bytesAvailable(Data)) Then
+                    Set newSample.strings = strings
+                    newSample.parse Data
+                    'logx.xDebug "create: id=" & newSample.getId & " type=" & newSample.getType & " size=" & newSample.getSize
+                    'todo: faster samples.Add newSample, "" & newSample.getId
+                    result = True
+                    
                 End If
-
-                result = True
-            End If
-
-        ElseIf (swf.canDeserialise(lastCommand)) Then
-
-            If (swf.bytesAvailable(Data)) Then
-                swf.parse Data
-                logx.xInfo "swf size=" & swf.getSize
-                logx.xInfo "swf url=" & strings.item(swf.getKey)
-                'logger "swf loaded"
-
-                'send commands
-                Dim commands(0 To 6) As Byte
-
-                commands(0) = C_MEMORY_PROFILING
-                commands(1) = 1
-                commands(2) = C_MEMORY_PROFILING_STACKTRACES
-                commands(3) = 1
-                commands(4) = C_PERFORMANCE_PROFILING
-                commands(5) = 1
-                commands(6) = C_RESUME
-                Data.socket.SendData commands
-                result = True
-            End If
-
-        ElseIf (sample.canDeserialise(lastCommand)) Then
-
-            If (sample.bytesAvailable(Data)) Then
-
-                Set sample.strings = strings
-                sample.parse Data
-                '                Dim line As clsStackTraceLine
-                '                logger "sample size=" & sample.getValue.size
-                '                For Each line In sample.getValue.lines
-                '                    logger "line:" & line.name & ":" & line.fileName & "(" & line.line & ")"
-                '                Next
-                
-                '                logger "sample loaded"
-                result = True
-            End If
-
-        ElseIf (newSample.canDeserialise(lastCommand)) Then
-
-            If (newSample.bytesAvailable(Data)) Then
-                Set newSample.strings = strings
-                newSample.parse Data
-                logx.xDebug "create: id=" & newSample.getId & " type=" & newSample.getType & " size=" & newSample.getSize
-                samples.Add newSample, "" & newSample.getId
-                result = True
-                
-            End If
-
-        ElseIf (delSample.canDeserialise(lastCommand)) Then
-
-            If (delSample.bytesAvailable(Data)) Then
-                delSample.parse Data
-                logx.xDebug "delete: id=" & delSample.getId & " size=" & newSample.getSize
-                samples.Remove "" & delSample.getId
-                result = True
-            End If
-        ElseIf (gc.canDeserialise(lastCommand)) Then
-
-            If (gc.bytesAvailable(Data)) Then
-                gc.parse Data
-                logx.xInfo "gc"
-                result = True
-            End If
-        End If
+            Case C_DELETE_OBJECT_SAMPLE:
+                If (delSample.bytesAvailable(Data)) Then
+                    delSample.parse Data
+                    'logx.xDebug "delete: id=" & delSample.getId & " size=" & newSample.getSize
+                    'todo: faster samples.Remove "" & delSample.getId
+                    result = True
+                End If
+            Case C_SAMPLE:
+                If (sample.bytesAvailable(Data)) Then
     
+                    Set sample.strings = strings
+                    sample.parse Data
+                    '                Dim line As clsStackTraceLine
+                    '                logger "sample size=" & sample.getValue.size
+                    '                For Each line In sample.getValue.lines
+                    '                    logger "line:" & line.name & ":" & line.fileName & "(" & line.line & ")"
+                    '                Next
+                    
+                    '                logger "sample loaded"
+                    result = True
+                End If
+            Case C_STRING:
+                If (str.bytesAvailable(Data)) Then
+                    str.parse Data
+                    logx.xDebug "string=" & str.getValue
+    
+                    If (strings.Count < str.getKey) Then
+                        strings.Add str.getValue
+                    End If
+    
+                    result = True
+                End If
+                
+            Case C_SWF:
+                If (swf.bytesAvailable(Data)) Then
+                    swf.parse Data
+                    logx.xInfo "swf size=" & swf.getSize
+                    logx.xInfo "swf url=" & strings.item(swf.getKey)
+                    'logger "swf loaded"
+    
+                    'send commands
+                    Dim commands(0 To 6) As Byte
+    
+                    commands(0) = C_MEMORY_PROFILING
+                    commands(1) = 1
+                    commands(2) = C_MEMORY_PROFILING_STACKTRACES
+                    commands(3) = 1
+                    commands(4) = C_PERFORMANCE_PROFILING
+                    commands(5) = 1
+                    commands(6) = C_RESUME
+                    Data.socket.SendData commands
+                    result = True
+                End If
+            Case C_GC:
+                If (gc.bytesAvailable(Data)) Then
+                    gc.parse Data
+                    logx.xInfo "gc"
+                    result = True
+                End If
+        End Select
+   
     End If
 
     processInternal = result
