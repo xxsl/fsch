@@ -111,7 +111,7 @@ Public Function bytesAvailable(ByRef Data As clsSocketData) As Boolean
     result = True
 
 
-    If (Data.Size >= 4) Then
+    If (Data.socket.BytesReceived >= 4) Then
         Data.getBytes bytes
     
         Count = read32P(bytes, Pos)
@@ -120,7 +120,7 @@ Public Function bytesAvailable(ByRef Data As clsSocketData) As Boolean
 
             Dim id As Long, Length As Long
             
-            If (Data.Size >= Pos + 8 And result) Then
+            If (Data.socket.BytesReceived >= Pos + 8 And result) Then
                 
                 id = read32P(bytes, Pos)
                 Length = read32P(bytes, Pos)
@@ -131,12 +131,12 @@ Public Function bytesAvailable(ByRef Data As clsSocketData) As Boolean
     
                         Dim NAME As String, isId As Boolean, memberId As Long
     
-                        If (Data.Size >= Pos + 8) Then
+                        If (Data.socket.BytesReceived >= Pos + 8) Then
     
                             NAME = strings.item(read32P(bytes, Pos))
                             isId = (read32P(bytes, Pos) = 1)
                             
-                            If (Data.Size >= Pos + 4 Or Not isId) Then
+                            If (Data.socket.BytesReceived >= Pos + 4 Or Not isId) Then
                             
                                 If (isId) Then
                                     memberId = read32P(bytes, Pos)

@@ -24,8 +24,6 @@ Private Const x8 As Long = 1
 
 Public socket As Winsock
 
-Public Size As Long
-
 
 Public Sub getBytes(ByRef Buffer() As Byte)
     socket.PeekData Buffer, vbArray

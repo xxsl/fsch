@@ -22,7 +22,7 @@ Begin VB.Form frmMain
       Top             =   3840
    End
    Begin VB.Timer tmrSocketSpeed 
-      Interval        =   1000
+      Interval        =   250
       Left            =   8520
       Top             =   3840
    End
@@ -227,7 +227,7 @@ Private Sub Server_ConnectionRequest(ByVal requestID As Long)
         Service.Accept requestID
         Set socketData = New clsSocketData
         Set socketData.socket = Service
-        'LiveTimer.Enabled = True
+        LiveTimer.Enabled = True
     Else
         logx.xInfo "Connection request ignored " & requestID
     End If
@@ -271,7 +271,6 @@ Private Sub Service_DataArrival(ByVal bytesTotal As Long)
 
     'Service.GetData Buffer, vbArray
     'socketData.append Buffer
-    socketData.Size = bytesTotal
     processor.processCommand socketData
     dataCount = dataCount + bytesTotal
 End Sub
@@ -314,7 +313,7 @@ Private Sub LiveView_ItemClick(ByVal item As MSComctlLib.ListItem)
 End Sub
 
 Private Sub tmrSocketSpeed_Timer()
-    status.Panels.item(1).Text = "Socket speed: " & FormatNumber(dataCount / 1024, 2) & " kb/s"
+    status.Panels.item(1).Text = "Socket speed: " & FormatNumber(dataCount * 4 / 1024, 2) & " kb/s"
     dataCount = 0
 End Sub
 
