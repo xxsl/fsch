@@ -55,32 +55,35 @@ End Function
 
 
 Public Sub parse(ByRef Data As clsSocketData)
-    Dim buff() As Byte
-    Data.ReadData buff, 8
+    Dim buff() As Byte, pos As Long
+    
+    Data.ReadData buff, dataSize
+    pos = 8
     
     Dim Count As Long, i As Long
-    Data.ReadData32 Count
+    
+    read32P buff, pos, Count
 
     Dim lng As Long
     
     For i = 1 To Count
         Dim line As New clsStackTraceLine
-        Data.ReadData32 lng
+        read32P buff, pos, lng
         line.NAME = strings.item(lng)
-        Data.ReadData32 lng
+        read32P buff, pos, lng
         line.FileName = strings.item(lng)
-        Data.ReadData32 lng
+        read32P buff, pos, lng
         line.line = lng
         Value.lines.Add line
     Next i
     
-    Data.ReadData32 id
+    read32P buff, pos, id
     
-    Data.ReadData32 lng
+    read32P buff, pos, lng
     typeName = strings.item(lng)
-    Data.ReadData32 lng
+    read32P buff, pos, lng
     url = strings.item(lng)
-    Data.ReadData32 Size
+    read32P buff, pos, Size
 End Sub
 
 Public Function bytesAvailable(ByRef Data As clsSocketData) As Boolean

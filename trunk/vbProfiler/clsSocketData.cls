@@ -13,11 +13,6 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Option Explicit
 
-Private Declare Function ntohl Lib "wsock32.dll" (ByVal hostlong As Long) As Long
-
-Private Declare Function ntohs Lib "wsock32.dll" (ByVal hostlong As Integer) As Integer
-
-
 Public socket As Winsock
 
 Public Sub getBytes(ByRef Buffer() As Byte)
