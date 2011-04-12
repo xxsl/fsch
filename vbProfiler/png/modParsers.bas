@@ -38,7 +38,7 @@ Private Type RECT
     Bottom As Long
 End Type
 
-Private Declare Function VarPtrArray Lib "msvbvm60.dll" Alias "VarPtr" (ByRef Ptr() As Any) As Long
+Private Declare Function VarPtrArray Lib "MSVBVM60.DLL" Alias "VarPtr" (ByRef Ptr() As Any) As Long
 Private Declare Sub CopyMemory Lib "kernel32.dll" Alias "RtlMoveMemory" (ByRef Destination As Any, ByRef Source As Any, ByVal Length As Long)
 
 ' used to create a stdPicture from a byte array
@@ -263,7 +263,7 @@ CleanUp:
     
     If Err Then ' failure; probably low on resources
         If Not rtnRegion = 0& Then DeleteObject rtnRegion
-        Err.Clear
+        Err.clear
     Else
         iparseCreateShapedRegion = rtnRegion
     End If
@@ -298,7 +298,7 @@ Private Function local_CreatePartialRegion(rgnRects() As RECT, lIndex As Long, u
     End With
     ' call function to create region from our byte (RECT) array
     local_CreatePartialRegion = ExtCreateRegion(ByVal 0&, (rgnRects(lIndex - 2&).Right + 2&) * 16&, rgnRects(lIndex - 2&))
-    If Err Then Err.Clear
+    If Err Then Err.clear
 
 End Function
 

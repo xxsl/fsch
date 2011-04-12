@@ -3,7 +3,7 @@ Option Explicit
 
 Public Declare Sub CopyMemory _
                Lib "kernel32" _
-               Alias "RtlMoveMemory" (Destination As Any, _
+               Alias "RtlCopyMemory" (Destination As Any, _
                                       Source As Any, _
                                       ByVal Length As Long)
 
@@ -156,9 +156,11 @@ Public Function GetShortName(sFile As String) As String
 End Function
 
 Public Function getPath() As String
+
     If (Len(App.path) = 3) Then
         getPath = App.path
     Else
         getPath = App.path + "\"
     End If
+
 End Function
