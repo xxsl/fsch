@@ -13,6 +13,10 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Option Explicit
 
+Private Declare Function ntohl Lib "wsock32.dll" (ByVal hostlong As Long) As Long
+
+Private Declare Function ntohs Lib "wsock32.dll" (ByVal hostlong As Integer) As Integer
+
 Public socket As Winsock
 
 Public bytesAvailable As Long
@@ -23,10 +27,13 @@ Public Sub Refresh()
     socket.PeekData buff, vbArray
 End Sub
 
-Public Sub getBytes(ByRef Buffer() As Byte, ByRef pos As Long)
-     pos = UBound(buff) + 1 - bytesAvailable
-     ReDim Buffer(bytesAvailable - 1)
-     CopyMemory Buffer(0), buff(pos), bytesAvailable
+Public Sub getPos(ByRef Pos As Long)
+     Pos = UBound(buff) + 1 - bytesAvailable
+End Sub
+
+Public Sub getBytes(ByRef Buffer() As Byte, ByRef Pos As Long)
+     Pos = UBound(buff) + 1 - bytesAvailable
+     Buffer = buff
 End Sub
 
 Public Function ReadData(ByRef Buffer() As Byte, ByVal rSize As Long)
@@ -34,6 +41,18 @@ Public Function ReadData(ByRef Buffer() As Byte, ByVal rSize As Long)
     bytesAvailable = bytesAvailable - rSize
 End Function
 
+
+Public Sub read32P(ByRef position As Long, ByRef result As Long)
+    CopyMemory result, buff(position), 4&
+    result = ntohl(result)
+    position = position + 4
+End Sub
+
+Public Sub read16P(ByRef position As Long, ByRef result As Integer)
+    CopyMemory result, buff(position), 2&
+    result = ntohs(result)
+    position = position + 2
+End Sub
 
 'Public Function ReadData32(ByRef result As Long)
 '    socket.GetData result, vbLong

@@ -3,7 +3,7 @@ Option Explicit
 
 Public Declare Sub CopyMemory _
                Lib "kernel32" _
-               Alias "RtlCopyMemory" (Destination As Any, _
+               Alias "RtlMoveMemory" (Destination As Any, _
                                       Source As Any, _
                                       ByVal Length As Long)
 
