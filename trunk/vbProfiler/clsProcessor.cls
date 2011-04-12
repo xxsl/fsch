@@ -46,6 +46,7 @@ Public Sub processCommand(ByRef Data As clsSocketData)
 
     End If
 
+    Data.Complete
 End Sub
 
 Public Function processInternal(ByRef Data As clsSocketData) As Boolean

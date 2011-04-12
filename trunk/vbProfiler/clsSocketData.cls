@@ -21,26 +21,50 @@ Public socket As Winsock
 
 Public bytesAvailable As Long
 
+Private cursor As Long
+
 Private buff() As Byte
 
 Public Sub Refresh()
+    cursor = 0
     socket.PeekData buff, vbArray
 End Sub
 
-Public Sub getPos(ByRef Pos As Long)
-     Pos = UBound(buff) + 1 - bytesAvailable
+Public Sub Complete()
+    If (cursor > 0) Then
+        Dim b() As Byte
+        socket.GetData b, vbArray, cursor
+    End If
 End Sub
 
-Public Sub getBytes(ByRef Buffer() As Byte, ByRef Pos As Long)
-     Pos = UBound(buff) + 1 - bytesAvailable
-     Buffer = buff
+Public Sub skip(ByVal bytes As Long)
+    cursor = cursor + bytes
+End Sub
+
+Public Sub getPos(ByRef pos As Long)
+     pos = UBound(buff) + 1 - bytesAvailable
 End Sub
 
 Public Function ReadData(ByRef Buffer() As Byte, ByVal rSize As Long)
-    socket.GetData Buffer, vbArray, rSize
+    ReDim Buffer(rSize - 1)
+    CopyMemory Buffer(0), buff(cursor), rSize
+    cursor = cursor + rSize
     bytesAvailable = bytesAvailable - rSize
 End Function
 
+Public Sub read32(ByRef result As Long)
+    CopyMemory result, buff(cursor), 4&
+    result = ntohl(result)
+    cursor = cursor + 4
+    bytesAvailable = bytesAvailable - 4
+End Sub
+
+Public Sub read16(ByRef result As Integer)
+    CopyMemory result, buff(cursor), 2&
+    result = ntohs(result)
+    cursor = cursor + 2
+    bytesAvailable = bytesAvailable - 2
+End Sub
 
 Public Sub read32P(ByRef position As Long, ByRef result As Long)
     CopyMemory result, buff(position), 4&
@@ -54,6 +78,13 @@ Public Sub read16P(ByRef position As Long, ByRef result As Integer)
     position = position + 2
 End Sub
 
+Public Function ReadData8(ByRef result As Byte)
+    result = buff(cursor)
+    cursor = cursor + 1
+    bytesAvailable = bytesAvailable - 1
+End Function
+
+
 'Public Function ReadData32(ByRef result As Long)
 '    socket.GetData result, vbLong
 '    result = ntohl(result)
@@ -63,11 +94,6 @@ End Sub
 '    socket.GetData result, vbInteger
 '    result = ntohs(result)
 'End Function
-
-Public Function ReadData8(ByRef result As Byte)
-    socket.GetData result, vbByte
-    bytesAvailable = bytesAvailable - 1
-End Function
 
 'Public Sub readString(ByRef result As String)
 '    Dim strBuff() As Byte

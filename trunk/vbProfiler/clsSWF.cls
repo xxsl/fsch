@@ -26,23 +26,20 @@ Public Function canDeserialise(firstByte As Byte) As Boolean
 End Function
 
 Public Sub parse(ByRef Data As clsSocketData)
-    Dim Buffer() As Byte, Pos As Long, Length As Long
-    Data.ReadData Buffer, dataSize
-    read32P Buffer, Pos, key
-    read32P Buffer, Pos, Size
-    Length = UBound(Buffer) - Pos
-    ReDim Value(Length - 1)
-    CopyMemory Value(0), Buffer(Pos), Length
+    Dim Length As Long
+    Data.read32 key
+    Data.read32 Size
+    Data.ReadData Value, Size
 End Sub
 
 Public Function bytesAvailable(ByRef Data As clsSocketData) As Boolean
 
-    Dim Length As Long, result As Boolean, Pos As Long
+    Dim Length As Long, result As Boolean, pos As Long
 
     If (Data.bytesAvailable >= 4) Then
-        Data.getPos Pos
-        Pos = Pos + 4
-        Data.read32P Pos, Length
+        Data.getPos pos
+        pos = pos + 4
+        Data.read32P pos, Length
         dataSize = Length + 8
         result = (dataSize <= Data.bytesAvailable)
     Else
