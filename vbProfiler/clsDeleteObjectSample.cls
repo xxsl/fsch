@@ -40,17 +40,18 @@ End Function
 
 
 Public Sub parse(ByRef Data As clsSocketData)
-    Dim buff() As Byte
-    Data.ReadData buff, 8
+    Dim buff() As Byte, length As Long, pos As Long
+    
+    Data.ReadData buff, 16
+    pos = 8
 
-    Data.ReadData32 id
-
-    Data.ReadData32 Size
+    read32P buff, pos, id
+    read32P buff, pos, Size
 End Sub
 
 Public Function bytesAvailable(ByRef Data As clsSocketData) As Boolean
 
-    Dim Length As Long, result As Boolean
+    Dim length As Long, result As Boolean
 
     If (Data.socket.BytesReceived >= dataSize) Then
         result = True
