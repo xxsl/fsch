@@ -266,15 +266,10 @@ Private Sub Service_Error(ByVal Number As Integer, _
 End Sub
 
 Private Sub Service_DataArrival(ByVal bytesTotal As Long)
-
-    'Dim Buffer() As Byte
-
-    'Service.GetData Buffer, vbArray
-    'socketData.append Buffer
     socketData.bytesAvailable = bytesTotal
     socketData.Refresh
     processor.processCommand socketData
-    dataCount = dataCount + bytesTotal
+    dataCount = dataCount + (bytesTotal - socketData.bytesAvailable)
 End Sub
 
 Private Sub Form_Resize()
