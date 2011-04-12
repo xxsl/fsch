@@ -272,6 +272,7 @@ Private Sub Service_DataArrival(ByVal bytesTotal As Long)
     'Service.GetData Buffer, vbArray
     'socketData.append Buffer
     socketData.bytesAvailable = bytesTotal
+    socketData.Refresh
     processor.processCommand socketData
     dataCount = dataCount + bytesTotal
 End Sub
