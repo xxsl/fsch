@@ -46,7 +46,7 @@ End Sub
 
 Public Sub readCommand(ByRef Data As clsSocketData)
 
-    If (lastCommand = EMPTY_COMMAND And Data.Size > 0) Then
+    If (lastCommand = EMPTY_COMMAND And Data.socket.BytesReceived > 0) Then
     
         Data.ReadData8 lastCommand
         'logx.xInfo "command " & lastCommand

@@ -30,10 +30,10 @@ Public Function bytesAvailable(ByRef Data As clsSocketData) As Boolean
 
     Dim Length As Long, result As Boolean, bytes() As Byte
 
-    If (Data.Size >= 2) Then
+    If (Data.socket.BytesReceived >= 2) Then
         Data.getBytes bytes
         Length = read16P(bytes, 0)
-        result = ((Length + 6) <= Data.Size)
+        result = ((Length + 6) <= Data.socket.BytesReceived)
     Else
         result = False
     End If
