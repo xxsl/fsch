@@ -28,6 +28,12 @@ Private id   As Long
 
 Private Size   As Long
 
+Private dataSize As Long
+
+Private Sub Class_Initialize()
+    dataSize = 16
+End Sub
+
 Public Function canDeserialise(firstByte As Byte) As Boolean
     canDeserialise = (firstByte = C_DELETE_OBJECT_SAMPLE)
 End Function
@@ -46,7 +52,7 @@ Public Function bytesAvailable(ByRef Data As clsSocketData) As Boolean
 
     Dim Length As Long, result As Boolean
 
-    If (Data.socket.BytesReceived >= 16) Then
+    If (Data.socket.BytesReceived >= dataSize) Then
         result = True
     Else
         result = False
@@ -64,6 +70,7 @@ End Function
 Public Function getSize() As Long
     getSize = Size
 End Function
+
 
 
 

@@ -18,19 +18,10 @@ Private Declare Function ntohl Lib "wsock32.dll" (ByVal hostlong As Long) As Lon
 Private Declare Function ntohs Lib "wsock32.dll" (ByVal hostlong As Integer) As Integer
 
 
-Private Const x32 As Long = 4
-Private Const x16 As Long = 2
-Private Const x8 As Long = 1
-
 Public socket As Winsock
 
-
 Public Sub getBytes(ByRef Buffer() As Byte)
-    socket.PeekData Buffer, vbArray
-End Sub
-
-Public Sub PeekData(ByRef Buffer() As Byte, ByVal Size As Long)
-    socket.PeekData Buffer, vbArray, Size
+     socket.PeekData Buffer, vbArray
 End Sub
 
 Public Function ReadData(ByRef Buffer() As Byte, ByVal rSize As Long)
@@ -38,17 +29,17 @@ Public Function ReadData(ByRef Buffer() As Byte, ByVal rSize As Long)
 End Function
 
 Public Function ReadData32(ByRef result As Long)
-    socket.GetData result, vbLong, x32
+    socket.GetData result, vbLong
     result = ntohl(result)
 End Function
 
 Public Function ReadData16(ByRef result As Integer)
-    socket.GetData result, vbInteger, x16
+    socket.GetData result, vbInteger
     result = ntohs(result)
 End Function
 
 Public Function ReadData8(ByRef result As Byte)
-    socket.GetData result, vbByte, x8
+    socket.GetData result, vbByte
 End Function
 
 Public Sub readString(ByRef result As String)
@@ -64,3 +55,5 @@ Public Sub readString(ByRef result As String)
         result = ""
     End If
 End Sub
+
+

@@ -211,7 +211,7 @@ Private logx                 As New clsLog
 
 Private prefs                As New clsPreferences
 
-Private dataCount            As Long
+Private dataCount            As Double
 
 'last window state
 Private prevState            As Long
@@ -227,7 +227,7 @@ Private Sub Server_ConnectionRequest(ByVal requestID As Long)
         Service.Accept requestID
         Set socketData = New clsSocketData
         Set socketData.socket = Service
-        LiveTimer.Enabled = True
+        LiveTimer.Enabled = False
     Else
         logx.xInfo "Connection request ignored " & requestID
     End If

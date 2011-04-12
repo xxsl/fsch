@@ -47,6 +47,8 @@ Private url   As String
 
 Private Size   As Long
 
+Private dataSize As Long
+
 Public Function canDeserialise(firstByte As Byte) As Boolean
     canDeserialise = (firstByte = C_NEW_OBJECT_SAMPLE)
 End Function
@@ -87,8 +89,9 @@ Public Function bytesAvailable(ByRef Data As clsSocketData) As Boolean
 
     If (Data.socket.BytesReceived >= 12) Then
         Data.getBytes bytes
-        Length = read32P(bytes, 8)
-        result = ((Length * 12 + 28) <= Data.socket.BytesReceived)
+        read32P bytes, 8, Length
+        dataSize = Length * 12 + 28
+        result = (dataSize <= Data.socket.BytesReceived)
     Else
         result = False
     End If

@@ -13,8 +13,10 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Option Explicit
 
-Public name As String
+Public NAME As String
 
-Public size As Long
+Public Size As Long
 
 Public instances As Long
+
+Private dataSize As Long
