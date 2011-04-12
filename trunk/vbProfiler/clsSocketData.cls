@@ -23,17 +23,13 @@ Public Sub Refresh()
     socket.PeekData buff, vbArray
 End Sub
 
-Public Sub getBytes(ByRef buffer() As Byte)
-     Dim pos As Long
-     
-     ReDim buffer(bytesAvailable - 1)
-     
-     pos = UBound(buff) + 1 - bytesAvailable
-     CopyMemory buffer(0), buff(pos), bytesAvailable
+Public Sub getBytes(ByRef Buffer() As Byte, ByRef size As Long)
+     size = UBound(buff) + 1 - bytesAvailable
+     Buffer = buff
 End Sub
 
-Public Function ReadData(ByRef buffer() As Byte, ByVal rSize As Long)
-    socket.GetData buffer, vbArray, rSize
+Public Function ReadData(ByRef Buffer() As Byte, ByVal rSize As Long)
+    socket.GetData Buffer, vbArray, rSize
     bytesAvailable = bytesAvailable - rSize
 End Function
 
