@@ -63,7 +63,7 @@ End Function
 
 Public Sub parse(ByRef Data As clsSocketData)
 
-    Dim Count As Long, i As Long, j As Long, lng As Long
+    Dim Count As Long, i As Long, j As Long, lng As Long, pos As Long, buff() As Byte
 
     Data.ReadData32 Count
     
@@ -108,7 +108,7 @@ End Sub
 
 Public Function bytesAvailable(ByRef Data As clsSocketData) As Boolean
 
-    Dim Count As Long, result As Boolean, Pos As Long, i As Long, j As Long, bytes() As Byte, lng As Long
+    Dim Count As Long, result As Boolean, pos As Long, i As Long, j As Long, bytes() As Byte, lng As Long
 
     dataSize = 0
     result = True
@@ -117,7 +117,7 @@ Public Function bytesAvailable(ByRef Data As clsSocketData) As Boolean
     If (Data.socket.BytesReceived >= 4) Then
         Data.getBytes bytes
     
-        read32P bytes, Pos, Count
+        read32P bytes, pos, Count
         
         dataSize = dataSize + 4
 
@@ -125,10 +125,10 @@ Public Function bytesAvailable(ByRef Data As clsSocketData) As Boolean
 
             Dim id As Long, Length As Long
             
-            If (Data.socket.BytesReceived >= Pos + 8 And result) Then
+            If (Data.socket.BytesReceived >= pos + 8 And result) Then
                 
-                read32P bytes, Pos, id
-                read32P bytes, Pos, Length
+                read32P bytes, pos, id
+                read32P bytes, pos, Length
                 
                 dataSize = dataSize + 8
                 
@@ -138,21 +138,21 @@ Public Function bytesAvailable(ByRef Data As clsSocketData) As Boolean
     
                         Dim NAME As String, isId As Boolean, memberId As Long
     
-                        If (Data.socket.BytesReceived >= Pos + 8) Then
+                        If (Data.socket.BytesReceived >= pos + 8) Then
                             
-                            read32P bytes, Pos, lng
+                            read32P bytes, pos, lng
                             
                             NAME = strings.item(lng)
                             
-                            read32P bytes, Pos, lng
+                            read32P bytes, pos, lng
                             isId = (lng = 1)
                             
                             dataSize = dataSize + 8
                             
-                            If (Data.socket.BytesReceived >= Pos + 4 Or Not isId) Then
+                            If (Data.socket.BytesReceived >= pos + 4 Or Not isId) Then
                             
                                 If (isId) Then
-                                    read32P bytes, Pos, memberId
+                                    read32P bytes, pos, memberId
                                     dataSize = dataSize + 4
                                 End If
 

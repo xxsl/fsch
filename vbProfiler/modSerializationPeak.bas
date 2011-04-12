@@ -1,37 +1,19 @@
-Attribute VB_Name = "modSerializationPeak"
+Attribute VB_Name = "modSerialization"
 Option Explicit
 
-Public Sub read32P(ByRef buffer() As Byte, ByRef position As Long, ByRef result As Long)
+Public Declare Function ntohl Lib "wsock32.dll" (ByVal hostlong As Long) As Long
 
-    Dim strBuff() As Byte
+Public Declare Function ntohs Lib "wsock32.dll" (ByVal hostlong As Integer) As Integer
 
-    Dim i As Long
-
-    ReDim strBuff(3)
-    
-    For i = (position + 3) To position Step -1
-        strBuff(result) = buffer(i)
-        result = result + 1
-    Next i
-    
-    CopyMemory result, strBuff(0), 4&
-
+Public Sub read32P(ByRef Buffer() As Byte, ByRef position As Long, ByRef result As Long)
+    CopyMemory result, Buffer(position), 4&
+    result = ntohl(result)
     position = position + 4
 End Sub
 
-Public Sub read16P(ByRef buffer() As Byte, ByRef position As Long, ByRef result As Integer)
-
-    Dim strBuff(0 To 1) As Byte
-
-    Dim i As Long
-
-    For i = (position + 1) To position Step -1
-        strBuff(result) = buffer(i)
-        result = result + 1
-    Next i
-    
-    CopyMemory result, strBuff(0), 2&
-
+Public Sub read16P(ByRef Buffer() As Byte, ByRef position As Long, ByRef result As Integer)
+    CopyMemory result, Buffer(position), 2&
+    result = ntohs(result)
     position = position + 2
 End Sub
 
