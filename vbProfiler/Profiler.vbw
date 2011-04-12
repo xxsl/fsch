@@ -1,4 +1,4 @@
-frmMain = 125, 125, 1395, 772, Z, 100, 35, 1392, 747, C
+frmMain = 125, 125, 1395, 772, , 100, 35, 1392, 747, C
 modString = 250, 250, 1603, 913, C
 clsString = 50, 50, 1342, 713, 
 modProtocol = 100, 100, 1392, 763, C
@@ -16,7 +16,7 @@ clsNewObjectSample = 25, 25, 1308, 640,
 clsDeleteObjectSample = 0, 0, 1283, 615, 
 modLVSort = 50, 50, 1333, 665, C
 clsLiveObject = -424, 180, 859, 795, C
-clsMembers = 49, 303, 1332, 918, 
+clsMembers = 49, 303, 1332, 918, Z
 clsNameValuePairs = 75, 75, 1358, 690, C
 clsCounts = 200, 200, 1483, 815, C
 clsSession = 125, 125, 1408, 740, C
