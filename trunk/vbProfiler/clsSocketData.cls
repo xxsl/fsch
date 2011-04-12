@@ -13,86 +13,56 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Option Explicit
 
+Private Declare Function ntohl Lib "wsock32.dll" (ByVal hostlong As Long) As Long
+
+Private Declare Function ntohs Lib "wsock32.dll" (ByVal hostlong As Integer) As Integer
+
+
 Private Const x32 As Long = 4
 Private Const x16 As Long = 2
 Private Const x8 As Long = 1
 
 Public socket As Winsock
 
-Private bytes()   As Byte
-
-Public Size    As Long
-
-Private Sub Class_Initialize()
-    ReDim bytes(2048)
-End Sub
-
-Public Sub append(ByRef Buffer() As Byte)
-    Dim Length   As Long
-    
-    Length = UBound(Buffer) + 1
-    
-    If (Size + Length - 1 > 1024) Then
-        ReDim Preserve bytes(Size + Length - 1)
-    End If
-    
-    CopyMemory bytes(Size), Buffer(0), Length
-    
-    Size = Size + Length
-End Sub
+Public Size As Long
 
 
 Public Sub getBytes(ByRef Buffer() As Byte)
-    Buffer = bytes
+    socket.PeekData Buffer, vbArray
 End Sub
 
 Public Sub PeekData(ByRef Buffer() As Byte, ByVal Size As Long)
-    ReDim Buffer(Size - 1&)
-   
-    CopyMemory Buffer(0), bytes(0), Size
+    socket.PeekData Buffer, vbArray, Size
 End Sub
 
 Public Function ReadData(ByRef Buffer() As Byte, ByVal rSize As Long)
-
-    PeekData Buffer, rSize
-    
-    If (Size - rSize > 0) Then
-        CopyMemory bytes(0), bytes(rSize), Size - rSize
-    End If
-    
-    Size = Size - rSize
+    socket.GetData Buffer, vbArray, rSize
 End Function
 
-Public Function ReadData32(ByRef Buffer() As Byte)
-      
-    CopyMemory Buffer(0), bytes(0), x32
-    
-    If (Size - x32 > 0) Then
-        CopyMemory bytes(0), bytes(x32), Size - x32
-    End If
-    
-    Size = Size - x32
+Public Function ReadData32(ByRef result As Long)
+    socket.GetData result, vbLong, x32
+    result = ntohl(result)
 End Function
 
-Public Function ReadData16(ByRef Buffer() As Byte)
-      
-    CopyMemory Buffer(0), bytes(0), x16
-    
-    If (Size - x16 > 0) Then
-        CopyMemory bytes(0), bytes(x16), Size - x16
-    End If
-    
-    Size = Size - x16
+Public Function ReadData16(ByRef result As Integer)
+    socket.GetData result, vbInteger, x16
+    result = ntohs(result)
 End Function
 
-Public Function ReadData8(ByRef Buffer() As Byte)
-      
-    CopyMemory Buffer(0), bytes(0), x8
-    
-    If (Size - x8 > 0) Then
-        CopyMemory bytes(0), bytes(x8), Size - x8
-    End If
-    
-    Size = Size - x8
+Public Function ReadData8(ByRef result As Byte)
+    socket.GetData result, vbByte, x8
 End Function
 
+Public Sub readString(ByRef result As String)
+    Dim strBuff() As Byte
+    Dim Length    As Integer
+
+    ReadData16 Length
+   
+    If (Length > 0) Then
+        ReadData strBuff, Length
+        ConvertUtf8BytesToString strBuff, result
+    Else
+        result = ""
+    End If
+End Sub

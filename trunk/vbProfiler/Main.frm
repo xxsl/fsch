@@ -1,6 +1,6 @@
 VERSION 5.00
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
-Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.ocx"
+Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.OCX"
 Object = "{DE8CE233-DD83-481D-844C-C07B96589D3A}#1.1#0"; "vbalSGrid6.ocx"
 Object = "{396F7AC0-A0DD-11D3-93EC-00C0DFE7442A}#1.0#0"; "vbalIml6.ocx"
 Object = "{248DD890-BB45-11CF-9ABC-0080C7E7B78D}#1.0#0"; "MSWINSCK.OCX"
@@ -159,7 +159,7 @@ Begin VB.Form frmMain
    End
    Begin VB.Timer LiveTimer 
       Enabled         =   0   'False
-      Interval        =   5000
+      Interval        =   15000
       Left            =   9240
       Top             =   3840
    End
@@ -227,7 +227,7 @@ Private Sub Server_ConnectionRequest(ByVal requestID As Long)
         Service.Accept requestID
         Set socketData = New clsSocketData
         Set socketData.socket = Service
-        LiveTimer.Enabled = True
+        'LiveTimer.Enabled = True
     Else
         logx.xInfo "Connection request ignored " & requestID
     End If
@@ -267,10 +267,11 @@ End Sub
 
 Private Sub Service_DataArrival(ByVal bytesTotal As Long)
 
-    Dim Buffer() As Byte
+    'Dim Buffer() As Byte
 
-    Service.GetData Buffer, vbArray
-    socketData.append Buffer
+    'Service.GetData Buffer, vbArray
+    'socketData.append Buffer
+    socketData.Size = bytesTotal
     processor.processCommand socketData
     dataCount = dataCount + bytesTotal
 End Sub
@@ -542,6 +543,7 @@ Private Sub Form_Load()
     Server.Close
     Server.LocalPort = 9999
     Server.Listen
+    
 End Sub
 
 'exit dialog

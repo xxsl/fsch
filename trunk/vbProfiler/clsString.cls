@@ -22,8 +22,8 @@ Public Function canDeserialise(firstByte As Byte) As Boolean
 End Function
 
 Public Sub parse(ByRef Data As clsSocketData)
-    readString Data, Value
-    read32X Data, key
+    Data.readString Value
+    Data.ReadData32 key
 End Sub
 
 Public Function bytesAvailable(ByRef Data As clsSocketData) As Boolean

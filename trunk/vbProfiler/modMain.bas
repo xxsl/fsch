@@ -1,6 +1,12 @@
 Attribute VB_Name = "modMain"
 Option Explicit
 
+Public Declare Sub CopyMemory _
+               Lib "kernel32" _
+               Alias "RtlMoveMemory" (Destination As Any, _
+                                      Source As Any, _
+                                      ByVal Length As Long)
+
 Public Declare Sub Sleep Lib "kernel32" (ByVal dwMilliseconds As Long)
 
 Public Declare Function PathFileExists Lib "shlwapi" Alias "PathFileExistsA" (ByVal pszPath As String) As Long
@@ -78,6 +84,12 @@ Private Function InitCommonControlsVB() As Boolean
 
     InitCommonControlsEx iccex
     InitCommonControlsVB = (Err.Number = 0)
+
+    ReDim lngBuffer(3)
+    
+    ReDim intBuffer(1)
+    
+    ReDim bytBuffer(0)
 
     On Error GoTo 0
 
