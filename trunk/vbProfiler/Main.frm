@@ -22,7 +22,7 @@ Begin VB.Form frmMain
       Top             =   3840
    End
    Begin VB.Timer tmrSocketSpeed 
-      Interval        =   250
+      Interval        =   5000
       Left            =   8520
       Top             =   3840
    End
@@ -313,7 +313,7 @@ Private Sub LiveView_ItemClick(ByVal item As MSComctlLib.ListItem)
 End Sub
 
 Private Sub tmrSocketSpeed_Timer()
-    status.Panels.item(1).Text = "Socket speed: " & FormatNumber(dataCount * 4 / 1024, 2) & " kb/s"
+    status.Panels.item(1).Text = "Socket speed: " & FormatNumber(dataCount / 5 / 1024, 2) & " kb/s"
     dataCount = 0
 End Sub
 
