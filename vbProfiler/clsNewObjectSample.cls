@@ -55,7 +55,6 @@ End Function
 
 
 Public Sub parse(ByRef Data As clsSocketData)
-    
     Data.skip 8
     
     Dim Count As Long, i As Long
@@ -86,12 +85,12 @@ End Sub
 
 Public Function bytesAvailable(ByRef Data As clsSocketData) As Boolean
 
-    Dim Length As Long, result As Boolean, pos As Long
+    Dim Length As Long, result As Boolean, Pos As Long
 
     If (Data.bytesAvailable >= 12) Then
-        Data.getPos pos
-        pos = pos + 8
-        Data.read32P pos, Length
+        Data.getPos Pos
+        Pos = Pos + 8
+        Data.read32P Pos, Length
         dataSize = Length * 12 + 28
         result = (dataSize <= Data.bytesAvailable)
     Else
