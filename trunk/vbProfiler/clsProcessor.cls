@@ -25,6 +25,8 @@ Public samples              As New Collection
 
 Public members              As New Collection
 
+Public minSize As Long
+
 Public Sub processCommand(ByRef Data As clsSocketData)
 
     Dim result As Boolean
@@ -72,7 +74,7 @@ Public Function processInternal(ByRef Data As clsSocketData) As Boolean
                 If (newSample.bytesAvailable(Data)) Then
                     Set newSample.strings = strings
                     newSample.parse Data
-                    'logx.xDebug "create: id=" & newSample.getId & " type=" & newSample.getType & " size=" & newSample.getSize
+                    'logx.xInfo "create: id=" & newSample.getId & " type=" & newSample.getType & " size=" & newSample.getSize
                     'todo: faster samples.Add newSample, "" & newSample.getId
                     result = True
                     
@@ -80,7 +82,7 @@ Public Function processInternal(ByRef Data As clsSocketData) As Boolean
             Case C_DELETE_OBJECT_SAMPLE:
                 If (delSample.bytesAvailable(Data)) Then
                     delSample.parse Data
-                    'logx.xDebug "delete: id=" & delSample.getId & " size=" & newSample.getSize
+                    'logx.xInfo "delete: id=" & delSample.getId & " size=" & newSample.getSize
                     'todo: faster samples.Remove "" & delSample.getId
                     result = True
                 End If
@@ -96,12 +98,13 @@ Public Function processInternal(ByRef Data As clsSocketData) As Boolean
                     '                Next
                     
                     '                logger "sample loaded"
+                    'logx.xInfo "sample loaded"
                     result = True
                 End If
             Case C_STRING:
                 If (str.bytesAvailable(Data)) Then
                     str.parse Data
-                    logx.xDebug "string=" & str.getValue
+                    'logx.xInfo "string=" & str.getValue
     
                     If (strings.Count < str.getKey) Then
                         strings.Add str.getValue
@@ -128,7 +131,11 @@ Public Function processInternal(ByRef Data As clsSocketData) As Boolean
                     commands(5) = 1
                     commands(6) = C_RESUME
                     Data.socket.SendData commands
+                    
+                    minSize = 0
                     result = True
+                Else
+                    minSize = swf.dataSize
                 End If
             Case C_GC:
                 If (gc.bytesAvailable(Data)) Then

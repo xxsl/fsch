@@ -39,10 +39,11 @@ End Sub
 
 Public Sub skip(ByVal bytes As Long)
     cursor = cursor + bytes
+    bytesAvailable = bytesAvailable - bytes
 End Sub
 
-Public Sub getPos(ByRef pos As Long)
-     pos = UBound(buff) + 1 - bytesAvailable
+Public Sub getPos(ByRef Pos As Long)
+     Pos = UBound(buff) + 1 - bytesAvailable
 End Sub
 
 Public Function ReadData(ByRef Buffer() As Byte, ByVal rSize As Long)

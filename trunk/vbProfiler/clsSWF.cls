@@ -19,7 +19,7 @@ Private Size    As Long
 
 Private key     As Long
 
-Private dataSize As Long
+Public dataSize As Long
 
 Public Function canDeserialise(firstByte As Byte) As Boolean
     canDeserialise = (firstByte = C_SWF)
@@ -34,12 +34,12 @@ End Sub
 
 Public Function bytesAvailable(ByRef Data As clsSocketData) As Boolean
 
-    Dim Length As Long, result As Boolean, pos As Long
+    Dim Length As Long, result As Boolean, Pos As Long
 
     If (Data.bytesAvailable >= 4) Then
-        Data.getPos pos
-        pos = pos + 4
-        Data.read32P pos, Length
+        Data.getPos Pos
+        Pos = Pos + 4
+        Data.read32P Pos, Length
         dataSize = Length + 8
         result = (dataSize <= Data.bytesAvailable)
     Else
