@@ -17,6 +17,10 @@ Private Declare Function ntohl Lib "wsock32.dll" (ByVal hostlong As Long) As Lon
 
 Private Declare Function ntohs Lib "wsock32.dll" (ByVal hostlong As Integer) As Integer
 
+Private Declare Sub GetMem4 Lib "msvbvm60" (ByVal Ptr As Long, Value As Any)
+
+Private Declare Sub GetMem2 Lib "msvbvm60" (ByVal Ptr As Long, Value As Any)
+
 Public socket As Winsock
 
 Public bytesAvailable As Long
@@ -54,27 +58,27 @@ Public Function ReadData(ByRef Buffer() As Byte, ByVal rSize As Long)
 End Function
 
 Public Sub read32(ByRef result As Long)
-    CopyMemory result, buff(cursor), 4&
+    GetMem4 ByVal VarPtr(buff(cursor)), result
     result = ntohl(result)
     cursor = cursor + 4
     bytesAvailable = bytesAvailable - 4
 End Sub
 
 Public Sub read16(ByRef result As Integer)
-    CopyMemory result, buff(cursor), 2&
+    GetMem2 ByVal VarPtr(buff(cursor)), result
     result = ntohs(result)
     cursor = cursor + 2
     bytesAvailable = bytesAvailable - 2
 End Sub
 
 Public Sub read32P(ByRef position As Long, ByRef result As Long)
-    CopyMemory result, buff(position), 4&
+    GetMem4 ByVal VarPtr(buff(position)), result
     result = ntohl(result)
     position = position + 4
 End Sub
 
 Public Sub read16P(ByRef position As Long, ByRef result As Integer)
-    CopyMemory result, buff(position), 2&
+    GetMem2 ByVal VarPtr(buff(position)), result
     result = ntohs(result)
     position = position + 2
 End Sub
