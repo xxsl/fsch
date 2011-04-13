@@ -83,22 +83,19 @@ Public Sub parse(ByRef Data As clsSocketData)
     Data.read32 Size
 End Sub
 
-Public Function bytesAvailable(ByRef Data As clsSocketData) As Boolean
+Public Sub bytesAvailable(ByRef Data As clsSocketData, ByRef result As Boolean)
 
-    Dim Length As Long, result As Boolean, Pos As Long
+    result = Data.bytesAvailable >= 12&
 
-    If (Data.bytesAvailable >= 12) Then
+    If (result) Then
+        Dim Length As Long, Pos As Long
         Data.getPos Pos
-        Pos = Pos + 8
+        Pos = Pos + 8&
         Data.read32P Pos, Length
-        dataSize = Length * 12 + 28
+        dataSize = Length * 12& + 28&
         result = (dataSize <= Data.bytesAvailable)
-    Else
-        result = False
     End If
-
-    bytesAvailable = result
-End Function
+End Sub
 
 Public Function getValue() As clsStackTrace
     getValue = Value
