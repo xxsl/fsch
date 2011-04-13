@@ -27,6 +27,8 @@ Public members              As New Collection
 
 Public minSize As Long
 
+Public isSetup As Boolean
+
 Public Sub processCommand(ByRef Data As clsSocketData)
 
     Dim result As Boolean
@@ -120,18 +122,20 @@ Public Function processInternal(ByRef Data As clsSocketData) As Boolean
                     logx.xInfo "swf url=" & strings.item(swf.getKey)
                     'logger "swf loaded"
     
-                    'send commands
-                    Dim commands(0 To 6) As Byte
-    
-                    commands(0) = C_MEMORY_PROFILING
-                    commands(1) = 1
-                    commands(2) = C_MEMORY_PROFILING_STACKTRACES
-                    commands(3) = 1
-                    commands(4) = C_PERFORMANCE_PROFILING
-                    commands(5) = 1
-                    commands(6) = C_RESUME
-                    Data.socket.SendData commands
-                    
+                    If (Not isSetup) Then
+                        'send commands
+                        Dim commands(0 To 6) As Byte
+        
+                        commands(0) = C_MEMORY_PROFILING
+                        commands(1) = 1
+                        commands(2) = C_MEMORY_PROFILING_STACKTRACES
+                        commands(3) = 1
+                        commands(4) = C_PERFORMANCE_PROFILING
+                        commands(5) = 1
+                        commands(6) = C_RESUME
+                        Data.socket.SendData commands
+                        isSetup = True
+                    End If
                     minSize = 0
                     result = True
                 Else
