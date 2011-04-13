@@ -36,8 +36,7 @@ End Sub
 
 Public Sub Complete()
     If (cursor > 0) Then
-        Dim b() As Byte
-        socket.GetData b, vbArray, cursor
+        socket.GetData buff, vbArray, cursor
     End If
 End Sub
 
@@ -47,7 +46,7 @@ Public Sub skip(ByVal bytes As Long)
 End Sub
 
 Public Sub getPos(ByRef Pos As Long)
-     Pos = UBound(buff) + 1 - bytesAvailable
+     Pos = cursor + 0
 End Sub
 
 Public Function ReadData(ByRef Buffer() As Byte, ByVal rSize As Long)
@@ -58,27 +57,27 @@ Public Function ReadData(ByRef Buffer() As Byte, ByVal rSize As Long)
 End Function
 
 Public Sub read32(ByRef result As Long)
-    GetMem4 ByVal VarPtr(buff(cursor)), result
+    GetMem4 VarPtr(buff(cursor)), result
     result = ntohl(result)
     cursor = cursor + 4
     bytesAvailable = bytesAvailable - 4
 End Sub
 
 Public Sub read16(ByRef result As Integer)
-    GetMem2 ByVal VarPtr(buff(cursor)), result
+    GetMem2 VarPtr(buff(cursor)), result
     result = ntohs(result)
     cursor = cursor + 2
     bytesAvailable = bytesAvailable - 2
 End Sub
 
 Public Sub read32P(ByRef position As Long, ByRef result As Long)
-    GetMem4 ByVal VarPtr(buff(position)), result
+    GetMem4 VarPtr(buff(position)), result
     result = ntohl(result)
     position = position + 4
 End Sub
 
 Public Sub read16P(ByRef position As Long, ByRef result As Integer)
-    GetMem2 ByVal VarPtr(buff(position)), result
+    GetMem2 VarPtr(buff(position)), result
     result = ntohs(result)
     position = position + 2
 End Sub
