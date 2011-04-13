@@ -45,18 +45,9 @@ Public Sub parse(ByRef Data As clsSocketData)
     Data.read32 Size
 End Sub
 
-Public Function bytesAvailable(ByRef Data As clsSocketData) As Boolean
-
-    Dim Length As Long, result As Boolean
-
-    If (Data.bytesAvailable >= dataSize) Then
-        result = True
-    Else
-        result = False
-    End If
-
-    bytesAvailable = result
-End Function
+Public Sub bytesAvailable(ByRef Data As clsSocketData, ByRef result As Boolean)
+    result = Data.bytesAvailable >= dataSize
+End Sub
 
 
 Public Function getId() As Long

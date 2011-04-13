@@ -38,14 +38,14 @@ Public Sub processCommand(ByRef Data As clsSocketData)
     End If
     
     If (lastCommand <> EMPTY_COMMAND) Then
-        result = processInternal(Data)
+        processInternal Data, result
 
         Do While result
             lastCommand = EMPTY_COMMAND
             If (Data.bytesAvailable > 0) Then
                 Data.ReadData8 lastCommand
             End If
-            result = processInternal(Data)
+            processInternal Data, result
         Loop
 
     End If
@@ -53,7 +53,7 @@ Public Sub processCommand(ByRef Data As clsSocketData)
     Data.Complete
 End Sub
 
-Public Function processInternal(ByRef Data As clsSocketData) As Boolean
+Public Sub processInternal(ByRef Data As clsSocketData, ByRef result As Boolean)
 
     Dim str       As New clsString
 
@@ -67,13 +67,14 @@ Public Function processInternal(ByRef Data As clsSocketData) As Boolean
     
     Dim gc        As New clsGC
     
-    Dim result    As Boolean
+    result = False
         
     If (lastCommand <> EMPTY_COMMAND) Then
         
         Select Case lastCommand
             Case C_NEW_OBJECT_SAMPLE:
-                If (newSample.bytesAvailable(Data)) Then
+                newSample.bytesAvailable Data, result
+                If (result) Then
                     Set newSample.strings = strings
                     newSample.parse Data
                     'logx.xInfo "create: id=" & newSample.getId & " type=" & newSample.getType & " size=" & newSample.getSize
@@ -82,7 +83,8 @@ Public Function processInternal(ByRef Data As clsSocketData) As Boolean
                     
                 End If
             Case C_DELETE_OBJECT_SAMPLE:
-                If (delSample.bytesAvailable(Data)) Then
+                delSample.bytesAvailable Data, result
+                If (result) Then
                     delSample.parse Data
                     'logx.xInfo "delete: id=" & delSample.getId & " size=" & newSample.getSize
                     'todo: faster samples.Remove "" & delSample.getId
@@ -151,8 +153,7 @@ Public Function processInternal(ByRef Data As clsSocketData) As Boolean
    
     End If
 
-    processInternal = result
-End Function
+End Sub
 
 
 Private Sub Class_Initialize()
