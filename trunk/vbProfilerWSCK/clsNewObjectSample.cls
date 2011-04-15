@@ -56,44 +56,7 @@ Public Function canDeserialise(firstByte As Byte) As Boolean
 End Function
 
 Public Sub parse(ByRef Data As clsSocketData)
-
-    If (success) Then
-        Data.skip dataSize
-
-        Exit Sub
-
-    End If
-    
-    Data.skip 8
-    
-    Dim Count As Long, i As Long
-    
-    Data.read32 Count
-
-    Dim lng As Long
-    
-    For i = 1 To Count
-
-        Dim line As New clsStackTraceLine
-
-        Data.read32 lng
-        line.NAME = strings.item(lng)
-        Data.read32 lng
-        line.FileName = strings.item(lng)
-        Data.read32 lng
-        line.line = lng
-        value.lines.Add line
-    Next i
-    
-    Data.read32 id
-    
-    Data.read32 lng
-
-    typeName = strings.item(lng)
-
-    Data.read32 lng
-    url = strings.item(lng)
-    Data.read32 Size
+     Data.skip dataSize
 End Sub
 
 Public Sub bytesAvailable(ByRef Data As clsSocketData, ByRef result As Boolean)
@@ -102,7 +65,7 @@ Public Sub bytesAvailable(ByRef Data As clsSocketData, ByRef result As Boolean)
 
     If (result) Then
 
-        Dim Length As Long, Pos As Long
+        Dim Count As Long, Pos As Long, i As Long
 
         Data.getPos Pos
         Pos = Pos + 8&
@@ -120,11 +83,11 @@ Public Sub bytesAvailable(ByRef Data As clsSocketData, ByRef result As Boolean)
 
                 Dim line As New clsStackTraceLine
 
-                Data.read32 lng
+                Data.read32P Pos, lng
                 line.NAME = strings.item(lng)
-                Data.read32 lng
+                Data.read32P Pos, lng
                 line.FileName = strings.item(lng)
-                Data.read32 lng
+                Data.read32P Pos, lng
                 line.line = lng
                 value.lines.Add line
             Next i
