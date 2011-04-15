@@ -79,7 +79,7 @@ Public Sub processInternal(ByRef Data As clsSocketData, ByRef result As Boolean)
                     Set newSample.strings = strings
                     newSample.parse Data
                     'logx.xInfo "create: id=" & newSample.getId & " type=" & newSample.getType & " size=" & newSample.getSize
-                    'todo: faster samples.Add newSample, "" & newSample.getId
+                    samples.Add newSample, "" & newSample.getId
                     result = True
                     
                 End If
@@ -88,7 +88,7 @@ Public Sub processInternal(ByRef Data As clsSocketData, ByRef result As Boolean)
                 If (result) Then
                     delSample.parse Data
                     'logx.xInfo "delete: id=" & delSample.getId & " size=" & newSample.getSize
-                    'todo: faster samples.Remove "" & delSample.getId
+                    samples.Remove "" & delSample.getId
                     result = True
                 End If
             Case C_SAMPLE:
