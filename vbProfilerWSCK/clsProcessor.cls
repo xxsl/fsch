@@ -73,6 +73,7 @@ Public Sub processInternal(ByRef Data As clsSocketData, ByRef result As Boolean)
         
         Select Case lastCommand
             Case C_NEW_OBJECT_SAMPLE:
+                Set newSample.strings = strings
                 newSample.bytesAvailable Data, result
                 If (result) Then
                     Set newSample.strings = strings
