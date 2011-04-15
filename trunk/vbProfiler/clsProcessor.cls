@@ -25,35 +25,16 @@ Public samples              As New Collection
 
 Public members              As New Collection
 
-Public minSize As Long
+Public minSize              As Long
 
-Public isSetup As Boolean
+Public isSetup              As Boolean
 
 Public Sub processCommand(ByRef Data As clsSocketData)
-
-    Dim result As Boolean
-    
-    If (lastCommand = EMPTY_COMMAND And Data.bytesAvailable > 0) Then
-        Data.ReadData8 lastCommand
-    End If
-    
-    If (lastCommand <> EMPTY_COMMAND) Then
-        processInternal Data, result
-
-        Do While result
-            lastCommand = EMPTY_COMMAND
-            If (Data.bytesAvailable > 0) Then
-                Data.ReadData8 lastCommand
-            End If
-            processInternal Data, result
-        Loop
-
-    End If
-
-    Data.Complete
+    Data.Read8 lastCommand
+    processInternal Data
 End Sub
 
-Public Sub processInternal(ByRef Data As clsSocketData, ByRef result As Boolean)
+Public Sub processInternal(ByRef Data As clsSocketData)
 
     Dim str       As New clsString
 
@@ -66,100 +47,69 @@ Public Sub processInternal(ByRef Data As clsSocketData, ByRef result As Boolean)
     Dim delSample As New clsDeleteObjectSample
     
     Dim gc        As New clsGC
-    
-    result = False
-        
-    If (lastCommand <> EMPTY_COMMAND) Then
-        
-        Select Case lastCommand
-            Case C_NEW_OBJECT_SAMPLE:
-                newSample.bytesAvailable Data, result
-                If (result) Then
-                    Set newSample.strings = strings
-                    newSample.parse Data
-                    'logx.xInfo "create: id=" & newSample.getId & " type=" & newSample.getType & " size=" & newSample.getSize
-                    'todo: faster samples.Add newSample, "" & newSample.getId
-                    result = True
+       
+    Select Case lastCommand
+
+        Case C_NEW_OBJECT_SAMPLE:
+            Set newSample.strings = strings
+            newSample.parse Data
+            'logx.xInfo "create: id=" & newSample.getId & " type=" & newSample.getType & " size=" & newSample.getSize
+            'todo: faster samples.Add newSample, "" & newSample.getId
+
+        Case C_DELETE_OBJECT_SAMPLE:
+            delSample.parse Data
+            'logx.xInfo "delete: id=" & delSample.getId & " size=" & newSample.getSize
+            'todo: faster samples.Remove "" & delSample.getId
+
+        Case C_SAMPLE:
+            Set sample.strings = strings
+            sample.parse Data
+            '                Dim line As clsStackTraceLine
+            '                logger "sample size=" & sample.getValue.size
+            '                For Each line In sample.getValue.lines
+            '                    logger "line:" & line.name & ":" & line.fileName & "(" & line.line & ")"
+            '                Next
                     
-                End If
-            Case C_DELETE_OBJECT_SAMPLE:
-                delSample.bytesAvailable Data, result
-                If (result) Then
-                    delSample.parse Data
-                    'logx.xInfo "delete: id=" & delSample.getId & " size=" & newSample.getSize
-                    'todo: faster samples.Remove "" & delSample.getId
-                    result = True
-                End If
-            Case C_SAMPLE:
-                If (sample.bytesAvailable(Data)) Then
+            '                logger "sample loaded"
+            'logx.xInfo "sample loaded"
+
+        Case C_STRING:
+            str.parse Data
+            'logx.xInfo "string=" & str.getValue
     
-                    Set sample.strings = strings
-                    sample.parse Data
-                    '                Dim line As clsStackTraceLine
-                    '                logger "sample size=" & sample.getValue.size
-                    '                For Each line In sample.getValue.lines
-                    '                    logger "line:" & line.name & ":" & line.fileName & "(" & line.line & ")"
-                    '                Next
-                    
-                    '                logger "sample loaded"
-                    'logx.xInfo "sample loaded"
-                    result = True
-                End If
-            Case C_STRING:
-                If (str.bytesAvailable(Data)) Then
-                    str.parse Data
-                    'logx.xInfo "string=" & str.getValue
+            If (strings.Count < str.getKey) Then
+                strings.Add str.getValue
+            End If
+
+        Case C_SWF:
+            swf.parse Data
+            logx.xInfo "swf size=" & swf.getSize
+            logx.xInfo "swf url=" & strings.item(swf.getKey)
+            'logger "swf loaded"
     
-                    If (strings.Count < str.getKey) Then
-                        strings.Add str.getValue
-                    End If
-    
-                    result = True
-                End If
-                
-            Case C_SWF:
-                If (swf.bytesAvailable(Data)) Then
-                    swf.parse Data
-                    logx.xInfo "swf size=" & swf.getSize
-                    logx.xInfo "swf url=" & strings.item(swf.getKey)
-                    'logger "swf loaded"
-    
-                    If (Not isSetup) Then
-                        'send commands
-                        Dim commands(0 To 6) As Byte
+            If (Not isSetup) Then
+
+                'send commands
+                Dim commands(0 To 6) As Byte
         
-                        commands(0) = C_MEMORY_PROFILING
-                        commands(1) = 1
-                        commands(2) = C_MEMORY_PROFILING_STACKTRACES
-                        commands(3) = 1
-                        commands(4) = C_PERFORMANCE_PROFILING
-                        commands(5) = 1
-                        commands(6) = C_RESUME
-                        Data.socket.SendData commands
-                        isSetup = True
-                    End If
-                    minSize = 0
-                    result = True
-                Else
-                    minSize = swf.dataSize
-                End If
-            Case C_GC:
-                If (gc.bytesAvailable(Data)) Then
-                    gc.parse Data
-                    logx.xInfo "gc"
-                    result = True
-                End If
-        End Select
+                commands(0) = C_MEMORY_PROFILING
+                commands(1) = 1
+                commands(2) = C_MEMORY_PROFILING_STACKTRACES
+                commands(3) = 1
+                commands(4) = C_PERFORMANCE_PROFILING
+                commands(5) = 1
+                commands(6) = C_RESUME
+                Data.socket.WriteStream commands, 7
+                'Data.socket.Flush
+                isSetup = True
+            End If
+
+        Case C_GC:
+            gc.parse Data
+            logx.xInfo "gc"
+    End Select
    
-    End If
-
 End Sub
-
-
-Private Sub Class_Initialize()
-    lastCommand = EMPTY_COMMAND
-End Sub
-
 
 '    void process()
 '            throws IOException

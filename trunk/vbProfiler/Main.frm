@@ -1,9 +1,9 @@
 VERSION 5.00
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
-Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.OCX"
+Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.ocx"
 Object = "{DE8CE233-DD83-481D-844C-C07B96589D3A}#1.1#0"; "vbalSGrid6.ocx"
 Object = "{396F7AC0-A0DD-11D3-93EC-00C0DFE7442A}#1.0#0"; "vbalIml6.ocx"
-Object = "{248DD890-BB45-11CF-9ABC-0080C7E7B78D}#1.0#0"; "MSWINSCK.OCX"
+Object = "{6A967C3A-24E5-47BD-9298-705322683301}#1.0#0"; "cswskax6.ocx"
 Begin VB.Form frmMain 
    Caption         =   "Profiler"
    ClientHeight    =   4965
@@ -15,25 +15,23 @@ Begin VB.Form frmMain
    ScaleHeight     =   4965
    ScaleWidth      =   10560
    StartUpPosition =   3  'Windows Default
+   Begin SocketWrenchCtl.SocketWrench Server 
+      Left            =   9600
+      Top             =   840
+      _cx             =   741
+      _cy             =   741
+   End
+   Begin SocketWrenchCtl.SocketWrench Service 
+      Left            =   9120
+      Top             =   840
+      _cx             =   741
+      _cy             =   741
+   End
    Begin VB.Timer tmrResize 
       Enabled         =   0   'False
       Interval        =   100
       Left            =   9960
       Top             =   3840
-   End
-   Begin MSWinsockLib.Winsock Service 
-      Left            =   9120
-      Top             =   840
-      _ExtentX        =   741
-      _ExtentY        =   741
-      _Version        =   393216
-   End
-   Begin MSWinsockLib.Winsock Server 
-      Left            =   8400
-      Top             =   840
-      _ExtentX        =   741
-      _ExtentY        =   741
-      _Version        =   393216
    End
    Begin vbalIml6.vbalImageList vbalImageList 
       Left            =   8760
@@ -55,10 +53,12 @@ Begin VB.Form frmMain
       AllowCustomize  =   0   'False
       Appearance      =   1
       Style           =   1
+      ImageList       =   "imlIcons"
       _Version        =   393216
       BeginProperty Buttons {66833FE8-8583-11D1-B16A-00C0F0283628} 
          NumButtons      =   1
          BeginProperty Button1 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            ImageIndex      =   1
          EndProperty
       EndProperty
       BorderStyle     =   1
@@ -215,72 +215,89 @@ Private timeQueue            As New clsQueue
 'last window state
 Private prevState            As Long
 
+Private stopService          As Boolean
+
 'last sort column
 Private lastSortColumn       As Long
 
-Private Sub Server_ConnectionRequest(ByVal requestID As Long)
+'start up
+Private Sub Form_Load()
+    Load frmSysTray
+    Set m_AppTray = New frmSysTray
+    
+    m_AppTray.AddToTray imlIcons.ListImages(1).Picture.Handle
+    m_AppTray.ToolTip = "Flex profiler"
 
-    If (Not Service.State = sckConnected) Then
-        logx.xInfo "Accepted connection request " & requestID
-        Service.Close
-        Service.Accept requestID
-        Set socketData = New clsSocketData
-        Set socketData.socket = Service
-        LiveTimer.Enabled = False
-    Else
-        logx.xInfo "Connection request ignored " & requestID
-    End If
+    logx.setWindow Log
 
+    Set processor.logx = logx
+    
+    LiveView.AddColumn "Name", "Name", ecgHdrTextALignLeft, , 500, True, False, , True, , False, CCLSortString
+    LiveView.AddColumn "Size", "Size", ecgHdrTextALignLeft, , , True, False, , True, , False, CCLSortNumeric
+    LiveView.AddColumn "Instances", "Instances", ecgHdrTextALignLeft, , , True, False, , True, , False, CCLSortNumeric
+
+    LiveView.StretchLastColumnToFit = True
+    
+    lastSortColumn = 1
+    
+    Service.AutoResolve = True
+    Service.Blocking = True
+    Service.CertificateName = "localhost"
+    Service.ByteOrder = swLocalByteOrder
+    
+    Server.AutoResolve = True
+    Server.Blocking = False
+    
+    logx.xInfo "Server.Listen result = " & (Server.Listen("localhost", 9999) = 0)
+    
 End Sub
 
-Private Sub Server_Error(ByVal Number As Integer, _
-                         description As String, _
-                         ByVal Scode As Long, _
-                         ByVal Source As String, _
-                         ByVal HelpFile As String, _
-                         ByVal HelpContext As Long, _
-                         CancelDisplay As Boolean)
-    logx.xError "Server socket error: " + description
+Private Sub Server_OnError(ByVal ErrorCode As Variant, ByVal Description As Variant)
+    logx.xError "Server socket error: " + Description
 End Sub
 
-Private Sub Service_Connect()
-    logx.xInfo "Connection established"
-    tickCount = GetTickCount
-End Sub
+Private Sub Server_OnAccept(ByVal Handle As Variant)
+    Set socketData = New clsSocketData
+    Set socketData.socket = Service
+    LiveTimer.enabled = False
+    
+    logx.xInfo "Service.Accept result = " & Service.Accept(Handle)
+    
+    logx.xInfo "Server.Disconnect result = " & Server.Disconnect
 
-Private Sub Service_Close()
-    logx.xInfo "Service connection closed"
-    'DisplayBalloon "Info", "Client disconnected", NIIF_INFO
-    LiveTimer.Enabled = False
-End Sub
-
-Private Sub Service_Error(ByVal Number As Integer, _
-                          description As String, _
-                          ByVal Scode As Long, _
-                          ByVal Source As String, _
-                          ByVal HelpFile As String, _
-                          ByVal HelpContext As Long, _
-                          CancelDisplay As Boolean)
-    logx.xError "Service socket error: " + description
-    Service.Close
-End Sub
-
-Private Sub Service_DataArrival(ByVal bytesTotal As Long)
-    If (processor.minSize <= bytesTotal) Then
-        socketData.bytesAvailable = bytesTotal
-        socketData.Refresh
+    Do While (Service.Connected And Not stopService)
         processor.processCommand socketData
-        dataCount = dataCount + (bytesTotal - socketData.bytesAvailable)
-        
-        If (GetTickCount - tickCount >= 1000) Then
-            tickCount = GetTickCount - tickCount
-            timeQueue.Enqueue (dataCount / 1024 / tickCount) * 1000
-            status.Panels.item(1).Text = "Socket speed: " & FormatNumber(timeQueue.getAverage, 2) & " kb/s"
-            dataCount = 0
-            tickCount = GetTickCount
-        End If
-    End If
+    Loop
 End Sub
+
+Private Sub Service_OnDisconnect()
+    logx.xInfo "service disconnected"
+    LiveTimer.enabled = False
+    logx.xInfo "Server.Listen result = " & (Server.Listen("localhost", 9999) = 0)
+End Sub
+
+Private Sub Service_OnError(ByVal ErrorCode As Variant, ByVal Description As Variant)
+    logx.xInfo "service error: " & Description
+    LiveTimer.enabled = False
+    logx.xInfo "Server.Listen result = " & (Server.Listen("localhost", 9999) = 0)
+End Sub
+
+'Private Sub Service_DataArrival(ByVal bytesTotal As Long)
+'    If (processor.minSize <= bytesTotal) Then
+'        socketData.bytesAvailable = bytesTotal
+'        socketData.Refresh
+'        processor.processCommand socketData
+'        dataCount = dataCount + (bytesTotal - socketData.bytesAvailable)
+'
+'        If (GetTickCount - tickCount >= 1000) Then
+'            tickCount = GetTickCount - tickCount
+'            timeQueue.Enqueue (dataCount / 1024 / tickCount) * 1000
+'            status.Panels.item(1).Text = "Socket speed: " & FormatNumber(timeQueue.getAverage, 2) & " kb/s"
+'            dataCount = 0
+'            tickCount = GetTickCount
+'        End If
+'    End If
+'End Sub
 
 Private Sub Form_Resize()
 
@@ -299,7 +316,7 @@ Private Sub Form_Resize()
 
     If (Me.WindowState <> prevState) Then
         prevState = Me.WindowState
-        tmrResize.Enabled = True
+        tmrResize.enabled = True
     End If
 
 End Sub
@@ -307,18 +324,16 @@ End Sub
 Private Sub tmrResize_Timer()
 
     Form_Resize
-    tmrResize.Enabled = False
+    tmrResize.enabled = False
 End Sub
 
 Private Sub tabs_Click(PreviousTab As Integer)
-
     Form_Resize
 End Sub
 
 Private Sub LiveView_ItemClick(ByVal item As MSComctlLib.ListItem)
     selectedLiveObject = item.Text
 End Sub
-
 
 Private Sub LiveTimer_Timer()
 
@@ -389,6 +404,7 @@ Private Sub LiveTimer_Timer()
 End Sub
 
 Private Sub LiveViewRestoreSort()
+
     Dim iCol     As Long
 
     Dim iSortCol As Long
@@ -522,32 +538,6 @@ End Sub
 '    Toolbar.Buttons(ABOUT_BUTTON).Image = preloader.getIndex(ABOUT)
 'End Sub
 
-'start up
-Private Sub Form_Load()
-    Load frmSysTray
-    Set m_AppTray = New frmSysTray
-    
-    m_AppTray.AddToTray imlIcons.ListImages(1).Picture.Handle
-    m_AppTray.ToolTip = "Flex profiler"
-
-    logx.setWindow Log
-
-    Set processor.logx = logx
-    
-    LiveView.AddColumn "Name", "Name", ecgHdrTextALignLeft, , 500, True, False, , True, , False, CCLSortString
-    LiveView.AddColumn "Size", "Size", ecgHdrTextALignLeft, , , True, False, , True, , False, CCLSortNumeric
-    LiveView.AddColumn "Instances", "Instances", ecgHdrTextALignLeft, , , True, False, , True, , False, CCLSortNumeric
-
-    LiveView.StretchLastColumnToFit = True
-    
-    lastSortColumn = 1
-    
-    Server.Close
-    Server.LocalPort = 9999
-    Server.Listen
-    
-End Sub
-
 'exit dialog
 Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
 
@@ -565,8 +555,13 @@ End Sub
 
 'quit
 Private Sub Form_Unload(Cancel As Integer)
-    Server.Close
-    Service.Close
+    destroy
+End Sub
+
+Private Sub destroy()
+    Service.Abort
+    Server.Abort
+    Set socketData.socket = Nothing
     Set processor.logx = Nothing
     Unload m_AppTray
     Unload frmSysTray
@@ -582,4 +577,10 @@ Private Sub m_AppTray_SysTrayMouseDown(ByVal eButton As MouseButtonConstants)
     
     End Select
 
+End Sub
+
+Private Sub Toolbar_ButtonClick(ByVal Button As MSComctlLib.Button)
+    If (Button.Index = 1) Then
+        stopService = True
+    End If
 End Sub
