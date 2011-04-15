@@ -1,6 +1,6 @@
 VERSION 5.00
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
-Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.ocx"
+Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.OCX"
 Object = "{DE8CE233-DD83-481D-844C-C07B96589D3A}#1.1#0"; "vbalSGrid6.ocx"
 Object = "{396F7AC0-A0DD-11D3-93EC-00C0DFE7442A}#1.0#0"; "vbalIml6.ocx"
 Object = "{248DD890-BB45-11CF-9ABC-0080C7E7B78D}#1.0#0"; "MSWINSCK.OCX"
@@ -19,11 +19,6 @@ Begin VB.Form frmMain
       Enabled         =   0   'False
       Interval        =   100
       Left            =   9960
-      Top             =   3840
-   End
-   Begin VB.Timer tmrSocketSpeed 
-      Interval        =   5000
-      Left            =   8520
       Top             =   3840
    End
    Begin MSWinsockLib.Winsock Service 
@@ -213,6 +208,10 @@ Private prefs                As New clsPreferences
 
 Private dataCount            As Double
 
+Private tickCount            As Long
+
+Private timeQueue            As New clsQueue
+
 'last window state
 Private prevState            As Long
 
@@ -246,6 +245,7 @@ End Sub
 
 Private Sub Service_Connect()
     logx.xInfo "Connection established"
+    tickCount = GetTickCount
 End Sub
 
 Private Sub Service_Close()
@@ -271,6 +271,14 @@ Private Sub Service_DataArrival(ByVal bytesTotal As Long)
         socketData.Refresh
         processor.processCommand socketData
         dataCount = dataCount + (bytesTotal - socketData.bytesAvailable)
+        
+        If (GetTickCount - tickCount >= 1000) Then
+            tickCount = GetTickCount - tickCount
+            timeQueue.Enqueue (dataCount / 1024 / tickCount) * 1000
+            status.Panels.item(1).Text = "Socket speed: " & FormatNumber(timeQueue.getAverage, 2) & " kb/s"
+            dataCount = 0
+            tickCount = GetTickCount
+        End If
     End If
 End Sub
 
@@ -311,10 +319,6 @@ Private Sub LiveView_ItemClick(ByVal item As MSComctlLib.ListItem)
     selectedLiveObject = item.Text
 End Sub
 
-Private Sub tmrSocketSpeed_Timer()
-    status.Panels.item(1).Text = "Socket speed: " & FormatNumber(dataCount / 5 / 1024, 2) & " kb/s"
-    dataCount = 0
-End Sub
 
 Private Sub LiveTimer_Timer()
 
@@ -363,7 +367,7 @@ Private Sub LiveTimer_Timer()
    
     LiveView.Redraw = False
     
-    LiveView.clear
+    LiveView.Clear
     
     LiveView.Rows = UBound(types.Keys) + 1
    
