@@ -191,6 +191,46 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 
+' Error returned by Winsock API.
+Const SOCKET_ERROR = -1
+
+' Level number for (get/set)sockopt() to apply to socket itself.
+Const SOL_SOCKET = 65535      ' Options for socket level.
+Const IPPROTO_TCP = 6         ' Protocol constant for TCP.
+
+' option flags per socket
+Const SO_DEBUG = &H1&         ' Turn on debugging info recording
+Const SO_ACCEPTCONN = &H2&    ' Socket has had listen() - READ-ONLY.
+Const SO_REUSEADDR = &H4&     ' Allow local address reuse.
+Const SO_KEEPALIVE = &H8&     ' Keep connections alive.
+Const SO_DONTROUTE = &H10&    ' Just use interface addresses.
+Const SO_BROADCAST = &H20&    ' Permit sending of broadcast msgs.
+Const SO_USELOOPBACK = &H40&  ' Bypass hardware when possible.
+Const SO_LINGER = &H80&       ' Linger on close if data present.
+Const SO_OOBINLINE = &H100&   ' Leave received OOB data in line.
+
+Const SO_DONTLINGER = Not SO_LINGER
+Const SO_EXCLUSIVEADDRUSE = Not SO_REUSEADDR ' Disallow local address reuse.
+
+' Additional options.
+Const SO_SNDBUF = &H1001&     ' Send buffer size.
+Const SO_RCVBUF = &H1002&     ' Receive buffer size.
+Const SO_ERROR = &H1007&      ' Get error status and clear.
+Const SO_TYPE = &H1008&       ' Get socket type - READ-ONLY.
+
+' TCP Options
+Const TCP_NODELAY = &H1&      ' Turn off Nagel Algorithm.
+
+' linger structure
+Private Type LINGER_STRUCT
+  l_onoff As Integer          ' Is linger on or off?
+  l_linger As Integer         ' Linger timeout in seconds.
+End Type
+ 
+' Winsock API declares
+Private Declare Function setsockopt Lib "wsock32.dll" (ByVal s As Long, ByVal level As Long, ByVal optname As Long, optval As Any, ByVal optlen As Long) As Long
+Private Declare Function getsockopt Lib "wsock32.dll" (ByVal s As Long, ByVal level As Long, ByVal optname As Long, optval As Any, optlen As Long) As Long
+
 Private WithEvents m_AppTray As frmSysTray
 Attribute m_AppTray.VB_VarHelpID = -1
 
@@ -222,8 +262,24 @@ Private Sub Server_ConnectionRequest(ByVal requestID As Long)
 
     If (Not Service.State = sckConnected) Then
         logx.xInfo "Accepted connection request " & requestID
+        
+        tickCount = GetTickCount
+        
         Service.Close
         Service.Accept requestID
+        
+        Dim lResult As Long
+        lResult = setsockopt(Service.SocketHandle, SOL_SOCKET, SO_RCVBUF, 8388608, 4)
+        If (lResult = SOCKET_ERROR) Then
+          MsgBox "Error setting SOL_SOCKET option: " & CStr(Err.LastDllError)
+        End If
+        Dim bufsize As Long
+        lResult = getsockopt(Service.SocketHandle, SOL_SOCKET, SO_RCVBUF, bufsize, 4)
+        If (lResult = SOCKET_ERROR) Then
+          MsgBox "Error setting SOL_SOCKET option: " & CStr(Err.LastDllError)
+        End If
+        logx.xInfo "buffer size " & bufsize
+        
         Set socketData = New clsSocketData
         Set socketData.socket = Service
         LiveTimer.Enabled = False
@@ -266,19 +322,20 @@ Private Sub Service_Error(ByVal Number As Integer, _
 End Sub
 
 Private Sub Service_DataArrival(ByVal bytesTotal As Long)
-    If (processor.minSize <= bytesTotal) Then
+    Dim dif As Long
+    dif = GetTickCount()
+    dif = dif - tickCount
+    If (dif >= 500 Or bytesTotal >= 2350179) Then
         socketData.bytesAvailable = bytesTotal
         socketData.Refresh
         processor.processCommand socketData
-        dataCount = dataCount + (bytesTotal - socketData.bytesAvailable)
-        
-        If (GetTickCount - tickCount >= 1000) Then
-            tickCount = GetTickCount - tickCount
-            timeQueue.Enqueue (dataCount / 1024 / tickCount) * 1000
+        dataCount = (bytesTotal - socketData.bytesAvailable)
+        If (dif > 0) Then
+            timeQueue.Enqueue (dataCount / 1024 / dif) * 1000
             status.Panels.item(1).Text = "Socket speed: " & FormatNumber(timeQueue.getAverage, 2) & " kb/s"
-            dataCount = 0
-            tickCount = GetTickCount
         End If
+        dataCount = 0
+        tickCount = GetTickCount()
     End If
 End Sub
 
