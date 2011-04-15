@@ -40,9 +40,7 @@ Option Explicit
 
 Public strings As Collection
 
-Private Value As New clsStackTrace
-
-Private dataSize As Long
+Private value As New clsStackTrace
 
 Public Function canDeserialise(firstByte As Byte) As Boolean
     canDeserialise = (firstByte = C_SAMPLE)
@@ -50,7 +48,9 @@ End Function
 
 
 Public Sub parse(ByRef Data As clsSocketData)
-    Data.skip 8
+    Dim buff() As Byte
+    
+    Data.ReadData buff, 8
     
     Dim Size As Long, i As Long
     
@@ -66,29 +66,12 @@ Public Sub parse(ByRef Data As clsSocketData)
         line.FileName = strings.item(lng)
         Data.read32 lng
         line.line = lng
-        Value.lines.Add line
+        value.lines.Add line
     Next i
 End Sub
 
-Public Function bytesAvailable(ByRef Data As clsSocketData) As Boolean
-
-    Dim Length As Long, result As Boolean, pos As Long
-
-    If (Data.bytesAvailable >= 12) Then
-        Data.getPos pos
-        pos = pos + 8
-        Data.read32P pos, Length
-        dataSize = Length * 12 + 12
-        result = (dataSize <= Data.bytesAvailable)
-    Else
-        result = False
-    End If
-
-    bytesAvailable = result
-End Function
-
 Public Function getValue() As clsStackTrace
-    getValue = Value
+    getValue = value
 End Function
 
 
