@@ -35,26 +35,35 @@ Option Explicit
 '        this.playerSession.newObjectSample(time + this.timeOffset, stackTrace, id, type, url, size);
 '    }
 
-Public strings As Collection
+Public strings   As Collection
 
-Private Value As New clsStackTrace
+Private value    As New clsStackTrace
 
-Private id   As Long
+Private id       As Long
 
-Private typeName   As String
+Private typeName As String
 
-Private url   As String
+Private url      As String
 
-Private Size   As Long
+Private Size     As Long
 
 Private dataSize As Long
+
+Private success  As Boolean
 
 Public Function canDeserialise(firstByte As Byte) As Boolean
     canDeserialise = (firstByte = C_NEW_OBJECT_SAMPLE)
 End Function
 
-
 Public Sub parse(ByRef Data As clsSocketData)
+
+    If (success) Then
+        Data.skip dataSize
+
+        Exit Sub
+
+    End If
+    
     Data.skip 8
     
     Dim Count As Long, i As Long
@@ -64,20 +73,24 @@ Public Sub parse(ByRef Data As clsSocketData)
     Dim lng As Long
     
     For i = 1 To Count
+
         Dim line As New clsStackTraceLine
+
         Data.read32 lng
         line.NAME = strings.item(lng)
         Data.read32 lng
         line.FileName = strings.item(lng)
         Data.read32 lng
         line.line = lng
-        Value.lines.Add line
+        value.lines.Add line
     Next i
     
     Data.read32 id
     
     Data.read32 lng
+
     typeName = strings.item(lng)
+
     Data.read32 lng
     url = strings.item(lng)
     Data.read32 Size
@@ -88,17 +101,53 @@ Public Sub bytesAvailable(ByRef Data As clsSocketData, ByRef result As Boolean)
     result = Data.bytesAvailable >= 12&
 
     If (result) Then
+
         Dim Length As Long, Pos As Long
+
         Data.getPos Pos
         Pos = Pos + 8&
-        Data.read32P Pos, Length
-        dataSize = Length * 12& + 28&
+    
+        Data.read32P Pos, Count
+        
+        dataSize = Count * 12& + 28&
         result = (dataSize <= Data.bytesAvailable)
+
+        If (result) Then
+
+            Dim lng As Long
+    
+            For i = 1 To Count
+
+                Dim line As New clsStackTraceLine
+
+                Data.read32 lng
+                line.NAME = strings.item(lng)
+                Data.read32 lng
+                line.FileName = strings.item(lng)
+                Data.read32 lng
+                line.line = lng
+                value.lines.Add line
+            Next i
+    
+            Data.read32P Pos, id
+    
+            Data.read32P Pos, lng
+
+            typeName = strings.item(lng)
+
+            Data.read32P Pos, lng
+            url = strings.item(lng)
+            Data.read32P Pos, Size
+            
+            success = True
+        End If
+        
     End If
+
 End Sub
 
 Public Function getValue() As clsStackTrace
-    getValue = Value
+    getValue = value
 End Function
 
 Public Function getId() As Long
@@ -116,5 +165,4 @@ End Function
 Public Function getSize() As Long
     getSize = Size
 End Function
-
 
