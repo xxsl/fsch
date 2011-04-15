@@ -1,6 +1,8 @@
 Attribute VB_Name = "modMain"
 Option Explicit
 
+Public Declare Function GetTickCount Lib "kernel32" () As Long
+
 Public Declare Sub CopyMemory _
                Lib "kernel32" _
                Alias "RtlMoveMemory" (Destination As Any, _
