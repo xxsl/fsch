@@ -282,7 +282,7 @@ Private Sub Server_ConnectionRequest(ByVal requestID As Long)
         
         Set socketData = New clsSocketData
         Set socketData.socket = Service
-        LiveTimer.Enabled = False
+        LiveTimer.Enabled = True
     Else
         logx.xInfo "Connection request ignored " & requestID
     End If
@@ -325,7 +325,7 @@ Private Sub Service_DataArrival(ByVal bytesTotal As Long)
     Dim dif As Long
     dif = GetTickCount()
     dif = dif - tickCount
-    If (dif >= 500 Or bytesTotal >= 2350179) Then
+    If (dif >= 1000 Or bytesTotal >= 1900000) Then
         socketData.bytesAvailable = bytesTotal
         socketData.Refresh
         processor.processCommand socketData
@@ -336,6 +336,8 @@ Private Sub Service_DataArrival(ByVal bytesTotal As Long)
         End If
         dataCount = 0
         tickCount = GetTickCount()
+    Else
+        'logx.xInfo "buffering " & bytesTotal
     End If
 End Sub
 
