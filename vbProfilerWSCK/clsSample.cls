@@ -60,12 +60,9 @@ Public Sub parse(ByRef Data As clsSocketData)
     For i = 1 To Size
         Dim line As New clsStackTraceLine
         
-        Data.read32 lng
-        line.Name = strings.item(lng)
-        Data.read32 lng
-        line.FileName = strings.item(lng)
-        Data.read32 lng
-        line.line = lng
+        Data.read32 line.Name
+        Data.read32 line.FileName
+        Data.read32 line.line
         value.lines.Add line
     Next i
 End Sub
