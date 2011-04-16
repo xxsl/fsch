@@ -38,9 +38,9 @@ Option Explicit
 '        return result;
 '    }
 
-Public strings As Collection
+Public strings As cCollection
 
-Private Value As New clsStackTrace
+Private value As New clsStackTrace
 
 Private dataSize As Long
 
@@ -61,23 +61,23 @@ Public Sub parse(ByRef Data As clsSocketData)
         Dim line As New clsStackTraceLine
         
         Data.read32 lng
-        line.NAME = strings.item(lng)
+        line.Name = strings.item(lng)
         Data.read32 lng
         line.FileName = strings.item(lng)
         Data.read32 lng
         line.line = lng
-        Value.lines.Add line
+        value.lines.Add line
     Next i
 End Sub
 
 Public Function bytesAvailable(ByRef Data As clsSocketData) As Boolean
 
-    Dim Length As Long, result As Boolean, pos As Long
+    Dim Length As Long, result As Boolean, Pos As Long
 
     If (Data.bytesAvailable >= 12) Then
-        Data.getPos pos
-        pos = pos + 8
-        Data.read32P pos, Length
+        Data.getPos Pos
+        Pos = Pos + 8
+        Data.read32P Pos, Length
         dataSize = Length * 12 + 12
         result = (dataSize <= Data.bytesAvailable)
     Else
@@ -88,7 +88,7 @@ Public Function bytesAvailable(ByRef Data As clsSocketData) As Boolean
 End Function
 
 Public Function getValue() As clsStackTrace
-    getValue = Value
+    getValue = value
 End Function
 
 
