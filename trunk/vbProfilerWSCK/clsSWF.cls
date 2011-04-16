@@ -13,7 +13,7 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Option Explicit
 
-Private Value() As Byte
+Private value() As Byte
 
 Private Size    As Long
 
@@ -21,36 +21,31 @@ Private key     As Long
 
 Public dataSize As Long
 
-Public Function canDeserialise(firstByte As Byte) As Boolean
-    canDeserialise = (firstByte = C_SWF)
-End Function
-
 Public Sub parse(ByRef Data As clsSocketData)
-    Dim Length As Long
-    Data.read32 key
-    Data.read32 Size
-    Data.ReadData Value, Size
+    Data.skip dataSize
 End Sub
 
-Public Function bytesAvailable(ByRef Data As clsSocketData) As Boolean
+Public Sub bytesAvailable(ByRef Data As clsSocketData, ByRef result As Boolean)
 
-    Dim Length As Long, result As Boolean, Pos As Long
+    Dim Length As Long, Pos As Long
 
     If (Data.bytesAvailable >= 4) Then
         Data.getPos Pos
-        Pos = Pos + 4
+        Pos = Pos + 4&
         Data.read32P Pos, Length
-        dataSize = Length + 8
+        dataSize = Length + 8&
         result = (dataSize <= Data.bytesAvailable)
+        
+        If (result) Then
+            Data.ReadDataP Pos, value, Size
+        End If
     Else
         result = False
     End If
-
-    bytesAvailable = result
-End Function
+End Sub
 
 Public Function getValue() As Byte()
-    getValue = Value
+    getValue = value
 End Function
 
 Public Function getSize() As Long

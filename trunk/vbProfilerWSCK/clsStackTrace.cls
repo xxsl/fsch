@@ -13,9 +13,9 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Option Explicit
 
-Public lines As New Collection
+Public lines As New cCollection
 
-Public Property Get size() As Long
-    size = lines.Count
+Public Property Get Size() As Long
+    Size = lines.Count
 End Property
 
