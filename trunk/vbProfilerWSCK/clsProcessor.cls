@@ -25,8 +25,6 @@ Public samples              As New Collection
 
 Public members              As New Collection
 
-Public minSize As Long
-
 Public isSetup As Boolean
 
 Public Sub processCommand(ByRef Data As clsSocketData)
@@ -55,24 +53,13 @@ End Sub
 
 Public Sub processInternal(ByRef Data As clsSocketData, ByRef result As Boolean)
 
-    Dim str       As New clsString
-
-    Dim swf       As New clsSWF
-    
-    Dim sample    As New clsSample
-    
-    Dim newSample As New clsNewObjectSample
-    
-    Dim delSample As New clsDeleteObjectSample
-    
-    Dim gc        As New clsGC
-    
     result = False
         
     If (lastCommand <> EMPTY_COMMAND) Then
         
         Select Case lastCommand
             Case C_NEW_OBJECT_SAMPLE:
+                Dim newSample As New clsNewObjectSample
                 Set newSample.strings = strings
                 newSample.bytesAvailable Data, result
                 If (result) Then
@@ -84,6 +71,7 @@ Public Sub processInternal(ByRef Data As clsSocketData, ByRef result As Boolean)
                     
                 End If
             Case C_DELETE_OBJECT_SAMPLE:
+                Dim delSample As New clsDeleteObjectSample
                 delSample.bytesAvailable Data, result
                 If (result) Then
                     delSample.parse Data
@@ -92,6 +80,7 @@ Public Sub processInternal(ByRef Data As clsSocketData, ByRef result As Boolean)
                     result = True
                 End If
             Case C_SAMPLE:
+                Dim sample    As New clsSample
                 If (sample.bytesAvailable(Data)) Then
     
                     Set sample.strings = strings
@@ -107,6 +96,7 @@ Public Sub processInternal(ByRef Data As clsSocketData, ByRef result As Boolean)
                     result = True
                 End If
             Case C_STRING:
+                Dim str       As New clsString
                 If (str.bytesAvailable(Data)) Then
                     str.parse Data
                     'logx.xInfo "string=" & str.getValue
@@ -119,11 +109,11 @@ Public Sub processInternal(ByRef Data As clsSocketData, ByRef result As Boolean)
                 End If
                 
             Case C_SWF:
+                Dim swf       As New clsSWF
                 If (swf.bytesAvailable(Data)) Then
                     swf.parse Data
                     logx.xInfo "swf size=" & swf.getSize
                     logx.xInfo "swf url=" & strings.item(swf.getKey)
-                    'logger "swf loaded"
     
                     If (Not isSetup) Then
                         'send commands
@@ -139,12 +129,10 @@ Public Sub processInternal(ByRef Data As clsSocketData, ByRef result As Boolean)
                         Data.socket.SendData commands
                         isSetup = True
                     End If
-                    minSize = 0
                     result = True
-                Else
-                    minSize = swf.dataSize
                 End If
             Case C_GC:
+                Dim gc        As New clsGC
                 If (gc.bytesAvailable(Data)) Then
                     gc.parse Data
                     logx.xInfo "gc"
