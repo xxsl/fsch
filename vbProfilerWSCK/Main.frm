@@ -1,6 +1,6 @@
 VERSION 5.00
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
-Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.OCX"
+Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.ocx"
 Object = "{DE8CE233-DD83-481D-844C-C07B96589D3A}#1.1#0"; "vbalSGrid6.ocx"
 Object = "{396F7AC0-A0DD-11D3-93EC-00C0DFE7442A}#1.0#0"; "vbalIml6.ocx"
 Object = "{248DD890-BB45-11CF-9ABC-0080C7E7B78D}#1.0#0"; "MSWINSCK.OCX"
@@ -191,46 +191,6 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 
-' Error returned by Winsock API.
-Const SOCKET_ERROR = -1
-
-' Level number for (get/set)sockopt() to apply to socket itself.
-Const SOL_SOCKET = 65535      ' Options for socket level.
-Const IPPROTO_TCP = 6         ' Protocol constant for TCP.
-
-' option flags per socket
-Const SO_DEBUG = &H1&         ' Turn on debugging info recording
-Const SO_ACCEPTCONN = &H2&    ' Socket has had listen() - READ-ONLY.
-Const SO_REUSEADDR = &H4&     ' Allow local address reuse.
-Const SO_KEEPALIVE = &H8&     ' Keep connections alive.
-Const SO_DONTROUTE = &H10&    ' Just use interface addresses.
-Const SO_BROADCAST = &H20&    ' Permit sending of broadcast msgs.
-Const SO_USELOOPBACK = &H40&  ' Bypass hardware when possible.
-Const SO_LINGER = &H80&       ' Linger on close if data present.
-Const SO_OOBINLINE = &H100&   ' Leave received OOB data in line.
-
-Const SO_DONTLINGER = Not SO_LINGER
-Const SO_EXCLUSIVEADDRUSE = Not SO_REUSEADDR ' Disallow local address reuse.
-
-' Additional options.
-Const SO_SNDBUF = &H1001&     ' Send buffer size.
-Const SO_RCVBUF = &H1002&     ' Receive buffer size.
-Const SO_ERROR = &H1007&      ' Get error status and clear.
-Const SO_TYPE = &H1008&       ' Get socket type - READ-ONLY.
-
-' TCP Options
-Const TCP_NODELAY = &H1&      ' Turn off Nagel Algorithm.
-
-' linger structure
-Private Type LINGER_STRUCT
-  l_onoff As Integer          ' Is linger on or off?
-  l_linger As Integer         ' Linger timeout in seconds.
-End Type
- 
-' Winsock API declares
-Private Declare Function setsockopt Lib "wsock32.dll" (ByVal s As Long, ByVal level As Long, ByVal optname As Long, optval As Any, ByVal optlen As Long) As Long
-Private Declare Function getsockopt Lib "wsock32.dll" (ByVal s As Long, ByVal level As Long, ByVal optname As Long, optval As Any, optlen As Long) As Long
-
 Private WithEvents m_AppTray As frmSysTray
 Attribute m_AppTray.VB_VarHelpID = -1
 
@@ -266,7 +226,7 @@ Private Sub Server_ConnectionRequest(ByVal requestID As Long)
         tickCount = GetTickCount
         
         Service.Close
-        Service.Accept requestID
+        Service.accept requestID
         
         Dim lResult As Long
         lResult = setsockopt(Service.SocketHandle, SOL_SOCKET, SO_RCVBUF, 8388608, 4)
@@ -413,7 +373,7 @@ Private Sub LiveTimer_Timer()
         Else
 
             Set liveObj = New clsLiveObject
-            liveObj.NAME = s.getType
+            liveObj.Name = s.getType
             liveObj.instances = 1
             liveObj.Size = s.getSize
 
@@ -435,7 +395,7 @@ Private Sub LiveTimer_Timer()
         str = types.Keys(i - 1)
         Set liveObj = types.item(str)
 
-        LiveView.CellText(i, 1) = liveObj.NAME
+        LiveView.CellText(i, 1) = liveObj.Name
         LiveView.CellText(i, 2) = "" & liveObj.Size
         LiveView.CellText(i, 3) = "" & liveObj.instances
     Next
@@ -603,7 +563,7 @@ Private Sub Form_Load()
     
     Server.Close
     Server.LocalPort = 9999
-    Server.Listen
+    Server.listen
     
 End Sub
 
