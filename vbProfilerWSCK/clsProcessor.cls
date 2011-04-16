@@ -60,10 +60,8 @@ Public Sub processInternal(ByRef Data As clsSocketData, ByRef result As Boolean)
         Select Case lastCommand
             Case C_NEW_OBJECT_SAMPLE:
                 Dim newSample As New clsNewObjectSample
-                Set newSample.strings = strings
                 newSample.bytesAvailable Data, result
                 If (result) Then
-                    Set newSample.strings = strings
                     newSample.parse Data
                     'logx.xInfo "create: id=" & newSample.getId & " type=" & newSample.getType & " size=" & newSample.getSize
                     samples.Add newSample, "" & newSample.getId
@@ -110,7 +108,8 @@ Public Sub processInternal(ByRef Data As clsSocketData, ByRef result As Boolean)
                 
             Case C_SWF:
                 Dim swf       As New clsSWF
-                If (swf.bytesAvailable(Data)) Then
+                swf.bytesAvailable Data, result
+                If (result) Then
                     swf.parse Data
                     logx.xInfo "swf size=" & swf.getSize
                     logx.xInfo "swf url=" & strings.item(swf.getKey)

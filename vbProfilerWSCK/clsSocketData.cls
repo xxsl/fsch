@@ -70,6 +70,12 @@ Public Sub read16(ByRef result As Integer)
     bytesAvailable = bytesAvailable - 2
 End Sub
 
+Public Function ReadDataP(ByRef position As Long, ByRef Buffer() As Byte, ByVal rSize As Long)
+    ReDim Buffer(rSize - 1)
+    CopyMemory Buffer(0), buff(position), rSize
+    position = position + rSize
+End Function
+
 Public Sub read32P(ByRef position As Long, ByRef result As Long)
     'GetMem4 VarPtr(buff(position)), result
     CopyMemory result, buff(position), 4&

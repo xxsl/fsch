@@ -35,25 +35,19 @@ Option Explicit
 '        this.playerSession.newObjectSample(time + this.timeOffset, stackTrace, id, type, url, size);
 '    }
 
-Public strings   As cCollection
-
 Private value    As New clsStackTrace
 
 Private id       As Long
 
-Private typeName As String
+Private typeName As Long
 
-Private url      As String
+Private url      As Long
 
 Private Size     As Long
 
 Private dataSize As Long
 
 Private success  As Boolean
-
-Public Function canDeserialise(firstByte As Byte) As Boolean
-    canDeserialise = (firstByte = C_NEW_OBJECT_SAMPLE)
-End Function
 
 Public Sub parse(ByRef Data As clsSocketData)
      Data.skip dataSize
@@ -77,29 +71,18 @@ Public Sub bytesAvailable(ByRef Data As clsSocketData, ByRef result As Boolean)
 
         If (result) Then
 
-            Dim lng As Long
-    
             For i = 1 To Count
-
                 Dim line As New clsStackTraceLine
 
-                Data.read32P Pos, lng
-                line.Name = strings.item(lng)
-                Data.read32P Pos, lng
-                line.FileName = strings.item(lng)
-                Data.read32P Pos, lng
-                line.line = lng
+                Data.read32P Pos, line.Name
+                Data.read32P Pos, line.FileName
+                Data.read32P Pos, line.line
                 value.lines.Add line
             Next i
     
             Data.read32P Pos, id
-    
-            Data.read32P Pos, lng
-
-            typeName = strings.item(lng)
-
-            Data.read32P Pos, lng
-            url = strings.item(lng)
+            Data.read32P Pos, typeName
+            Data.read32P Pos, url
             Data.read32P Pos, Size
             
             success = True
@@ -117,11 +100,11 @@ Public Function getId() As Long
     getId = id
 End Function
 
-Public Function getType() As String
+Public Function getType() As Long
     getType = typeName
 End Function
 
-Public Function getURL() As String
+Public Function getURL() As Long
     getURL = url
 End Function
 

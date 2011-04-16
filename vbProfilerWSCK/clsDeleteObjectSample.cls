@@ -34,11 +34,6 @@ Private Sub Class_Initialize()
     dataSize = 16
 End Sub
 
-Public Function canDeserialise(firstByte As Byte) As Boolean
-    canDeserialise = (firstByte = C_DELETE_OBJECT_SAMPLE)
-End Function
-
-
 Public Sub parse(ByRef Data As clsSocketData)
     Data.skip 8
     Data.read32 id

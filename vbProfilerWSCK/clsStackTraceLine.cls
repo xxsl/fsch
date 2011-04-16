@@ -13,8 +13,8 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Option Explicit
 
-Public name As String
+Public Name As Long
 
-Public fileName As String
+Public FileName As Long
 
 Public line As Long
