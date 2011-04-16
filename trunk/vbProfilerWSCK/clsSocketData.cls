@@ -55,8 +55,8 @@ End Function
 Public Sub read32(ByRef result As Long)
     'GetMem4 VarPtr(buff(cursor)), result
     CopyMemory result, buff(cursor), 4&
-    'result = ntohl(result)
-    WSANtohl socket.SocketHandle, result, result
+    result = ntohl(result)
+    'WSANtohl socket.SocketHandle, result, result
     cursor = cursor + 4
     bytesAvailable = bytesAvailable - 4
 End Sub
@@ -64,8 +64,8 @@ End Sub
 Public Sub read16(ByRef result As Integer)
     'GetMem2 VarPtr(buff(cursor)), result
     CopyMemory result, buff(cursor), 2&
-    'result = ntohs(result)
-    WSANtohs socket.SocketHandle, result, result
+    result = ntohs(result)
+    'WSANtohs socket.SocketHandle, result, result
     cursor = cursor + 2
     bytesAvailable = bytesAvailable - 2
 End Sub
@@ -73,16 +73,16 @@ End Sub
 Public Sub read32P(ByRef position As Long, ByRef result As Long)
     'GetMem4 VarPtr(buff(position)), result
     CopyMemory result, buff(position), 4&
-    'result = ntohl(result)
-    WSANtohl socket.SocketHandle, result, result
+    result = ntohl(result)
+    'WSANtohl socket.SocketHandle, result, result
     position = position + 4
 End Sub
 
 Public Sub read16P(ByRef position As Long, ByRef result As Integer)
     'GetMem2 VarPtr(buff(position)), result
     CopyMemory result, buff(position), 2&
-    'result = ntohs(result)
-    WSANtohs socket.SocketHandle, result, result
+    result = ntohs(result)
+    'WSANtohs socket.SocketHandle, result, result
     position = position + 2
 End Sub
 
