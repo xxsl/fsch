@@ -19,11 +19,11 @@ Public logx                 As clsLog
 
 Private lastCommand         As Byte
 
-Private strings             As New Collection
+Private strings             As New cCollection
 
-Public samples              As New Collection
+Public samples              As New cCollection
 
-Public members              As New Collection
+Public members              As New cCollection
 
 Public isSetup As Boolean
 

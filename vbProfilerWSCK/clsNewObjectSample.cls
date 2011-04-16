@@ -35,7 +35,7 @@ Option Explicit
 '        this.playerSession.newObjectSample(time + this.timeOffset, stackTrace, id, type, url, size);
 '    }
 
-Public strings   As Collection
+Public strings   As cCollection
 
 Private value    As New clsStackTrace
 
@@ -84,7 +84,7 @@ Public Sub bytesAvailable(ByRef Data As clsSocketData, ByRef result As Boolean)
                 Dim line As New clsStackTraceLine
 
                 Data.read32P Pos, lng
-                line.NAME = strings.item(lng)
+                line.Name = strings.item(lng)
                 Data.read32P Pos, lng
                 line.FileName = strings.item(lng)
                 Data.read32P Pos, lng
