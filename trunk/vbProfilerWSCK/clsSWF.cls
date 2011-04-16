@@ -27,13 +27,13 @@ End Sub
 
 Public Sub bytesAvailable(ByRef Data As clsSocketData, ByRef result As Boolean)
 
-    Dim Length As Long, Pos As Long
+    Dim Pos As Long
 
     If (Data.bytesAvailable >= 4) Then
         Data.getPos Pos
-        Pos = Pos + 4&
-        Data.read32P Pos, Length
-        dataSize = Length + 8&
+        Data.read32P Pos, key
+        Data.read32P Pos, Size
+        dataSize = Size + 8&
         result = (dataSize <= Data.bytesAvailable)
         
         If (result) Then
