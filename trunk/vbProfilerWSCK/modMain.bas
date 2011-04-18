@@ -1,22 +1,24 @@
 Attribute VB_Name = "modMain"
 Option Explicit
 
-Public Declare Function GetTickCount Lib "kernel32" () As Long
+Public Declare Function CopyMemB Lib "fast.dll" (Destination As Any, Source As Any, ByVal Length As Long)
+
+Public Declare Function GetTickCount Lib "KERNEL32" () As Long
 
 Public Declare Sub CopyMemory _
-               Lib "kernel32" _
+               Lib "KERNEL32" _
                Alias "RtlMoveMemory" (Destination As Any, _
                                       Source As Any, _
                                       ByVal Length As Long)
 
-Public Declare Sub Sleep Lib "kernel32" (ByVal dwMilliseconds As Long)
+Public Declare Sub Sleep Lib "KERNEL32" (ByVal dwMilliseconds As Long)
 
 Public Declare Function PathFileExists Lib "shlwapi" Alias "PathFileExistsA" (ByVal pszPath As String) As Long
 
 Public Declare Function PathIsDirectory Lib "shlwapi" Alias "PathIsDirectoryA" (ByVal pszPath As String) As Long
 
 Public Declare Function SetWindowPos _
-               Lib "user32" (ByVal hWnd As Long, _
+               Lib "USER32" (ByVal hWnd As Long, _
                              ByVal hWndInsertAfter As Long, _
                              ByVal X As Long, _
                              ByVal Y As Long, _
@@ -27,13 +29,13 @@ Public Declare Function SetWindowPos _
 Public Declare Function InitCommonControlsEx Lib "comctl32.dll" (iccex As tagInitCommonControlsEx) As Boolean
 
 Public Declare Function GetShortPathName _
-               Lib "kernel32" _
+               Lib "KERNEL32" _
                Alias "GetShortPathNameA" (ByVal lpszLongPath As String, _
                                           ByVal lpszShortPath As String, _
                                           ByVal cchBuffer As Long) As Long
 
 Public Declare Function SendMessage _
-               Lib "user32" _
+               Lib "USER32" _
                Alias "SendMessageA" (ByVal hWnd As Long, _
                                      ByVal wMsg As Long, _
                                      ByVal wParam As Long, _
