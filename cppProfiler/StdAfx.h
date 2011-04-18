@@ -16,15 +16,11 @@
 
 #include <windows.h>
 
-//for ECC
-#define _DEF_DMG        6                                  // рушить по умолчанию
-#define N_BYTES_DAMAGE	((argc>1)?atol(argv[1]):_DEF_DMG) // сколько байт рушить?
-
 #include <iostream.h>
 #include <atlbase.h>
 #include <fstream.h>
 #include <math.h>
-
+#include <winsock2.h>
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ will insert additional declarations immediately before the previous line.
 

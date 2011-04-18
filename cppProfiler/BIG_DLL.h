@@ -13,13 +13,13 @@
 
 extern BIG_DLL_API int nBIG_DLL;
 
-int __stdcall Encode(char * userdata,char * header,struct RAW_SECTOR_MODE1 * rmode);
+/*int __stdcall Encode(char * userdata,char * header,struct RAW_SECTOR_MODE1 * rmode);
 
-int __stdcall Decode(struct RAW_SECTOR_MODE1 * rmode,int D0);
+int __stdcall Decode(struct RAW_SECTOR_MODE1 * rmode,int D0);*/
 
 int __stdcall Fast(char * bmp,char * bDib,int IM_HEIGHT,int IM_WIDTH,int Width,int Height);
 
-int __stdcall ModC(int   , int );
+/*int __stdcall ModC(int   , int );
 
 int __stdcall ShiftLeftC(int *, int );
 
@@ -27,4 +27,4 @@ int __stdcall ShiftRightC(int *, int );
 
 int __stdcall MultiplayC(int , int );
 
-int __stdcall ModA(unsigned int  value,unsigned int  count);
+int __stdcall ModA(unsigned int  value,unsigned int  count);*/
