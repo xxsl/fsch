@@ -17,7 +17,9 @@ extern BIG_DLL_API int nBIG_DLL;
 
 int __stdcall Decode(struct RAW_SECTOR_MODE1 * rmode,int D0);*/
 
-int __stdcall Fast(char * bmp,char * bDib,int IM_HEIGHT,int IM_WIDTH,int Width,int Height);
+/*int __stdcall Fast(char * bmp,char * bDib,int IM_HEIGHT,int IM_WIDTH,int Width,int Height);*/
+
+void __stdcall CopyMemB(void *Dest, void *Src, long nBytes);
 
 /*int __stdcall ModC(int   , int );
 
