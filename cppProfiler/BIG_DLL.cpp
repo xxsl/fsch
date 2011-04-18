@@ -26,10 +26,30 @@ BOOL APIENTRY DllMain( HANDLE hModule,
 BIG_DLL_API int nBIG_DLL=0;
 
 
+void __stdcall CopyMemB(void *Dest, void *Src, long nBytes)
+{
+  __asm
+  {
+    mov  ecx, nBytes
+    mov  ebx, ecx
+    and  ebx, 3
+    shr  ecx, 2
+    mov  esi, [Src]
+    mov  edi, [Dest]
+    cld
+    rep  movsd
+    mov  ecx, ebx
+    rep  movsb
+  }
+}
 
 // exported function fast
-int __stdcall Fast(char * bmp,char * bDib,int IM_HEIGHT,int IM_WIDTH,int Width,int Height)
+/*int __stdcall Fast(char * bmp,char * bDib,int IM_HEIGHT,int IM_WIDTH,int Width,int Height)
 {
+        void *lpBuf;
+        char buf_orig[128+1];
+        char buf1[128+1];
+
 	int y=0,x=0,c=0;
 	double yy=0,xx=0;
     int n = 0;
@@ -50,7 +70,7 @@ int __stdcall Fast(char * bmp,char * bDib,int IM_HEIGHT,int IM_WIDTH,int Width,i
 	  }
     }
 	return n;
-}
+}*/
 
 /*int __stdcall ModA(unsigned int  value,unsigned  int  count)
 {

@@ -6,24 +6,6 @@
 --------------------Configuration: BIG_DLL - Win32 Release--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating temporary file "C:\Users\Dookie\AppData\Local\Temp\RSP8E12.tmp" with contents
-[
-/nologo /MT /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "BIG_DLL_EXPORTS" /Fp"Release/BIG_DLL.pch" /Yu"stdafx.h" /Fo"Release/" /Fd"Release/" /FD /c 
-"G:\work\google.code\cppProfiler\BIG_DLL.cpp"
-]
-Creating command line "cl.exe @C:\Users\Dookie\AppData\Local\Temp\RSP8E12.tmp" 
-Creating temporary file "C:\Users\Dookie\AppData\Local\Temp\RSP8E13.tmp" with contents
-[
-kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /incremental:no /pdb:"Release/fast.pdb" /machine:I386 /def:".\exports.def" /out:"Release/fast.dll" /implib:"Release/fast.lib" 
-.\Release\BIG_DLL.obj
-.\Release\StdAfx.obj
-]
-Creating command line "link.exe @C:\Users\Dookie\AppData\Local\Temp\RSP8E13.tmp"
-<h3>Output Window</h3>
-Compiling...
-BIG_DLL.cpp
-Linking...
-   Creating library Release/fast.lib and object Release/fast.exp
 
 
 
