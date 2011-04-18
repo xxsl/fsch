@@ -53,19 +53,17 @@ Public Function ReadData(ByRef Buffer() As Byte, ByVal rSize As Long)
 End Function
 
 Public Sub read32(ByRef result As Long)
-    'GetMem4 VarPtr(buff(cursor)), result
-    CopyMemory result, buff(cursor), 4&
+    GetMem4 VarPtr(buff(cursor)), result
+    'CopyMemory result, buff(cursor), 4&
     result = ntohl(result)
-    'WSANtohl socket.SocketHandle, result, result
     cursor = cursor + 4
     bytesAvailable = bytesAvailable - 4
 End Sub
 
 Public Sub read16(ByRef result As Integer)
-    'GetMem2 VarPtr(buff(cursor)), result
-    CopyMemory result, buff(cursor), 2&
+    GetMem2 VarPtr(buff(cursor)), result
+    'CopyMemory result, buff(cursor), 2&
     result = ntohs(result)
-    'WSANtohs socket.SocketHandle, result, result
     cursor = cursor + 2
     bytesAvailable = bytesAvailable - 2
 End Sub
@@ -77,18 +75,16 @@ Public Function ReadDataP(ByRef position As Long, ByRef Buffer() As Byte, ByVal 
 End Function
 
 Public Sub read32P(ByRef position As Long, ByRef result As Long)
-    'GetMem4 VarPtr(buff(position)), result
-    CopyMemory result, buff(position), 4&
+    GetMem4 VarPtr(buff(position)), result
+    'CopyMemory result, buff(position), 4&
     result = ntohl(result)
-    'WSANtohl socket.SocketHandle, result, result
     position = position + 4
 End Sub
 
 Public Sub read16P(ByRef position As Long, ByRef result As Integer)
-    'GetMem2 VarPtr(buff(position)), result
-    CopyMemory result, buff(position), 2&
+    GetMem2 VarPtr(buff(position)), result
+    'CopyMemory result, buff(position), 2&
     result = ntohs(result)
-    'WSANtohs socket.SocketHandle, result, result
     position = position + 2
 End Sub
 
@@ -99,28 +95,5 @@ Public Function ReadData8(ByRef result As Byte)
 End Function
 
 
-'Public Function ReadData32(ByRef result As Long)
-'    socket.GetData result, vbLong
-'    result = ntohl(result)
-'End Function
-'
-'Public Function ReadData16(ByRef result As Integer)
-'    socket.GetData result, vbInteger
-'    result = ntohs(result)
-'End Function
-
-'Public Sub readString(ByRef result As String)
-'    Dim strBuff() As Byte
-'    Dim Length    As Integer
-'
-'    ReadData16 Length
-'
-'    If (Length > 0) Then
-'        ReadData strBuff, Length
-'        ConvertUtf8BytesToString strBuff, result
-'    Else
-'        result = ""
-'    End If
-'End Sub
 
 
