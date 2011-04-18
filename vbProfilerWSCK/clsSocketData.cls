@@ -47,22 +47,22 @@ End Sub
 
 Public Function ReadData(ByRef Buffer() As Byte, ByVal rSize As Long)
     ReDim Buffer(rSize - 1)
-    CopyMemory Buffer(0), buff(cursor), rSize
+    CopyMemB Buffer(0), buff(cursor), rSize
     cursor = cursor + rSize
     bytesAvailable = bytesAvailable - rSize
 End Function
 
 Public Sub read32(ByRef result As Long)
-    GetMem4 VarPtr(buff(cursor)), result
-    'CopyMemory result, buff(cursor), 4&
+    'GetMem4 VarPtr(buff(cursor)), result
+    CopyMemB result, buff(cursor), 4&
     result = ntohl(result)
     cursor = cursor + 4
     bytesAvailable = bytesAvailable - 4
 End Sub
 
 Public Sub read16(ByRef result As Integer)
-    GetMem2 VarPtr(buff(cursor)), result
-    'CopyMemory result, buff(cursor), 2&
+    'GetMem2 VarPtr(buff(cursor)), result
+    CopyMemB result, buff(cursor), 2&
     result = ntohs(result)
     cursor = cursor + 2
     bytesAvailable = bytesAvailable - 2
@@ -70,20 +70,20 @@ End Sub
 
 Public Function ReadDataP(ByRef position As Long, ByRef Buffer() As Byte, ByVal rSize As Long)
     ReDim Buffer(rSize - 1)
-    CopyMemory Buffer(0), buff(position), rSize
+    CopyMemB Buffer(0), buff(position), rSize
     position = position + rSize
 End Function
 
 Public Sub read32P(ByRef position As Long, ByRef result As Long)
-    GetMem4 VarPtr(buff(position)), result
-    'CopyMemory result, buff(position), 4&
+    'GetMem4 VarPtr(buff(position)), result
+    CopyMemB result, buff(position), 4&
     result = ntohl(result)
     position = position + 4
 End Sub
 
 Public Sub read16P(ByRef position As Long, ByRef result As Integer)
-    GetMem2 VarPtr(buff(position)), result
-    'CopyMemory result, buff(position), 2&
+    'GetMem2 VarPtr(buff(position)), result
+    CopyMemB result, buff(position), 2&
     result = ntohs(result)
     position = position + 2
 End Sub
