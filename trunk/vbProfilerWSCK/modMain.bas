@@ -1,8 +1,6 @@
 Attribute VB_Name = "modMain"
 Option Explicit
 
-Public Declare Function CopyMemB Lib "fast.dll" (Destination As Any, Source As Any, ByVal Length As Long)
-
 Public Declare Function GetTickCount Lib "KERNEL32" () As Long
 
 Public Declare Sub CopyMemory _

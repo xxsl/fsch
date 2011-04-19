@@ -71,14 +71,15 @@ Public Sub bytesAvailable(ByRef Data As clsSocketData, ByRef result As Boolean)
 
         If (result) Then
 
-            For i = 1 To Count
-                Dim line As New clsStackTraceLine
-
-                Data.read32P Pos, line.Name
-                Data.read32P Pos, line.FileName
-                Data.read32P Pos, line.line
-                value.lines.Add line
-            Next i
+'            For i = 1 To Count
+'                Dim line As New clsStackTraceLine
+'
+'                Data.read32P Pos, line.Name
+'                Data.read32P Pos, line.FileName
+'                Data.read32P Pos, line.line
+'                value.lines.Add line
+'            Next i
+            Pos = Pos + Count * 12
     
             Data.read32P Pos, id
             Data.read32P Pos, typeName
