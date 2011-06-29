@@ -92,7 +92,14 @@ This is example of Ant macros (using [http://ant-contrib.sourceforge.net Ant-Con
 
 }}}
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+Usage:
+
+{{{
+        <flex command="compc">
+            <arg value="-output=${frontend.swc}"/>
+            <arg value="-source-path+=${projects.dir}/flex/frontend/src"/>
+            <arg value="-source-path+=${projects.flex.common.resources}"/>
+            <arg value="-include-sources+=${dashboard.dir}/flex/frontend/src"/>
+            <arg value="-external-library-path+=${project.home}/WEB/webres/suite/libraries/frontend.swc"/>
+        </flex>
+}}}
