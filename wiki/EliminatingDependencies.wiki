@@ -3,7 +3,7 @@
 
 = Introduction =
 
-Sometimes it is necessary to build project without FCSHServer installed or allow developers to choose among other build tools.
+Sometimes it is necessary to build project without FCSHServer installed or allow developers to choose among other build tools. This can be done via checking environment variables in Ant macros.
 
 
 = Solution =
