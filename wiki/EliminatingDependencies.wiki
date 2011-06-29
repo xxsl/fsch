@@ -1,4 +1,4 @@
-#summary One-sentence summary of this page.
+#summary Eliminating dependencies.
 #labels Featured,Phase-Deploy
 
 = Introduction =
@@ -8,7 +8,7 @@ Sometimes it is necessary to build project without FCSHServer installed or allow
 
 = Solution =
 
-Ant macros:
+This is example of ant macros (using [http://ant-contrib.sourceforge.net/ Ant-Contrib] tasks):
 {{{
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="flex" basedir=".">
